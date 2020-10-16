@@ -1,0 +1,34 @@
+import 'package:kreditpensiun_apps/Screens/models/pipeline_model.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class PipelineItem {
+  String nik;
+
+  PipelineItem(this.nik);
+}
+
+class PipelineProvider extends ChangeNotifier {
+  List<PipelineModel> _data = [];
+  List<PipelineModel> get dataPipeline => _data;
+
+  Future<List<PipelineModel>> getPipeline(PipelineItem pipelineItem) async {
+    final url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/getPipeline';
+    final response =
+        await http.post(url, body: {'nik_sales': pipelineItem.nik});
+    //final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final result = json
+          .decode(response.body)['Daftar_Pipeline']
+          .cast<Map<String, dynamic>>();
+      _data = result
+          .map<PipelineModel>((json) => PipelineModel.fromJson(json))
+          .toList();
+      return _data;
+    } else {
+      throw Exception();
+    }
+  }
+}

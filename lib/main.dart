@@ -1,0 +1,89 @@
+import 'package:flutter/material.dart';
+import 'package:kreditpensiun_apps/Screens/Home/home_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
+import 'package:kreditpensiun_apps/Screens/Welcome/welcome_screen.dart';
+import 'package:kreditpensiun_apps/Screens/launcher/launcher_screen.dart';
+import 'package:kreditpensiun_apps/Screens/provider/approval_disbursment_agen_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/approval_disbursment_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/approval_interaction_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/filter_report_disbursment_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/filter_report_interaction_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/history_income_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/modul_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/pipeline_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/planning_interaction_provider.dart';
+import 'package:kreditpensiun_apps/constants.dart';
+import 'package:kreditpensiun_apps/Screens/provider/simulation_provider.dart';
+import 'package:provider/provider.dart';
+
+import 'Screens/provider/disbursment_provider.dart';
+import 'Screens/provider/interaction_provider.dart';
+import 'Screens/provider/planning_provider.dart';
+import 'Screens/provider/report_disbursment_provider.dart';
+import 'Screens/provider/report_interaction_provider.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => SimulationProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => DisbursmentProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => InteractionProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ReportInteractionProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ReportDisbursmentProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => PlanningProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => PlanningInteractionProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => HistoryIncomeProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ModulProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => PipelineProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ApprovalInteractionProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ApprovalDisbursmentProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ApprovalDisbursmentAgenProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => FilterReportInteractionProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => FilterReportDisbursmentProvider(),
+          ),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Kredit Pensiun App',
+          theme: ThemeData(
+            primaryColor: kPrimaryColor,
+            scaffoldBackgroundColor: Colors.white,
+          ),
+          home: LauncherScreen(),
+        ));
+  }
+}
