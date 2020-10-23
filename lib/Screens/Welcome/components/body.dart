@@ -57,7 +57,7 @@ class Body extends StatelessWidget {
                   },
                   child: Center(
                     child: Text(
-                      'INGIN MENJADI AGEN , KLIK DISINI',
+                      'INGIN MENJADI AGEN , KLIK DISINI YA',
                       style: TextStyle(
                           color: Colors.grey, fontFamily: 'Montserrat Regular'),
                     ),
