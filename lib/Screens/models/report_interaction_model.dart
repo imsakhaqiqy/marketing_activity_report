@@ -10,6 +10,7 @@ class ReportInteractionModel {
   String foto;
   String jamInteraksi;
   String statusInteraksi;
+  String namasales;
 
   //BUAT CONSTRUCTOR AGAR KETIKA CLASS INI DILOAD, MAKA DATA YANG DIMINTA HARUS DIPASSING SESUAI TIPE DATA YANG DITETAPKAN
   ReportInteractionModel(
@@ -23,7 +24,8 @@ class ReportInteractionModel {
       this.salesFeedback,
       this.foto,
       this.jamInteraksi,
-      this.statusInteraksi});
+      this.statusInteraksi,
+      this.namasales});
 
   //FUNGSI INI UNTUK MENGUBAH FORMAT DATA DARI JSON KE FORMAT YANG SESUAI DENGAN EMPLOYEE MODEL
   factory ReportInteractionModel.fromJson(Map<String, dynamic> json) =>
@@ -38,5 +40,6 @@ class ReportInteractionModel {
           salesFeedback: json['sales_feedback'],
           foto: json['foto_link'],
           jamInteraksi: json['jam_interaksi'],
-          statusInteraksi: json['status_interaksi']);
+          statusInteraksi: json['status_interaksi'],
+          namasales: json['namasales']);
 }

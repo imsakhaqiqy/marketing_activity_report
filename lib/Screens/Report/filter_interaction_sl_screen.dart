@@ -1,33 +1,36 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:kreditpensiun_apps/Screens/Report/disbursment.dart';
-import 'package:kreditpensiun_apps/Screens/Report/filter_disbursment.dart';
+import 'package:kreditpensiun_apps/Screens/Report/filter_interaction.dart';
+import 'package:kreditpensiun_apps/Screens/Report/filter_interaction_sl.dart';
+import 'package:kreditpensiun_apps/Screens/Report/interaction.dart';
 
 import '../../constants.dart';
 
-class FilterDisbursmentScreen extends StatefulWidget {
+class FilterInteractionSlScreen extends StatefulWidget {
   String nik;
 
-  FilterDisbursmentScreen(this.nik);
+  FilterInteractionSlScreen(this.nik);
   @override
-  _FilterDisbursmentScreenState createState() =>
-      _FilterDisbursmentScreenState();
+  _FilterInteractionSlScreenState createState() =>
+      _FilterInteractionSlScreenState();
 }
 
-class _FilterDisbursmentScreenState extends State<FilterDisbursmentScreen> {
+class _FilterInteractionSlScreenState extends State<FilterInteractionSlScreen> {
   final formKey = GlobalKey<FormState>();
   String tanggalAwal;
   String tanggalAkhir;
-
   //Getting value from TextField widget.
   final tanggalAwalController = TextEditingController();
   final tanggalAkhirController = TextEditingController();
+
+  getDataInputan() {
+    //Getting value from controller.
+    tanggalAwal = tanggalAwalController.text;
+    tanggalAkhir = tanggalAkhirController.text;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class _FilterDisbursmentScreenState extends State<FilterDisbursmentScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Filter Pencairan',
+            'Filter Interaction',
             style: TextStyle(fontFamily: 'Montserrat Regular'),
           ),
         ),
@@ -43,15 +46,17 @@ class _FilterDisbursmentScreenState extends State<FilterDisbursmentScreen> {
             padding: EdgeInsets.only(
                 left: 16.0, right: 16.0, top: 0.0, bottom: 16.0),
             child: Form(
-                key: formKey,
-                child: ListView(
-                  physics: ClampingScrollPhysics(),
-                  children: <Widget>[
-                    tanggalAwalField(),
-                    tanggalAkhirField(),
-                    filterButton(),
-                  ],
-                ))),
+              key: formKey,
+              child: ListView(
+                physics: ClampingScrollPhysics(),
+                children: <Widget>[
+                  tanggalAwalField(),
+                  tanggalAkhirField(),
+                  //namaSalesField(),
+                  filterButton(),
+                ],
+              ),
+            )),
       ),
     );
   }
@@ -113,13 +118,17 @@ class _FilterDisbursmentScreenState extends State<FilterDisbursmentScreen> {
       child: RaisedButton(
         color: kPrimaryColor, //MENGATUR WARNA TOMBOL
         onPressed: () {
-          tanggalAwal = tanggalAwalController.text;
-          tanggalAkhir = tanggalAkhirController.text;
+          //print(widget.nik);
+          setState(() {
+            getDataInputan();
+            //print(selectedAsuransiType);
+          });
           if (formKey.currentState.validate()) {
+            print(tanggalAwal + ' ' + tanggalAkhir + ' ' + widget.nik);
             Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => FilterDisbursmentReportScreen(
+                    builder: (context) => FilterInteractionSlReportScreen(
                         widget.nik, tanggalAwal, tanggalAkhir)));
           }
         },

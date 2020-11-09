@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_add.dart';
-import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_edit.dart';
 import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_view_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/disbursment_provider.dart';
 import 'package:provider/provider.dart';
@@ -10,17 +9,17 @@ import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import '../../constants.dart';
 
 // ignore: must_be_immutable
-class DisbursmentScreen extends StatefulWidget {
+class DisbursmentMarketingScreen extends StatefulWidget {
   @override
-  _DisbursmentScreen createState() => _DisbursmentScreen();
+  _DisbursmentMarketingScreen createState() => _DisbursmentMarketingScreen();
 
   String username;
   String nik;
 
-  DisbursmentScreen(this.username, this.nik);
+  DisbursmentMarketingScreen(this.username, this.nik);
 }
 
-class _DisbursmentScreen extends State<DisbursmentScreen> {
+class _DisbursmentMarketingScreen extends State<DisbursmentMarketingScreen> {
   @override
   Widget build(BuildContext context) {
     var date = new DateTime.now();
@@ -81,30 +80,6 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
                     } else {
                       return Column(
                         children: <Widget>[
-                          Card(
-                            color: Colors.blueAccent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  ListTile(
-                                    leading: Icon(
-                                      Icons.note,
-                                      size: 50,
-                                      color: Colors.white,
-                                    ),
-                                    title: Text(
-                                      'PENCAIRAN PERIODE $bulan $tahun',
-                                      style: cardTextStyle,
-                                    ),
-                                    subtitle: Text(
-                                      'Selamat bekerja, sukses selalu',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ]),
-                          ),
                           Expanded(
                             child: ListView.builder(
                                 scrollDirection: Axis.vertical,
@@ -112,21 +87,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
                                 itemBuilder: (context, i) {
                                   return Card(
                                       elevation: 4,
-                                      child: GestureDetector(
-                                        onHorizontalDragStart:
-                                            (DragStartDetails details) {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DisbursmentEditScreen(
-                                                widget.username,
-                                                widget.nik,
-                                                data.dataDisbursment[i]
-                                                    .nomorAkad,
-                                              ),
-                                            ),
-                                          );
-                                        },
+                                      child: InkWell(
                                         onTap: () {
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
@@ -246,20 +207,6 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
               },
             ),
           )),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Tambah Pencairan',
-        backgroundColor: kPrimaryColor,
-        child: Text('+',
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 30.0)),
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>
-                  DisbursmentAddScreen(widget.username, widget.nik, '')));
-        },
-      ),
     );
   }
 

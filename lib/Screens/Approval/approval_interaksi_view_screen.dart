@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kreditpensiun_apps/Screens/Approval/approval_interaksi_screen.dart';
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:photo_view/photo_view.dart';
 
 class ApprovalInteractionViewScreen extends StatefulWidget {
   String username;
@@ -204,10 +205,25 @@ class _ApprovalInteractionViewScreenState
                       child: Column(
                     children: <Widget>[
                       Center(
+                        child: GestureDetector(
+                          onTap: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (_) => Dialog(
+                                child: PhotoView(
+                                  imageProvider: NetworkImage(foto),
+                                  backgroundDecoration:
+                                      BoxDecoration(color: Colors.transparent),
+                                ),
+                              ),
+                            );
+                          },
                           child: CircleAvatar(
-                        radius: 100,
-                        backgroundImage: NetworkImage(foto),
-                      )),
+                            radius: 100,
+                            backgroundImage: NetworkImage(foto),
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 10,
                       ),

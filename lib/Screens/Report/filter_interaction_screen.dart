@@ -121,7 +121,7 @@ class _FilterInteractionScreenState extends State<FilterInteractionScreen> {
             //print(selectedAsuransiType);
           });
           if (formKey.currentState.validate()) {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => FilterInteractionReportScreen(

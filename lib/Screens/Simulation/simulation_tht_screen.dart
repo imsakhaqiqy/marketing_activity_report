@@ -7,12 +7,12 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 import '../../constants.dart';
 
-class SimulationScreen extends StatefulWidget {
+class SimulationThtScreen extends StatefulWidget {
   @override
-  _SimulationScreenState createState() => _SimulationScreenState();
+  _SimulationThtScreenState createState() => _SimulationThtScreenState();
 }
 
-class _SimulationScreenState extends State<SimulationScreen> {
+class _SimulationThtScreenState extends State<SimulationThtScreen> {
   final formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String namaPensiun;
@@ -436,7 +436,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => SimulationResult(
-                          'regular',
+                          'tht',
                           namaPensiun,
                           gajiFix,
                           tanggalLahir,

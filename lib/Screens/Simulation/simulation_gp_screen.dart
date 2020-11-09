@@ -7,12 +7,12 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 import '../../constants.dart';
 
-class SimulationScreen extends StatefulWidget {
+class SimulationGpScreen extends StatefulWidget {
   @override
-  _SimulationScreenState createState() => _SimulationScreenState();
+  _SimulationGpScreenState createState() => _SimulationGpScreenState();
 }
 
-class _SimulationScreenState extends State<SimulationScreen> {
+class _SimulationGpScreenState extends State<SimulationGpScreen> {
   final formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String namaPensiun;
@@ -22,6 +22,8 @@ class _SimulationScreenState extends State<SimulationScreen> {
   String takeoverBankLain;
   String angsuranPerbulan;
   String bankAmbilGaji;
+  var selectedBatasUsiaPensiunType;
+  List<String> _batasUsiaPensiun = <String>['0', '1', '2', '3', '4', '5'];
   var selectedBlokirAngsuranType;
   List<String> _blokirAngsuran = <String>['0', '1', '2', '3'];
   var selectedPensiun;
@@ -101,7 +103,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
                 jangkaWaktuCalonDebitur(),
                 asuransiCalonDebitur(),
                 blokirAngsuranDebitur(),
-                //angsuranCalonDebitur(),
+                batasUsiaPensiunDebitur(),
                 calculationButton(),
               ],
             ),
@@ -328,6 +330,33 @@ class _SimulationScreenState extends State<SimulationScreen> {
     );
   }
 
+  Widget batasUsiaPensiunDebitur() {
+    return DropdownButtonFormField(
+      items: _batasUsiaPensiun
+          .map((value) => DropdownMenuItem(
+                child: Text(
+                  value,
+                  style:
+                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                ),
+                value: value,
+              ))
+          .toList(),
+      onChanged: (selectedBatasUsiaPensiun) {
+        setState(() {
+          selectedBatasUsiaPensiunType = selectedBatasUsiaPensiun;
+        });
+      },
+      decoration: InputDecoration(
+          labelText: 'Batas Usia Pensiun',
+          contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+          labelStyle:
+              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+      value: selectedBatasUsiaPensiunType,
+      isExpanded: true,
+    );
+  }
+
   Widget pelunasanCalonDebitur() {
     return TextFormField(
       controller: takeoverBankLainController,
@@ -436,7 +465,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => SimulationResult(
-                          'regular',
+                          'gp',
                           namaPensiun,
                           gajiFix,
                           tanggalLahir,
@@ -449,7 +478,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
                           selectedBlokirAngsuranType,
                           takeoverBankLainFix,
                           angsuranPerbulan,
-                          ''))).then((result) {});
+                          selectedBatasUsiaPensiunType))).then((result) {});
             }
           }
         },

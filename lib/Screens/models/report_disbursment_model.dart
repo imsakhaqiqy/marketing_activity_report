@@ -16,6 +16,7 @@ class ReportDisbursmentModel {
   String foto2;
   String foto3;
   String jamPencairan;
+  String namaSales;
 
   //BUAT CONSTRUCTOR AGAR KETIKA CLASS INI DILOAD, MAKA DATA YANG DIMINTA HARUS DIPASSING SESUAI TIPE DATA YANG DITETAPKAN
   ReportDisbursmentModel(
@@ -35,7 +36,8 @@ class ReportDisbursmentModel {
       this.foto1,
       this.foto2,
       this.foto3,
-      this.jamPencairan});
+      this.jamPencairan,
+      this.namaSales});
 
   //FUNGSI INI UNTUK MENGUBAH FORMAT DATA DARI JSON KE FORMAT YANG SESUAI DENGAN EMPLOYEE MODEL
   factory ReportDisbursmentModel.fromJson(Map<String, dynamic> json) =>
@@ -56,5 +58,6 @@ class ReportDisbursmentModel {
           foto1: json['foto1'],
           foto2: json['foto2'],
           foto3: json['foto3'],
-          jamPencairan: json['jam_pencairan']);
+          jamPencairan: json['jam_pencairan'],
+          namaSales: json['namasales']);
 }

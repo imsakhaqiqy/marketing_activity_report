@@ -10,8 +10,10 @@ import 'package:kreditpensiun_apps/Screens/Interaction/planning_interaction_scre
 import 'package:kreditpensiun_apps/Screens/News/news_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Planning/planning_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Report/report_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Report/report_screen_sl.dart';
 import 'package:kreditpensiun_apps/Screens/Simulation/simulation_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Report/report_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Simulation/simulation_view.dart';
 import 'package:kreditpensiun_apps/Screens/provider/disbursment_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -169,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            SimulationScreen()));
+                                            SimulationViewScreen()));
                               },
                             ),
                             GestureDetector(
@@ -179,11 +181,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ReportScreen(
-                                            widget.username, widget.nik)));
+                                if (widget.hakAkses == '5') {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ReportScreenSl(
+                                              widget.username, widget.nikSdm)));
+                                } else {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => ReportScreen(
+                                              widget.username, widget.nik)));
+                                }
                               },
                             ),
                             GestureDetector(

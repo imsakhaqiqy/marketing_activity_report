@@ -8,6 +8,7 @@ import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:photo_view/photo_view.dart';
 
 class ApprovalDisbursmentViewScreen extends StatefulWidget {
   String username;
@@ -598,7 +599,21 @@ class _ApprovalDisbursmentViewScreenState
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     child: Stack(
                       children: <Widget>[
-                        Image.network(item, fit: BoxFit.fill),
+                        GestureDetector(
+                          onTap: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (_) => Dialog(
+                                child: PhotoView(
+                                  imageProvider: NetworkImage(item),
+                                  backgroundDecoration:
+                                      BoxDecoration(color: Colors.transparent),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Image.network(item, fit: BoxFit.fill),
+                        ),
                         Positioned(
                           bottom: 0.0,
                           left: 0.0,

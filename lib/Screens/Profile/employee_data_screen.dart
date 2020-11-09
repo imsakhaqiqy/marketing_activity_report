@@ -20,7 +20,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
           ),
           body: Container(
               color: Color.fromARGB(255, 242, 242, 242),
-              child: Column(
+              child: ListView(
                 children: <Widget>[
                   divisiField(),
                   SizedBox(

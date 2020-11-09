@@ -20,7 +20,7 @@ class _BankAccountDataScreenState extends State<BankAccountDataScreen> {
           ),
           body: Container(
               color: Color.fromARGB(255, 242, 242, 242),
-              child: Column(
+              child: ListView(
                 children: <Widget>[
                   noRekeningField(),
                   SizedBox(

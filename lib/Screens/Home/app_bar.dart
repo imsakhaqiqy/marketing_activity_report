@@ -39,23 +39,11 @@ class MarsytAppBar extends AppBar {
             child: new Row(
               children: <Widget>[
                 new Container(
-                  height: 28.0,
-                  width: 28.0,
-                  padding: EdgeInsets.all(6.0),
-                  decoration: new BoxDecoration(
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(100.0)),
-                      color: Colors.orangeAccent),
-                  alignment: Alignment.centerRight,
-                  child: new Icon(Icons.attach_money,
-                      color: Colors.white, size: 16.0),
-                ),
-                new Container(
                   padding: EdgeInsets.all(6.0),
                   decoration: new BoxDecoration(
                       borderRadius:
                           new BorderRadius.all(new Radius.circular(5.0)),
-                      color: kPrimaryColor),
+                      color: Colors.lightBlueAccent),
                   child: Tooltip(
                     message: 'Terhitung periode $bulan $tahun',
                     child: Text(

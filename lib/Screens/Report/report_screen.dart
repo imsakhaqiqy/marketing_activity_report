@@ -43,6 +43,7 @@ class _ReportScreen extends State<ReportScreen> {
           child: Column(
             children: [
               Card(
+                  color: Colors.blueAccent,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
                   child: InkWell(
@@ -58,7 +59,7 @@ class _ReportScreen extends State<ReportScreen> {
                         children: <Widget>[
                           ListTile(
                             leading: Icon(Icons.directions_run,
-                                size: 50, color: kPrimaryColor),
+                                size: 50, color: Colors.white),
                             title: Text(
                               'INTERAKSI',
                               style: cardTextStyle,
@@ -68,6 +69,7 @@ class _ReportScreen extends State<ReportScreen> {
                         ]),
                   )),
               Card(
+                  color: Colors.deepOrangeAccent,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
                   child: InkWell(
@@ -85,7 +87,7 @@ class _ReportScreen extends State<ReportScreen> {
                             leading: Icon(
                               Icons.note,
                               size: 50,
-                              color: kPrimaryColor,
+                              color: Colors.white,
                             ),
                             title: Text(
                               'PENCAIRAN',

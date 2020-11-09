@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:kreditpensiun_apps/Screens/provider/simulation_provider.dart';
 import 'package:kreditpensiun_apps/constants.dart';
+import 'package:pdf/pdf.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
 // ignore: must_be_immutable
 class SimulationResult extends StatefulWidget {
+  String simulasiJenis;
   String namaPensiun;
   String gajiPensiun;
   String tanggalLahir;
@@ -19,7 +21,9 @@ class SimulationResult extends StatefulWidget {
   String blokirAngsuran;
   String takeoverBankLain;
   String angsuranPerbulan;
+  String batasUsiaPensiun;
   SimulationResult(
+    this.simulasiJenis,
     this.namaPensiun,
     this.gajiPensiun,
     this.tanggalLahir,
@@ -32,6 +36,7 @@ class SimulationResult extends StatefulWidget {
     this.blokirAngsuran,
     this.takeoverBankLain,
     this.angsuranPerbulan,
+    this.batasUsiaPensiun,
   );
 
   @override
@@ -58,6 +63,7 @@ class _SimulationResultState extends State<SimulationResult> {
           body: FutureBuilder(
               future: Provider.of<SimulationProvider>(context, listen: false)
                   .getSimulation(simulationItem(
+                      widget.simulasiJenis,
                       widget.namaPensiun,
                       widget.gajiPensiun,
                       widget.tanggalLahir,
@@ -69,7 +75,8 @@ class _SimulationResultState extends State<SimulationResult> {
                       widget.jenisAsuransi,
                       widget.blokirAngsuran,
                       widget.takeoverBankLain,
-                      widget.angsuranPerbulan)),
+                      widget.angsuranPerbulan,
+                      widget.batasUsiaPensiun)),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -335,6 +342,34 @@ class _SimulationResultState extends State<SimulationResult> {
                                     ),
                                   ),
                                   SizedBox(height: 10),
+                                  widget.simulasiJenis == 'gp'
+                                      ? Container(
+                                          child: Stack(
+                                            children: <Widget>[
+                                              Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  'Lama Grace Period',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'Montserrat Regular'),
+                                                ),
+                                              ),
+                                              Align(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: Text(
+                                                    '${data.dataSimulation[0].lamaGracePeriod} TAHUN',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'Montserrat Regular'),
+                                                  )),
+                                            ],
+                                          ),
+                                        )
+                                      : null,
+                                  SizedBox(height: 10)
                                 ],
                               ),
                             ),
@@ -783,6 +818,36 @@ class _SimulationResultState extends State<SimulationResult> {
                                       ],
                                     ),
                                   ),
+                                  widget.simulasiJenis == 'gp'
+                                      ? SizedBox(height: 10)
+                                      : null,
+                                  widget.simulasiJenis == 'gp'
+                                      ? Container(
+                                          child: Stack(
+                                            children: <Widget>[
+                                              Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  'Blokir Grace Period',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'Montserrat Regular'),
+                                                ),
+                                              ),
+                                              Align(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: Text(
+                                                    '${formatRupiah(data.dataSimulation[0].gracePeriod)}',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'Montserrat Regular'),
+                                                  )),
+                                            ],
+                                          ),
+                                        )
+                                      : null,
                                   SizedBox(height: 10),
                                   Container(
                                     child: Stack(

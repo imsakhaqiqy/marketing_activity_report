@@ -20,7 +20,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
           ),
           body: Container(
               color: Color.fromARGB(255, 242, 242, 242),
-              child: Column(
+              child: ListView(
                 children: <Widget>[
                   alamatField(),
                   SizedBox(

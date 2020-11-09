@@ -5,6 +5,7 @@ import 'dart:convert';
 
 // ignore: camel_case_types
 class simulationItem {
+  String simulasiJenis;
   String namaPensiun;
   String gajiPensiun;
   String tanggalLahir;
@@ -17,7 +18,9 @@ class simulationItem {
   String blokirAngsuran;
   String takeoverBankLain;
   String angsuranPerbulan;
+  String batasUsiaPensiun;
   simulationItem(
+      this.simulasiJenis,
       this.namaPensiun,
       this.gajiPensiun,
       this.tanggalLahir,
@@ -29,7 +32,8 @@ class simulationItem {
       this.jenisAsuransi,
       this.blokirAngsuran,
       this.takeoverBankLain,
-      this.angsuranPerbulan);
+      this.angsuranPerbulan,
+      this.batasUsiaPensiun);
 }
 
 class SimulationProvider extends ChangeNotifier {
@@ -37,8 +41,13 @@ class SimulationProvider extends ChangeNotifier {
   List<SimulationModel> get dataSimulation => _data;
 
   Future<List<SimulationModel>> getSimulation(simulationItem simulation) async {
-    final url =
-        'https://www.nabasa.co.id/api_marsit_v1/index.php/getSimulation';
+    String url = '';
+    if (simulation.simulasiJenis == 'gp') {
+      url =
+          'https://www.nabasa.co.id/api_marsit_v1/tes.php/getSimulationGracePeriod';
+    } else {
+      url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/getSimulation';
+    }
     final response = await http.post(url, body: {
       'nama_pensiun': simulation.namaPensiun,
       'gaji_pensiun': simulation.gajiPensiun,
@@ -51,7 +60,8 @@ class SimulationProvider extends ChangeNotifier {
       'jenis_asuransi': simulation.jenisAsuransi,
       'blokir_pinjaman': simulation.blokirAngsuran,
       'takeover_bank_lain': simulation.takeoverBankLain,
-      'angsuran_perbulan': simulation.angsuranPerbulan
+      'angsuran_perbulan': simulation.angsuranPerbulan,
+      'batas_usia_pensiun': simulation.batasUsiaPensiun,
     });
 
     if (response.statusCode == 200) {

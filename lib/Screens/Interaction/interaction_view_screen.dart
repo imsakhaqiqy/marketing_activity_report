@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kreditpensiun_apps/constants.dart';
+import 'package:photo_view/photo_view.dart';
 
 class InteractionViewScreen extends StatefulWidget {
   String calonDebitur;
@@ -62,10 +63,25 @@ class _InteractionViewScreenState extends State<InteractionViewScreen> {
                       child: Column(
                     children: <Widget>[
                       Center(
+                        child: GestureDetector(
+                          onTap: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (_) => Dialog(
+                                child: PhotoView(
+                                  imageProvider: NetworkImage(foto),
+                                  backgroundDecoration:
+                                      BoxDecoration(color: Colors.transparent),
+                                ),
+                              ),
+                            );
+                          },
                           child: CircleAvatar(
-                        radius: 100,
-                        backgroundImage: NetworkImage(foto),
-                      )),
+                            radius: 100,
+                            backgroundImage: NetworkImage(foto),
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 10,
                       ),

@@ -21,7 +21,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
           ),
           body: Container(
               color: Color.fromARGB(255, 242, 242, 242),
-              child: Column(
+              child: ListView(
                 children: <Widget>[
                   gajiPokokField(),
                   SizedBox(

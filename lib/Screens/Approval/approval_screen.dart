@@ -16,9 +16,11 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
   @override
   Widget build(BuildContext context) {
     var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular",
-        fontSize: 14,
-        color: Color.fromRGBO(63, 63, 63, 1));
+      fontFamily: "Montserrat Regular",
+      fontSize: 20,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+    );
 
     return Scaffold(
         appBar: AppBar(
@@ -39,7 +41,8 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
                 child: Column(
                   children: [
                     Card(
-                        elevation: 4,
+                        color: Colors.blueAccent,
+                        elevation: 2,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8)),
                         child: InkWell(
@@ -56,7 +59,7 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
                               children: <Widget>[
                                 ListTile(
                                   leading: Icon(Icons.verified_user,
-                                      size: 50, color: Colors.blueAccent),
+                                      size: 50, color: Colors.white),
                                   title: Text(
                                     'APPROVAL INTERAKSI',
                                     style: cardTextStyle,
@@ -66,7 +69,8 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
                               ]),
                         )),
                     Card(
-                        elevation: 4,
+                        color: Colors.redAccent,
+                        elevation: 2,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8)),
                         child: InkWell(
@@ -85,7 +89,7 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
                                   leading: Icon(
                                     Icons.verified_user,
                                     size: 50,
-                                    color: Colors.redAccent,
+                                    color: Colors.white,
                                   ),
                                   title: Text(
                                     'APPROVAL PENCAIRAN',

@@ -23,18 +23,18 @@ class Item {
 }
 
 // ignore: must_be_immutable
-class DisbursmentAddScreen extends StatefulWidget {
+class DisbursmentEditScreen extends StatefulWidget {
   String username;
   String nik;
-  String nama;
+  String noAkad;
 
-  DisbursmentAddScreen(this.username, this.nik, this.nama);
+  DisbursmentEditScreen(this.username, this.nik, this.noAkad);
   @override
-  _DisbursmentAddScreen createState() => _DisbursmentAddScreen();
+  _DisbursmentEditScreen createState() => _DisbursmentEditScreen();
 }
 
-class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
-  var personalData = new List(33);
+class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
+  bool loadingScreen;
   String image1, image2, image3;
   String base64Image1, base64Image2, base64Image3;
   List<Object> images = List<Object>();
@@ -45,10 +45,10 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
     super.initState();
     this.getCabang();
     setState(() {
-      images.add("Add Image");
-      images.add("Add Image");
-      images.add("Add Image");
-      namaPensiunController.text = widget.nama;
+      images.add('Add Image');
+      images.add('Add Image');
+      images.add('Add Image');
+      getDataPencairan();
     });
   }
 
@@ -62,6 +62,9 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
   String namaPetugasBank;
   String jabatanPetugasBank;
   String teleponPetugasBank;
+  String path1;
+  String path2;
+  String path3;
   final formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var selectedJenisDebitur;
@@ -104,97 +107,56 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
   final jabatanPetugasBankController = TextEditingController();
   final teleponPetugasBankController = TextEditingController();
 
-  void tes() {
-    print(selectedJenisCabang);
-  }
-
-  Future userLogin() async {
-    //getting value from controller
-    String username = widget.username;
-    String password = widget.nik;
-
+  Future getDataPencairan() async {
+    loadingScreen = true;
+    String noAkad = widget.noAkad;
+    String nikSales = widget.nik;
     //server login api
-    var url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/getLogin';
-
+    var url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/getDataPencairan';
     //starting web api call
-    var response = await http
-        .post(url, body: {'username': username, 'password': password});
-
-    if (username == '' || password == '') {
+    var response =
+        await http.post(url, body: {'no_akad': noAkad, 'nik_sales': nikSales});
+    if (response.statusCode == 200) {
+      var message = jsonDecode(response.body)['Data_Pencairan'];
+      print(message);
+      setState(() {
+        loadingScreen = false;
+        namaPensiunController.text = message[0]['debitur'].toString();
+        alamatController.text = message[0]['alamat'].toString();
+        teleponController.text = message[0]['telepon'].toString();
+        tanggalPerjanjianController.text =
+            message[0]['tanggal_akad'].toString();
+        nomorAplikasiController.text = message[0]['nomor_akad'].toString();
+        nomorPerjanjianController.text = message[0]['no_janji'].toString();
+        plafondController.text = message[0]['plafond'].toString();
+        if (message[0]['jenis_pencairan'].toString() == 'Calon Pensiun') {
+          selectedJenisDebitur = 'Prapensiun';
+        }
+        if (message[0]['jenis_produk'].toString() == 'Flexi') {
+          selectedJenisProduk = 'Fleksi BNI';
+        }
+        selectedJenisCabang = message[0]['cabang'].toString();
+        selectedJenisInfo = message[0]['info_sales'].toString();
+        selectedStatusKredit = message[0]['status_kredit'].toString();
+        namaPetugasBankController.text = message[0]['nama_tl'].toString();
+        jabatanPetugasBankController.text = message[0]['jabatan_tl'].toString();
+        teleponPetugasBankController.text = message[0]['telepon_tl'].toString();
+        path1 =
+            'https://www.nabasa.co.id/marsit/' + message[0]['foto1'].toString();
+        path2 =
+            'https://www.nabasa.co.id/marsit/' + message[0]['foto2'].toString();
+        path3 =
+            'https://www.nabasa.co.id/marsit/' + message[0]['foto3'].toString();
+        images.replaceRange(0, 0 + 1, [path1]);
+        images.replaceRange(1, 1 + 1, [path2]);
+        images.replaceRange(2, 2 + 1, [path3]);
+        print(images);
+      });
     } else {
-      //if the response message is matched
-      if (response.statusCode == 200) {
-        var message = jsonDecode(response.body)['Daftar_Login'];
-        print(message);
-        if (message['message'].toString() == 'Login Success') {
-          if (message['status_account'] == 'SUSPEND') {
-          } else {
-            setState(() {
-              personalData[0] = message['nik'];
-              personalData[1] = message['full_name'];
-              personalData[2] = message['marital_status'];
-              personalData[3] = message['date_of_birth'];
-              personalData[4] = message['place_of_birth'];
-              personalData[5] = message['no_ktp'];
-              personalData[6] = message['gender'];
-              personalData[7] = message['religion'];
-              personalData[8] = message['email_address'];
-              personalData[9] = message['phone_number'];
-              personalData[10] = message['education'];
-              personalData[11] = message['alamat'];
-              personalData[12] = message['kelurahan'];
-              personalData[13] = message['kecamatan'];
-              personalData[14] = message['kabupaten'];
-              personalData[15] = message['kode_pos'];
-              personalData[16] = message['propinsi'];
-              personalData[17] = message['no_rekening'];
-              personalData[18] = message['nama_bank'];
-              personalData[19] = message['nama_rekening'];
-              personalData[20] = message['divisi_karyawan'];
-              personalData[21] = message['jabatan_karyawan'];
-              personalData[22] = message['wilayah_karyawan'];
-              personalData[23] = message['branch'];
-              personalData[24] = message['status_karyawan'];
-              personalData[25] = message['grade_karyawan'];
-              personalData[26] = message['gaji_pokok'];
-              personalData[27] = message['tunjangan_tkd'];
-              personalData[28] = message['tunjangan_jabatan'];
-              personalData[29] = message['tunjangan_perumahan'];
-              personalData[30] = message['tunjangan_telepon'];
-              personalData[31] = message['tunjangan_kinerja'];
-              personalData[32] = message['nik_marsit'];
-            });
-            if (message['hak_akses'] == '5') {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LandingScreen(
-                        message['full_name'],
-                        message['nik_marsit'],
-                        message['income'],
-                        message['pict'],
-                        message['divisi'],
-                        message['greeting'],
-                        message['hak_akses'],
-                        personalData,
-                        message['tarif'],
-                      )));
-            } else {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LandingMrScreen(
-                      message['full_name'],
-                      message['nik_marsit'],
-                      message['income'],
-                      message['pict'],
-                      message['divisi'],
-                      message['greeting'],
-                      message['hak_akses'],
-                      personalData,
-                      message['tarif'])));
-            }
-          }
-        } else {}
-      } else {
-        print('error');
-      }
+      setState(() {
+        loadingScreen = false;
+      });
+      print('error');
     }
   }
 
@@ -210,132 +172,12 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
     });
   }
 
-  Future saveDisbursment() async {
+  Future updateDisbursment() async {
     //showing CircularProgressIndicator
     setState(() {
       visible = true;
+      //images.add("Add Image");
     });
-
-    //getting value from controller
-    namaPensiun = namaPensiunController.text;
-    alamat = alamatController.text;
-    telepon = teleponController.text;
-    tanggalAkad = tanggalPerjanjianController.text;
-    nomorAplikasi = nomorAplikasiController.text;
-    nomorPerjanjian = nomorPerjanjianController.text;
-    plafond = plafondController.text;
-    namaPetugasBank = namaPetugasBankController.text;
-    jabatanPetugasBank = jabatanPetugasBankController.text;
-    teleponPetugasBank = teleponPetugasBankController.text;
-    //server save api
-    var url =
-        'https://www.nabasa.co.id/api_marsit_v1/index.php/saveDisbursment';
-
-    //starting web api call
-    var response = await http.post(url, body: {
-      'nama_pensiun': namaPensiun,
-      'alamat': alamat,
-      'telepon': telepon,
-      'jenis_debitur': selectedJenisDebitur,
-      'jenis_produk': selectedJenisProduk,
-      'tanggal_akad': tanggalAkad,
-      'nomor_aplikasi': nomorAplikasi,
-      'nomor_perjanjian': nomorPerjanjian,
-      'jenis_cabang': selectedJenisCabang,
-      'plafond': plafond,
-      'jenis_info': selectedJenisInfo,
-      'niksales': widget.nik,
-      'file_name': 'disbursment',
-      'image1': base64Image1,
-      'name1': image1,
-      'image2': base64Image2,
-      'name2': image2,
-      'image3': base64Image3,
-      'name3': image3,
-      'status_kredit': selectedStatusKredit,
-      'nama_petugas_bank': namaPetugasBank,
-      'jabatan_petugas_bank': jabatanPetugasBank,
-      'telepon_petugas_bank': teleponPetugasBank
-    });
-
-    if (response.statusCode == 200) {
-      var message = jsonDecode(response.body)['Save_Disbursment'];
-      if (message.toString() == 'Save Success') {
-        setState(() {
-          visible = false;
-          namaPensiunController.clear();
-          alamatController.clear();
-          teleponController.clear();
-          selectedJenisDebitur = null;
-          selectedJenisProduk = null;
-          tanggalPerjanjianController.clear();
-          nomorAplikasiController.clear();
-          nomorPerjanjianController.clear();
-          selectedJenisCabang = null;
-          plafondController.clear();
-          selectedJenisInfo = null;
-          selectedStatusKredit = null;
-          image1 = null;
-          image2 = null;
-          image3 = null;
-        });
-        userLogin();
-        showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text('Sukses menambahkan data pencairan kredit...'),
-            //content: Text('We hate to see you leave...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
-        );
-      } else if (message.toString() == 'Nomor Aplikasi') {
-        setState(() {
-          visible = false;
-        });
-        showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text(
-                'Maaf, nomor aplikasi sudah terdaftar, mohon masukkan nomor aplikasi yang lain...'),
-            //content: Text('We hate to see you leave...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
-        );
-      } else {
-        setState(() {
-          visible = false;
-        });
-        showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text('Gagal menambahkan data pencairan kredit...'),
-            //content: Text('We hate to see you leave...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
-        );
-      }
-    }
   }
 
   Widget build(BuildContext context) {
@@ -378,7 +220,7 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
                               AlwaysStoppedAnimation<Color>(Colors.white),
                         )
                       : Text(
-                          'Simpan',
+                          'Update',
                           style: TextStyle(
                               fontFamily: 'Montserrat Regular',
                               color: Colors.white,
@@ -429,111 +271,123 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
                           duration: Duration(seconds: 3),
                         ));
                       } else {
-                        saveDisbursment();
+                        updateDisbursment();
                       }
                     }
                   })
             ],
           ),
-          body: Container(
-              color: Colors.grey[200],
-              child: Form(
-                key: formKey,
-                child: ListView(
-                  physics: ClampingScrollPhysics(),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'DATA NASABAH',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      child: Column(
-                        children: <Widget>[
-                          fieldDebitur(),
-                          fieldAlamat(),
-                          fieldTelepon(),
-                          fieldTanggalAkad(),
-                          fieldNomorAplikasi(),
-                          fieldNomorPerjanjian(),
-                          fieldPlafond(),
-                          SizedBox(
-                            height: 20,
+          body: loadingScreen
+              ? Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
+                  ),
+                )
+              : Container(
+                  color: Colors.grey[200],
+                  child: Form(
+                    key: formKey,
+                    child: ListView(
+                      physics: ClampingScrollPhysics(),
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'DATA NASABAH',
+                            style: TextStyle(
+                                color: Colors.grey[600], fontSize: 14),
                           ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'DATA KREDIT',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      //color: Colors.white,
-                      child: Column(
-                        children: <Widget>[
-                          fieldJenisDebitur(),
-                          fieldKodeProduk(),
-                          fieldKantorCabang(),
-                          fieldSalesInfo(),
-                          fieldStatusKredit(),
-                          SizedBox(
-                            height: 20,
+                        ),
+                        Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.all(8),
+                          width: double.infinity,
+                          child: Column(
+                            children: <Widget>[
+                              fieldDebitur(),
+                              fieldAlamat(),
+                              fieldTelepon(),
+                              fieldTanggalAkad(),
+                              fieldNomorAplikasi(),
+                              fieldNomorPerjanjian(),
+                              fieldPlafond(),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'DATA KREDIT',
+                            style: TextStyle(
+                                color: Colors.grey[600], fontSize: 14),
+                          ),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.all(8),
+                          width: double.infinity,
+                          //color: Colors.white,
+                          child: Column(
+                            children: <Widget>[
+                              fieldJenisDebitur(),
+                              fieldKodeProduk(),
+                              fieldKantorCabang(),
+                              fieldSalesInfo(),
+                              fieldStatusKredit(),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'DATA PETUGAS BANK',
+                            style: TextStyle(
+                                color: Colors.grey[600], fontSize: 14),
+                          ),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.all(8),
+                          width: double.infinity,
+                          child: Column(
+                            children: <Widget>[
+                              fieldPetugasBank(),
+                              fieldJabatanBank(),
+                              fieldNoTeleponBank(),
+                              SizedBox(
+                                height: 20,
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'DOKUMEN KREDIT',
+                            style: TextStyle(
+                                color: Colors.grey[600], fontSize: 14),
+                          ),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.all(8),
+                          width: double.infinity,
+                          //color: Colors.white,
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(child: buildGridView())
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'DATA PETUGAS BANK',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      child: Column(
-                        children: <Widget>[
-                          fieldPetugasBank(),
-                          fieldJabatanBank(),
-                          fieldNoTeleponBank(),
-                          SizedBox(
-                            height: 20,
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'DOKUMEN KREDIT',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      //color: Colors.white,
-                      child: Row(
-                        children: <Widget>[Expanded(child: buildGridView())],
-                      ),
-                    ),
-                  ],
-                ),
-              )),
+                  )),
         ));
   }
 
@@ -626,19 +480,53 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
             ),
           );
         } else {
-          String titled;
-          Color colored;
-          if (index == 0) {
-            titled = 'Foto SKK';
-            colored = Colors.red;
-          } else if (index == 1) {
-            titled = 'Foto Tanda Tangan Akad';
-            colored = Colors.yellow;
-          } else if (index == 2) {
-            titled = 'Foto Bukti Dana Cair';
-            colored = Colors.green;
-          }
-          return Card(
+          if (path1 != '' && path2 != '' && path3 != '') {
+            return Card(
+              clipBehavior: Clip.antiAlias,
+              child: Stack(
+                children: <Widget>[
+                  Image.network(
+                    images[index],
+                    width: 300,
+                    height: 300,
+                  ),
+                  Positioned(
+                    right: 5,
+                    top: 5,
+                    child: InkWell(
+                      child: Icon(
+                        Icons.remove_circle,
+                        size: 20,
+                        color: Colors.red,
+                      ),
+                      onTap: () {
+                        setState(() {
+                          if (index == 0) {
+                            path1 = '';
+                            images
+                                .replaceRange(index, index + 1, ['Add Image']);
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            String titled;
+            Color colored;
+            if (index == 0) {
+              titled = 'Foto SKK';
+              colored = Colors.red;
+            } else if (index == 1) {
+              titled = 'Foto Tanda Tangan Akad';
+              colored = Colors.yellow;
+            } else if (index == 2) {
+              titled = 'Foto Bukti Dana Cair';
+              colored = Colors.green;
+            }
+            return Card(
               shape: RoundedRectangleBorder(
                   side: new BorderSide(color: colored, width: 2.0),
                   borderRadius: BorderRadius.circular(4.0)),
@@ -657,7 +545,9 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
                     },
                   ),
                 ],
-              ));
+              ),
+            );
+          }
         }
       }),
     );

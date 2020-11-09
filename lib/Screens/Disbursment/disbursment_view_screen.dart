@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:kreditpensiun_apps/constants.dart';
+import 'package:photo_view/photo_view.dart';
 
 class DisbursmentViewScreen extends StatefulWidget {
   String calonDebitur;
@@ -361,7 +362,21 @@ class _DisbursmentViewScreenState extends State<DisbursmentViewScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(5.0)),
                     child: Stack(
                       children: <Widget>[
-                        Image.network(item, fit: BoxFit.fill),
+                        GestureDetector(
+                          onTap: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (_) => Dialog(
+                                child: PhotoView(
+                                  imageProvider: NetworkImage(item),
+                                  backgroundDecoration:
+                                      BoxDecoration(color: Colors.transparent),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Image.network(item, fit: BoxFit.fill),
+                        ),
                         Positioned(
                           bottom: 0.0,
                           left: 0.0,
@@ -401,5 +416,20 @@ class _DisbursmentViewScreenState extends State<DisbursmentViewScreen> {
     } else {
       return data;
     }
+  }
+}
+
+class ImageDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        width: 200,
+        height: 200,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: ExactAssetImage('assets/tamas.jpg'), fit: BoxFit.cover)),
+      ),
+    );
   }
 }
