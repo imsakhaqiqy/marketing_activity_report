@@ -20,6 +20,10 @@ class DisbursmentViewScreen extends StatefulWidget {
   String foto3;
   String tanggalPencairan;
   String jamPencairan;
+  String namaTl;
+  String jabatanTl;
+  String teleponTl;
+  String namaSales;
 
   DisbursmentViewScreen(
       this.calonDebitur,
@@ -37,7 +41,11 @@ class DisbursmentViewScreen extends StatefulWidget {
       this.foto2,
       this.foto3,
       this.tanggalPencairan,
-      this.jamPencairan);
+      this.jamPencairan,
+      this.namaTl,
+      this.jabatanTl,
+      this.teleponTl,
+      this.namaSales);
   @override
   _DisbursmentViewScreenState createState() => _DisbursmentViewScreenState();
 }
@@ -340,6 +348,102 @@ class _DisbursmentViewScreenState extends State<DisbursmentViewScreen> {
                           Expanded(
                             child: Text(
                               '${setNull(widget.jamPencairan)}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Montserrat Regular',
+                                  color: Colors.black),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: <Widget>[
+                          Tooltip(
+                            message: 'Nama Sales',
+                            child: Icon(
+                              Icons.person_outline,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Expanded(
+                            child: Text(
+                              '${setNull(widget.namaSales)}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Montserrat Regular',
+                                  color: Colors.black),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: <Widget>[
+                          Tooltip(
+                            message: 'Nama Petugas Bank',
+                            child: Icon(
+                              Icons.person,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Expanded(
+                            child: Text(
+                              '${setNull(widget.namaTl)}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Montserrat Regular',
+                                  color: Colors.black),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: <Widget>[
+                          Tooltip(
+                            message: 'Jabatan Petugas Bank',
+                            child: Icon(
+                              Icons.info,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Expanded(
+                            child: Text(
+                              '${setNull(widget.jabatanTl)}',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Montserrat Regular',
+                                  color: Colors.black),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: <Widget>[
+                          Tooltip(
+                            message: 'Telepon Petugas Bank',
+                            child: Icon(
+                              Icons.phone,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Expanded(
+                            child: Text(
+                              '${setNull(widget.teleponTl)}',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontFamily: 'Montserrat Regular',

@@ -19,6 +19,7 @@ class simulationItem {
   String takeoverBankLain;
   String angsuranPerbulan;
   String batasUsiaPensiun;
+  String tht;
   simulationItem(
       this.simulasiJenis,
       this.namaPensiun,
@@ -33,7 +34,8 @@ class simulationItem {
       this.blokirAngsuran,
       this.takeoverBankLain,
       this.angsuranPerbulan,
-      this.batasUsiaPensiun);
+      this.batasUsiaPensiun,
+      this.tht);
 }
 
 class SimulationProvider extends ChangeNotifier {
@@ -44,9 +46,17 @@ class SimulationProvider extends ChangeNotifier {
     String url = '';
     if (simulation.simulasiJenis == 'gp') {
       url =
-          'https://www.nabasa.co.id/api_marsit_v1/tes.php/getSimulationGracePeriod';
+          'https://www.nabasa.co.id/api_marsit_v1/index.php/getSimulationGracePeriod';
+    } else if (simulation.simulasiJenis == 'tht') {
+      url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/getSimulationTht';
+    } else if (simulation.simulasiJenis == 'regular') {
+      url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/getSimulation';
+    } else if (simulation.simulasiJenis == 'aktif') {
+      url =
+          'https://www.nabasa.co.id/api_marsit_v1/index.php/getSimulationAktif';
     } else {
-      url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/getSimulation';
+      url =
+          'https://www.nabasa.co.id/api_marsit_v1/index.php/getSimulationPrapensiun';
     }
     final response = await http.post(url, body: {
       'nama_pensiun': simulation.namaPensiun,
@@ -62,6 +72,7 @@ class SimulationProvider extends ChangeNotifier {
       'takeover_bank_lain': simulation.takeoverBankLain,
       'angsuran_perbulan': simulation.angsuranPerbulan,
       'batas_usia_pensiun': simulation.batasUsiaPensiun,
+      'tht': simulation.tht,
     });
 
     if (response.statusCode == 200) {

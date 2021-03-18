@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_view_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Report/report_disbursment_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/filter_report_disbursment_provider.dart';
-import 'package:kreditpensiun_apps/Screens/provider/report_disbursment_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import '../../constants.dart';
 import 'filter_disbursment_screen.dart';
 
@@ -51,6 +45,7 @@ class _FilterDisbursmentReportScreen
         fontSize: 9,
         color: Color.fromRGBO(63, 63, 63, 1));
     return Scaffold(
+      backgroundColor: grey,
       appBar: AppBar(
         title: Text(
           'Laporan Pencairan',
@@ -112,19 +107,29 @@ class _FilterDisbursmentReportScreen
                   builder: (context, data, _) {
                     print(data.dataFilterDisbursmentReport.length);
                     if (data.dataFilterDisbursmentReport.length == 0) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                      return Center(
                         child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.hourglass_empty, size: 50),
-                                title: Text(
-                                  'DATA TIDAK DITEMUKAN',
-                                  style: cardTextStyle,
-                                ),
-                                subtitle: Text(''),
+                              Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Icon(Icons.hourglass_empty_outlined,
+                                        size: 70),
+                                  )),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Pencairan Tidak Ditemukan!',
+                                style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ]),
                       );
@@ -236,7 +241,23 @@ class _FilterDisbursmentReportScreen
                                               data
                                                   .dataFilterDisbursmentReport[
                                                       i]
-                                                  .jamPencairan)));
+                                                  .jamPencairan,
+                                              data
+                                                  .dataFilterDisbursmentReport[
+                                                      i]
+                                                  .namaTl,
+                                              data
+                                                  .dataFilterDisbursmentReport[
+                                                      i]
+                                                  .jabatanTl,
+                                              data
+                                                  .dataFilterDisbursmentReport[
+                                                      i]
+                                                  .teleponTl,
+                                              data
+                                                  .dataFilterDisbursmentReport[
+                                                      i]
+                                                  .namaSales)));
                                 },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,

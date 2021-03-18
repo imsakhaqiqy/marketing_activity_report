@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kreditpensiun_apps/Screens/Interaction/interaction_view_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Report/filter_interaction_sl_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Report/report_interaction_screen.dart';
-import 'package:kreditpensiun_apps/Screens/provider/report_interaction_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/report_interaction_sl_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import '../../constants.dart';
-import 'filter_interaction_screen.dart';
 
 // ignore: must_be_immutable
 class ReportInteractionSlScreen extends StatefulWidget {
@@ -50,6 +43,7 @@ class _ReportInteractionSlScreen extends State<ReportInteractionSlScreen> {
         fontSize: 9,
         color: Color.fromRGBO(63, 63, 63, 1));
     return Scaffold(
+      backgroundColor: grey,
       appBar: AppBar(
         title: Text(
           'Laporan Interaksi',
@@ -97,19 +91,29 @@ class _ReportInteractionSlScreen extends State<ReportInteractionSlScreen> {
                   builder: (context, data, _) {
                     print(data.dataInteractionSlReport.length);
                     if (data.dataInteractionSlReport.length == 0) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                      return Center(
                         child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.hourglass_empty, size: 50),
-                                title: Text(
-                                  'DATA TIDAK DITEMUKAN',
-                                  style: cardTextStyle,
-                                ),
-                                subtitle: Text(''),
+                              Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Icon(Icons.hourglass_empty_outlined,
+                                        size: 70),
+                                  )),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Interaksi Tidak Ditemukan!',
+                                style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ]),
                       );

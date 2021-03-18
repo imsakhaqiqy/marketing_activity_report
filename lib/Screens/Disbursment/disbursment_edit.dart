@@ -15,6 +15,8 @@ import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
 import 'package:kreditpensiun_apps/Screens/models/image_upload_model.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:kreditpensiun_apps/constants.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:toast/toast.dart';
 
 class Item {
   const Item(this.name, this.icon);
@@ -27,8 +29,10 @@ class DisbursmentEditScreen extends StatefulWidget {
   String username;
   String nik;
   String noAkad;
+  String statusKaryawan;
 
-  DisbursmentEditScreen(this.username, this.nik, this.noAkad);
+  DisbursmentEditScreen(
+      this.username, this.nik, this.noAkad, this.statusKaryawan);
   @override
   _DisbursmentEditScreen createState() => _DisbursmentEditScreen();
 }
@@ -52,6 +56,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
     });
   }
 
+  String id;
   String namaPensiun;
   String alamat;
   String telepon;
@@ -68,7 +73,14 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
   final formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var selectedJenisDebitur;
-  List<String> _jenisDebiturType = <String>['Prapensiun', 'Pensiun'];
+  List<String> _jenisDebiturType = <String>[
+    'Prapensiun',
+    'Pensiun',
+    'Take over Kredit Aktif BTPN',
+    'Pegawai Aktif PNS',
+    'Pegawai Aktif BUMN',
+    'Pegawai Perguruan Tinggi'
+  ];
   var selectedJenisProduk;
   List<String> _jenisProdukType = <String>[
     'Fleksi BNI',
@@ -89,7 +101,11 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
   ];
 
   var selectedStatusKredit;
-  List<String> _jenisStatusKreditType = <String>['KREDIT BARU', 'TOP UP'];
+  List<String> _jenisStatusKreditType = <String>[
+    'KREDIT BARU',
+    'TOP UP',
+    'TAKEOVER'
+  ];
 
   final String url =
       'https://www.nabasa.co.id/api_marsit_v1/index.php/getCabang';
@@ -121,6 +137,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
       print(message);
       setState(() {
         loadingScreen = false;
+        id = message[0]['id'].toString();
         namaPensiunController.text = message[0]['debitur'].toString();
         alamatController.text = message[0]['alamat'].toString();
         teleponController.text = message[0]['telepon'].toString();
@@ -148,8 +165,14 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
         path3 =
             'https://www.nabasa.co.id/marsit/' + message[0]['foto3'].toString();
         images.replaceRange(0, 0 + 1, [path1]);
+        image1 =
+            'https://www.nabasa.co.id/marsit/' + message[0]['foto1'].toString();
         images.replaceRange(1, 1 + 1, [path2]);
+        image2 =
+            'https://www.nabasa.co.id/marsit/' + message[0]['foto2'].toString();
         images.replaceRange(2, 2 + 1, [path3]);
+        image3 =
+            'https://www.nabasa.co.id/marsit/' + message[0]['foto3'].toString();
         print(images);
       });
     } else {
@@ -176,8 +199,124 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
     //showing CircularProgressIndicator
     setState(() {
       visible = true;
-      //images.add("Add Image");
     });
+    //getting value from controller
+    namaPensiun = namaPensiunController.text;
+    alamat = alamatController.text;
+    telepon = teleponController.text;
+    tanggalAkad = tanggalPerjanjianController.text;
+    nomorAplikasi = nomorAplikasiController.text;
+    nomorPerjanjian = nomorPerjanjianController.text;
+    plafond = plafondController.text;
+    namaPetugasBank = namaPetugasBankController.text;
+    jabatanPetugasBank = jabatanPetugasBankController.text;
+    teleponPetugasBank = teleponPetugasBankController.text;
+
+    print(tanggalAkad);
+    //server save api
+    var url =
+        'https://www.nabasa.co.id/api_marsit_v1/index.php/updateDisbursment';
+    var response;
+    if (path1 != '' && path2 != '' && path3 != '') {
+      //starting web api call
+      response = await http.post(url, body: {
+        'id': id,
+        'nama_pensiun': namaPensiun,
+        'alamat': alamat,
+        'telepon': telepon,
+        'jenis_debitur': selectedJenisDebitur,
+        'jenis_produk': selectedJenisProduk,
+        'tanggal_akad': tanggalAkad,
+        'nomor_aplikasi': nomorAplikasi,
+        'nomor_perjanjian': nomorPerjanjian,
+        'jenis_cabang': selectedJenisCabang,
+        'plafond': plafond,
+        'jenis_info': selectedJenisInfo,
+        'niksales': widget.nik,
+        'status_kredit': selectedStatusKredit,
+        'nama_petugas_bank': namaPetugasBank,
+        'jabatan_petugas_bank': jabatanPetugasBank,
+        'telepon_petugas_bank': teleponPetugasBank,
+        'image': '1'
+      });
+    } else {
+      //starting web api call
+      response = await http.post(url, body: {
+        'id': id,
+        'nama_pensiun': namaPensiun,
+        'alamat': alamat,
+        'telepon': telepon,
+        'jenis_debitur': selectedJenisDebitur,
+        'jenis_produk': selectedJenisProduk,
+        'tanggal_akad': tanggalAkad,
+        'nomor_aplikasi': nomorAplikasi,
+        'nomor_perjanjian': nomorPerjanjian,
+        'jenis_cabang': selectedJenisCabang,
+        'plafond': plafond,
+        'jenis_info': selectedJenisInfo,
+        'niksales': widget.nik,
+        'file_name': 'disbursment',
+        'image1': base64Image1,
+        'name1': image1,
+        'image2': base64Image2,
+        'name2': image2,
+        'image3': base64Image3,
+        'name3': image3,
+        'status_kredit': selectedStatusKredit,
+        'nama_petugas_bank': namaPetugasBank,
+        'jabatan_petugas_bank': jabatanPetugasBank,
+        'telepon_petugas_bank': teleponPetugasBank,
+        'image': '0'
+      });
+    }
+
+    if (response.statusCode == 200) {
+      var message = jsonDecode(response.body)['Update_Disbursment'];
+      if (message.toString() == 'Update Success') {
+        setState(() {
+          visible = false;
+        });
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DisbursmentScreen(
+                    widget.username, widget.nik, widget.statusKaryawan)));
+        Toast.show(
+          'Sukses update data pencairan kredit...',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
+        );
+      } else if (message.toString() == 'Nomor Aplikasi') {
+        setState(() {
+          visible = false;
+        });
+        Toast.show(
+          'Maaf, nomor aplikasi sudah terdaftar, mohon masukkan nomor aplikasi yang lain...',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
+        );
+      } else {
+        setState(() {
+          visible = false;
+        });
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DisbursmentScreen(
+                    widget.username, widget.nik, widget.statusKaryawan)));
+        Toast.show(
+          'Gagal update data pencairan kredit...',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
+        );
+      }
+    }
   }
 
   Widget build(BuildContext context) {
@@ -186,7 +325,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
           visible
               ? showDialog(
                   context: context,
-                  child: AlertDialog(
+                  builder: (BuildContext context) => AlertDialog(
                     title: Text(
                         'Mohon menunggu, sedang proses penyimpanan pencairan kredit...'),
                     //content: Text('We hate to see you leave...'),
@@ -210,71 +349,74 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
               style: TextStyle(fontFamily: 'Montserrat Regular'),
             ),
             actions: <Widget>[
-              FlatButton(
-                  //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
-                  //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
-                  child: visible
-                      ? CircularProgressIndicator(
-                          //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        )
-                      : Text(
-                          'Update',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat Regular',
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                  onPressed: () {
-                    print(image1);
-                    if (formKey.currentState.validate()) {
-                      if (selectedJenisDebitur == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih jenis pensiun...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedJenisProduk == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih jenis produk...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedJenisCabang == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih kantor cabang...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedJenisInfo == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih informasi sales...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedStatusKredit == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih status kredit...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (image1 == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih foto akad...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (image2 == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content:
-                              Text('Mohon pilih foto tanda tangan akad...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (image3 == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih foto bukti dana cair...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else {
-                        updateDisbursment();
-                      }
-                    }
-                  })
+              loadingScreen
+                  ? Text('')
+                  : FlatButton(
+                      //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
+                      //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
+                      child: visible
+                          ? CircularProgressIndicator(
+                              //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            )
+                          : Text(
+                              'Update',
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat Regular',
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                      onPressed: () {
+                        print(image1);
+                        if (formKey.currentState.validate()) {
+                          if (selectedJenisDebitur == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih jenis pensiun...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (selectedJenisProduk == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih jenis produk...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (selectedJenisCabang == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih kantor cabang...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (selectedJenisInfo == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih informasi sales...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (selectedStatusKredit == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih status kredit...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (image1 == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih foto akad...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (image2 == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content:
+                                  Text('Mohon pilih foto tanda tangan akad...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (image3 == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content:
+                                  Text('Mohon pilih foto bukti dana cair...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else {
+                            updateDisbursment();
+                          }
+                        }
+                      })
             ],
           ),
           body: loadingScreen
@@ -367,13 +509,34 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'DOKUMEN KREDIT',
-                            style: TextStyle(
-                                color: Colors.grey[600], fontSize: 14),
-                          ),
-                        ),
+                            padding: const EdgeInsets.all(8.0),
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'DOKUMEN KREDIT',
+                                    style: TextStyle(
+                                        color: Colors.grey[600], fontSize: 14),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            path1 = '';
+                                          });
+                                        },
+                                        child: Tooltip(
+                                          message: 'Reset Photo',
+                                          child: Icon(
+                                            Icons.remove_circle,
+                                            color: Colors.red,
+                                          ),
+                                        )))
+                              ],
+                            )),
                         Container(
                           color: Colors.white,
                           padding: EdgeInsets.all(8),
@@ -455,10 +618,24 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
             clipBehavior: Clip.antiAlias,
             child: Stack(
               children: <Widget>[
-                Image.file(
-                  uploadModel.imageFile,
-                  width: 300,
-                  height: 300,
+                GestureDetector(
+                  onTap: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (_) => Dialog(
+                        child: PhotoView(
+                          imageProvider: FileImage(uploadModel.imageFile),
+                          backgroundDecoration:
+                              BoxDecoration(color: Colors.transparent),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Image.file(
+                    uploadModel.imageFile,
+                    width: 300,
+                    height: 300,
+                  ),
                 ),
                 Positioned(
                   right: 5,
@@ -485,29 +662,23 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
               clipBehavior: Clip.antiAlias,
               child: Stack(
                 children: <Widget>[
-                  Image.network(
-                    images[index],
-                    width: 300,
-                    height: 300,
-                  ),
-                  Positioned(
-                    right: 5,
-                    top: 5,
-                    child: InkWell(
-                      child: Icon(
-                        Icons.remove_circle,
-                        size: 20,
-                        color: Colors.red,
-                      ),
-                      onTap: () {
-                        setState(() {
-                          if (index == 0) {
-                            path1 = '';
-                            images
-                                .replaceRange(index, index + 1, ['Add Image']);
-                          }
-                        });
-                      },
+                  GestureDetector(
+                    onTap: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (_) => Dialog(
+                          child: PhotoView(
+                            imageProvider: NetworkImage(images[index]),
+                            backgroundDecoration:
+                                BoxDecoration(color: Colors.transparent),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Image.network(
+                      images[index],
+                      width: 300,
+                      height: 300,
                     ),
                   ),
                 ],
@@ -727,12 +898,6 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
     return Column(children: <Widget>[
       DateTimeField(
           controller: tanggalPerjanjianController,
-          validator: (DateTime dateTime) {
-            if (dateTime == null) {
-              return 'Tanggal akad wajib diisi...';
-            }
-            return null;
-          },
           decoration: InputDecoration(labelText: 'Tanggal Akad'),
           format: format,
           onShowPicker: (context, currentValue) {
@@ -812,6 +977,8 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
             return 'Nominal pinjaman wajib diisi...';
           } else if (value.length < 8) {
             return 'Nominal pinjaman minimal 8 digit...';
+          } else if (value.length > 9) {
+            return 'Nominal pinjaman maksimal 9 digit';
           }
           return null;
         },

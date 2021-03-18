@@ -15,25 +15,20 @@ class DisbursmentMarketingScreen extends StatefulWidget {
 
   String username;
   String nik;
+  String nama;
 
-  DisbursmentMarketingScreen(this.username, this.nik);
+  DisbursmentMarketingScreen(this.username, this.nik, this.nama);
 }
 
 class _DisbursmentMarketingScreen extends State<DisbursmentMarketingScreen> {
   @override
   Widget build(BuildContext context) {
-    var date = new DateTime.now();
-    String bulan = namaBulan(date.month.toString());
-    String tahun = date.year.toString();
-    String hari = date.day.toString();
-    var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.white);
     var cardTextStyle1 = TextStyle(
         fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.grey);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Pencairan',
+          'Pencairan - ' + widget.nama,
           style: fontFamily,
         ),
       ),
@@ -156,7 +151,23 @@ class _DisbursmentMarketingScreen extends State<DisbursmentMarketingScreen> {
                                                           data
                                                               .dataDisbursment[
                                                                   i]
-                                                              .jamPencairan)));
+                                                              .jamPencairan,
+                                                          data
+                                                              .dataDisbursment[
+                                                                  i]
+                                                              .namaTl,
+                                                          data
+                                                              .dataDisbursment[
+                                                                  i]
+                                                              .jabatanTl,
+                                                          data
+                                                              .dataDisbursment[
+                                                                  i]
+                                                              .teleponTl,
+                                                          data
+                                                              .dataDisbursment[
+                                                                  i]
+                                                              .namaSales)));
                                         },
                                         child: ListTile(
                                           title: Row(

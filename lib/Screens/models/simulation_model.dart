@@ -34,6 +34,7 @@ class SimulationModel {
   String nilai;
   String lamaGracePeriod;
   String gracePeriod;
+  String tht;
 
   //BUAT CONSTRUCTOR AGAR KETIKA CLASS INI DILOAD, MAKA DATA YANG DIMINTA HARUS DIPASSING SESUAI TIPE DATA YANG DITETAPKAN
   SimulationModel(
@@ -69,7 +70,8 @@ class SimulationModel {
       this.messageText,
       this.nilai,
       this.lamaGracePeriod,
-      this.gracePeriod});
+      this.gracePeriod,
+      this.tht});
 
   //FUNGSI INI UNTUK MENGUBAH FORMAT DATA DARI JSON KE FORMAT YANG SESUAI DENGAN EMPLOYEE MODEL
   factory SimulationModel.fromJson(Map<String, dynamic> json) =>
@@ -106,5 +108,6 @@ class SimulationModel {
           messageText: json['message'],
           nilai: json['nilai'],
           lamaGracePeriod: json['lama_grace_period'],
-          gracePeriod: json['grace_period']);
+          gracePeriod: json['grace_period'],
+          tht: json['tht']);
 }

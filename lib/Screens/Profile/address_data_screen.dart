@@ -10,42 +10,40 @@ class AddressDataScreen extends StatefulWidget {
 class _AddressDataScreenState extends State<AddressDataScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'Alamat',
-              style: TextStyle(fontFamily: 'Montserrat Regular'),
-            ),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Alamat',
+            style: TextStyle(fontFamily: 'Montserrat Regular'),
           ),
-          body: Container(
-              color: Color.fromARGB(255, 242, 242, 242),
-              child: ListView(
-                children: <Widget>[
-                  alamatField(),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  kelurahanField(),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  kecamatanField(),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  kabupatenField(),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  kodeposField(),
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  propinsiField(),
-                ],
-              ))),
-    );
+        ),
+        body: Container(
+            color: Color.fromARGB(255, 242, 242, 242),
+            child: ListView(
+              children: <Widget>[
+                alamatField(),
+                SizedBox(
+                  height: 10.0,
+                ),
+                kelurahanField(),
+                SizedBox(
+                  height: 10.0,
+                ),
+                kecamatanField(),
+                SizedBox(
+                  height: 10.0,
+                ),
+                kabupatenField(),
+                SizedBox(
+                  height: 10.0,
+                ),
+                kodeposField(),
+                SizedBox(
+                  height: 10.0,
+                ),
+                propinsiField(),
+              ],
+            )));
   }
 
   Widget alamatField() {

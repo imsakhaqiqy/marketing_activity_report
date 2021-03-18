@@ -66,49 +66,45 @@ class _ApprovalInteractionScreen extends State<ApprovalInteractionScreen> {
                   builder: (context, data, _) {
                     print(data.dataApprovalInteraction.length);
                     if (data.dataApprovalInteraction.length == 0) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                      return Center(
                         child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.hourglass_empty, size: 50),
-                                title: Text(
-                                  'DATA TIDAK DITEMUKAN',
-                                  style: cardTextStyle1,
+                              Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child:
+                                        Icon(Icons.hourglass_empty, size: 70),
+                                  )),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Approval Interaksi Yuk!',
+                                style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Interaksi tim kamu tidak tersedia.',
+                                style: TextStyle(
+                                  fontFamily: "Montserrat Regular",
+                                  fontSize: 12,
                                 ),
-                                subtitle: Text(''),
                               ),
                             ]),
                       );
                     } else {
                       return Column(
                         children: <Widget>[
-                          Card(
-                            color: Colors.blueAccent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  ListTile(
-                                    leading: Icon(
-                                      Icons.directions_walk,
-                                      size: 50,
-                                      color: Colors.white,
-                                    ),
-                                    title: Text(
-                                      'HASIL INTERAKSI PERIODE $bulan $tahun',
-                                      style: cardTextStyle,
-                                    ),
-                                    subtitle: Text(
-                                      'Selamat bekerja, sukses selalu',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ]),
-                          ),
                           Expanded(
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,

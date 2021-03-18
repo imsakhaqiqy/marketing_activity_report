@@ -98,19 +98,29 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
                   builder: (context, data, _) {
                     print(data.dataDisbursmentSlReport.length);
                     if (data.dataDisbursmentSlReport.length == 0) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                      return Center(
                         child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.hourglass_empty, size: 50),
-                                title: Text(
-                                  'DATA TIDAK DITEMUKAN',
-                                  style: cardTextStyle,
-                                ),
-                                subtitle: Text(''),
+                              Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Icon(Icons.hourglass_empty_outlined,
+                                        size: 70),
+                                  )),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Pencairan Tidak Ditemukan!',
+                                style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ]),
                       );
@@ -188,7 +198,15 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
                                               data.dataDisbursmentSlReport[i]
                                                   .tanggalPencairan,
                                               data.dataDisbursmentSlReport[i]
-                                                  .jamPencairan)));
+                                                  .jamPencairan,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .namaTl,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .jabatanTl,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .teleponTl,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .namaSales)));
                                 },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,

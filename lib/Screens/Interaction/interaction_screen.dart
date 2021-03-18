@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kreditpensiun_apps/Screens/Interaction/interaction_add.dart';
 import 'package:kreditpensiun_apps/Screens/Interaction/interaction_view_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Interaction/not_aktif_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Interaction/planning_interaction_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/interaction_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -29,9 +31,10 @@ class _InteractionScreen extends State<InteractionScreen> {
     String hari = date.day.toString();
     var cardTextStyle = TextStyle(
         fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.white);
-    var cardTextStyle1 = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.grey);
+    var cardTextStyle1 =
+        TextStyle(fontFamily: "Montserrat Regular", fontSize: 14);
     return Scaffold(
+      backgroundColor: grey,
       appBar: AppBar(
         title: Text(
           'Hasil Interaksi',
@@ -62,49 +65,68 @@ class _InteractionScreen extends State<InteractionScreen> {
                   builder: (context, data, _) {
                     print(data.dataInteraction.length);
                     if (data.dataInteraction.length == 0) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                      return Center(
                         child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.hourglass_empty, size: 50),
-                                title: Text(
-                                  'DATA TIDAK DITEMUKAN',
-                                  style: cardTextStyle1,
+                              Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Icon(Icons.directions_walk_outlined,
+                                        size: 70),
+                                  )),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Interaksi Yuk!',
+                                style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Dapatkan keuntungan besar di setiap interaksimu.',
+                                style: TextStyle(
+                                  fontFamily: "Montserrat Regular",
+                                  fontSize: 12,
                                 ),
-                                subtitle: Text(''),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              FlatButton(
+                                color: Colors.teal,
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PlanningInteractionScreen(
+                                                  widget.username,
+                                                  widget.nik,
+                                                  widget.hakAkses)));
+                                },
+                                child: Text(
+                                  'Lihat Rencana Interaksi',
+                                  style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ]),
                       );
                     } else {
                       return Column(
                         children: <Widget>[
-                          Card(
-                            color: Colors.blueAccent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  ListTile(
-                                    leading: Icon(
-                                      Icons.directions_walk,
-                                      size: 50,
-                                      color: Colors.white,
-                                    ),
-                                    title: Text(
-                                      'HASIL INTERAKSI PERIODE $bulan $tahun',
-                                      style: cardTextStyle,
-                                    ),
-                                    subtitle: Text(
-                                      'Selamat bekerja, sukses selalu',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ]),
-                          ),
                           Expanded(
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,

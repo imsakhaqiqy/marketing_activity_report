@@ -25,37 +25,37 @@ class _NewsScreenState extends State<NewsScreen> {
             color: grey,
             padding: EdgeInsets.only(
                 left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
-            child: Column(
-              children: <Widget>[
-                Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: SvgPicture.asset(
-                    'assets/undraw_Newsletter_re_wrob.svg',
-                    fit: BoxFit.contain,
+            child: Center(
+              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Icon(Icons.new_releases_outlined, size: 70),
+                    )),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Baca Berita Yuk!',
+                  style: TextStyle(
+                      fontFamily: "Montserrat Regular",
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Dapatkan informasi terkini dari kantor pusat.',
+                  style: TextStyle(
+                    fontFamily: "Montserrat Regular",
+                    fontSize: 12,
                   ),
                 ),
-                Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0),
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          "Kamu dapat menemukan berita apapun disini",
-                          style: TextStyle(
-                              color: Colors.grey,
-                              letterSpacing: 1.2,
-                              fontSize: 16.0,
-                              height: 2.0),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
+              ]),
             )));
   }
 }

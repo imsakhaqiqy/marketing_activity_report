@@ -22,12 +22,15 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
   String takeoverBankLain;
   String angsuranPerbulan;
   String bankAmbilGaji;
+  String batasUsiaPensiun;
+  String tht;
+
   var selectedBlokirAngsuranType;
-  List<String> _blokirAngsuran = <String>['0', '1', '2', '3'];
+  List<String> _blokirAngsuran = <String>['0', '1', '2', '3', '4', '5'];
   var selectedPensiun;
   List<String> _jenisKredit = <String>['Kredit Baru', 'Renewal'];
   var selectedJenisKredit;
-  List<String> _jenisPensiun = <String>['Prapensiun', 'Pensiun'];
+  List<String> _jenisPensiun = <String>['Prapensiun'];
   var selectedJangkaWaktuType;
   List<String> _jangkaWaktu = <String>[
     '12',
@@ -60,6 +63,9 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
   final angsuranController = TextEditingController();
   final bankAmbilGajiController = TextEditingController();
+  final batasUsiaPensiunController = TextEditingController();
+  final thtController =
+      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
 
   getDataInputan() {
     //Getting value from controller.
@@ -70,6 +76,8 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
     takeoverBankLain = takeoverBankLainController.text;
     angsuranPerbulan = angsuranController.text;
     bankAmbilGaji = bankAmbilGajiController.text;
+    batasUsiaPensiun = batasUsiaPensiunController.text;
+    tht = thtController.text;
   }
 
   @override
@@ -78,7 +86,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
-          'Simulasi',
+          'Prapensiun THT',
           style: TextStyle(fontFamily: 'Montserrat Regular'),
         ),
       ),
@@ -96,12 +104,15 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
                 plafondCalonDebitur(),
                 pelunasanCalonDebitur(),
                 bankGajiCalonDebitur(),
+                batasUsiaPensiunDebitur(),
+                thtDebitur(),
                 typeSimulasiCalonDebitur(),
                 typeCreditCalonDebitur(),
                 jangkaWaktuCalonDebitur(),
                 asuransiCalonDebitur(),
                 blokirAngsuranDebitur(),
                 //angsuranCalonDebitur(),
+
                 calculationButton(),
               ],
             ),
@@ -328,6 +339,28 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
     );
   }
 
+  Widget batasUsiaPensiunDebitur() {
+    return TextFormField(
+      controller: batasUsiaPensiunController,
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Batas usia pensiun wajib diisi...';
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+          //Add th Hint text here.
+          hintText: "Batas Usia Pensiun (bulan)",
+          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          labelText: "Batas Usia Pensiun (bulan)"),
+      keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+      ],
+      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+    );
+  }
+
   Widget pelunasanCalonDebitur() {
     return TextFormField(
       controller: takeoverBankLainController,
@@ -385,6 +418,28 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
     );
   }
 
+  Widget thtDebitur() {
+    return TextFormField(
+      controller: thtController,
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'THT wajib diisi...';
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+          //Add th Hint text here.
+          hintText: "THT",
+          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          labelText: "THT"),
+      keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+      ],
+      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+    );
+  }
+
   Widget calculationButton() {
     //MEMBUAT TOMBOL SUBMIT
     return SizedBox(
@@ -431,6 +486,8 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
               String takeoverBankLainFix =
                   takeoverBankLain.substring(0, takeoverBankLain.length - 3);
               takeoverBankLainFix = takeoverBankLainFix.replaceAll(',', '');
+              String thtFix = tht.substring(0, tht.length - 3);
+              thtFix = thtFix.replaceAll(',', '');
               //print(gajiFix);
               Navigator.push(
                   context,
@@ -449,7 +506,8 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
                           selectedBlokirAngsuranType,
                           takeoverBankLainFix,
                           angsuranPerbulan,
-                          ''))).then((result) {});
+                          batasUsiaPensiun,
+                          thtFix))).then((result) {});
             }
           }
         },

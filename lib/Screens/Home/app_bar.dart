@@ -1,43 +1,77 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
+import 'package:kreditpensiun_apps/Screens/Account/LogDiamond/lod_diamond_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Home/history_income_screen.dart';
 import 'package:kreditpensiun_apps/Screens/News/news_screen.dart';
 import 'package:kreditpensiun_apps/constants.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class MarsytAppBar extends AppBar {
   int income;
   String nik;
+  int diamond;
 
-  MarsytAppBar(this.income, this.nik, BuildContext context)
+  MarsytAppBar(this.income, this.nik, this.diamond, BuildContext context)
       : super(
             elevation: 0.25,
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
-            flexibleSpace:
-                _buildMarsytAppBar(income.toString(), nik.toString(), context));
+            flexibleSpace: _buildMarsytAppBar(income.toString(), nik.toString(),
+                diamond.toString(), context));
 
   static Widget _buildMarsytAppBar(
-      String income, String nik, BuildContext context) {
+      String income, String nik, String diamond, BuildContext context) {
     var date = new DateTime.now();
     String bulan = namaBulan(date.month.toString());
     String tahun = date.year.toString();
     String hari = date.day.toString();
+    Size size = MediaQuery.of(context).size;
     return new Container(
       padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 10.0),
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           new Container(
-            padding: EdgeInsets.only(top: 20.0),
+            padding: EdgeInsets.only(top: 30.0),
             child: Image.asset(
-              "assets/logo.png",
+              "assets/imarsyt 2-03.png",
               fit: BoxFit.fill,
+              width: size.width * 0.30,
             ),
           ),
           new Container(
-            padding: EdgeInsets.only(top: 20.0),
+            padding: EdgeInsets.only(top: 30.0),
             child: new Row(
               children: <Widget>[
+                Icon(
+                  MdiIcons.diamond,
+                  color: Colors.black,
+                  size: 20.0,
+                ),
+                new Container(
+                  padding: EdgeInsets.all(6.0),
+                  decoration: new BoxDecoration(
+                      borderRadius:
+                          new BorderRadius.all(new Radius.circular(5.0)),
+                      color: Colors.black),
+                  child: Tooltip(
+                      message: 'Total Diamond',
+                      child: InkWell(
+                        child: Text(
+                          "${diamond}",
+                          style: TextStyle(fontSize: 14.0, color: Colors.white),
+                        ),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => LogDiamondScreen(nik)));
+                        },
+                      )),
+                ),
+                Icon(
+                  Icons.attach_money_outlined,
+                  color: Colors.black,
+                  size: 20.0,
+                ),
                 new Container(
                   padding: EdgeInsets.all(6.0),
                   decoration: new BoxDecoration(

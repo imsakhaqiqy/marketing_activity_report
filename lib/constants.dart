@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 //const kPrimaryColor = Color(0xFF6F35A5);
 //Color(0xFF2196F3);
-const kPrimaryColor = green200;
+const kPrimaryColor = Colors.teal;
 const kPrimaryLightColor = Color(0xFFF1E6FF);
 const Color green200 = Color(0xFF1B5E20);
-const Color green = Color.fromARGB(255, 69, 170, 74);
+const Color green = Color.fromRGBO(0, 177, 106, 1);
 const Color grey = Color.fromARGB(255, 242, 242, 242);
 const Color grey200 = Color.fromARGB(200, 242, 242, 242);
 const Color menuRide = Color(0xffe99e1e);

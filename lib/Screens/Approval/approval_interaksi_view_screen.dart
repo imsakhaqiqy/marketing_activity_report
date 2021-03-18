@@ -98,17 +98,18 @@ class _ApprovalInteractionViewScreenState
       if (message == 'Save Success') {
         setState(() {
           _loadingA = false;
+          print(_loadingA);
         });
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ApprovalInteractionScreen(
-                widget.username, widget.nik, widget.hakAkses, widget.nikSdm)));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //     builder: (context) => ApprovalInteractionScreen(
+        //         widget.username, widget.nik, widget.hakAkses, widget.nikSdm)));
       } else {
         setState(() {
           _loadingA = false;
         });
         showDialog(
           context: context,
-          child: AlertDialog(
+          builder: (BuildContext context) => AlertDialog(
             title: Text('Interaksi gagal disetujui...'),
             //content: Text('We hate to see you leave...'),
             actions: <Widget>[
@@ -146,16 +147,16 @@ class _ApprovalInteractionViewScreenState
         setState(() {
           _loadingR = false;
         });
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ApprovalInteractionScreen(
-                widget.username, widget.nik, widget.hakAkses, widget.nikSdm)));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //     builder: (context) => ApprovalInteractionScreen(
+        //         widget.username, widget.nik, widget.hakAkses, widget.nikSdm)));
       } else {
         setState(() {
           _loadingR = false;
         });
         showDialog(
           context: context,
-          child: AlertDialog(
+          builder: (BuildContext context) => AlertDialog(
             title: Text('Interaksi gagal ditolak...'),
             //content: Text('We hate to see you leave...'),
             actions: <Widget>[

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kreditpensiun_apps/Screens/Login/login_screen.dart';
-import 'package:kreditpensiun_apps/Screens/WebView/webview_container_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Mitra/mitra_screen.dart';
 import 'package:kreditpensiun_apps/Screens/WebView/webview_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Welcome/components/background.dart';
 import 'package:kreditpensiun_apps/components/rounded_button.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:toast/toast.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -16,16 +19,75 @@ class Body extends StatefulWidget {
 }
 
 class _Body extends State<Body> {
-  final _links = ['https://camellabs.com'];
+  String latitudeData = "";
+  String longitudeData = "";
+
   final String url =
       'https://www.nabasa.co.id/api_marsit_v1/index.php/getVersion';
   String versionId;
-  String versionIdApp = '1.0.11';
+  String versionIdApp = '1.0.19';
+
+  String title = "title";
+  String content = "content";
+
+  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+  Position _currentPosition;
+  String _currentAddress = '';
+  String _currentLatitude = '';
+  String _currentLongitude = '';
+  _getCurrentLocation() {
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+      });
+
+      _getAddressFromLatLng();
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  _getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await geolocator.placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+
+      Placemark place = p[0];
+
+      setState(() {
+        _currentAddress =
+            "${place.locality}, ${place.postalCode}, ${place.country}";
+        _currentLatitude = "${place.position.latitude}";
+        _currentLongitude = "${place.position.longitude}";
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void initState() {
     // TODO: implement initState
     super.initState();
     this.getAppVersion();
+    _getCurrentLocation();
+    WidgetsFlutterBinding.ensureInitialized();
+    OneSignal.shared
+        .init("3146f435-b89d-4004-9db7-8d778386075e", iOSSettings: null);
+    OneSignal.shared
+        .setInFocusDisplayType(OSNotificationDisplayType.notification);
+    OneSignal.shared
+        .setNotificationReceivedHandler((OSNotification notification) {
+      setState(() {
+        title = notification.payload.title;
+        title = notification.payload.body;
+      });
+    });
+    OneSignal.shared.setNotificationOpenedHandler(
+        (OSNotificationOpenedResult notification) {
+      print("notifikasi di tap");
+    });
   }
 
   Future<String> getAppVersion() async {
@@ -41,7 +103,7 @@ class _Body extends State<Body> {
   }
 
   Widget build(BuildContext context) {
-    print(versionId);
+    print(_currentAddress);
     Size size = MediaQuery.of(context).size;
     // This size provide us total height and width of our screen
     if (versionId == null) {
@@ -57,81 +119,68 @@ class _Body extends State<Body> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "Marsit Reporting System",
+                "iMarsyt - Marketing Report System",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Montserrat Regular',
-                    color: Colors.black),
+                    color: Colors.white),
               ),
               SizedBox(height: size.height * 0.05),
               Image.asset(
-                "assets/images/welcome.png",
+                "assets/images/MARKETING-01.png",
                 height: size.height * 0.45,
               ),
               SizedBox(height: size.height * 0.05),
               RoundedButton(
-                text: "Masuk",
-                color: green200,
+                text: "MASUK",
+                color: Colors.white,
+                textColor: kPrimaryColor,
                 press: () {
                   if (versionIdApp != versionId) {
-                    showDialog(
-                      context: context,
-                      child: AlertDialog(
-                        title: Text(
-                            'Versi aplikasi anda belum diupdate, mohon untuk melakukan update terlebih dahulu di playstore...'),
-                        actions: <Widget>[
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pop(false);
-                              SystemNavigator.pop();
-                            },
-                            child: Text('Ya'),
-                          ),
-                        ],
-                      ),
+                    Toast.show(
+                      'Versi aplikasi anda belum diupdate, mohon untuk melakukan update terlebih dahulu di playstore...',
+                      context,
+                      duration: Toast.LENGTH_SHORT,
+                      gravity: Toast.BOTTOM,
+                      backgroundColor: Colors.red,
                     );
                   } else {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return LoginScreen();
+                          return LoginScreen(_currentAddress, _currentLatitude,
+                              _currentLongitude);
                         },
                       ),
                     );
                   }
                 },
               ),
-              SizedBox(height: size.height * 0.02),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Align(
-                  alignment: Alignment.bottomRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Home()));
-                    },
-                    child: Center(
-                      child: Text(
-                        'INGIN MENJADI AGEN , DAFTAR DISINI YA',
-                        style: TextStyle(
-                            color: Colors.blueAccent,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Montserrat Regular'),
-                      ),
-                    ),
-                  ),
+              RaisedButton(
+                color: grey,
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Home()));
+                },
+                child: Text(
+                  'DAFTAR',
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 10,
+                      fontFamily: 'Montserrat Regular'),
                 ),
               ),
-              SizedBox(height: size.height * 0.02),
+              SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
                 child: Align(
                   alignment: Alignment.bottomRight,
                   child: Center(
                     child: Text(
-                      'V.' + versionId,
+                      'v ' + versionIdApp,
                       style: TextStyle(
                           color: Colors.grey, fontFamily: 'Montserrat Regular'),
                     ),
@@ -141,6 +190,7 @@ class _Body extends State<Body> {
             ],
           ),
         ),
+        color: kPrimaryColor,
       );
     }
   }

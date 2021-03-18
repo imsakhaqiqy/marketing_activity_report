@@ -85,24 +85,39 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                       if (data.dataApprovalDisbursment.length == 0) {
                         return Column(
                           children: <Widget>[
-                            Card(
-                              color: Colors.blueAccent,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
+                            Center(
                               child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.hourglass_empty,
-                                        size: 50,
-                                        color: Colors.white,
+                                    Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(50))),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: Icon(Icons.hourglass_empty,
+                                              size: 70),
+                                        )),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'Approval Pencairan Yuk!',
+                                      style: TextStyle(
+                                          fontFamily: "Montserrat Regular",
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'Pencairan marketing tidak tersedia.',
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat Regular",
+                                        fontSize: 12,
                                       ),
-                                      title: Text(
-                                        'PENCAIRAN MARKETING TIDAK DITEMUKAN',
-                                        style: cardTextStyle,
-                                      ),
-                                      subtitle: Text(''),
                                     ),
                                   ]),
                             )
@@ -111,30 +126,6 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                       } else {
                         return Column(
                           children: <Widget>[
-                            Card(
-                              color: Colors.blueAccent,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.note,
-                                        size: 50,
-                                        color: Colors.white,
-                                      ),
-                                      title: Text(
-                                        'PENCAIRAN PERIODE $bulan $tahun',
-                                        style: cardTextStyle,
-                                      ),
-                                      subtitle: Text(
-                                        'Marketing Representative',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                  ]),
-                            ),
                             Expanded(
                               child: ListView.builder(
                                   scrollDirection: Axis.vertical,
@@ -163,8 +154,14 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                       debitur = data
                                           .dataApprovalDisbursment[i].debitur;
                                     }
-                                    return Card(
-                                        elevation: 4,
+                                    return Container(
+                                        padding: EdgeInsets.only(
+                                            top: 16.0, bottom: 16.0),
+                                        decoration: BoxDecoration(
+                                            border: Border(
+                                                bottom: BorderSide(
+                                          color: Colors.grey,
+                                        ))),
                                         child: InkWell(
                                           onTap: () {
                                             Navigator.of(context).push(
@@ -250,6 +247,18 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                               .dataApprovalDisbursment[
                                                                   i]
                                                               .statusPencairan,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .namaTl,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .jabatanTl,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .teleponTl,
                                                         )));
                                           },
                                           child: ListTile(
@@ -303,7 +312,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                   Row(
                                                     children: [
                                                       Text(
-                                                        'Plafond: ${formatRupiah(data.dataApprovalDisbursment[i].plafond)}',
+                                                        'Plafond : ${formatRupiah(data.dataApprovalDisbursment[i].plafond)}',
                                                         style: TextStyle(
                                                             fontStyle: FontStyle
                                                                 .italic,
@@ -355,24 +364,39 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                       if (data.dataApprovalDisbursmentAgen.length == 0) {
                         return Column(
                           children: <Widget>[
-                            Card(
-                              color: Colors.blueAccent,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
+                            Center(
                               child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.hourglass_empty,
-                                        size: 50,
-                                        color: Colors.white,
+                                    Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(50))),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: Icon(Icons.hourglass_empty,
+                                              size: 70),
+                                        )),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'Approval Pencairan Yuk!',
+                                      style: TextStyle(
+                                          fontFamily: "Montserrat Regular",
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'Pencairan agent tidak tersedia.',
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat Regular",
+                                        fontSize: 12,
                                       ),
-                                      title: Text(
-                                        'PENCAIRAN AGENT TIDAK DITEMUKAN',
-                                        style: cardTextStyle,
-                                      ),
-                                      subtitle: Text(''),
                                     ),
                                   ]),
                             )
@@ -381,30 +405,6 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                       } else {
                         return Column(
                           children: <Widget>[
-                            Card(
-                              color: Colors.blueAccent,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    ListTile(
-                                      leading: Icon(
-                                        Icons.note,
-                                        size: 50,
-                                        color: Colors.white,
-                                      ),
-                                      title: Text(
-                                        'PENCAIRAN PERIODE $bulan $tahun',
-                                        style: cardTextStyle,
-                                      ),
-                                      subtitle: Text(
-                                        'Marketing Agent',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                  ]),
-                            ),
                             Expanded(
                               child: ListView.builder(
                                   scrollDirection: Axis.vertical,
@@ -437,8 +437,14 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                           .dataApprovalDisbursmentAgen[i]
                                           .debitur;
                                     }
-                                    return Card(
-                                        elevation: 4,
+                                    return Container(
+                                        padding: EdgeInsets.only(
+                                            top: 16.0, bottom: 16.0),
+                                        decoration: BoxDecoration(
+                                            border: Border(
+                                                bottom: BorderSide(
+                                          color: Colors.grey,
+                                        ))),
                                         child: InkWell(
                                           onTap: () {
                                             Navigator.of(context).push(
@@ -524,6 +530,18 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                               .dataApprovalDisbursmentAgen[
                                                                   i]
                                                               .statusPencairan,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .namaTl,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .jabatanTl,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .teleponTl,
                                                         )));
                                           },
                                           child: ListTile(
@@ -577,7 +595,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                   Row(
                                                     children: [
                                                       Text(
-                                                        'Plafond: ${formatRupiah(data.dataApprovalDisbursmentAgen[i].plafond)}',
+                                                        'Plafond : ${formatRupiah(data.dataApprovalDisbursmentAgen[i].plafond)}',
                                                         style: TextStyle(
                                                             fontStyle: FontStyle
                                                                 .italic,

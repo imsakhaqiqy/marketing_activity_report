@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kreditpensiun_apps/Screens/Help/help_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Login/login_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Modul/modul_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Profile/personal_data_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Profile/profile_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Profile/slip_gaji_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Version/version_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Redeem/redeem_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Utility/utility_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Voucher/voucher_screen.dart';
+import 'package:toast/toast.dart';
 
 // ignore: must_be_immutable
 class AccountScreen extends StatefulWidget {
@@ -22,14 +22,16 @@ class AccountScreen extends StatefulWidget {
   String nik;
   String tarif;
   String hakAkses;
+  int diamond;
 
   AccountScreen(this.username, this.fotoProfil, this.divisi, this.personalData,
-      this.nik, this.tarif, this.hakAkses);
+      this.nik, this.tarif, this.hakAkses, this.diamond);
 }
 
 class _SettingScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
+    print(widget.username);
     String foto = 'https://www.nabasa.co.id/marsit/' + widget.fotoProfil;
     print(foto);
     return SafeArea(
@@ -81,7 +83,7 @@ class _SettingScreenState extends State<AccountScreen> {
                                             height: 3,
                                           ),
                                           Text(
-                                            '${widget.divisi}',
+                                            '${widget.personalData[24]}',
                                             style: TextStyle(
                                                 fontFamily: 'Montserrat Medium',
                                                 fontStyle: FontStyle.italic,
@@ -121,15 +123,15 @@ class _SettingScreenState extends State<AccountScreen> {
                                           child: Row(
                                             children: <Widget>[
                                               Icon(Icons.person,
-                                                  color: Colors.black87),
+                                                  color: Colors.black54),
                                               SizedBox(width: 10),
                                               Expanded(
                                                 child: Text(
-                                                  'PROFIL',
+                                                  'Profil',
                                                   style: TextStyle(
                                                       fontFamily:
                                                           'Montserrat Regular',
-                                                      color: Colors.black87,
+                                                      color: Colors.black54,
                                                       fontSize: 16.0),
                                                 ),
                                               ),
@@ -139,7 +141,8 @@ class _SettingScreenState extends State<AccountScreen> {
                                         alignment: Alignment.centerRight,
                                         child: Icon(
                                           Icons.chevron_right,
-                                          color: Colors.black87,
+                                          color: Colors.black54,
+                                          size: 20,
                                         ),
                                       ),
                                     ],
@@ -174,16 +177,16 @@ class _SettingScreenState extends State<AccountScreen> {
                                           alignment: Alignment.centerLeft,
                                           child: Row(
                                             children: <Widget>[
-                                              Icon(Icons.event_note,
-                                                  color: Colors.black87),
+                                              Icon(Icons.notes_outlined,
+                                                  color: Colors.black54),
                                               SizedBox(width: 10),
                                               Expanded(
                                                 child: Text(
-                                                  'SLIP GAJI',
+                                                  'Slip Gaji',
                                                   style: TextStyle(
                                                       fontFamily:
                                                           'Montserrat Regular',
-                                                      color: Colors.black87,
+                                                      color: Colors.black54,
                                                       fontSize: 16.0),
                                                 ),
                                               ),
@@ -193,7 +196,8 @@ class _SettingScreenState extends State<AccountScreen> {
                                         alignment: Alignment.centerRight,
                                         child: Icon(
                                           Icons.chevron_right,
-                                          color: Colors.black87,
+                                          color: Colors.black54,
+                                          size: 20,
                                         ),
                                       ),
                                     ],
@@ -228,16 +232,16 @@ class _SettingScreenState extends State<AccountScreen> {
                                           alignment: Alignment.centerLeft,
                                           child: Row(
                                             children: <Widget>[
-                                              Icon(Icons.library_books,
-                                                  color: Colors.black87),
+                                              Icon(Icons.library_books_sharp,
+                                                  color: Colors.black54),
                                               SizedBox(width: 10),
                                               Expanded(
                                                 child: Text(
-                                                  'DOCUMENTS',
+                                                  'Dokumen',
                                                   style: TextStyle(
                                                       fontFamily:
                                                           'Montserrat Regular',
-                                                      color: Colors.black87,
+                                                      color: Colors.black54,
                                                       fontSize: 16.0),
                                                 ),
                                               ),
@@ -247,7 +251,8 @@ class _SettingScreenState extends State<AccountScreen> {
                                         alignment: Alignment.centerRight,
                                         child: Icon(
                                           Icons.chevron_right,
-                                          color: Colors.black87,
+                                          color: Colors.black54,
+                                          size: 20,
                                         ),
                                       ),
                                     ],
@@ -284,15 +289,15 @@ class _SettingScreenState extends State<AccountScreen> {
                                           child: Row(
                                             children: <Widget>[
                                               Icon(Icons.linear_scale,
-                                                  color: Colors.black87),
+                                                  color: Colors.black54),
                                               SizedBox(width: 10),
                                               Expanded(
                                                 child: Text(
-                                                  'PIPELINE',
+                                                  'Pipeline',
                                                   style: TextStyle(
                                                       fontFamily:
                                                           'Montserrat Regular',
-                                                      color: Colors.black87,
+                                                      color: Colors.black54,
                                                       fontSize: 16.0),
                                                 ),
                                               ),
@@ -302,7 +307,126 @@ class _SettingScreenState extends State<AccountScreen> {
                                         alignment: Alignment.centerRight,
                                         child: Icon(
                                           Icons.chevron_right,
-                                          color: Colors.black87,
+                                          color: Colors.black54,
+                                          size: 20,
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ),
+                      (widget.personalData[24] == 'MARKETING AGENT')
+                          ? Container(
+                              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(
+                                color: Colors.black12,
+                              ))),
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    child: FlatButton(
+                                        color: Colors.white,
+                                        padding: EdgeInsets.only(left: 0.0),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      VoucherScreen(
+                                                          widget.username,
+                                                          widget.nik,
+                                                          widget.tarif)));
+                                        },
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Icon(
+                                                        Icons
+                                                            .monetization_on_outlined,
+                                                        color: Colors.black54),
+                                                    SizedBox(width: 10),
+                                                    Expanded(
+                                                      child: Text(
+                                                        'Insentif',
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                'Montserrat Regular',
+                                                            color:
+                                                                Colors.black54,
+                                                            fontSize: 16.0),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )),
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Icon(
+                                                Icons.chevron_right,
+                                                color: Colors.black54,
+                                                size: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : SizedBox(height: 0),
+                      Container(
+                        padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              child: FlatButton(
+                                  color: Colors.white,
+                                  padding: EdgeInsets.only(left: 0.0),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                UtilityScreen()));
+                                  },
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Icon(Icons.accessible,
+                                                  color: Colors.black54),
+                                              SizedBox(width: 10),
+                                              Expanded(
+                                                child: Text(
+                                                  'Bantuan',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'Montserrat Regular',
+                                                      color: Colors.black54,
+                                                      fontSize: 16.0),
+                                                ),
+                                              ),
+                                            ],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Icon(
+                                          Icons.chevron_right,
+                                          color: Colors.black54,
+                                          size: 20,
                                         ),
                                       ),
                                     ],
@@ -325,25 +449,22 @@ class _SettingScreenState extends State<AccountScreen> {
                                   color: Colors.white,
                                   padding: EdgeInsets.only(left: 0.0),
                                   onPressed: () {
-                                    print(widget.personalData[24]);
-                                    if (widget.personalData[24] ==
-                                        'MARKETING AGEN') {
+                                    if (widget.tarif == '0.50') {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  VoucherScreen(
+                                                  RedeemScreen(
                                                       widget.username,
                                                       widget.nik,
-                                                      widget.tarif)));
+                                                      widget.diamond)));
                                     } else {
-                                      showDialog(
-                                        context: context,
-                                        child: AlertDialog(
-                                          title: Text(
-                                              'Maaf fitur ini hanya untuk marketing agent...'),
-                                          actions: <Widget>[],
-                                        ),
+                                      Toast.show(
+                                        'Maaf fitur ini belum tersedia',
+                                        context,
+                                        duration: Toast.LENGTH_SHORT,
+                                        gravity: Toast.BOTTOM,
+                                        backgroundColor: Colors.red,
                                       );
                                     }
                                   },
@@ -353,16 +474,16 @@ class _SettingScreenState extends State<AccountScreen> {
                                           alignment: Alignment.centerLeft,
                                           child: Row(
                                             children: <Widget>[
-                                              Icon(Icons.attach_money,
-                                                  color: Colors.black87),
+                                              Icon(Icons.phone_android,
+                                                  color: Colors.black54),
                                               SizedBox(width: 10),
                                               Expanded(
                                                 child: Text(
-                                                  'VOUCHER',
+                                                  'Tukar Pulsa',
                                                   style: TextStyle(
                                                       fontFamily:
                                                           'Montserrat Regular',
-                                                      color: Colors.black87,
+                                                      color: Colors.black54,
                                                       fontSize: 16.0),
                                                 ),
                                               ),
@@ -372,7 +493,8 @@ class _SettingScreenState extends State<AccountScreen> {
                                         alignment: Alignment.centerRight,
                                         child: Icon(
                                           Icons.chevron_right,
-                                          color: Colors.black87,
+                                          color: Colors.black54,
+                                          size: 20,
                                         ),
                                       ),
                                     ],
@@ -407,16 +529,16 @@ class _SettingScreenState extends State<AccountScreen> {
                                           alignment: Alignment.centerLeft,
                                           child: Row(
                                             children: <Widget>[
-                                              Icon(Icons.help,
-                                                  color: Colors.black87),
+                                              Icon(Icons.question_answer,
+                                                  color: Colors.black54),
                                               SizedBox(width: 10),
                                               Expanded(
                                                 child: Text(
-                                                  'BANTUAN',
+                                                  'Tanya Jawab',
                                                   style: TextStyle(
                                                       fontFamily:
                                                           'Montserrat Regular',
-                                                      color: Colors.black87,
+                                                      color: Colors.black54,
                                                       fontSize: 16.0),
                                                 ),
                                               ),
@@ -426,7 +548,8 @@ class _SettingScreenState extends State<AccountScreen> {
                                         alignment: Alignment.centerRight,
                                         child: Icon(
                                           Icons.chevron_right,
-                                          color: Colors.black87,
+                                          color: Colors.black54,
+                                          size: 20,
                                         ),
                                       ),
                                     ],
@@ -451,9 +574,10 @@ class _SettingScreenState extends State<AccountScreen> {
                                   onPressed: () {
                                     showDialog(
                                       context: context,
-                                      child: AlertDialog(
-                                        title: Text(
-                                            'Apakah Anda ingin keluar dari aplikasi ini ?'),
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        title:
+                                            Text('Apakah Anda ingin keluar ?'),
                                         actions: <Widget>[
                                           FlatButton(
                                             onPressed: () {
@@ -479,16 +603,16 @@ class _SettingScreenState extends State<AccountScreen> {
                                           alignment: Alignment.centerLeft,
                                           child: Row(
                                             children: <Widget>[
-                                              Icon(Icons.exit_to_app,
-                                                  color: Colors.black87),
+                                              Icon(Icons.logout,
+                                                  color: Colors.black54),
                                               SizedBox(width: 10),
                                               Expanded(
                                                 child: Text(
-                                                  'LOGOUT',
+                                                  'Keluar',
                                                   style: TextStyle(
                                                       fontFamily:
                                                           'Montserrat Regular',
-                                                      color: Colors.black87,
+                                                      color: Colors.black54,
                                                       fontSize: 16.0),
                                                 ),
                                               ),
@@ -498,7 +622,8 @@ class _SettingScreenState extends State<AccountScreen> {
                                         alignment: Alignment.centerRight,
                                         child: Icon(
                                           Icons.chevron_right,
-                                          color: Colors.black87,
+                                          color: Colors.black54,
+                                          size: 20,
                                         ),
                                       ),
                                     ],

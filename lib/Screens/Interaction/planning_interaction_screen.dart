@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:kreditpensiun_apps/Screens/Interaction/interaction_add.dart';
 import 'package:kreditpensiun_apps/Screens/Interaction/interaction_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Planning/planning_add_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Planning/planning_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/planning_interaction_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
+import 'package:toast/toast.dart';
 
 import '../../constants.dart';
 
@@ -22,6 +26,7 @@ class PlanningInteractionScreen extends StatefulWidget {
 }
 
 class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
+  bool visible = false;
   @override
   Widget build(BuildContext context) {
     var date = new DateTime.now();
@@ -33,6 +38,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
         fontSize: 14,
         color: Color.fromRGBO(63, 63, 63, 1));
     return Scaffold(
+      backgroundColor: grey,
       appBar: AppBar(
         title: Text(
           'Rencana Interaksi',
@@ -51,189 +57,259 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
               },
               child: Tooltip(
                 message: 'Daftar Interaksi Periode $bulan $tahun',
-                child: Icon(Icons.view_list),
+                child: Icon(Icons.directions_walk),
               ),
             ),
           ),
         ],
       ),
-      //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
-      //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
       body: RefreshIndicator(
-          onRefresh: () =>
-              Provider.of<PlanningInteractionProvider>(context, listen: false)
-                  .getInteraction(InteractionItem(widget.nik)),
-          color: Colors.red,
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: FutureBuilder(
-              future: Provider.of<PlanningInteractionProvider>(context,
-                      listen: false)
-                  .getInteraction(InteractionItem(widget.nik)),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(kPrimaryColor)),
-                  );
-                }
-                return Consumer<PlanningInteractionProvider>(
-                  builder: (context, data, _) {
-                    print(data.dataInteraction.length);
-                    if (data.dataInteraction.length == 0) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.hourglass_empty, size: 50),
-                                title: Text(
-                                  'RENCANA INTERAKSI TIDAK DITEMUKAN',
-                                  style: cardTextStyle,
-                                ),
-                                subtitle: Text(''),
+        onRefresh: () =>
+            Provider.of<PlanningInteractionProvider>(context, listen: false)
+                .getInteraction(InteractionItem(widget.nik)),
+        color: Colors.red,
+        child: Container(
+          margin: EdgeInsets.all(10),
+          child: FutureBuilder(
+            future:
+                Provider.of<PlanningInteractionProvider>(context, listen: false)
+                    .getInteraction(InteractionItem(widget.nik)),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor)),
+                );
+              }
+              return Consumer<PlanningInteractionProvider>(
+                builder: (context, data, _) {
+                  print(data.dataInteraction.length);
+                  if (data.dataInteraction.length == 0) {
+                    return Center(
+                      child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50))),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child:
+                                      Icon(Icons.person_add_outlined, size: 70),
+                                )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Rencanain Interaksi Kamu Yuk!',
+                              style: TextStyle(
+                                  fontFamily: "Montserrat Regular",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Dapatkan kemudahan di setiap tempat favoritmu.',
+                              style: TextStyle(
+                                fontFamily: "Montserrat Regular",
+                                fontSize: 12,
                               ),
-                            ]),
-                      );
-                    } else {
-                      return Column(
-                        children: <Widget>[
-                          Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  ListTile(
-                                    leading: Icon(Icons.date_range, size: 50),
-                                    title: Text(
-                                      'JADWAL INTERAKSI HARI INI $hari-$bulan-$tahun',
-                                      style: cardTextStyle,
-                                    ),
-                                    subtitle:
-                                        Text('Selamat bekerja, sukses selalu'),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            FlatButton(
+                              color: Colors.teal,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => PlanningScreen(
+                                            widget.username, widget.nik)));
+                              },
+                              child: Text(
+                                'Lihat Database',
+                                style: TextStyle(
+                                  fontFamily: "Montserrat Regular",
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ]),
+                    );
+                  } else {
+                    return Column(
+                      children: <Widget>[
+                        Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                ListTile(
+                                  leading: Icon(Icons.date_range, size: 50),
+                                  title: Text(
+                                    'Jadwal Interaksi Hari ini $hari-$bulan-$tahun',
+                                    style: cardTextStyle,
                                   ),
-                                ]),
-                          ),
-                          Expanded(
-                            child: ListView.builder(
-                              scrollDirection: Axis.vertical,
-                              itemCount: data.dataInteraction.length,
-                              itemBuilder: (context, i) {
-                                return Card(
-                                    elevation: 4,
-                                    child: InkWell(
-                                      onTap: () {
-                                        if (data.dataInteraction[i]
-                                                    .visitStatus ==
-                                                null ||
-                                            data.dataInteraction[i]
-                                                    .visitStatus ==
-                                                '') {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      InteractionAddScreen(
-                                                          widget.username,
-                                                          widget.nik,
-                                                          data
-                                                              .dataInteraction[
-                                                                  i]
-                                                              .nama,
-                                                          data
-                                                              .dataInteraction[
-                                                                  i]
-                                                              .alamat,
-                                                          '',
-                                                          data
-                                                              .dataInteraction[
-                                                                  i]
-                                                              .telepon,
-                                                          'Database ',
-                                                          data
-                                                              .dataInteraction[
-                                                                  i]
-                                                              .kelurahan,
-                                                          data
-                                                              .dataInteraction[
-                                                                  i]
-                                                              .kecamatan,
-                                                          data
-                                                              .dataInteraction[
-                                                                  i]
-                                                              .provinsi,
-                                                          data
-                                                              .dataInteraction[
-                                                                  i]
-                                                              .kabupaten,
-                                                          data
-                                                              .dataInteraction[
-                                                                  i]
-                                                              .nopen)));
-                                        } else {
-                                          showDialog(
-                                            context: context,
-                                            child: AlertDialog(
-                                              title: Text(
-                                                  'Maaf, nasabah sudah di interaksi...'),
-                                              actions: <Widget>[],
-                                            ),
-                                          );
-                                        }
-                                      },
-                                      child: ListTile(
-                                        title: Row(
-                                          children: [
-                                            Tooltip(
-                                              message: messageStatus(
-                                                  '${data.dataInteraction[i].visitStatus}'),
-                                              child: Icon(
-                                                iconStatus(
-                                                    '${data.dataInteraction[i].visitStatus}'),
-                                                color: colorStatus(
-                                                    '${data.dataInteraction[i].visitStatus}'),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 10.0,
-                                            ),
-                                            Text(
-                                              data.dataInteraction[i].nama,
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily:
-                                                      'Montserrat Regular'),
-                                            ),
-                                          ],
+                                  subtitle:
+                                      Text('Selamat bekerja, sukses selalu'),
+                                ),
+                              ]),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: data.dataInteraction.length,
+                            itemBuilder: (context, i) {
+                              return Card(
+                                elevation: 4,
+                                child: InkWell(
+                                  onTap: () {
+                                    if (data.dataInteraction[i].visitStatus ==
+                                            null ||
+                                        data.dataInteraction[i].visitStatus ==
+                                            '') {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  InteractionAddScreen(
+                                                      widget.username,
+                                                      widget.nik,
+                                                      data.dataInteraction[i]
+                                                          .nama,
+                                                      data.dataInteraction[i]
+                                                          .alamat,
+                                                      '',
+                                                      data.dataInteraction[i]
+                                                          .telepon,
+                                                      'Database ',
+                                                      data.dataInteraction[i]
+                                                          .kelurahan,
+                                                      data.dataInteraction[i]
+                                                          .kecamatan,
+                                                      data.dataInteraction[i]
+                                                          .provinsi,
+                                                      data.dataInteraction[i]
+                                                          .kabupaten,
+                                                      data.dataInteraction[i]
+                                                          .nopen)));
+                                    } else {
+                                      Toast.show(
+                                        'Maaf, nasabah sudah di interaksi...',
+                                        context,
+                                        duration: Toast.LENGTH_SHORT,
+                                        gravity: Toast.BOTTOM,
+                                        backgroundColor: Colors.red,
+                                      );
+                                    }
+                                  },
+                                  child: ListTile(
+                                    title: Row(
+                                      children: [
+                                        Tooltip(
+                                          message: messageStatus(
+                                              '${data.dataInteraction[i].visitStatus}'),
+                                          child: Icon(
+                                            iconStatus(
+                                                '${data.dataInteraction[i].visitStatus}'),
+                                            color: colorStatus(
+                                                '${data.dataInteraction[i].visitStatus}'),
+                                          ),
                                         ),
-                                        subtitle: Text(
-                                          'Notas: ${data.dataInteraction[i].nopen}',
+                                        SizedBox(
+                                          width: 10.0,
+                                        ),
+                                        Text(
+                                          data.dataInteraction[i].nama,
                                           style: TextStyle(
-                                              fontStyle: FontStyle.italic,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
                                               fontFamily: 'Montserrat Regular'),
                                         ),
-                                        trailing: Icon(
-                                          Icons.chevron_right,
-                                          color: Colors.blueGrey,
-                                        ),
-                                      ),
-                                    ));
-                              },
-                            ),
-                          )
-                        ],
-                      );
-                    }
-                  },
-                );
-              },
-            ),
-          )),
+                                      ],
+                                    ),
+                                    subtitle: Text(
+                                      'Notas: ${data.dataInteraction[i].nopen}',
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          fontFamily: 'Montserrat Regular'),
+                                    ),
+                                    trailing: Wrap(
+                                      spacing: 12,
+                                      children: <Widget>[
+                                        data.dataInteraction[i].visitStatus !=
+                                                'valid'
+                                            ? i != 0
+                                                ? InkWell(
+                                                    onTap: () {
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                                context) =>
+                                                            AlertDialog(
+                                                          title: Text(
+                                                              'Apakah Anda ingin menghapus rencana interaksi ini ?'),
+                                                          actions: <Widget>[
+                                                            FlatButton(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                              child:
+                                                                  Text('Tidak'),
+                                                            ),
+                                                            FlatButton(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                deleteRencanaInteraksi(
+                                                                    data
+                                                                        .dataInteraction[
+                                                                            i]
+                                                                        .id,
+                                                                    data
+                                                                        .dataInteraction[
+                                                                            i]
+                                                                        .nopen);
+                                                              },
+                                                              child: Text('Ya'),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Icon(
+                                                      Icons.delete,
+                                                      color: Colors.red,
+                                                    ),
+                                                  )
+                                                : Text('')
+                                            : Text('')
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      ],
+                    );
+                  }
+                },
+              );
+            },
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Tambah rencana interaksi hari ini',
         backgroundColor: kPrimaryColor,
@@ -335,5 +411,47 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
           fractionDigits: 3,
         ));
     return 'IDR ' + fmf.output.withoutFractionDigits;
+  }
+
+  Future deleteRencanaInteraksi(String id, String notas) async {
+    //showing CircularProgressIndicator
+    print(id);
+    setState(() {
+      visible = true;
+    });
+    //server save api
+    var url =
+        'https://www.nabasa.co.id/api_marsit_v1/index.php/deleteRencanaInteraksi';
+    var response = await http.post(url, body: {'id': id, 'notas': notas});
+
+    if (response.statusCode == 200) {
+      var message = jsonDecode(response.body)['Delete_Rencana_Interaksi'];
+      if (message.toString() == 'Delete Success') {
+        setState(() {
+          visible = false;
+        });
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => PlanningInteractionScreen(
+                widget.username, widget.nik, widget.hakAkses)));
+        Toast.show(
+          'Sukses delete rencana interaksi...',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
+        );
+      } else {
+        setState(() {
+          visible = false;
+        });
+        Toast.show(
+          'Gagal delete rencana interaksi...',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
+        );
+      }
+    }
   }
 }

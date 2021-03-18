@@ -15,7 +15,7 @@ class _NotAktiInteractionScreenState extends State<NotAktiInteractionScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Interaksi',
+          'Rencana Interaksi',
           style: fontFamily,
         ),
       ),

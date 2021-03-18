@@ -11,6 +11,7 @@ import 'package:kreditpensiun_apps/Screens/Interaction/planning_interaction_scre
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
 import 'package:kreditpensiun_apps/constants.dart';
+import 'package:toast/toast.dart';
 
 class InteractionAddScreen extends StatefulWidget {
   String username;
@@ -44,6 +45,20 @@ class InteractionAddScreen extends StatefulWidget {
 }
 
 class _InteractionAddScreen extends State<InteractionAddScreen> {
+  void initState() {
+    super.initState();
+    setState(() {
+      namaPensiunController.text = widget.namaNasabah;
+      alamatController.text = widget.alamatNasabah;
+      kelurahanController.text = widget.kelurahan;
+      kecamatanController.text = widget.kecamatan;
+      kotakabController.text = widget.kotakab;
+      propinsiController.text = widget.propinsi;
+      emailController.text = widget.emailNasabah;
+      teleponController.text = widget.teleponNasabah;
+    });
+  }
+
   String kodeOtp;
   String namaPensiun;
   String alamat;
@@ -54,6 +69,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
   String email;
   String telepon;
   String otp;
+  String rencanaPinjaman;
   var selectedSalesFeedback;
   List<String> _jenisSalesFeedbackType = <String>[
     'SUDAH PINDAH BANK / KANTOR BAYAR',
@@ -62,17 +78,8 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
     'MENUNGGU PINJAMAN LUNAS TERLEBIH DAHULU',
     'BELUM ADA PINJAMAN DI BANK LAIN',
     'MAU TAKEOVER PINJAMAN',
-    'PENSIUNAN BERMINAT UNTUK MEMINJAM'
-  ];
-  var selectedRencanaPinjaman;
-  List<String> _jenisRencanaPinjamanType = <String>[
-    '1.000.000 - 50.000.000',
-    '50.000.000 - 100.000.000',
-    '100.000.000 - 200.000.000',
-    '200.000.000 - 300.000.000',
-    '300.000.000 - 400.000.000',
-    '400.000.000 - 500.000.000',
-    '500.000.000 - 1.000.000.000'
+    'PENSIUNAN BERMINAT UNTUK MEMINJAM',
+    'MASIH MAU MENANYAKAN KELUARGA INTI',
   ];
   final formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -86,7 +93,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
   bool _loading = false;
   bool _loadingOtp = false;
   var hasil;
-  var personalData = new List(33);
+  var personalData = new List(34);
 
   final namaPensiunController = TextEditingController();
   final alamatController = TextEditingController();
@@ -97,6 +104,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
   final emailController = TextEditingController();
   final teleponController = TextEditingController();
   final otpController = TextEditingController();
+  final rencanaPinjamanController = TextEditingController();
 
   void _openCamera() async {
     var picture = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -169,24 +177,12 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
               personalData[30] = message['tunjangan_telepon'];
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
+              personalData[33] = message['diamond'];
             });
             if (message['hak_akses'] == '5') {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => LandingScreen(
-                        message['full_name'],
-                        message['nik_marsit'],
-                        message['income'],
-                        message['pict'],
-                        message['divisi'],
-                        message['greeting'],
-                        message['hak_akses'],
-                        personalData,
-                        message['tarif'],
-                      )));
-            } else {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LandingMrScreen(
-                      message['full_name'],
+                      widget.username,
                       message['nik_marsit'],
                       message['income'],
                       message['pict'],
@@ -194,7 +190,21 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                       message['greeting'],
                       message['hak_akses'],
                       personalData,
-                      message['tarif'])));
+                      message['tarif'],
+                      message['diamond'])));
+            } else {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => LandingMrScreen(
+                      widget.username,
+                      message['nik_marsit'],
+                      message['income'],
+                      message['pict'],
+                      message['divisi'],
+                      message['greeting'],
+                      message['hak_akses'],
+                      personalData,
+                      message['tarif'],
+                      message['diamond'])));
             }
           }
         } else {}
@@ -257,21 +267,12 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       setState(() {
         _loadingOtp = false;
       });
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: new Text('No Telepon wajib diisi terlebih dahulu...'),
-            actions: <Widget>[
-              FlatButton(
-                child: new Text("OK"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
+      Toast.show(
+        'No telepon wajib diisi terlebih dahulu',
+        context,
+        duration: Toast.LENGTH_SHORT,
+        gravity: Toast.BOTTOM,
+        backgroundColor: Colors.red,
       );
     } else {
       if (response.statusCode == 200) {
@@ -282,22 +283,12 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
             _loadingOtp = false;
             kodeOtp = message['kode_otp'];
           });
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: new Text(
-                    'Kode verifikasi berhasil dikirim ke nomor nasabah, mohon ditanyakan ya...'),
-                actions: <Widget>[
-                  FlatButton(
-                    child: new Text("OK"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
+          Toast.show(
+            'Kode verifikasi berhasil dikirim ke nomor nasabah, mohon ditanyakan ya',
+            context,
+            duration: Toast.LENGTH_SHORT,
+            gravity: Toast.BOTTOM,
+            backgroundColor: Colors.red,
           );
         }
       }
@@ -311,6 +302,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
     email = emailController.text;
     telepon = teleponController.text;
     otp = otpController.text;
+    rencanaPinjaman = rencanaPinjamanController.text;
 
     http.post(uploadEndPoint, body: {
       "niksales": widget.nik,
@@ -322,7 +314,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       "email": email,
       "telepon": telepon,
       "otp": otp,
-      "rencana_pinjaman": selectedRencanaPinjaman.toString(),
+      "rencana_pinjaman": rencanaPinjaman,
       "sales_feedback": selectedSalesFeedback.toString(),
       "notas": widget.notas
     }).then((result) {
@@ -342,63 +334,39 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
           emailController.clear();
           teleponController.clear();
           otpController.clear();
-          selectedRencanaPinjaman = null;
+          rencanaPinjamanController.clear();
           selectedSalesFeedback = null;
         });
         userLogin();
-        showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text('Sukses menambahkan data interaksi...'),
-            //content: Text('We hate to see you leave...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
+        Toast.show(
+          'Sukses menambahkan data interaksi',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
         );
       } else {
         setState(() {
           _loading = false;
         });
-        showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text('Gagal menambahkan data interaksi...'),
-            //content: Text('We hate to see you leave...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
+        Toast.show(
+          'Gagal menambahkan data interaksi',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
         );
       }
     }).catchError((error) {
       setState(() {
         _loading = false;
       });
-      showDialog(
-        context: context,
-        child: AlertDialog(
-          title: Text('Gagal menambahkan data interaksi...'),
-          //content: Text('We hate to see you leave...'),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        ),
+      Toast.show(
+        'Gagal menambahkan data interaksi',
+        context,
+        duration: Toast.LENGTH_SHORT,
+        gravity: Toast.BOTTOM,
+        backgroundColor: Colors.red,
       );
     });
   }
@@ -436,34 +404,15 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      namaPensiunController.text = widget.namaNasabah;
-      alamatController.text = widget.alamatNasabah;
-      kelurahanController.text = widget.kelurahan;
-      kecamatanController.text = widget.kecamatan;
-      kotakabController.text = widget.kotakab;
-      propinsiController.text = widget.propinsi;
-      emailController.text = widget.emailNasabah;
-      teleponController.text = widget.teleponNasabah;
-    });
     return WillPopScope(
         onWillPop: () async {
           _loading
-              ? showDialog(
-                  context: context,
-                  child: AlertDialog(
-                    title: Text(
-                        'Mohon menunggu, sedang proses penyimpanan interaksi...'),
-                    //content: Text('We hate to see you leave...'),
-                    actions: <Widget>[
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('OK'),
-                      ),
-                    ],
-                  ),
+              ? Toast.show(
+                  'Mohon menunggu, sedang proses penyimpanan interaksi',
+                  context,
+                  duration: Toast.LENGTH_SHORT,
+                  gravity: Toast.BOTTOM,
+                  backgroundColor: Colors.red,
                 )
               : Navigator.of(context).pop();
         },
@@ -491,12 +440,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                         ),
                   onPressed: () {
                     if (formKey.currentState.validate()) {
-                      if (selectedRencanaPinjaman == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih rencana pinjaman...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedSalesFeedback == null) {
+                      if (selectedSalesFeedback == null) {
                         _scaffoldKey.currentState.showSnackBar(SnackBar(
                           content: Text('Mohon pilih sales feedback...'),
                           duration: Duration(seconds: 3),
@@ -584,21 +528,12 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               _loading
-                  ? showDialog(
-                      context: context,
-                      child: AlertDialog(
-                        title: Text(
-                            'Mohon menunggu, sedang proses penyimpanan interaksi...'),
-                        //content: Text('We hate to see you leave...'),
-                        actions: <Widget>[
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('OK'),
-                          ),
-                        ],
-                      ),
+                  ? Toast.show(
+                      'Mohon menunggu, sedang proses penyimpanan interaksi',
+                      context,
+                      duration: Toast.LENGTH_SHORT,
+                      gravity: Toast.BOTTOM,
+                      backgroundColor: Colors.red,
                     )
                   : _showChoiceDialog(context);
             },
@@ -613,11 +548,11 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       controller: namaPensiunController,
       validator: (value) {
         if (value.isEmpty) {
-          return 'Nama pensiun wajib diisi...';
+          return 'Calon debitur wajib diisi...';
         }
         return null;
       },
-      decoration: InputDecoration(labelText: 'Nama Pensiun'),
+      decoration: InputDecoration(labelText: 'Calon debitur'),
       textCapitalization: TextCapitalization.characters,
       style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
     );
@@ -712,8 +647,8 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       validator: (value) {
         if (value.isEmpty) {
           return 'No telepon wajib diisi...';
-        } else if (value.length < 11) {
-          return 'No telepon minimal 11 angka...';
+        } else if (value.length < 10) {
+          return 'No telepon minimal 10 angka...';
         } else if (value.length > 13) {
           return 'No telepon maksimal 13 angka...';
         }
@@ -751,29 +686,25 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
   }
 
   Widget fieldRencanaPinjaman() {
-    return DropdownButtonFormField(
-        items: _jenisRencanaPinjamanType
-            .map((value) => DropdownMenuItem(
-                  child: Text(
-                    value,
-                    style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
-                  ),
-                  value: value,
-                ))
-            .toList(),
-        onChanged: (selectedRencanaPinjamanType) {
-          setState(() {
-            selectedRencanaPinjaman = selectedRencanaPinjamanType;
-          });
-        },
-        decoration: InputDecoration(
-            labelText: 'Rencana Pinjaman',
-            contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
-        value: selectedRencanaPinjaman,
-        isExpanded: true);
+    return TextFormField(
+      controller: rencanaPinjamanController,
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Rencana pinjaman wajib diisi...';
+        } else if (value.length < 8) {
+          return 'Rencana pinjaman minimal 8 angka...';
+        } else if (value.length > 9) {
+          return 'Rencana pinjaman maksimal 9 angka...';
+        }
+        return null;
+      },
+      decoration: InputDecoration(labelText: 'Rencana Pinjaman'),
+      keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+      ],
+      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+    );
   }
 
   Widget fieldSalesFeedback() {

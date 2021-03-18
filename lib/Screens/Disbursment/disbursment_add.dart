@@ -15,6 +15,8 @@ import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
 import 'package:kreditpensiun_apps/Screens/models/image_upload_model.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:kreditpensiun_apps/constants.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:toast/toast.dart';
 
 class Item {
   const Item(this.name, this.icon);
@@ -34,7 +36,7 @@ class DisbursmentAddScreen extends StatefulWidget {
 }
 
 class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
-  var personalData = new List(33);
+  var personalData = new List(34);
   String image1, image2, image3;
   String base64Image1, base64Image2, base64Image3;
   List<Object> images = List<Object>();
@@ -65,7 +67,14 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
   final formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   var selectedJenisDebitur;
-  List<String> _jenisDebiturType = <String>['Prapensiun', 'Pensiun'];
+  List<String> _jenisDebiturType = <String>[
+    'Prapensiun',
+    'Pensiun',
+    'Take over Kredit Aktif BTPN',
+    'Pegawai Aktif PNS',
+    'Pegawai Aktif BUMN',
+    'Pegawai Perguruan Tinggi'
+  ];
   var selectedJenisProduk;
   List<String> _jenisProdukType = <String>[
     'Fleksi BNI',
@@ -87,6 +96,15 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
 
   var selectedStatusKredit;
   List<String> _jenisStatusKreditType = <String>['KREDIT BARU', 'TOP UP'];
+
+  var selectedPengelolaPensiun;
+  List<String> _jenisPengelolaPensiunType = <String>[
+    'TASPEN',
+    'ASABRI',
+    'DANA PENSIUN PLN',
+    'DANA PENSIUN TELKOM',
+    'PERTAMINA'
+  ];
 
   final String url =
       'https://www.nabasa.co.id/api_marsit_v1/index.php/getCabang';
@@ -163,24 +181,12 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
               personalData[30] = message['tunjangan_telepon'];
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
+              personalData[33] = message['diamond'];
             });
             if (message['hak_akses'] == '5') {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => LandingScreen(
-                        message['full_name'],
-                        message['nik_marsit'],
-                        message['income'],
-                        message['pict'],
-                        message['divisi'],
-                        message['greeting'],
-                        message['hak_akses'],
-                        personalData,
-                        message['tarif'],
-                      )));
-            } else {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LandingMrScreen(
-                      message['full_name'],
+                      widget.username,
                       message['nik_marsit'],
                       message['income'],
                       message['pict'],
@@ -188,7 +194,21 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
                       message['greeting'],
                       message['hak_akses'],
                       personalData,
-                      message['tarif'])));
+                      message['tarif'],
+                      message['diamond'])));
+            } else {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => LandingMrScreen(
+                      widget.username,
+                      message['nik_marsit'],
+                      message['income'],
+                      message['pict'],
+                      message['divisi'],
+                      message['greeting'],
+                      message['hak_akses'],
+                      personalData,
+                      message['tarif'],
+                      message['diamond'])));
             }
           }
         } else {}
@@ -255,7 +275,8 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
       'status_kredit': selectedStatusKredit,
       'nama_petugas_bank': namaPetugasBank,
       'jabatan_petugas_bank': jabatanPetugasBank,
-      'telepon_petugas_bank': teleponPetugasBank
+      'telepon_petugas_bank': teleponPetugasBank,
+      'pengelola_pensiun': selectedPengelolaPensiun
     });
 
     if (response.statusCode == 200) {
@@ -278,61 +299,37 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
           image1 = null;
           image2 = null;
           image3 = null;
+          selectedPengelolaPensiun = null;
         });
         userLogin();
-        showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text('Sukses menambahkan data pencairan kredit...'),
-            //content: Text('We hate to see you leave...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
+        Toast.show(
+          'Sukses menambahkan data pencairan kredit...',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
         );
       } else if (message.toString() == 'Nomor Aplikasi') {
         setState(() {
           visible = false;
         });
-        showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text(
-                'Maaf, nomor aplikasi sudah terdaftar, mohon masukkan nomor aplikasi yang lain...'),
-            //content: Text('We hate to see you leave...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
+        Toast.show(
+          'Maaf, nomor aplikasi sudah terdaftar, mohon masukkan nomor aplikasi yang lain...',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
         );
       } else {
         setState(() {
           visible = false;
         });
-        showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text('Gagal menambahkan data pencairan kredit...'),
-            //content: Text('We hate to see you leave...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
+        Toast.show(
+          'Gagal menambahkan data pencairan kredit...',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
         );
       }
     }
@@ -344,7 +341,7 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
           visible
               ? showDialog(
                   context: context,
-                  child: AlertDialog(
+                  builder: (BuildContext context) => AlertDialog(
                     title: Text(
                         'Mohon menunggu, sedang proses penyimpanan pencairan kredit...'),
                     //content: Text('We hate to see you leave...'),
@@ -405,6 +402,11 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
                       } else if (selectedJenisInfo == null) {
                         _scaffoldKey.currentState.showSnackBar(SnackBar(
                           content: Text('Mohon pilih informasi sales...'),
+                          duration: Duration(seconds: 3),
+                        ));
+                      } else if (selectedPengelolaPensiun == null) {
+                        _scaffoldKey.currentState.showSnackBar(SnackBar(
+                          content: Text('Mohon pilih pengelola pensiun...'),
                           duration: Duration(seconds: 3),
                         ));
                       } else if (selectedStatusKredit == null) {
@@ -486,6 +488,7 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
                           fieldKodeProduk(),
                           fieldKantorCabang(),
                           fieldSalesInfo(),
+                          fieldPengelolaPensiun(),
                           fieldStatusKredit(),
                           SizedBox(
                             height: 20,
@@ -573,8 +576,8 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
       validator: (value) {
         if (value.isEmpty) {
           return 'No telepon wajib diisi...';
-        } else if (value.length < 11) {
-          return 'No Telepon minimal 11 angka...';
+        } else if (value.length < 10) {
+          return 'No Telepon minimal 10 angka...';
         } else if (value.length > 13) {
           return 'No Telepon maksimal 13 angka...';
         }
@@ -601,10 +604,24 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
             clipBehavior: Clip.antiAlias,
             child: Stack(
               children: <Widget>[
-                Image.file(
-                  uploadModel.imageFile,
-                  width: 300,
-                  height: 300,
+                GestureDetector(
+                  onTap: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (_) => Dialog(
+                        child: PhotoView(
+                          imageProvider: FileImage(uploadModel.imageFile),
+                          backgroundDecoration:
+                              BoxDecoration(color: Colors.transparent),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Image.file(
+                    uploadModel.imageFile,
+                    width: 300,
+                    height: 300,
+                  ),
                 ),
                 Positioned(
                   right: 5,
@@ -707,11 +724,11 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
       controller: namaPensiunController,
       validator: (value) {
         if (value.isEmpty) {
-          return 'Nama pensiun wajib diisi...';
+          return 'Nama debitur wajib diisi...';
         }
         return null;
       },
-      decoration: InputDecoration(labelText: 'Nama Pensiun'),
+      decoration: InputDecoration(labelText: 'Nama Debitur'),
       textCapitalization: TextCapitalization.characters,
       style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
     );
@@ -922,6 +939,8 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
             return 'Nominal pinjaman wajib diisi...';
           } else if (value.length < 8) {
             return 'Nominal pinjaman minimal 8 digit...';
+          } else if (value.length > 9) {
+            return 'Nominal pinjaman maksimal 9 digit';
           }
           return null;
         },
@@ -956,6 +975,32 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
             labelStyle:
                 TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
         value: selectedJenisInfo,
+        isExpanded: true);
+  }
+
+  Widget fieldPengelolaPensiun() {
+    return DropdownButtonFormField(
+        items: _jenisPengelolaPensiunType
+            .map((value) => DropdownMenuItem(
+                  child: Text(
+                    value,
+                    style: TextStyle(
+                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                  ),
+                  value: value,
+                ))
+            .toList(),
+        onChanged: (selectedJenisPengelolaPensiunType) {
+          setState(() {
+            selectedPengelolaPensiun = selectedJenisPengelolaPensiunType;
+          });
+        },
+        decoration: InputDecoration(
+            labelText: 'Pengelola Pensiun',
+            contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+            labelStyle:
+                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+        value: selectedPengelolaPensiun,
         isExpanded: true);
   }
 }

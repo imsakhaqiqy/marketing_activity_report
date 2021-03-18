@@ -8,6 +8,7 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kreditpensiun_apps/Screens/Interaction/interaction_screen.dart';
 import 'package:kreditpensiun_apps/constants.dart';
+import 'package:toast/toast.dart';
 
 class InteractionAddScreen extends StatefulWidget {
   String username;
@@ -216,59 +217,35 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
           selectedRencanaPinjaman = null;
           selectedSalesFeedback = null;
         });
-        showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text('Sukses menambahkan data interaksi...'),
-            //content: Text('We hate to see you leave...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
+        Toast.show(
+          'Sukses menambahkan data interaksi...',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
         );
       } else {
         setState(() {
           _loading = false;
         });
-        showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text('Gagal menambahkan data interaksi...'),
-            //content: Text('We hate to see you leave...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
+        Toast.show(
+          'Gagal menambahkan data interaksi...',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
         );
       }
     }).catchError((error) {
       setState(() {
         _loading = false;
       });
-      showDialog(
-        context: context,
-        child: AlertDialog(
-          title: Text('Gagal menambahkan data interaksi...'),
-          //content: Text('We hate to see you leave...'),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        ),
+      Toast.show(
+        'Gagal menambahkan data interaksi...',
+        context,
+        duration: Toast.LENGTH_SHORT,
+        gravity: Toast.BOTTOM,
+        backgroundColor: Colors.red,
       );
     });
   }
@@ -311,7 +288,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
           _loading
               ? showDialog(
                   context: context,
-                  child: AlertDialog(
+                  builder: (BuildContext context) => AlertDialog(
                     title: Text(
                         'Mohon menunggu, sedang proses penyimpanan interaksi...'),
                     //content: Text('We hate to see you leave...'),
@@ -442,7 +419,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
               _loading
                   ? showDialog(
                       context: context,
-                      child: AlertDialog(
+                      builder: (BuildContext context) => AlertDialog(
                         title: Text(
                             'Mohon menunggu, sedang proses penyimpanan interaksi...'),
                         //content: Text('We hate to see you leave...'),

@@ -18,6 +18,14 @@ class DisbursmentModel {
   String jamPencairan;
   String statusPencairan;
   String statusBayar;
+  String approvalSl;
+  String namaTl;
+  String jabatanTl;
+  String teleponTl;
+  String namaSales;
+  String statusKredit;
+  String pengelolaPensiun;
+  String idPipeline;
 
   //BUAT CONSTRUCTOR AGAR KETIKA CLASS INI DILOAD, MAKA DATA YANG DIMINTA HARUS DIPASSING SESUAI TIPE DATA YANG DITETAPKAN
   DisbursmentModel(
@@ -39,7 +47,15 @@ class DisbursmentModel {
       this.tanggalPencairan,
       this.jamPencairan,
       this.statusPencairan,
-      this.statusBayar});
+      this.statusBayar,
+      this.approvalSl,
+      this.namaTl,
+      this.jabatanTl,
+      this.teleponTl,
+      this.namaSales,
+      this.statusKredit,
+      this.pengelolaPensiun,
+      this.idPipeline});
 
   //FUNGSI INI UNTUK MENGUBAH FORMAT DATA DARI JSON KE FORMAT YANG SESUAI DENGAN EMPLOYEE MODEL
   factory DisbursmentModel.fromJson(Map<String, dynamic> json) =>
@@ -62,5 +78,13 @@ class DisbursmentModel {
           tanggalPencairan: json['tgl_pencairan'],
           jamPencairan: json['jam_pencairan'],
           statusPencairan: json['status_pencairan'],
-          statusBayar: json['status_bayar']);
+          statusBayar: json['status_bayar'],
+          approvalSl: json['approval_sl'],
+          namaTl: json['nama_tl'],
+          jabatanTl: json['jabatan_tl'],
+          teleponTl: json['telepon_tl'],
+          namaSales: json['namasales'],
+          statusKredit: json['status_kredit'],
+          pengelolaPensiun: json['pengelola_pensiun'],
+          idPipeline: json['id_pipeline']);
 }

@@ -18,6 +18,9 @@ class ApprovalDisbursmentModel {
   String jamPencairan;
   String statusPencairan;
   String namaSales;
+  String namaTl;
+  String jabatanTl;
+  String teleponTl;
 
   //BUAT CONSTRUCTOR AGAR KETIKA CLASS INI DILOAD, MAKA DATA YANG DIMINTA HARUS DIPASSING SESUAI TIPE DATA YANG DITETAPKAN
   ApprovalDisbursmentModel(
@@ -39,7 +42,10 @@ class ApprovalDisbursmentModel {
       this.tanggalPencairan,
       this.jamPencairan,
       this.statusPencairan,
-      this.namaSales});
+      this.namaSales,
+      this.namaTl,
+      this.jabatanTl,
+      this.teleponTl});
 
   //FUNGSI INI UNTUK MENGUBAH FORMAT DATA DARI JSON KE FORMAT YANG SESUAI DENGAN EMPLOYEE MODEL
   factory ApprovalDisbursmentModel.fromJson(Map<String, dynamic> json) =>
@@ -62,5 +68,8 @@ class ApprovalDisbursmentModel {
           tanggalPencairan: json['tgl_pencairan'],
           jamPencairan: json['jam_pencairan'],
           statusPencairan: json['status_pencairan'],
-          namaSales: json['nama_sales']);
+          namaSales: json['nama_sales'],
+          namaTl: json['nama_tl'],
+          jabatanTl: json['jabatan_tl'],
+          teleponTl: json['telepon_tl']);
 }

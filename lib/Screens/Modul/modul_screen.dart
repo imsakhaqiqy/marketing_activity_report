@@ -42,7 +42,7 @@ class _ModulScreenState extends State<ModulScreen> {
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
           title: Text(
-            'DOCUMENT',
+            'Dokumen',
             style: TextStyle(
               fontFamily: 'Montserrat Regular',
               color: Colors.white,
@@ -54,7 +54,7 @@ class _ModulScreenState extends State<ModulScreen> {
                 Provider.of<ModulProvider>(context, listen: false).getModul(),
             color: Colors.red,
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(0),
               child: FutureBuilder(
                 future: Provider.of<ModulProvider>(context, listen: false)
                     .getModul(),
@@ -93,21 +93,48 @@ class _ModulScreenState extends State<ModulScreen> {
                             itemBuilder: (context, i) {
                               final path = 'https://nabasa.co.id/marsit/' +
                                   data.dataModul[i].path;
-                              return Card(
-                                  elevation: 4,
+                              return Container(
+                                  padding:
+                                      EdgeInsets.only(top: 16.0, bottom: 16.0),
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                    color: Colors.grey,
+                                  ))),
                                   child: InkWell(
                                     onTap: () {
-                                      createFileOfPdfUrl(path).then((f) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                          title: Center(
+                                            child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(kPrimaryColor)),
+                                          ),
+                                          actions: <Widget>[],
+                                        ),
+                                      );
+                                      createFileOfPdfUrl(path).then((f) async {
                                         pathPDF = f.path;
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PDFScreen(pathPDF)));
+                                        if (pathPDF != '') {
+                                          Navigator.of(context).pop();
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      PDFScreen(
+                                                          pathPDF,
+                                                          data.dataModul[i]
+                                                              .title)));
+                                        }
                                       });
                                     },
                                     child: ListTile(
-                                        title: Row(
+                                        title: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Text(
                                               data.dataModul[i].title,
@@ -119,11 +146,31 @@ class _ModulScreenState extends State<ModulScreen> {
                                             ),
                                           ],
                                         ),
-                                        subtitle: Text(
-                                          'Path: ${data.dataModul[i].path}',
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.italic,
-                                              fontFamily: 'Montserrat Regular'),
+                                        subtitle: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'Jenis : ${data.dataModul[i].jenis}',
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  fontFamily:
+                                                      'Montserrat Regular'),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'Tanggal : ${data.dataModul[i].createdAt}',
+                                              style: TextStyle(
+                                                  fontStyle: FontStyle.italic,
+                                                  fontFamily:
+                                                      'Montserrat Regular'),
+                                            ),
+                                          ],
                                         ),
                                         trailing: null),
                                   ));

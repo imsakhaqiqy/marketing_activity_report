@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
+import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/disbursment_provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,7 @@ class _VoucherScreenState extends State<VoucherScreen> {
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
           title: Text(
-            'VOUCHER',
+            'INSENTIF',
             style: TextStyle(
               fontFamily: 'Montserrat Regular',
               color: Colors.white,
@@ -55,20 +56,39 @@ class _VoucherScreenState extends State<VoucherScreen> {
                   return Consumer<DisbursmentProvider>(
                     builder: (context, data, _) {
                       if (data.dataDisbursment.length == 0) {
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
+                        return Center(
                           child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                ListTile(
-                                  leading:
-                                      Icon(Icons.hourglass_empty, size: 50),
-                                  title: Text(
-                                    'DATA TIDAK DITEMUKAN',
-                                    style: cardTextStyle1,
+                                Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(50))),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child:
+                                          Icon(Icons.hourglass_empty, size: 70),
+                                    )),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Pencairan Kredit Yuk!',
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat Regular",
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Dapatkan insentif besar dari pencairanmu.',
+                                  style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    fontSize: 12,
                                   ),
-                                  subtitle: Text(''),
                                 ),
                               ]),
                         );
@@ -82,7 +102,7 @@ class _VoucherScreenState extends State<VoucherScreen> {
                               double jumlah =
                                   nominal * double.parse(widget.tarif) / 100;
                               return Card(
-                                color: Colors.tealAccent,
+                                color: Colors.yellowAccent,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8)),
                                 child: Column(
@@ -113,15 +133,8 @@ class _VoucherScreenState extends State<VoucherScreen> {
                                               fontSize: 30,
                                               color: Colors.black),
                                         ),
-                                        subtitle: Text(
-                                            'KODE : ${data.dataDisbursment[i].id}'),
-                                        trailing: Tooltip(
-                                            message: messageStatus(data
-                                                .dataDisbursment[i]
-                                                .statusBayar),
-                                            child: iconStatus(data
-                                                .dataDisbursment[i]
-                                                .statusBayar)),
+                                        subtitle: Text(messageStatus(data
+                                            .dataDisbursment[i].statusBayar)),
                                       ),
                                     ]),
                               );

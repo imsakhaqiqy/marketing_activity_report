@@ -30,9 +30,11 @@ class HomeScreen extends StatefulWidget {
   String greeting;
   String hakAkses;
   String nikSdm;
+  String statusKaryawan;
+  int diamond;
 
   HomeScreen(this.username, this.nik, this.income, this.greeting, this.hakAkses,
-      this.nikSdm);
+      this.nikSdm, this.statusKaryawan, this.diamond);
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -44,42 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget build(BuildContext context) {
-    //to get size
-    Notif() {
-      return showDialog(
-        context: context,
-        child: AlertDialog(
-          title: Text('Apakah Anda ingin keluar dari aplikasi ini ?'),
-          //content: Text('We hate to see you leave...'),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () {
-                print("you choose no");
-                Navigator.of(context).pop();
-              },
-              child: Text('No'),
-            ),
-            FlatButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Yes'),
-            ),
-          ],
-        ),
-      );
-    }
-
-    setState(() {
-      //Notif();
-    });
-
-    //style
-    var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.blueGrey);
-
     return Scaffold(
-      appBar: MarsytAppBar(widget.income, widget.nik, context),
+      appBar: MarsytAppBar(widget.income, widget.nik, widget.diamond, context),
       backgroundColor: grey,
       body: WillPopScope(
           child: Stack(
@@ -90,12 +58,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(bottom: 16.0),
                           child: Center(
                               child: Text(
                                   "${widget.greeting}, ${widget.username}",
                                   style: TextStyle(
                                       fontSize: 20,
+                                      fontFamily: 'Montserrat Regular',
+                                      color: Colors.blueGrey)))),
+                      Container(
+                          padding: EdgeInsets.only(bottom: 16.0),
+                          child: Center(
+                              child: Text(
+                                  "Selamat bekerja, tetap jaga kesehatan ya ...",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontStyle: FontStyle.italic,
                                       fontFamily: 'Montserrat Regular',
                                       color: Colors.blueGrey)))),
                       Container(
@@ -123,27 +100,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             GestureDetector(
                               child: Column(
                                 children: [
-                                  Image.asset('assets/menus/menu1.png')
+                                  Image.asset('assets/menus/menu9.jpeg')
                                 ],
                               ),
                               onTap: () {
-                                if (widget.hakAkses == '14' ||
-                                    widget.hakAkses == '5') {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PlanningInteractionScreen(
-                                                  widget.username,
-                                                  widget.nik,
-                                                  widget.hakAkses)));
-                                } else {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              NotAktiInteractionScreen()));
-                                }
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PlanningInteractionScreen(
+                                                widget.username,
+                                                widget.nik,
+                                                widget.hakAkses)));
                               },
                             ),
                             GestureDetector(
@@ -157,7 +125,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => DisbursmentScreen(
-                                            widget.username, widget.nik)));
+                                            widget.username,
+                                            widget.nik,
+                                            widget.statusKaryawan)));
                               },
                             ),
                             GestureDetector(

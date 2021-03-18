@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
+
+import 'package:flutter/material.dart';
 import 'package:kreditpensiun_apps/Screens/Welcome/welcome_screen.dart';
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
@@ -18,13 +18,24 @@ class _LauncherPageState extends State<LauncherScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Timer(
+      Duration(seconds: 5),
+      () => Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (BuildContext context) => WelcomeScreen(),
+        ),
+      ),
+    );
+    Size size = MediaQuery.of(context).size;
     return new Scaffold(
-        body: AnimatedSplashScreen(
-      splash: Image.asset('assets/logo.png'),
-      nextScreen: WelcomeScreen(),
-      splashTransition: SplashTransition.scaleTransition,
-      backgroundColor: grey200,
-      duration: 3000,
-    ));
+      body: Container(
+        child: Center(
+          child: Image.asset(
+            "assets/images/imarsyt 2-03.png",
+            width: size.height * 0.45,
+          ),
+        ),
+      ),
+    );
   }
 }

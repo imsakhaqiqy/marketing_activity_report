@@ -22,14 +22,14 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
   String takeoverBankLain;
   String angsuranPerbulan;
   String bankAmbilGaji;
-  var selectedBatasUsiaPensiunType;
-  List<String> _batasUsiaPensiun = <String>['0', '1', '2', '3', '4', '5'];
+  String batasUsiaPensiun;
+
   var selectedBlokirAngsuranType;
-  List<String> _blokirAngsuran = <String>['0', '1', '2', '3'];
+  List<String> _blokirAngsuran = <String>['0', '1', '2', '3', '4', '5'];
   var selectedPensiun;
   List<String> _jenisKredit = <String>['Kredit Baru', 'Renewal'];
   var selectedJenisKredit;
-  List<String> _jenisPensiun = <String>['Prapensiun', 'Pensiun'];
+  List<String> _jenisPensiun = <String>['Prapensiun'];
   var selectedJangkaWaktuType;
   List<String> _jangkaWaktu = <String>[
     '12',
@@ -53,15 +53,13 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
 
   //Getting value from TextField widget.
   final namaPensiunController = TextEditingController();
-  final gajiPensiunController =
-      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
+  final gajiPensiunController = TextEditingController();
   final tanggalLahirController = TextEditingController();
-  final plafondPinjamanController =
-      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
-  final takeoverBankLainController =
-      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
+  final plafondPinjamanController = TextEditingController();
+  final takeoverBankLainController = TextEditingController();
   final angsuranController = TextEditingController();
   final bankAmbilGajiController = TextEditingController();
+  final batasUsiaPensiunController = TextEditingController();
 
   getDataInputan() {
     //Getting value from controller.
@@ -72,6 +70,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
     takeoverBankLain = takeoverBankLainController.text;
     angsuranPerbulan = angsuranController.text;
     bankAmbilGaji = bankAmbilGajiController.text;
+    batasUsiaPensiun = batasUsiaPensiunController.text;
   }
 
   @override
@@ -80,7 +79,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
-          'Simulasi',
+          'Prapensiun Grace Period',
           style: TextStyle(fontFamily: 'Montserrat Regular'),
         ),
       ),
@@ -98,12 +97,12 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
                 plafondCalonDebitur(),
                 pelunasanCalonDebitur(),
                 bankGajiCalonDebitur(),
+                batasUsiaPensiunDebitur(),
                 typeSimulasiCalonDebitur(),
                 typeCreditCalonDebitur(),
                 jangkaWaktuCalonDebitur(),
                 asuransiCalonDebitur(),
                 blokirAngsuranDebitur(),
-                batasUsiaPensiunDebitur(),
                 calculationButton(),
               ],
             ),
@@ -294,7 +293,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
         });
       },
       decoration: InputDecoration(
-          labelText: 'Jangka Waktu',
+          labelText: 'Jangka Waktu (bulan)',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle:
               TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
@@ -331,29 +330,24 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
   }
 
   Widget batasUsiaPensiunDebitur() {
-    return DropdownButtonFormField(
-      items: _batasUsiaPensiun
-          .map((value) => DropdownMenuItem(
-                child: Text(
-                  value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
-                ),
-                value: value,
-              ))
-          .toList(),
-      onChanged: (selectedBatasUsiaPensiun) {
-        setState(() {
-          selectedBatasUsiaPensiunType = selectedBatasUsiaPensiun;
-        });
+    return TextFormField(
+      controller: batasUsiaPensiunController,
+      validator: (value) {
+        if (value.isEmpty) {
+          return 'Batas usia pensiun wajib diisi...';
+        }
+        return null;
       },
       decoration: InputDecoration(
-          labelText: 'Batas Usia Pensiun',
-          contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          labelStyle:
-              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
-      value: selectedBatasUsiaPensiunType,
-      isExpanded: true,
+          //Add th Hint text here.
+          hintText: "Batas Usia Pensiun (bulan)",
+          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          labelText: "Batas Usia Pensiun (bulan)"),
+      keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+      ],
+      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -452,33 +446,25 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
                 getDataInputan();
                 //print(selectedAsuransiType);
               });
-              String gajiFix = gajiPensiun.substring(0, gajiPensiun.length - 3);
-              gajiFix = gajiFix.replaceAll(',', '');
-              String plafondFix =
-                  plafondPinjaman.substring(0, plafondPinjaman.length - 3);
-              plafondFix = plafondFix.replaceAll(',', '');
-              String takeoverBankLainFix =
-                  takeoverBankLain.substring(0, takeoverBankLain.length - 3);
-              takeoverBankLainFix = takeoverBankLainFix.replaceAll(',', '');
-              //print(gajiFix);
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => SimulationResult(
                           'gp',
                           namaPensiun,
-                          gajiFix,
+                          gajiPensiun,
                           tanggalLahir,
                           selectedPensiun,
                           selectedJenisKredit,
                           bankAmbilGaji,
-                          plafondFix,
+                          plafondPinjaman,
                           selectedJangkaWaktuType,
                           selectedAsuransiType,
                           selectedBlokirAngsuranType,
-                          takeoverBankLainFix,
+                          takeoverBankLain,
                           angsuranPerbulan,
-                          selectedBatasUsiaPensiunType))).then((result) {});
+                          batasUsiaPensiun,
+                          '0'))).then((result) {});
             }
           }
         },

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Home/home_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
-import 'package:kreditpensiun_apps/Screens/Welcome/welcome_screen.dart';
 import 'package:kreditpensiun_apps/Screens/launcher/launcher_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/approval_disbursment_agen_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/approval_disbursment_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/approval_interaction_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/disbursment_akad_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/filter_report_disbursment_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/filter_report_disbursment_sl_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/filter_report_interaction_provider.dart';
@@ -18,6 +15,7 @@ import 'package:kreditpensiun_apps/Screens/provider/planning_interaction_provide
 import 'package:kreditpensiun_apps/Screens/provider/report_disbursment_sl_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/report_interaction_sl_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/report_marketing_sl_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/simulation_kp74_provider.dart';
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:kreditpensiun_apps/Screens/provider/simulation_provider.dart';
 import 'package:provider/provider.dart';
@@ -95,6 +93,12 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => ReportMarketingSlProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => SimulationKp74Provider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => DisbursmentAkadProvider(),
           ),
         ],
         child: MaterialApp(

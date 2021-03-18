@@ -19,8 +19,18 @@ class LandingScreen extends StatefulWidget {
   String hakAkses;
   List personalData;
   String tarif;
-  LandingScreen(this.username, this.nik, this.income, this.fotoProfil,
-      this.divisi, this.greeting, this.hakAkses, this.personalData, this.tarif);
+  int diamond;
+  LandingScreen(
+      this.username,
+      this.nik,
+      this.income,
+      this.fotoProfil,
+      this.divisi,
+      this.greeting,
+      this.hakAkses,
+      this.personalData,
+      this.tarif,
+      this.diamond);
 }
 
 class _LandingScreenState extends State<LandingScreen> {
@@ -30,12 +40,26 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     print(widget.income.toString());
     _container = [
-      new HomeScreen(widget.username, widget.nik, widget.income,
-          widget.greeting, widget.hakAkses, widget.personalData[0]),
+      new HomeScreen(
+          widget.username,
+          widget.nik,
+          widget.income,
+          widget.greeting,
+          widget.hakAkses,
+          widget.personalData[0],
+          widget.personalData[24],
+          widget.diamond),
       new ApprovalScreen(widget.personalData[0]),
       new AplikasiScreen(),
-      new AccountScreen(widget.username, widget.fotoProfil, widget.divisi,
-          widget.personalData, widget.nik, widget.tarif, widget.hakAkses),
+      new AccountScreen(
+          widget.username,
+          widget.fotoProfil,
+          widget.divisi,
+          widget.personalData,
+          widget.nik,
+          widget.tarif,
+          widget.hakAkses,
+          widget.diamond),
     ];
     return new Scaffold(
       body: _container.elementAt(_bottomNavCurrentIndex),
@@ -58,14 +82,14 @@ class _LandingScreenState extends State<LandingScreen> {
             activeIcon: new Icon(Icons.home, color: kPrimaryColor),
             icon: new Icon(Icons.home, color: Colors.grey),
             title: new Text(
-              'Home',
+              'Beranda',
               style: TextStyle(
                 fontFamily: 'Montserrat Regular',
               ),
             )),
         BottomNavigationBarItem(
-            activeIcon: new Icon(Icons.verified_user, color: kPrimaryColor),
-            icon: new Icon(Icons.verified_user, color: Colors.grey),
+            activeIcon: new Icon(Icons.verified_outlined, color: kPrimaryColor),
+            icon: new Icon(Icons.verified_outlined, color: Colors.grey),
             title: new Text(
               'Approval',
               style: TextStyle(
@@ -73,8 +97,8 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
             )),
         BottomNavigationBarItem(
-            activeIcon: new Icon(Icons.apps, color: kPrimaryColor),
-            icon: new Icon(Icons.apps, color: Colors.grey),
+            activeIcon: new Icon(Icons.history, color: kPrimaryColor),
+            icon: new Icon(Icons.history, color: Colors.grey),
             title: new Text(
               'Pinjaman',
               style: TextStyle(
@@ -82,10 +106,10 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
             )),
         BottomNavigationBarItem(
-            activeIcon: new Icon(Icons.settings, color: kPrimaryColor),
+            activeIcon: new Icon(Icons.account_circle, color: kPrimaryColor),
             icon: new Icon(Icons.account_circle, color: Colors.grey),
             title: new Text(
-              'Account',
+              'Akun',
               style: TextStyle(
                 fontFamily: 'Montserrat Regular',
               ),

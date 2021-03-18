@@ -55,6 +55,7 @@ class _FilterDisbursmentSlReportScreen
         fontSize: 9,
         color: Color.fromRGBO(63, 63, 63, 1));
     return Scaffold(
+      backgroundColor: grey,
       appBar: AppBar(
         title: Text(
           'Laporan Pencairan',
@@ -103,19 +104,29 @@ class _FilterDisbursmentSlReportScreen
                   builder: (context, data, _) {
                     print(data.dataDisbursmentFilterSlReport.length);
                     if (data.dataDisbursmentFilterSlReport.length == 0) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                      return Center(
                         child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.hourglass_empty, size: 50),
-                                title: Text(
-                                  'DATA TIDAK DITEMUKAN',
-                                  style: cardTextStyle,
-                                ),
-                                subtitle: Text(''),
+                              Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Icon(Icons.hourglass_empty_outlined,
+                                        size: 70),
+                                  )),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Pencairan Tidak Ditemukan!',
+                                style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ]),
                       );
@@ -194,7 +205,15 @@ class _FilterDisbursmentSlReportScreen
                                           data.dataDisbursmentFilterSlReport[i]
                                               .tanggalPencairan,
                                           data.dataDisbursmentFilterSlReport[i]
-                                              .jamPencairan)));
+                                              .jamPencairan,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .namaTl,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .jabatanTl,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .teleponTl,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .namaSales)));
                                 },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,

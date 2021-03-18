@@ -10,6 +10,7 @@ import 'package:kreditpensiun_apps/Screens/Interaction/interaction_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
 import 'package:kreditpensiun_apps/constants.dart';
+import 'package:toast/toast.dart';
 
 class PlanningAddScreen extends StatefulWidget {
   String username;
@@ -33,7 +34,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
   String teleponPensiun;
   String kantorBayarPensiun;
   String instansiPensiun;
-  var personalData = new List(33);
+  var personalData = new List(34);
 
   final namaPensiunController = TextEditingController();
   final alamatPensiunController = TextEditingController();
@@ -100,24 +101,12 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
               personalData[30] = message['tunjangan_telepon'];
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
+              personalData[33] = message['diamond'];
             });
             if (message['hak_akses'] == '5') {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => LandingScreen(
-                        message['full_name'],
-                        message['nik_marsit'],
-                        message['income'],
-                        message['pict'],
-                        message['divisi'],
-                        message['greeting'],
-                        message['hak_akses'],
-                        personalData,
-                        message['tarif'],
-                      )));
-            } else {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LandingMrScreen(
-                      message['full_name'],
+                      widget.username,
                       message['nik_marsit'],
                       message['income'],
                       message['pict'],
@@ -125,7 +114,21 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
                       message['greeting'],
                       message['hak_akses'],
                       personalData,
-                      message['tarif'])));
+                      message['tarif'],
+                      message['diamond'])));
+            } else {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => LandingMrScreen(
+                      widget.username,
+                      message['nik_marsit'],
+                      message['income'],
+                      message['pict'],
+                      message['divisi'],
+                      message['greeting'],
+                      message['hak_akses'],
+                      personalData,
+                      message['tarif'],
+                      message['diamond'])));
             }
           }
         } else {}
@@ -187,39 +190,23 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
           instansiPensiunController.clear();
         });
         userLogin();
-        showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text('Sukses menambahkan data rencana interaksi...'),
-            //content: Text('We hate to see you leave...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
+        Toast.show(
+          'Sukses menambahkan data rencana interaksi...',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
         );
       } else {
         setState(() {
           visible = false;
         });
-        showDialog(
-          context: context,
-          child: AlertDialog(
-            title: Text('Gagal menambahkan data rencana interaksi...'),
-            //content: Text('We hate to see you leave...'),
-            actions: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
-          ),
+        Toast.show(
+          'Gagal menambahkan data rencana interaksi...',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
         );
       }
     }
@@ -232,7 +219,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
-          'Tambah Rencana Harian',
+          'Rencana Interaksi OTS',
           style: TextStyle(fontFamily: 'Montserrat Regular'),
         ),
         actions: <Widget>[

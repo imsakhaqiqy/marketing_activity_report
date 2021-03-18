@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:kreditpensiun_apps/Screens/Simulation/simulation_result.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 import '../../constants.dart';
 
@@ -23,11 +22,11 @@ class _SimulationScreenState extends State<SimulationScreen> {
   String angsuranPerbulan;
   String bankAmbilGaji;
   var selectedBlokirAngsuranType;
-  List<String> _blokirAngsuran = <String>['0', '1', '2', '3'];
+  List<String> _blokirAngsuran = <String>['0', '1', '2', '3', '4', '5'];
   var selectedPensiun;
   List<String> _jenisKredit = <String>['Kredit Baru', 'Renewal'];
   var selectedJenisKredit;
-  List<String> _jenisPensiun = <String>['Prapensiun', 'Pensiun'];
+  List<String> _jenisPensiun = <String>['Pensiun'];
   var selectedJangkaWaktuType;
   List<String> _jangkaWaktu = <String>[
     '12',
@@ -51,13 +50,10 @@ class _SimulationScreenState extends State<SimulationScreen> {
 
   //Getting value from TextField widget.
   final namaPensiunController = TextEditingController();
-  final gajiPensiunController =
-      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
+  final gajiPensiunController = TextEditingController();
   final tanggalLahirController = TextEditingController();
-  final plafondPinjamanController =
-      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
-  final takeoverBankLainController =
-      MoneyMaskedTextController(decimalSeparator: '.', thousandSeparator: ',');
+  final plafondPinjamanController = TextEditingController();
+  final takeoverBankLainController = TextEditingController();
   final angsuranController = TextEditingController();
   final bankAmbilGajiController = TextEditingController();
 
@@ -78,7 +74,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
-          'Simulasi',
+          'Pensiunan Regular',
           style: TextStyle(fontFamily: 'Montserrat Regular'),
         ),
       ),
@@ -292,7 +288,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
         });
       },
       decoration: InputDecoration(
-          labelText: 'Jangka Waktu',
+          labelText: 'Jangka Waktu (bulan)',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle:
               TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
@@ -423,33 +419,25 @@ class _SimulationScreenState extends State<SimulationScreen> {
                 getDataInputan();
                 //print(selectedAsuransiType);
               });
-              String gajiFix = gajiPensiun.substring(0, gajiPensiun.length - 3);
-              gajiFix = gajiFix.replaceAll(',', '');
-              String plafondFix =
-                  plafondPinjaman.substring(0, plafondPinjaman.length - 3);
-              plafondFix = plafondFix.replaceAll(',', '');
-              String takeoverBankLainFix =
-                  takeoverBankLain.substring(0, takeoverBankLain.length - 3);
-              takeoverBankLainFix = takeoverBankLainFix.replaceAll(',', '');
-              //print(gajiFix);
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => SimulationResult(
                           'regular',
                           namaPensiun,
-                          gajiFix,
+                          gajiPensiun,
                           tanggalLahir,
                           selectedPensiun,
                           selectedJenisKredit,
                           bankAmbilGaji,
-                          plafondFix,
+                          plafondPinjaman,
                           selectedJangkaWaktuType,
                           selectedAsuransiType,
                           selectedBlokirAngsuranType,
-                          takeoverBankLainFix,
+                          takeoverBankLain,
                           angsuranPerbulan,
-                          ''))).then((result) {});
+                          '0',
+                          '0'))).then((result) {});
             }
           }
         },

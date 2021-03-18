@@ -54,10 +54,11 @@ class _HelpScreenState extends State<HelpScreen> {
     asking[11] =
         'KAMU DAPAT LOGOUT PADA MENU LOGOUT YANG BERADA PADA HALAMAN ACCOUNT';
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         title: Text(
-          'Bantuan',
+          'Tanya Jawab',
           style: TextStyle(
             fontFamily: 'Montserrat Regular',
             color: Colors.white,
@@ -65,16 +66,17 @@ class _HelpScreenState extends State<HelpScreen> {
         ),
       ),
       body: Container(
+          padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(color: Colors.white54),
-          padding:
-              EdgeInsets.only(left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
           child: ListView(
             physics: ClampingScrollPhysics(),
             children: <Widget>[
               Container(
+                color: Colors.white,
                 child: Column(
                   children: <Widget>[
                     Container(
+                      padding: EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -101,7 +103,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                           'BAGAIMANA SAYA BISA LOGIN KE APLIKASI INI ?',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
-                                              color: Colors.black,
+                                              color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
                                       ),
@@ -111,6 +113,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           )),
                     ),
                     Container(
+                      padding: EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -137,7 +140,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                           'BAGAIMANA JIKA ACCOUNT SAYA TIDAK BISA LOGIN ?',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
-                                              color: Colors.black,
+                                              color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
                                       ),
@@ -147,6 +150,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           )),
                     ),
                     Container(
+                      padding: EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -173,7 +177,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                           'BAGAIMANA SAYA MENDAPATKAN GAJI BULANAN ?',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
-                                              color: Colors.black,
+                                              color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
                                       ),
@@ -183,6 +187,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           )),
                     ),
                     Container(
+                      padding: EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -209,7 +214,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                           'BAGAIMANA SAYA MELAKUKAN INTERAKSI ?',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
-                                              color: Colors.black,
+                                              color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
                                       ),
@@ -219,6 +224,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           )),
                     ),
                     Container(
+                      padding: EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -245,7 +251,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                           'BAGAIMANA SAYA MELAKUKAN PENCAIRAN KREDIT ?',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
-                                              color: Colors.black,
+                                              color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
                                       ),
@@ -255,6 +261,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           )),
                     ),
                     Container(
+                      padding: EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -281,7 +288,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                           'BAGAIMANA SAYA MELAKUKAN SIMULASI KREDIT ?',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
-                                              color: Colors.black,
+                                              color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
                                       ),
@@ -291,6 +298,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           )),
                     ),
                     Container(
+                      padding: EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -317,7 +325,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                           'BAGAIMANA SAYA MELIHAT LAPORAN HARIAN INTERAKSI DAN PENCAIRAN ?',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
-                                              color: Colors.black,
+                                              color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
                                       ),
@@ -327,6 +335,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           )),
                     ),
                     Container(
+                      padding: EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -353,7 +362,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                           'BAGAIMANA SAYA MELIHAT INFO, BERITA TERBARU DARI KANTOR PUSAT ?',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
-                                              color: Colors.black,
+                                              color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
                                       ),
@@ -363,6 +372,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           )),
                     ),
                     Container(
+                      padding: EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -389,7 +399,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                           'BAGAIMANA SAYA MELIHAT DATA PERIBADI SAYA ?',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
-                                              color: Colors.black,
+                                              color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
                                       ),
@@ -399,6 +409,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           )),
                     ),
                     Container(
+                      padding: EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -425,7 +436,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                           'BAGAIMANA SAYA MECETAK SLIP GAJI BULANAN ?',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
-                                              color: Colors.black,
+                                              color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
                                       ),
@@ -435,6 +446,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           )),
                     ),
                     Container(
+                      padding: EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -461,7 +473,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                           'BAGAIMANA SAYA MELAKUKAN PENGAJUAN FLASH CREDIT ?',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
-                                              color: Colors.black,
+                                              color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
                                       ),
@@ -471,6 +483,7 @@ class _HelpScreenState extends State<HelpScreen> {
                           )),
                     ),
                     Container(
+                      padding: EdgeInsets.only(left: 8),
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
@@ -497,7 +510,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                           'BAGAIMANA SAYA LOGOUT DARI APLIKASI INI ?',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
-                                              color: Colors.black,
+                                              color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
                                       ),

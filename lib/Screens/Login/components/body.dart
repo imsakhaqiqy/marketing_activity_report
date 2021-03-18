@@ -14,14 +14,15 @@ import 'package:flutter_svg/svg.dart';
 import '../../../constants.dart';
 
 class Body extends StatefulWidget {
-  const Body({
-    Key key,
-  }) : super(key: key);
+  String currentLocation;
+  String currentLatitude;
+  String currentLongitude;
+  Body(this.currentLocation, this.currentLatitude, this.currentLongitude);
   _FavoriteWidgetState createState() => _FavoriteWidgetState();
 }
 
 class _FavoriteWidgetState extends State<Body> {
-  var personalData = new List(33);
+  var personalData = new List(34);
   bool visible = false;
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -40,8 +41,13 @@ class _FavoriteWidgetState extends State<Body> {
     var url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/getLogin';
 
     //starting web api call
-    var response = await http
-        .post(url, body: {'username': username, 'password': password});
+    var response = await http.post(url, body: {
+      'username': username,
+      'password': password,
+      'location': widget.currentLocation,
+      'latitude': widget.currentLatitude,
+      'longitude': widget.currentLongitude
+    });
 
     if (username == '' || password == '') {
       setState(() {
@@ -129,6 +135,7 @@ class _FavoriteWidgetState extends State<Body> {
               personalData[30] = message['tunjangan_telepon'];
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
+              personalData[33] = message['diamond'];
             });
             if (message['hak_akses'] == '5') {
               Navigator.of(context).push(MaterialPageRoute(
@@ -141,7 +148,8 @@ class _FavoriteWidgetState extends State<Body> {
                       message['greeting'],
                       message['hak_akses'],
                       personalData,
-                      message['tarif'])));
+                      message['tarif'],
+                      message['diamond'])));
             } else {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => LandingMrScreen(
@@ -153,43 +161,73 @@ class _FavoriteWidgetState extends State<Body> {
                       message['greeting'],
                       message['hak_akses'],
                       personalData,
-                      message['tarif'])));
+                      message['tarif'],
+                      message['diamond'])));
             }
+            Size size = MediaQuery.of(context).size;
             showDialog(
+              barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Center(
-                    child: Icon(
-                      Icons.warning,
-                      color: Colors.white,
-                      size: 50.0,
-                    ),
-                  ),
+                  backgroundColor: Colors.blueAccent,
                   content: Container(
-                    height: 100.0,
+                    height: size.width * 0.70,
+                    width: size.width * 0.70,
                     child: Column(children: [
-                      Center(
-                          child: Text(
-                        'Hindari fraud, sharing password dan transaksi tunai dalam melakukan penjualan dan pemasaran BNI Fleksi Pensiun...!',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Montserrat Regular'),
-                      ))
+                      Image.asset(
+                        "assets/images/MARKETING-02.png",
+                        fit: BoxFit.fill,
+                        height: size.width * 0.70,
+                        width: size.width * 0.70,
+                      )
                     ]),
                   ),
-                  backgroundColor: Colors.indigoAccent,
                   actions: <Widget>[
                     FlatButton(
                       color: Colors.white,
                       child: Text(
-                        "SETUJU",
+                        "Tutup",
                         style: TextStyle(
                             color: Colors.black,
                             fontFamily: 'Montserrat Regular'),
                       ),
                       onPressed: () {
                         Navigator.of(context).pop();
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: Colors.transparent,
+                              content: Container(
+                                height: size.width * 0.70,
+                                child: Column(children: [
+                                  Image.asset(
+                                    "assets/images/warning-03.png",
+                                    fit: BoxFit.fill,
+                                    height: size.width * 0.70,
+                                    width: size.width * 0.70,
+                                  )
+                                ]),
+                              ),
+                              actions: <Widget>[
+                                FlatButton(
+                                  color: Colors.white,
+                                  child: Text(
+                                    "Tutup",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                     ),
                   ],
@@ -267,15 +305,16 @@ class _FavoriteWidgetState extends State<Body> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "LOGIN",
+              "Selamat Datang",
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Montserrat Regular',
-                  color: Colors.black),
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Montserrat Regular',
+                color: Colors.black,
+              ),
             ),
             SizedBox(height: size.height * 0.02),
             Image.asset(
-              "assets/images/login.png",
+              "assets/images/welcome.png",
               height: size.height * 0.35,
             ),
             SizedBox(height: size.height * 0.02),
@@ -337,7 +376,7 @@ class _FavoriteWidgetState extends State<Body> {
                             builder: (context) => ForgetPasswordScreen()));
                   },
                   child: Text(
-                    'Lupa Password ?',
+                    'Lupa password ?',
                     style: TextStyle(
                         color: Colors.blue, fontFamily: 'Montserrat Regular'),
                   ),
@@ -366,7 +405,7 @@ class _FavoriteWidgetState extends State<Body> {
                           width: 20.0,
                         )
                       : Text(
-                          'Login',
+                          'Masuk',
                           style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Montserrat Regular'),

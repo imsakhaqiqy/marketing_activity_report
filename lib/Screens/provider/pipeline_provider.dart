@@ -14,7 +14,7 @@ class PipelineProvider extends ChangeNotifier {
   List<PipelineModel> get dataPipeline => _data;
 
   Future<List<PipelineModel>> getPipeline(PipelineItem pipelineItem) async {
-    final url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/getPipeline';
+    final url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/getPipeline';
     final response =
         await http.post(url, body: {'nik_sales': pipelineItem.nik});
     //final response = await http.get(url);

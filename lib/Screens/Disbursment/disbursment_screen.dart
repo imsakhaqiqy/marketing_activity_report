@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_add.dart';
+import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_akad_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_edit.dart';
+import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_edit_new.dart';
 import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_view_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/disbursment_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
+import 'package:toast/toast.dart';
 
 import '../../constants.dart';
 
@@ -16,11 +21,52 @@ class DisbursmentScreen extends StatefulWidget {
 
   String username;
   String nik;
+  String statusKaryawan;
 
-  DisbursmentScreen(this.username, this.nik);
+  DisbursmentScreen(this.username, this.nik, this.statusKaryawan);
 }
 
 class _DisbursmentScreen extends State<DisbursmentScreen> {
+  bool visible = false;
+
+  Future deleteDisbursment(String id) async {
+    //showing CircularProgressIndicator
+    setState(() {
+      visible = true;
+    });
+    //server save api
+    var url =
+        'https://www.nabasa.co.id/api_marsit_v1/tes.php/deleteDisbursment';
+    var response = await http.post(url, body: {'id_disbursment': id});
+
+    if (response.statusCode == 200) {
+      var message = jsonDecode(response.body)['Delete_Disbursment'];
+      if (message.toString() == 'Delete Success') {
+        setState(() {
+          visible = false;
+        });
+        Toast.show(
+          'Sukses delete pencairan',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
+        );
+      } else {
+        setState(() {
+          visible = false;
+        });
+        Toast.show(
+          'Gagal delete pencairan',
+          context,
+          duration: Toast.LENGTH_SHORT,
+          gravity: Toast.BOTTOM,
+          backgroundColor: Colors.red,
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var date = new DateTime.now();
@@ -29,9 +75,10 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
     String hari = date.day.toString();
     var cardTextStyle = TextStyle(
         fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.white);
-    var cardTextStyle1 = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.grey);
+    var cardTextStyle1 =
+        TextStyle(fontFamily: "Montserrat Regular", fontSize: 14);
     return Scaffold(
+      backgroundColor: grey,
       appBar: AppBar(
         title: Text(
           'Pencairan',
@@ -62,49 +109,64 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
                   builder: (context, data, _) {
                     print(data.dataDisbursment.length);
                     if (data.dataDisbursment.length == 0) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                      return Center(
                         child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.hourglass_empty, size: 50),
-                                title: Text(
-                                  'DATA TIDAK DITEMUKAN',
-                                  style: cardTextStyle1,
+                              Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child:
+                                        Icon(Icons.hourglass_empty, size: 70),
+                                  )),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Pencairan Kredit Yuk!',
+                                style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Dapatkan insentif besar dari pencairanmu.',
+                                style: TextStyle(
+                                  fontFamily: "Montserrat Regular",
+                                  fontSize: 12,
                                 ),
-                                subtitle: Text(''),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              FlatButton(
+                                color: Colors.teal,
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          DisbursmentAkadScreen(
+                                              widget.username, widget.nik)));
+                                },
+                                child: Text(
+                                  'Lihat Akad Kredit',
+                                  style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ]),
                       );
                     } else {
                       return Column(
                         children: <Widget>[
-                          Card(
-                            color: Colors.blueAccent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  ListTile(
-                                    leading: Icon(
-                                      Icons.note,
-                                      size: 50,
-                                      color: Colors.white,
-                                    ),
-                                    title: Text(
-                                      'PENCAIRAN PERIODE $bulan $tahun',
-                                      style: cardTextStyle,
-                                    ),
-                                    subtitle: Text(
-                                      'Selamat bekerja, sukses selalu',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ]),
-                          ),
                           Expanded(
                             child: ListView.builder(
                                 scrollDirection: Axis.vertical,
@@ -115,17 +177,28 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
                                       child: GestureDetector(
                                         onHorizontalDragStart:
                                             (DragStartDetails details) {
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DisbursmentEditScreen(
-                                                widget.username,
-                                                widget.nik,
-                                                data.dataDisbursment[i]
-                                                    .nomorAkad,
+                                          if ((widget.statusKaryawan !=
+                                                      'MARKETING AGEN' &&
+                                                  data.dataDisbursment[i]
+                                                          .statusPencairan !=
+                                                      'success') ||
+                                              (widget.statusKaryawan ==
+                                                      'MARKETING AGEN' &&
+                                                  data.dataDisbursment[i]
+                                                          .approvalSl !=
+                                                      '4')) {
+                                            Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DisbursmentEditScreen(
+                                                        widget.username,
+                                                        widget.nik,
+                                                        data.dataDisbursment[i]
+                                                            .nomorAkad,
+                                                        widget.statusKaryawan),
                                               ),
-                                            ),
-                                          );
+                                            );
+                                          }
                                         },
                                         onTap: () {
                                           Navigator.of(context).push(
@@ -195,44 +268,244 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
                                                           data
                                                               .dataDisbursment[
                                                                   i]
-                                                              .jamPencairan)));
+                                                              .jamPencairan,
+                                                          data
+                                                              .dataDisbursment[
+                                                                  i]
+                                                              .namaTl,
+                                                          data
+                                                              .dataDisbursment[
+                                                                  i]
+                                                              .jabatanTl,
+                                                          data
+                                                              .dataDisbursment[
+                                                                  i]
+                                                              .teleponTl,
+                                                          data
+                                                              .dataDisbursment[
+                                                                  i]
+                                                              .namaSales)));
                                         },
-                                        child: ListTile(
-                                          title: Row(
-                                            children: [
-                                              Tooltip(
-                                                message: messageStatus(
-                                                    '${data.dataDisbursment[i].statusPencairan}'),
-                                                child: Icon(
-                                                  iconStatus(
-                                                      '${data.dataDisbursment[i].statusPencairan}'),
-                                                  color: colorStatus(
-                                                      '${data.dataDisbursment[i].statusPencairan}'),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: ListTile(
+                                            title: Row(
+                                              children: [
+                                                Tooltip(
+                                                  message: messageStatus(
+                                                      '${data.dataDisbursment[i].statusPencairan}',
+                                                      widget.statusKaryawan,
+                                                      '${data.dataDisbursment[i].approvalSl}'),
+                                                  child: Icon(
+                                                    iconStatus(
+                                                        '${data.dataDisbursment[i].statusPencairan}',
+                                                        widget.statusKaryawan,
+                                                        '${data.dataDisbursment[i].approvalSl}'),
+                                                    color: colorStatus(
+                                                        '${data.dataDisbursment[i].statusPencairan}'),
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                width: 10.0,
-                                              ),
-                                              Text(
-                                                data.dataDisbursment[i].debitur,
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily:
-                                                        'Montserrat Regular'),
-                                              ),
-                                            ],
-                                          ),
-                                          subtitle: Text(
-                                            'Plafond: ${formatRupiah(data.dataDisbursment[i].plafond)}',
-                                            style: TextStyle(
-                                                fontStyle: FontStyle.italic,
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          ),
-                                          trailing: Text(
-                                            '${data.dataDisbursment[i].tanggalAkad}',
-                                            style: fontFamily,
+                                                SizedBox(
+                                                  width: 10.0,
+                                                ),
+                                                Text(
+                                                  data.dataDisbursment[i]
+                                                      .debitur,
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontFamily:
+                                                          'Montserrat Regular'),
+                                                ),
+                                              ],
+                                            ),
+                                            subtitle: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  '${formatRupiah(data.dataDisbursment[i].plafond)}',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'Montserrat Regular'),
+                                                ),
+                                                Text(
+                                                  '${data.dataDisbursment[i].tanggalAkad}',
+                                                  style: fontFamily,
+                                                ),
+                                              ],
+                                            ),
+                                            trailing: Wrap(
+                                              spacing: 12,
+                                              children: <Widget>[
+                                                InkWell(
+                                                  onTap: () {
+                                                    if ((widget.statusKaryawan !=
+                                                                'MARKETING AGEN' &&
+                                                            data
+                                                                    .dataDisbursment[
+                                                                        i]
+                                                                    .statusPencairan !=
+                                                                'success') ||
+                                                        (widget.statusKaryawan ==
+                                                                'MARKETING AGEN' &&
+                                                            data.dataDisbursment[i]
+                                                                    .approvalSl !=
+                                                                '4')) {
+                                                      Navigator.of(context)
+                                                          .push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              DisbursmentEditNewScreen(
+                                                            widget.username,
+                                                            widget.nik,
+                                                            '',
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .debitur,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .alamat,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .telepon,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .tanggalAkad,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .jenisProduk,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .tanggalAkad,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .nomorAkad,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .noJanji,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .cabang,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .plafond,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .infoSales,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .statusKredit,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .namaTl,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .jabatanTl,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .teleponTl,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .pengelolaPensiun,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .idPipeline,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .tanggalPencairan,
+                                                            data
+                                                                .dataDisbursment[
+                                                                    i]
+                                                                .foto3,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      Toast.show(
+                                                        'Pencairan sudah di approve, data tidak bisa di edit kembali',
+                                                        context,
+                                                        duration:
+                                                            Toast.LENGTH_SHORT,
+                                                        gravity: Toast.BOTTOM,
+                                                        backgroundColor:
+                                                            Colors.red,
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Icon(
+                                                    Icons.edit,
+                                                    color: Colors.orangeAccent,
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                              context) =>
+                                                          AlertDialog(
+                                                        title: Text(
+                                                            'Apakah Anda ingin menghapus pencairan debitur ' +
+                                                                data
+                                                                    .dataDisbursment[
+                                                                        i]
+                                                                    .debitur +
+                                                                ' ?'),
+                                                        actions: <Widget>[
+                                                          FlatButton(
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                            child:
+                                                                Text('Tidak'),
+                                                          ),
+                                                          FlatButton(
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                              deleteDisbursment(
+                                                                data
+                                                                    .dataDisbursment[
+                                                                        i]
+                                                                    .id,
+                                                              );
+                                                            },
+                                                            child: Text('Ya'),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: Icon(
+                                                    Icons.delete,
+                                                    color: Colors.redAccent,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ));
@@ -257,17 +530,25 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) =>
-                  DisbursmentAddScreen(widget.username, widget.nik, '')));
+                  DisbursmentAkadScreen(widget.username, widget.nik)));
         },
       ),
     );
   }
 
-  messageStatus(String status) {
+  messageStatus(String status, String statusKaryawan, String bayar) {
     if (status == 'waiting') {
       return 'Menunggu Persetujuan';
     } else if (status == 'success') {
-      return 'Disetujui Sales Leader';
+      if (statusKaryawan == 'MARKETING AGEN') {
+        if (bayar == '4') {
+          return 'Sudah dibayarkan';
+        } else {
+          return 'Disetujui Sales Leader';
+        }
+      } else {
+        return 'Disetujui Sales Leader';
+      }
     } else if (status == 'failed') {
       return 'Ditolak Sales Leader ';
     } else {
@@ -275,11 +556,19 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
     }
   }
 
-  iconStatus(String status) {
+  iconStatus(String status, String statusKaryawan, String bayar) {
     if (status == 'waiting') {
       return Icons.info;
     } else if (status == 'success') {
-      return Icons.check;
+      if (statusKaryawan == 'MARKETING AGEN') {
+        if (bayar == '4') {
+          return Icons.attach_money;
+        } else {
+          return Icons.check;
+        }
+      } else {
+        return Icons.check;
+      }
     } else if (status == 'failed') {
       return Icons.cancel;
     } else {
