@@ -27,9 +27,24 @@ class PipelineSubmitScreen extends StatefulWidget {
   String telepon;
   String nominal;
   String cabang;
+  String tanggalPenyerahan;
+  String namaPenerima;
+  String teleponPenerima;
+  String fotoTandaTerima;
 
-  PipelineSubmitScreen(this.username, this.nik, this.id, this.debitur,
-      this.noKtp, this.telepon, this.nominal, this.cabang);
+  PipelineSubmitScreen(
+      this.username,
+      this.nik,
+      this.id,
+      this.debitur,
+      this.noKtp,
+      this.telepon,
+      this.nominal,
+      this.cabang,
+      this.tanggalPenyerahan,
+      this.namaPenerima,
+      this.teleponPenerima,
+      this.fotoTandaTerima);
   @override
   _PipelineSubmitScreen createState() => _PipelineSubmitScreen();
 }
@@ -46,15 +61,37 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
     // TODO: implement initState
     images.add("Add Image");
     super.initState();
+    this.setDataPipeline();
   }
 
   String tanggalPenyerahan;
   String namaPenerima;
   String teleponPenerima;
+  String path1 = '';
+  String action = 'Simpan';
 
   final tanggalPenyerahanController = TextEditingController();
   final namaPenerimaController = TextEditingController();
   final teleponPenerimaController = TextEditingController();
+
+  Future setDataPipeline() async {
+    setState(() {
+      print(widget.tanggalPenyerahan);
+      if (widget.tanggalPenyerahan == "null") {
+      } else {
+        tanggalPenyerahan = widget.tanggalPenyerahan;
+        tanggalPenyerahanController.text = widget.tanggalPenyerahan;
+        namaPenerimaController.text = widget.namaPenerima;
+        teleponPenerimaController.text = widget.teleponPenerima;
+        path1 = 'https://www.nabasa.co.id/marsit/assets/images/submit/' +
+            widget.fotoTandaTerima;
+        images.replaceRange(0, 0 + 1, [path1]);
+        image1 = 'https://www.nabasa.co.id/marsit/assets/images/submit/' +
+            widget.fotoTandaTerima;
+        action = 'Update';
+      }
+    });
+  }
 
   Future submitPipeline() async {
     //showing CircularProgressIndicator
@@ -71,15 +108,27 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
     var url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/submitPipeline';
 
     //starting web api call
-    var response = await http.post(url, body: {
-      'id_pipeline': widget.id,
-      'tanggal_penyerahan': tanggalPenyerahan,
-      'nama_penerima': namaPenerima,
-      'telepon_penerima': teleponPenerima,
-      'file_name': 'submit',
-      'image1': base64Image1,
-      'name1': image1,
-    });
+    var response;
+    if (path1 != '') {
+      response = await http.post(url, body: {
+        'id_pipeline': widget.id,
+        'tanggal_penyerahan': tanggalPenyerahan,
+        'nama_penerima': namaPenerima,
+        'telepon_penerima': teleponPenerima,
+        'image': '1'
+      });
+    } else {
+      response = await http.post(url, body: {
+        'id_pipeline': widget.id,
+        'tanggal_penyerahan': tanggalPenyerahan,
+        'nama_penerima': namaPenerima,
+        'telepon_penerima': teleponPenerima,
+        'file_name': 'submit',
+        'image1': base64Image1,
+        'name1': image1,
+        'image': '0'
+      });
+    }
 
     if (response.statusCode == 200) {
       var message = jsonDecode(response.body)['Save_Submit'];
@@ -139,7 +188,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
           actions: [
             FlatButton(
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              color: Colors.blue,
+              color: Colors.white,
               onPressed: () {
                 if (formKey.currentState.validate()) {
                   submitPipeline();
@@ -148,16 +197,18 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
               child: visible
                   ? SizedBox(
                       child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.teal),
                       ),
                       height: 20.0,
                       width: 20.0,
                     )
                   : Text(
-                      'Simpan',
+                      '$action',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Montserrat Regular'),
+                        color: Colors.teal,
+                        fontFamily: 'Montserrat Regular',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
             ),
           ],
@@ -228,12 +279,36 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Dokumen Submit',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                    ),
-                  ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Stack(
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Dokumen Submit',
+                              style: TextStyle(
+                                  color: Colors.grey[600], fontSize: 14),
+                            ),
+                          ),
+                          widget.fotoTandaTerima != 'null'
+                              ? Align(
+                                  alignment: Alignment.centerRight,
+                                  child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          path1 = '';
+                                        });
+                                      },
+                                      child: Tooltip(
+                                        message: 'Reset Photo',
+                                        child: Icon(
+                                          Icons.remove_circle,
+                                          color: Colors.red,
+                                        ),
+                                      )))
+                              : Text('')
+                        ],
+                      )),
                   Container(
                     color: Colors.white,
                     padding: EdgeInsets.all(8),
@@ -289,7 +364,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
       DateTimeField(
           controller: tanggalPenyerahanController,
           validator: (DateTime dateTime) {
-            if (dateTime == null) {
+            if (dateTime == null && tanggalPenyerahan == null) {
               return 'Tanggal penyerahan wajib diisi...';
             }
             return null;
@@ -303,7 +378,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
                 initialDate: currentValue ?? DateTime.now(),
                 lastDate: DateTime(2100));
           },
-          style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontFamily: 'Montserrat Regular')),
     ]);
   }
 
@@ -318,7 +393,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
       },
       decoration: InputDecoration(labelText: 'Nama Penerima'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -340,7 +415,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -408,32 +483,60 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
             ),
           );
         } else {
-          String titled;
-          Color colored;
-          if (index == 0) {
-            titled = 'Foto Tanda Submit';
-            colored = Colors.red;
-          }
-          return Card(
-              shape: RoundedRectangleBorder(
-                  side: new BorderSide(color: colored, width: 2.0),
-                  borderRadius: BorderRadius.circular(4.0)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    titled,
-                    style: TextStyle(
-                        fontSize: 8.0, fontFamily: 'Montserrat Regular'),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      _onAddImageClick(index);
+          if (path1 != '') {
+            return Card(
+              clipBehavior: Clip.antiAlias,
+              child: Stack(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (_) => Dialog(
+                          child: PhotoView(
+                            imageProvider: NetworkImage(images[index]),
+                            backgroundDecoration:
+                                BoxDecoration(color: Colors.transparent),
+                          ),
+                        ),
+                      );
                     },
+                    child: Image.network(
+                      images[index],
+                      width: 300,
+                      height: 300,
+                    ),
                   ),
                 ],
-              ));
+              ),
+            );
+          } else {
+            String titled;
+            Color colored;
+            if (index == 0) {
+              titled = 'Foto Submit Dokumen ';
+              colored = Colors.teal;
+            }
+            return Card(
+                shape: RoundedRectangleBorder(
+                    side: new BorderSide(color: colored, width: 2.0),
+                    borderRadius: BorderRadius.circular(4.0)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      titled,
+                      style: TextStyle(fontFamily: 'Montserrat Regular'),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        _onAddImageClick(index);
+                      },
+                    ),
+                  ],
+                ));
+          }
         }
       }),
     );

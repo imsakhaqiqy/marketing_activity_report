@@ -71,17 +71,28 @@ class _PipelineScreen extends State<PipelineScreen> {
   }
 
   _showPopupMenu(
-    String id,
-    String namaNasabah,
-    String noKtp,
-    String telepon,
-    String plafond,
-    String cabang,
-    String tanggalPenyerahan,
-    String namaPenerima,
-    String teleponPenerima,
-    String statusPipeline,
-  ) =>
+          String id,
+          String namaNasabah,
+          String noKtp,
+          String telepon,
+          String plafond,
+          String cabang,
+          String tanggalPenyerahan,
+          String namaPenerima,
+          String teleponPenerima,
+          String statusPipeline,
+          String fotoSubmit,
+          String tanggalAkad,
+          String nomorAplikasi,
+          String nomorPerjanjian,
+          String nominalPinjaman,
+          String jenisProduk,
+          String informasiSales,
+          String namaPetugasBank,
+          String jabatanPetugasBank,
+          String teleponPetugasBank,
+          String fotoAkad1,
+          String fotoAkad2) =>
       PopupMenuButton<int>(
         padding: EdgeInsets.only(left: 2),
         itemBuilder: (context) => [
@@ -101,7 +112,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                     children: <Widget>[
                       Icon(
                         Icons.edit,
-                        color: Colors.orangeAccent,
+                        color: Colors.teal,
                         size: 20,
                       ),
                       SizedBox(
@@ -121,15 +132,18 @@ class _PipelineScreen extends State<PipelineScreen> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => PipelineSubmitScreen(
-                                widget.username,
-                                widget.nik,
-                                id,
-                                namaNasabah,
-                                noKtp,
-                                telepon,
-                                plafond,
-                                cabang,
-                              )));
+                              widget.username,
+                              widget.nik,
+                              id,
+                              namaNasabah,
+                              noKtp,
+                              telepon,
+                              plafond,
+                              cabang,
+                              tanggalPenyerahan,
+                              namaPenerima,
+                              teleponPenerima,
+                              fotoSubmit)));
                 } else {
                   Toast.show(
                     'Pipeline sudah pencairan dan tidak bisa submit dokumen kembali',
@@ -146,7 +160,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                     children: <Widget>[
                       Icon(
                         Icons.send,
-                        color: Colors.blueAccent,
+                        color: Colors.teal,
                         size: 20,
                       ),
                       SizedBox(
@@ -161,23 +175,33 @@ class _PipelineScreen extends State<PipelineScreen> {
             value: 3,
             child: InkWell(
               onTap: () {
-                if (statusPipeline == '3') {
+                if (statusPipeline == '3' || statusPipeline == '4') {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => PipelineAkadScreen(
-                                widget.username,
-                                widget.nik,
-                                id,
-                                namaNasabah,
-                                noKtp,
-                                telepon,
-                                plafond,
-                                cabang,
-                                tanggalPenyerahan,
-                                namaPenerima,
-                                teleponPenerima,
-                              )));
+                              widget.username,
+                              widget.nik,
+                              id,
+                              namaNasabah,
+                              noKtp,
+                              telepon,
+                              plafond,
+                              cabang,
+                              tanggalPenyerahan,
+                              namaPenerima,
+                              teleponPenerima,
+                              tanggalAkad,
+                              nomorAplikasi,
+                              nomorPerjanjian,
+                              nominalPinjaman,
+                              jenisProduk,
+                              informasiSales,
+                              namaPetugasBank,
+                              jabatanPetugasBank,
+                              teleponPetugasBank,
+                              fotoAkad1,
+                              fotoAkad2)));
                 } else {
                   Toast.show(
                     'Silahkan submit dokumen terlebih dahulu',
@@ -194,7 +218,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                     children: <Widget>[
                       Icon(
                         Icons.date_range,
-                        color: Colors.blueAccent,
+                        color: Colors.teal,
                         size: 20,
                       ),
                       SizedBox(
@@ -214,7 +238,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
                       title: Text(
-                          'Apakah Anda ingin menghapus pipeline debitur ' +
+                          'Apakah anda ingin menghapus pipeline debitur ' +
                               namaNasabah +
                               ' ?'),
                       actions: <Widget>[
@@ -252,7 +276,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                     children: <Widget>[
                       Icon(
                         Icons.delete,
-                        color: Colors.redAccent,
+                        color: Colors.teal,
                         size: 20,
                       ),
                       SizedBox(
@@ -454,30 +478,14 @@ class _PipelineScreen extends State<PipelineScreen> {
                                           padding: const EdgeInsets.only(
                                               top: 8.0, bottom: 8.0),
                                           child: ListTile(
-                                            title: Row(children: [
-                                              Tooltip(
-                                                message: messageStatus(
-                                                    '${data.dataPipeline[i].status}'),
-                                                child: Icon(
-                                                  iconStatus(
-                                                      '${data.dataPipeline[i].status}'),
-                                                  color: colorStatus(
-                                                      '${data.dataPipeline[i].status}'),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 10.0,
-                                              ),
-                                              Text(
-                                                data.dataPipeline[i]
-                                                    .namaNasabah,
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily:
-                                                        'Montserrat Regular'),
-                                              ),
-                                            ]),
+                                            title: Text(
+                                              data.dataPipeline[i].namaNasabah,
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily:
+                                                      'Montserrat Regular'),
+                                            ),
                                             subtitle: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -487,26 +495,12 @@ class _PipelineScreen extends State<PipelineScreen> {
                                                 ),
                                                 Row(
                                                   children: <Widget>[
-                                                    Container(
-                                                      decoration:
-                                                          new BoxDecoration(
-                                                        color: Colors.teal,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(4.0),
-                                                        child: Text(
-                                                          'Plafond',
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Montserrat Regular',
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
+                                                    Tooltip(
+                                                      message: 'Plafond',
+                                                      child: Icon(
+                                                        Icons
+                                                            .monetization_on_outlined,
+                                                        color: Colors.black54,
                                                       ),
                                                     ),
                                                     SizedBox(
@@ -515,8 +509,9 @@ class _PipelineScreen extends State<PipelineScreen> {
                                                     Text(
                                                       '${formatRupiah(data.dataPipeline[i].plafond)}',
                                                       style: TextStyle(
-                                                          fontFamily:
-                                                              'Montserrat Regular'),
+                                                        fontFamily:
+                                                            'Montserrat Regular',
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -525,27 +520,12 @@ class _PipelineScreen extends State<PipelineScreen> {
                                                 ),
                                                 Row(
                                                   children: <Widget>[
-                                                    Container(
-                                                      decoration:
-                                                          new BoxDecoration(
-                                                        color:
-                                                            Colors.pinkAccent,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(4.0),
-                                                        child: Text(
-                                                          'Tanggal',
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Montserrat Regular',
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
+                                                    Tooltip(
+                                                      message: 'Tanggal Input',
+                                                      child: Icon(
+                                                        Icons
+                                                            .date_range_outlined,
+                                                        color: Colors.black54,
                                                       ),
                                                     ),
                                                     SizedBox(
@@ -557,36 +537,85 @@ class _PipelineScreen extends State<PipelineScreen> {
                                                     ),
                                                   ],
                                                 ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Row(
+                                                  children: <Widget>[
+                                                    Tooltip(
+                                                      message:
+                                                          'Status Pipeline',
+                                                      child: Icon(
+                                                        iconStatus(
+                                                            '${data.dataPipeline[i].status}'),
+                                                        color: colorStatus(
+                                                            '${data.dataPipeline[i].status}'),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Text(
+                                                      messageStatus(
+                                                          '${data.dataPipeline[i].status}'),
+                                                      style: fontFamily,
+                                                    ),
+                                                  ],
+                                                ),
                                               ],
                                             ),
                                             trailing: Wrap(
                                               spacing: 12,
                                               children: <Widget>[
                                                 _showPopupMenu(
-                                                    data.dataPipeline[i].id
-                                                        .toString(),
-                                                    data.dataPipeline[i]
-                                                        .namaNasabah
-                                                        .toString(),
-                                                    data.dataPipeline[i].noKtp
-                                                        .toString(),
-                                                    data.dataPipeline[i].telepon
-                                                        .toString(),
-                                                    data.dataPipeline[i].plafond
-                                                        .toString(),
-                                                    data.dataPipeline[i].cabang
-                                                        .toString(),
-                                                    data.dataPipeline[i]
-                                                        .tglPenyerahan
-                                                        .toString(),
-                                                    data.dataPipeline[i]
-                                                        .namaPenerima
-                                                        .toString(),
-                                                    data.dataPipeline[i]
-                                                        .teleponPenerima
-                                                        .toString(),
-                                                    data.dataPipeline[i]
-                                                        .status),
+                                                  data.dataPipeline[i].id
+                                                      .toString(),
+                                                  data.dataPipeline[i]
+                                                      .namaNasabah
+                                                      .toString(),
+                                                  data.dataPipeline[i].noKtp
+                                                      .toString(),
+                                                  data.dataPipeline[i].telepon
+                                                      .toString(),
+                                                  data.dataPipeline[i].plafond
+                                                      .toString(),
+                                                  data.dataPipeline[i].cabang
+                                                      .toString(),
+                                                  data.dataPipeline[i]
+                                                      .tglPenyerahan
+                                                      .toString(),
+                                                  data.dataPipeline[i]
+                                                      .namaPenerima
+                                                      .toString(),
+                                                  data.dataPipeline[i]
+                                                      .teleponPenerima
+                                                      .toString(),
+                                                  data.dataPipeline[i].status,
+                                                  data.dataPipeline[i]
+                                                      .fotoTandaTerima,
+                                                  data.dataPipeline[i]
+                                                      .tanggalAkad,
+                                                  data.dataPipeline[i]
+                                                      .nomorAplikasi,
+                                                  data.dataPipeline[i]
+                                                      .nomorPerjanjian,
+                                                  data.dataPipeline[i]
+                                                      .nominalPinjaman,
+                                                  data.dataPipeline[i]
+                                                      .akadProduk,
+                                                  data.dataPipeline[i]
+                                                      .salesInfo,
+                                                  data.dataPipeline[i]
+                                                      .namaPetugasBank,
+                                                  data.dataPipeline[i]
+                                                      .jabatanPetugasBank,
+                                                  data.dataPipeline[i]
+                                                      .teleponPetugasBank,
+                                                  data.dataPipeline[i]
+                                                      .fotoAkad1,
+                                                  data.dataPipeline[i]
+                                                      .fotoAkad2,
+                                                ),
                                               ],
                                             ),
                                           ),

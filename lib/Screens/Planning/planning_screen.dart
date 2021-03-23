@@ -124,18 +124,37 @@ class _PlanningScreen extends State<PlanningScreen> {
                       valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor)),
                 );
               } else if (snapshot.data == null) {
-                return Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
+                return Center(
                   child:
                       Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                    ListTile(
-                      leading: Icon(Icons.hourglass_empty, size: 50),
-                      title: Text(
-                        'DATA TIDAK DITEMUKAN',
-                        style: cardTextStyle,
+                    Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Icon(Icons.hourglass_empty, size: 70),
+                        )),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Request Database Yuk!',
+                      style: TextStyle(
+                          fontFamily: "Montserrat Regular",
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Hubungi tim IT Support kantor pusat, Imam Tri Prabowo (089612277567).',
+                      style: TextStyle(
+                        fontFamily: "Montserrat Regular",
+                        fontSize: 12,
                       ),
-                      subtitle: Text(''),
                     ),
                   ]),
                 );
@@ -143,19 +162,39 @@ class _PlanningScreen extends State<PlanningScreen> {
                 return Consumer<PlanningProvider>(
                   builder: (context, data, _) {
                     if (data.dataPlanning.length == 0) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                      return Center(
                         child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.hourglass_empty, size: 50),
-                                title: Text(
-                                  'DATA TIDAK DITEMUKAN',
-                                  style: cardTextStyle,
+                              Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(50))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child:
+                                        Icon(Icons.hourglass_empty, size: 70),
+                                  )),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Request Database Yuk!',
+                                style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Hubungi tim IT Support kantor pusat, Imam Tri Prabowo (089612277567).',
+                                style: TextStyle(
+                                  fontFamily: "Montserrat Regular",
+                                  fontSize: 12,
                                 ),
-                                subtitle: Text(''),
                               ),
                             ]),
                       );
@@ -165,7 +204,7 @@ class _PlanningScreen extends State<PlanningScreen> {
                         itemCount: data.dataPlanning.length,
                         itemBuilder: (context, i) {
                           return Card(
-                            elevation: 2,
+                            elevation: 1,
                             child: InkWell(
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
@@ -186,64 +225,113 @@ class _PlanningScreen extends State<PlanningScreen> {
                                         data.dataPlanning[i].visitStatus,
                                         data.dataPlanning[i].nopen)));
                               },
-                              child: ListTile(
-                                title: Row(
-                                  children: [
-                                    Text(
-                                      '${setSubNama(data.dataPlanning[i].nama)}',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Montserrat Regular'),
-                                    ),
-                                  ],
-                                ),
-                                subtitle: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Text(
-                                        'Gaji Pokok : ${formatRupiah(data.dataPlanning[i].gajiPokok)}',
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ListTile(
+                                  title: Row(
+                                    children: [
+                                      Text(
+                                        '${setSubNama(data.dataPlanning[i].nama)}',
                                         style: TextStyle(
-                                            fontStyle: FontStyle.italic,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
                                             fontFamily: 'Montserrat Regular'),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Text(
-                                        'Umur : ${umur(data.dataPlanning[i].tglLahir)} TAHUN',
-                                        style: TextStyle(
-                                            fontStyle: FontStyle.italic,
-                                            fontFamily: 'Montserrat Regular'),
+                                    ],
+                                  ),
+                                  subtitle: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 5,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                trailing: Checkbox(
-                                  value: inputs[i],
-                                  onChanged: (bool value) {
-                                    ItemChange(
-                                        value,
-                                        i,
-                                        data.dataPlanning[i].nopen,
-                                        data.dataPlanning[i].nama);
-                                    if (value == true) {
-                                      setState(() {
-                                        itemSelected += 1;
-                                      });
-                                    } else {
-                                      setState(() {
-                                        itemSelected -= 1;
-                                      });
-                                    }
-                                  },
+                                      Row(
+                                        children: <Widget>[
+                                          Container(
+                                            decoration: new BoxDecoration(
+                                              color: Colors.purpleAccent,
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                'Gaji Pokok',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'Montserrat Regular',
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            '${formatRupiah(data.dataPlanning[i].gajiPokok)}',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily:
+                                                    'Montserrat Regular'),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          Container(
+                                            decoration: new BoxDecoration(
+                                              color: Colors.purpleAccent,
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                            ),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                'Umur',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'Montserrat Regular',
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            '${umur(data.dataPlanning[i].tglLahir)}',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily:
+                                                    'Montserrat Regular'),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  trailing: Checkbox(
+                                    value: inputs[i],
+                                    onChanged: (bool value) {
+                                      ItemChange(
+                                          value,
+                                          i,
+                                          data.dataPlanning[i].nopen,
+                                          data.dataPlanning[i].nama);
+                                      if (value == true) {
+                                        setState(() {
+                                          itemSelected += 1;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          itemSelected -= 1;
+                                        });
+                                      }
+                                    },
+                                  ),
                                 ),
                               ),
                             ),
@@ -386,7 +474,7 @@ class _PlanningScreen extends State<PlanningScreen> {
   }
 
   formatRupiah(String a) {
-    if (a.substring(0, 1) == '0') {
+    if (a.substring(0, 1) != '0') {
       FlutterMoneyFormatter fmf = new FlutterMoneyFormatter(
           amount: double.parse(a),
           settings: MoneyFormatterSettings(

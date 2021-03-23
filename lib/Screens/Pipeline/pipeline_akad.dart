@@ -29,19 +29,42 @@ class PipelineAkadScreen extends StatefulWidget {
   String tanggalPenyerahan;
   String namaPenerima;
   String teleponPenerima;
+  String tanggalAkad;
+  String nomorAplikasi;
+  String nomorPerjanjian;
+  String nominalPinjaman;
+  String jenisProduk;
+  String informasiSales;
+  String namaPetugasBank;
+  String jabatanPetugasBank;
+  String teleponPetugasBank;
+  String fotoAkad1;
+  String fotoAkad2;
 
   PipelineAkadScreen(
-      this.username,
-      this.nik,
-      this.id,
-      this.debitur,
-      this.noKtp,
-      this.telepon,
-      this.nominal,
-      this.cabang,
-      this.tanggalPenyerahan,
-      this.namaPenerima,
-      this.teleponPenerima);
+    this.username,
+    this.nik,
+    this.id,
+    this.debitur,
+    this.noKtp,
+    this.telepon,
+    this.nominal,
+    this.cabang,
+    this.tanggalPenyerahan,
+    this.namaPenerima,
+    this.teleponPenerima,
+    this.tanggalAkad,
+    this.nomorAplikasi,
+    this.nomorPerjanjian,
+    this.nominalPinjaman,
+    this.jenisProduk,
+    this.informasiSales,
+    this.namaPetugasBank,
+    this.jabatanPetugasBank,
+    this.teleponPetugasBank,
+    this.fotoAkad1,
+    this.fotoAkad2,
+  );
   @override
   _PipelineAkadScreen createState() => _PipelineAkadScreen();
 }
@@ -76,6 +99,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
     images.add("Add Image");
     images.add("Add Image");
     super.initState();
+    this.setDataPipeline();
   }
 
   String tanggalAkad;
@@ -85,6 +109,9 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
   String namaPetugasBank;
   String jabatanPetugasBank;
   String teleponPetugasBank;
+  String path1 = '';
+  String path2 = '';
+  String action = 'Simpan';
 
   final tanggalPerjanjianController = TextEditingController();
   final nomorAplikasiController = TextEditingController();
@@ -94,6 +121,46 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
   final namaPetugasBankController = TextEditingController();
   final jabatanPetugasBankController = TextEditingController();
   final teleponPetugasBankController = TextEditingController();
+
+  Future setDataPipeline() async {
+    setState(() {
+      print(widget.tanggalPenyerahan);
+      if (widget.tanggalPenyerahan == "null") {
+      } else {
+        tanggalAkad = widget.tanggalAkad;
+        tanggalPerjanjianController.text = widget.tanggalAkad;
+        nomorAplikasiController.text = widget.nomorAplikasi;
+        nomorPerjanjianController.text = widget.nomorPerjanjian;
+        plafondController.text = widget.nominalPinjaman;
+        if (widget.jenisProduk == 'Flexi') {
+          selectedJenisProduk = 'Fleksi BNI';
+        } else if (widget.jenisProduk == 'KP74') {
+          selectedJenisProduk = 'KP74 BTPN';
+        } else {
+          selectedJenisProduk = 'KP74 BJB';
+        }
+        selectedJenisInfo = widget.informasiSales;
+        namaPetugasBankController.text = widget.namaPetugasBank;
+        jabatanPetugasBankController.text = widget.jabatanPetugasBank;
+        teleponPetugasBankController.text = widget.teleponPetugasBank;
+        path1 =
+            'https://www.nabasa.co.id/marsit/assets/images/pencairan_sales/' +
+                widget.fotoAkad1;
+        path2 =
+            'https://www.nabasa.co.id/marsit/assets/images/pencairan_sales/' +
+                widget.fotoAkad2;
+        images.replaceRange(0, 0 + 1, [path1]);
+        image1 =
+            'https://www.nabasa.co.id/marsit/assets/images/pencairan_sales/' +
+                widget.fotoAkad1;
+        images.replaceRange(1, 1 + 1, [path2]);
+        image2 =
+            'https://www.nabasa.co.id/marsit/assets/images/pencairan_sales/' +
+                widget.fotoAkad2;
+        action = 'Update';
+      }
+    });
+  }
 
   Future submitPipeline() async {
     //showing CircularProgressIndicator
@@ -114,25 +181,45 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
     var url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/akadPipeline';
 
     //starting web api call
-    var response = await http.post(url, body: {
-      'niksales': widget.nik,
-      'telepon': widget.telepon,
-      'id_pipeline': widget.id,
-      'tanggal_akad': tanggalAkad,
-      'nomor_aplikasi': nomorAplikasi,
-      'nomor_perjanjian': nomorPerjanjian,
-      'nominal_pinjaman': plafond,
-      'jenis_produk': selectedJenisProduk,
-      'sales_info': selectedJenisInfo,
-      'nama_petugas_bank': namaPetugasBank,
-      'jabatan_petugas_bank': jabatanPetugasBank,
-      'telepon_petugas_bank': teleponPetugasBank,
-      'file_name': 'akad',
-      'image1': base64Image1,
-      'name1': image1,
-      'image2': base64Image2,
-      'name2': image2,
-    });
+    var response;
+    if (path1 != '' && path2 != '') {
+      response = await http.post(url, body: {
+        'niksales': widget.nik,
+        'telepon': widget.telepon,
+        'id_pipeline': widget.id,
+        'tanggal_akad': tanggalAkad,
+        'nomor_aplikasi': nomorAplikasi,
+        'nomor_perjanjian': nomorPerjanjian,
+        'nominal_pinjaman': plafond,
+        'jenis_produk': selectedJenisProduk,
+        'sales_info': selectedJenisInfo,
+        'nama_petugas_bank': namaPetugasBank,
+        'jabatan_petugas_bank': jabatanPetugasBank,
+        'telepon_petugas_bank': teleponPetugasBank,
+        'image': '1'
+      });
+    } else {
+      response = await http.post(url, body: {
+        'niksales': widget.nik,
+        'telepon': widget.telepon,
+        'id_pipeline': widget.id,
+        'tanggal_akad': tanggalAkad,
+        'nomor_aplikasi': nomorAplikasi,
+        'nomor_perjanjian': nomorPerjanjian,
+        'nominal_pinjaman': plafond,
+        'jenis_produk': selectedJenisProduk,
+        'sales_info': selectedJenisInfo,
+        'nama_petugas_bank': namaPetugasBank,
+        'jabatan_petugas_bank': jabatanPetugasBank,
+        'telepon_petugas_bank': teleponPetugasBank,
+        'file_name': 'akad',
+        'image1': base64Image1,
+        'name1': image1,
+        'image2': base64Image2,
+        'name2': image2,
+        'image': '0'
+      });
+    }
 
     if (response.statusCode == 200) {
       var message = jsonDecode(response.body)['Save_Akad'];
@@ -191,7 +278,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
           actions: [
             FlatButton(
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              color: Colors.blue,
+              color: Colors.white,
               onPressed: () {
                 if (formKey.currentState.validate()) {
                   submitPipeline();
@@ -200,16 +287,17 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
               child: visible
                   ? SizedBox(
                       child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.teal),
                       ),
                       height: 20.0,
                       width: 20.0,
                     )
                   : Text(
-                      'Simpan',
+                      '$action',
                       style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Montserrat Regular'),
+                          color: Colors.teal,
+                          fontFamily: 'Montserrat Regular',
+                          fontWeight: FontWeight.bold),
                     ),
             ),
           ],
@@ -335,12 +423,37 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Dokumen Akad',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                    ),
-                  ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Stack(
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Dokumen Akad',
+                              style: TextStyle(
+                                  color: Colors.grey[600], fontSize: 14),
+                            ),
+                          ),
+                          widget.fotoAkad1 != 'null' &&
+                                  widget.fotoAkad2 != 'null'
+                              ? Align(
+                                  alignment: Alignment.centerRight,
+                                  child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          path1 = '';
+                                        });
+                                      },
+                                      child: Tooltip(
+                                        message: 'Reset Photo',
+                                        child: Icon(
+                                          Icons.remove_circle,
+                                          color: Colors.red,
+                                        ),
+                                      )))
+                              : Text('')
+                        ],
+                      )),
                   Container(
                     color: Colors.white,
                     padding: EdgeInsets.all(8),
@@ -396,7 +509,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
       DateTimeField(
           controller: tanggalPerjanjianController,
           validator: (DateTime dateTime) {
-            if (dateTime == null) {
+            if (dateTime == null && tanggalAkad == null) {
               return 'Tanggal akad wajib diisi...';
             }
             return null;
@@ -410,7 +523,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                 initialDate: currentValue ?? DateTime.now(),
                 lastDate: DateTime(2100));
           },
-          style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontFamily: 'Montserrat Regular')),
     ]);
   }
 
@@ -428,7 +541,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
         inputFormatters: <TextInputFormatter>[
           WhitelistingTextInputFormatter.digitsOnly
         ],
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'));
+        style: TextStyle(fontFamily: 'Montserrat Regular'));
   }
 
   Widget fieldNomorPerjanjian() {
@@ -442,7 +555,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
       },
       decoration: InputDecoration(labelText: 'Nomor Perjanjian'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -464,7 +577,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
         inputFormatters: <TextInputFormatter>[
           WhitelistingTextInputFormatter.digitsOnly
         ],
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'));
+        style: TextStyle(fontFamily: 'Montserrat Regular'));
   }
 
   Widget fieldKodeProduk() {
@@ -474,7 +587,8 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                      fontFamily: 'Montserrat Regular',
+                    ),
                   ),
                   value: value,
                 ))
@@ -487,8 +601,9 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
         decoration: InputDecoration(
             labelText: 'Jenis Produk',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(
+              fontFamily: 'Montserrat Regular',
+            )),
         value: selectedJenisProduk,
         isExpanded: true);
   }
@@ -500,7 +615,8 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                      fontFamily: 'Montserrat Regular',
+                    ),
                   ),
                   value: value,
                 ))
@@ -513,8 +629,9 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
         decoration: InputDecoration(
             labelText: 'Informasi Sales',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(
+              fontFamily: 'Montserrat Regular',
+            )),
         value: selectedJenisInfo,
         isExpanded: true);
   }
@@ -530,7 +647,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
       },
       decoration: InputDecoration(labelText: 'Nama'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -545,7 +662,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
       },
       decoration: InputDecoration(labelText: 'Jabatan'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -567,7 +684,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -635,35 +752,64 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
             ),
           );
         } else {
-          String titled;
-          Color colored;
-          if (index == 0) {
-            titled = 'Foto SKK';
-            colored = Colors.red;
-          } else {
-            titled = 'Foto Tanda Tangan Akad';
-            colored = Colors.red;
-          }
-          return Card(
-              shape: RoundedRectangleBorder(
-                  side: new BorderSide(color: colored, width: 2.0),
-                  borderRadius: BorderRadius.circular(4.0)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    titled,
-                    style: TextStyle(
-                        fontSize: 8.0, fontFamily: 'Montserrat Regular'),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      _onAddImageClick(index);
+          if (path1 != '' && path2 != '') {
+            return Card(
+              clipBehavior: Clip.antiAlias,
+              child: Stack(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (_) => Dialog(
+                          child: PhotoView(
+                            imageProvider: NetworkImage(images[index]),
+                            backgroundDecoration:
+                                BoxDecoration(color: Colors.transparent),
+                          ),
+                        ),
+                      );
                     },
+                    child: Image.network(
+                      images[index],
+                      width: 300,
+                      height: 300,
+                    ),
                   ),
                 ],
-              ));
+              ),
+            );
+          } else {
+            String titled;
+            Color colored;
+            if (index == 0) {
+              titled = 'Foto SKK';
+              colored = Colors.teal;
+            } else {
+              titled = 'Foto Tanda Tangan Akad';
+              colored = Colors.teal;
+            }
+            return Card(
+                shape: RoundedRectangleBorder(
+                    side: new BorderSide(color: colored, width: 2.0),
+                    borderRadius: BorderRadius.circular(4.0)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      titled,
+                      style: TextStyle(
+                          fontSize: 8.0, fontFamily: 'Montserrat Regular'),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        _onAddImageClick(index);
+                      },
+                    ),
+                  ],
+                ));
+          }
         }
       }),
     );

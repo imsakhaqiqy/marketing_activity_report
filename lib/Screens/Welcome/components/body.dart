@@ -11,6 +11,7 @@ import 'dart:convert';
 
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 
 class Body extends StatefulWidget {
@@ -35,6 +36,7 @@ class _Body extends State<Body> {
   String _currentAddress = '';
   String _currentLatitude = '';
   String _currentLongitude = '';
+
   _getCurrentLocation() {
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
@@ -134,7 +136,7 @@ class _Body extends State<Body> {
               RoundedButton(
                 text: "MASUK",
                 color: Colors.white,
-                textColor: kPrimaryColor,
+                textColor: Colors.teal,
                 press: () {
                   if (versionIdApp != versionId) {
                     Toast.show(
@@ -166,7 +168,8 @@ class _Body extends State<Body> {
                 child: Text(
                   'DAFTAR',
                   style: TextStyle(
-                      color: Colors.blue,
+                      color: Colors.teal,
+                      fontWeight: FontWeight.bold,
                       fontSize: 10,
                       fontFamily: 'Montserrat Regular'),
                 ),
@@ -182,7 +185,8 @@ class _Body extends State<Body> {
                     child: Text(
                       'v ' + versionIdApp,
                       style: TextStyle(
-                          color: Colors.grey, fontFamily: 'Montserrat Regular'),
+                          color: Colors.white,
+                          fontFamily: 'Montserrat Regular'),
                     ),
                   ),
                 ),

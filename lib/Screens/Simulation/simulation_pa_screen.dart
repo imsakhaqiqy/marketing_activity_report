@@ -113,8 +113,9 @@ class _SimulationPegawaiAktifScreenState
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(
+                    fontFamily: 'Montserrat Regular',
+                  ),
                 ),
                 value: value,
               ))
@@ -127,8 +128,9 @@ class _SimulationPegawaiAktifScreenState
       decoration: InputDecoration(
           labelText: 'Simulasi',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          labelStyle:
-              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+          labelStyle: TextStyle(
+            fontFamily: 'Montserrat Regular',
+          )),
       value: selectedPensiun,
       isExpanded: true,
     );
@@ -140,8 +142,9 @@ class _SimulationPegawaiAktifScreenState
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(
+                    fontFamily: 'Montserrat Regular',
+                  ),
                 ),
                 value: value,
               ))
@@ -154,8 +157,9 @@ class _SimulationPegawaiAktifScreenState
       decoration: InputDecoration(
           labelText: 'Kredit',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          labelStyle:
-              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+          labelStyle: TextStyle(
+            fontFamily: 'Montserrat Regular',
+          )),
       value: selectedJenisKredit,
       isExpanded: true,
     );
@@ -176,7 +180,7 @@ class _SimulationPegawaiAktifScreenState
           hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
           labelText: "Nama Lengkap"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -198,7 +202,7 @@ class _SimulationPegawaiAktifScreenState
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -226,7 +230,7 @@ class _SimulationPegawaiAktifScreenState
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
         },
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+        style: TextStyle(fontFamily: 'Montserrat Regular'),
       ),
     ]);
   }
@@ -246,7 +250,7 @@ class _SimulationPegawaiAktifScreenState
           hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
           labelText: "Bank Ambil Gaji"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -268,7 +272,7 @@ class _SimulationPegawaiAktifScreenState
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -278,8 +282,9 @@ class _SimulationPegawaiAktifScreenState
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(
+                    fontFamily: 'Montserrat Regular',
+                  ),
                 ),
                 value: value,
               ))
@@ -292,8 +297,7 @@ class _SimulationPegawaiAktifScreenState
       decoration: InputDecoration(
           labelText: 'Jangka Waktu (bulan)',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          labelStyle:
-              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+          labelStyle: TextStyle(fontFamily: 'Montserrat Regular')),
       value: selectedJangkaWaktuType,
       isExpanded: true,
     );
@@ -305,8 +309,7 @@ class _SimulationPegawaiAktifScreenState
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(fontFamily: 'Montserrat Regular'),
                 ),
                 value: value,
               ))
@@ -319,8 +322,9 @@ class _SimulationPegawaiAktifScreenState
       decoration: InputDecoration(
           labelText: 'Blokir Angsuran',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          labelStyle:
-              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+          labelStyle: TextStyle(
+            fontFamily: 'Montserrat Regular',
+          )),
       value: selectedBlokirAngsuranType,
       isExpanded: true,
     );
@@ -338,7 +342,7 @@ class _SimulationPegawaiAktifScreenState
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -352,7 +356,7 @@ class _SimulationPegawaiAktifScreenState
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -362,8 +366,9 @@ class _SimulationPegawaiAktifScreenState
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(
+                    fontFamily: 'Montserrat Regular',
+                  ),
                 ),
                 value: value,
               ))
@@ -376,8 +381,9 @@ class _SimulationPegawaiAktifScreenState
       decoration: InputDecoration(
           labelText: 'Asuransi',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          labelStyle:
-              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+          labelStyle: TextStyle(
+            fontFamily: 'Montserrat Regular',
+          )),
       value: selectedAsuransiType,
       isExpanded: true,
     );

@@ -49,7 +49,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Pensiunan KP74',
+          'Pensiunan Platinum',
           style: TextStyle(fontFamily: 'Montserrat Regular'),
         ),
       ),
@@ -89,7 +89,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
           hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
           labelText: "Nama Lengkap"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -111,7 +111,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -139,7 +139,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
         },
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+        style: TextStyle(fontFamily: 'Montserrat Regular'),
       ),
     ]);
   }
@@ -162,7 +162,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -176,7 +176,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -186,8 +186,9 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(
+                    fontFamily: 'Montserrat Regular',
+                  ),
                 ),
                 value: value,
               ))
@@ -200,8 +201,9 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
       decoration: InputDecoration(
           labelText: 'Jangka Waktu (bulan)',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          labelStyle:
-              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+          labelStyle: TextStyle(
+            fontFamily: 'Montserrat Regular',
+          )),
       value: selectedJangkaWaktuType,
       isExpanded: true,
     );

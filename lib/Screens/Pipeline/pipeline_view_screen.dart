@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
+import 'package:kreditpensiun_apps/Screens/Modul/view_image_screen.dart';
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:photo_view/photo_view.dart';
@@ -240,17 +241,8 @@ class _PipelineViewScreenState extends State<PipelineViewScreen> {
             ? InkWell(
                 child: Icon(Icons.image_outlined),
                 onTap: () async {
-                  await showDialog(
-                    context: context,
-                    builder: (_) => Dialog(
-                      child: PhotoView(
-                        imageProvider: NetworkImage(
-                            'https://www.nabasa.co.id/marsit/' + image),
-                        backgroundDecoration:
-                            BoxDecoration(color: Colors.transparent),
-                      ),
-                    ),
-                  );
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ImageApp(image, title)));
                 },
               )
             : Text('')

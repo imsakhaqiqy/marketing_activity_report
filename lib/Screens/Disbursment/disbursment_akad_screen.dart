@@ -79,7 +79,7 @@ _showPopupMenu(
                   children: <Widget>[
                     Icon(
                       Icons.attach_money_sharp,
-                      color: Colors.orangeAccent,
+                      color: Colors.teal,
                       size: 20,
                     ),
                     Text('Pencairan')
@@ -89,7 +89,7 @@ _showPopupMenu(
         ),
       ],
       icon: Icon(Icons.more_vert),
-      offset: Offset(0, 100),
+      offset: Offset(0, 20),
     );
 
 class _DisbursmentAkadScreen extends State<DisbursmentAkadScreen> {
@@ -221,21 +221,77 @@ class _DisbursmentAkadScreen extends State<DisbursmentAkadScreen> {
                                               SizedBox(
                                                 height: 5,
                                               ),
-                                              Text(
-                                                '${formatRupiah(data.dataDisbursmentAkad[i].nominalPinjaman)}',
+                                              Row(
+                                                children: <Widget>[
+                                                  Tooltip(
+                                                    message: 'Plafond',
+                                                    child: Icon(
+                                                      Icons
+                                                          .monetization_on_outlined,
+                                                      color: Colors.black54,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    '${formatRupiah(data.dataDisbursmentAkad[i].nominalPinjaman)}',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Montserrat Regular',
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                               SizedBox(
                                                 height: 5,
                                               ),
-                                              Text(
-                                                '${data.dataDisbursmentAkad[i].tanggalAkad}',
-                                                style: fontFamily,
+                                              Row(
+                                                children: <Widget>[
+                                                  Tooltip(
+                                                    message: 'Tanggal Akad',
+                                                    child: Icon(
+                                                      Icons.date_range_outlined,
+                                                      color: Colors.black54,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    '${data.dataDisbursmentAkad[i].tanggalAkad}',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Montserrat Regular',
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                               SizedBox(
                                                 height: 5,
                                               ),
-                                              Text(data.dataDisbursmentAkad[i]
-                                                  .nomorAplikasi),
+                                              Row(
+                                                children: <Widget>[
+                                                  Tooltip(
+                                                    message: 'Nomor Aplikasi',
+                                                    child: Icon(
+                                                      Icons
+                                                          .confirmation_number_outlined,
+                                                      color: Colors.black54,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    '${data.dataDisbursmentAkad[i].nomorAplikasi}',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Montserrat Regular',
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ],
                                           ),
                                           trailing: Wrap(

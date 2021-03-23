@@ -320,31 +320,44 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
     }).then((result) {
       if (result.statusCode == 200) {
         var message = jsonDecode(result.body)['status'];
-        setStatus(jsonDecode(result.body)['status']);
-        setState(() {
-          _loading = false;
-          hasil = result.body;
-          tmpFile = null;
-          namaPensiunController.clear();
-          alamatController.clear();
-          kelurahanController.clear();
-          kecamatanController.clear();
-          kotakabController.clear();
-          propinsiController.clear();
-          emailController.clear();
-          teleponController.clear();
-          otpController.clear();
-          rencanaPinjamanController.clear();
-          selectedSalesFeedback = null;
-        });
-        userLogin();
-        Toast.show(
-          'Sukses menambahkan data interaksi',
-          context,
-          duration: Toast.LENGTH_SHORT,
-          gravity: Toast.BOTTOM,
-          backgroundColor: Colors.red,
-        );
+        if (message == 'Nomor Telepon') {
+          setState(() {
+            _loading = false;
+          });
+          Toast.show(
+            'Nomor telepon sudah terdaftar, mohon masukkan nomor telepon lain',
+            context,
+            duration: Toast.LENGTH_SHORT,
+            gravity: Toast.BOTTOM,
+            backgroundColor: Colors.red,
+          );
+        } else {
+          setStatus(jsonDecode(result.body)['status']);
+          setState(() {
+            _loading = false;
+            hasil = result.body;
+            tmpFile = null;
+            namaPensiunController.clear();
+            alamatController.clear();
+            kelurahanController.clear();
+            kecamatanController.clear();
+            kotakabController.clear();
+            propinsiController.clear();
+            emailController.clear();
+            teleponController.clear();
+            otpController.clear();
+            rencanaPinjamanController.clear();
+            selectedSalesFeedback = null;
+          });
+          userLogin();
+          Toast.show(
+            'Sukses menambahkan data interaksi',
+            context,
+            duration: Toast.LENGTH_SHORT,
+            gravity: Toast.BOTTOM,
+            backgroundColor: Colors.red,
+          );
+        }
       } else {
         setState(() {
           _loading = false;
@@ -487,7 +500,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                       fieldTelepon(),
                       Row(children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.50,
+                          width: MediaQuery.of(context).size.width * 0.25,
                           child: fieldOTP(),
                         ),
                         Container(
@@ -505,7 +518,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                                     )
                                   : FlatButton(
                                       color: Colors.red,
-                                      child: Text("Kode Verifikasi",
+                                      child: Text("Kirim Kode Verifikasi",
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
                                               fontSize: 12.0,
@@ -515,7 +528,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                                       },
                                       shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(30.0),
+                                            BorderRadius.circular(5.0),
                                       ),
                                     ),
                             ))
@@ -554,7 +567,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Calon debitur'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -569,7 +582,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Alamat'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -584,7 +597,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Kelurahan'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -599,7 +612,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Kecamatan'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -614,7 +627,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Kabupaten'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -629,7 +642,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Propinsi'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -637,7 +650,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
     return TextFormField(
       controller: emailController,
       decoration: InputDecoration(labelText: 'Email'),
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -659,7 +672,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -681,7 +694,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -703,7 +716,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -714,7 +727,8 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                      fontFamily: 'Montserrat Regular',
+                    ),
                   ),
                   value: value,
                 ))
@@ -727,8 +741,9 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
         decoration: InputDecoration(
             labelText: 'Sales Feedback',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(
+              fontFamily: 'Montserrat Regular',
+            )),
         value: selectedSalesFeedback,
         isExpanded: true);
   }

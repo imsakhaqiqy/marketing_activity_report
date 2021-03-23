@@ -513,7 +513,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'DATA NASABAH',
+                            'Data Nasabah',
                             style: TextStyle(
                                 color: Colors.grey[600], fontSize: 14),
                           ),
@@ -541,7 +541,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'DATA KREDIT',
+                            'Data Kredit',
                             style: TextStyle(
                                 color: Colors.grey[600], fontSize: 14),
                           ),
@@ -574,7 +574,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    'DOKUMEN NASABAH',
+                                    'Dokumen Nasabah',
                                     style: TextStyle(
                                         color: Colors.grey[600], fontSize: 14),
                                   ),
@@ -629,7 +629,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -644,7 +644,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Tempat Lahir'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -668,7 +668,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                 initialDate: currentValue ?? DateTime.now(),
                 lastDate: DateTime(2100));
           },
-          style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontFamily: 'Montserrat Regular')),
     ]);
   }
 
@@ -679,7 +679,8 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                      fontFamily: 'Montserrat Regular',
+                    ),
                   ),
                   value: value,
                 ))
@@ -692,8 +693,9 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
         decoration: InputDecoration(
             labelText: 'Jenis Kelamin',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(
+              fontFamily: 'Montserrat Regular',
+            )),
         value: selectedJenisKelamin,
         isExpanded: true);
   }
@@ -712,7 +714,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -727,7 +729,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Nama sesuai KTP'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -742,7 +744,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Alamat'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -764,7 +766,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -775,7 +777,8 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                      fontFamily: 'Montserrat Regular',
+                    ),
                   ),
                   value: value,
                 ))
@@ -788,8 +791,9 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
         decoration: InputDecoration(
             labelText: 'Jenis Produk',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(
+              fontFamily: 'Montserrat Regular',
+            )),
         value: selectedJenisDebitur,
         isExpanded: true);
   }
@@ -801,7 +805,8 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                   child: Text(
                     value['NAMA'],
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                      fontFamily: 'Montserrat Regular',
+                    ),
                   ),
                   value: value['NAMA'].toString(),
                 ))
@@ -814,8 +819,9 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
         decoration: InputDecoration(
             labelText: 'Kantor Cabang',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(
+              fontFamily: 'Montserrat Regular',
+            )),
         value: selectedJenisCabang,
         isExpanded: true);
   }
@@ -836,7 +842,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
         inputFormatters: <TextInputFormatter>[
           WhitelistingTextInputFormatter.digitsOnly
         ],
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'));
+        style: TextStyle(fontFamily: 'Montserrat Regular'));
   }
 
   Widget fieldKeterangan() {
@@ -850,7 +856,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Keterangan'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -861,7 +867,8 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                      fontFamily: 'Montserrat Regular',
+                    ),
                   ),
                   value: value,
                 ))
@@ -880,8 +887,9 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
         decoration: InputDecoration(
             labelText: 'Status Kredit',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(
+              fontFamily: 'Montserrat Regular',
+            )),
         value: selectedStatusKredit,
         isExpanded: true);
   }
@@ -893,7 +901,8 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                   child: Text(
                     value['nama'],
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                      fontFamily: 'Montserrat Regular',
+                    ),
                   ),
                   value: value['nama'].toString(),
                 ))
@@ -906,8 +915,9 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
         decoration: InputDecoration(
             labelText: 'Bank Takeover',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(
+              fontFamily: 'Montserrat Regular',
+            )),
         value: selectedBankTakeover,
         isExpanded: true);
   }
@@ -919,7 +929,8 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                      fontFamily: 'Montserrat Regular',
+                    ),
                   ),
                   value: value,
                 ))
@@ -932,8 +943,9 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
         decoration: InputDecoration(
             labelText: 'Pengelola Pensiun',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(
+              fontFamily: 'Montserrat Regular',
+            )),
         value: selectedPengelolaPensiun,
         isExpanded: true);
   }

@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:kreditpensiun_apps/Screens/Modul/view_image_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Modul/view_modul_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Modul/view_video_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/modul_provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -32,10 +34,6 @@ class _ModulScreenState extends State<ModulScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular",
-        fontSize: 14,
-        color: Color.fromRGBO(63, 63, 63, 1));
     var cardTextStyle1 = TextStyle(
         fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.grey);
     return Scaffold(
@@ -103,33 +101,54 @@ class _ModulScreenState extends State<ModulScreen> {
                                   ))),
                                   child: InkWell(
                                     onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            AlertDialog(
-                                          title: Center(
-                                            child: CircularProgressIndicator(
-                                                valueColor:
-                                                    AlwaysStoppedAnimation<
-                                                        Color>(kPrimaryColor)),
+                                      if (data.dataModul[i].jenis == 'FILE') {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              AlertDialog(
+                                            title: Center(
+                                              child: CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                              Color>(
+                                                          kPrimaryColor)),
+                                            ),
+                                            actions: <Widget>[],
                                           ),
-                                          actions: <Widget>[],
-                                        ),
-                                      );
-                                      createFileOfPdfUrl(path).then((f) async {
-                                        pathPDF = f.path;
-                                        if (pathPDF != '') {
-                                          Navigator.of(context).pop();
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PDFScreen(
-                                                          pathPDF,
-                                                          data.dataModul[i]
-                                                              .title)));
-                                        }
-                                      });
+                                        );
+                                        createFileOfPdfUrl(path)
+                                            .then((f) async {
+                                          pathPDF = f.path;
+                                          if (pathPDF != '' &&
+                                              data.dataModul[i].jenis ==
+                                                  'FILE') {
+                                            Navigator.of(context).pop();
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PDFScreen(
+                                                            pathPDF,
+                                                            data.dataModul[i]
+                                                                .title)));
+                                          }
+                                        });
+                                      } else if (data.dataModul[i].jenis ==
+                                          'VIDEO') {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => VideoApp(
+                                                    data.dataModul[i].path,
+                                                    data.dataModul[i].title)));
+                                      } else {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => ImageApp(
+                                                    data.dataModul[i].path,
+                                                    data.dataModul[i].title)));
+                                      }
                                     },
                                     child: ListTile(
                                         title: Column(
@@ -153,22 +172,47 @@ class _ModulScreenState extends State<ModulScreen> {
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            Text(
-                                              'Jenis : ${data.dataModul[i].jenis}',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic,
-                                                  fontFamily:
-                                                      'Montserrat Regular'),
+                                            Row(
+                                              children: <Widget>[
+                                                data.dataModul[i].jenis ==
+                                                        'FILE'
+                                                    ? Icon(
+                                                        Icons
+                                                            .picture_as_pdf_outlined,
+                                                        color: Colors.black54,
+                                                      )
+                                                    : Icon(
+                                                        Icons
+                                                            .video_collection_outlined,
+                                                        color: Colors.black54),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text(
+                                                  '${data.dataModul[i].jenis}',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'Montserrat Regular'),
+                                                ),
+                                              ],
                                             ),
                                             SizedBox(
                                               height: 10,
                                             ),
-                                            Text(
-                                              'Tanggal : ${data.dataModul[i].createdAt}',
-                                              style: TextStyle(
-                                                  fontStyle: FontStyle.italic,
-                                                  fontFamily:
-                                                      'Montserrat Regular'),
+                                            Row(
+                                              children: <Widget>[
+                                                Icon(Icons.date_range_outlined,
+                                                    color: Colors.black54),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text(
+                                                  '${data.dataModul[i].createdAt}',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'Montserrat Regular'),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),

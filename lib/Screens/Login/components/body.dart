@@ -10,6 +10,7 @@ import 'package:kreditpensiun_apps/Screens/Signup/signup_screen.dart';
 import 'package:kreditpensiun_apps/Screens/forget/forget_password_screen.dart';
 import 'package:kreditpensiun_apps/components/already_have_an_account_acheck.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
 
@@ -26,6 +27,37 @@ class _FavoriteWidgetState extends State<Body> {
   bool visible = false;
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  bool checkedValue = false;
+  String usernamePref;
+  String passwordPref;
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  Future<int> _counter;
+
+  Future<void> setPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', 'ADMIN181');
+    prefs.setString('password', '317510240');
+  }
+
+  getPref() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    usernamePref = preferences.getString("username");
+    passwordPref = preferences.getString("password");
+    if (usernamePref != null && passwordPref != null) {
+      setState(() {
+        usernameController.text = usernamePref;
+        passwordController.text = passwordPref;
+        checkedValue = true;
+      });
+    }
+  }
+
+  removePref() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.remove("username");
+    preferences.remove("password");
+  }
 
   Future userLogin() async {
     //showing CircularProgressIndicator
@@ -296,6 +328,11 @@ class _FavoriteWidgetState extends State<Body> {
     });
   }
 
+  void initState() {
+    super.initState();
+    this.getPref();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -363,27 +400,29 @@ class _FavoriteWidgetState extends State<Body> {
                 ],
               ),
             ),
-            SizedBox(height: size.height * 0.02),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ForgetPasswordScreen()));
-                  },
-                  child: Text(
-                    'Lupa password ?',
-                    style: TextStyle(
-                        color: Colors.blue, fontFamily: 'Montserrat Regular'),
-                  ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: CheckboxListTile(
+                title: Text(
+                  'Simpan username',
+                  style: TextStyle(
+                      color: Colors.blue, fontFamily: 'Montserrat Regular'),
                 ),
+                value: checkedValue,
+                onChanged: (newValue) {
+                  setState(() {
+                    checkedValue = !checkedValue;
+                  });
+                  if (checkedValue == true) {
+                    setPref();
+                  } else {
+                    removePref();
+                  }
+                },
+                controlAffinity:
+                    ListTileControlAffinity.leading, //  <-- leading Checkbox
               ),
             ),
-            SizedBox(height: size.height * 0.02),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: SizedBox(
@@ -408,8 +447,29 @@ class _FavoriteWidgetState extends State<Body> {
                           'Masuk',
                           style: TextStyle(
                               color: Colors.white,
-                              fontFamily: 'Montserrat Regular'),
+                              fontFamily: 'Montserrat Regular',
+                              fontWeight: FontWeight.bold),
                         ),
+                ),
+              ),
+            ),
+            SizedBox(height: size.height * 0.02),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ForgetPasswordScreen()));
+                  },
+                  child: Text(
+                    'Lupa password ?',
+                    style: TextStyle(
+                        color: Colors.blue, fontFamily: 'Montserrat Regular'),
+                  ),
                 ),
               ),
             ),

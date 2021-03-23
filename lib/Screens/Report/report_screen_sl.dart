@@ -129,7 +129,7 @@ class _ReportScreenSl extends State<ReportScreenSl> {
                                       SizedBox(width: 10),
                                       Expanded(
                                         child: Text(
-                                          'Laporan Interaksi',
+                                          'Laporan Pencairan',
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',
                                               color: Colors.black54,

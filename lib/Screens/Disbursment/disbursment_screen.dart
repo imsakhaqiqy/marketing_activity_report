@@ -69,14 +69,6 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var date = new DateTime.now();
-    String bulan = namaBulan(date.month.toString());
-    String tahun = date.year.toString();
-    String hari = date.day.toString();
-    var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.white);
-    var cardTextStyle1 =
-        TextStyle(fontFamily: "Montserrat Regular", fontSize: 14);
     return Scaffold(
       backgroundColor: grey,
       appBar: AppBar(

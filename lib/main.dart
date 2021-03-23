@@ -25,6 +25,7 @@ import 'Screens/provider/interaction_provider.dart';
 import 'Screens/provider/planning_provider.dart';
 import 'Screens/provider/report_disbursment_provider.dart';
 import 'Screens/provider/report_interaction_provider.dart';
+import 'Screens/provider/berita_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -99,6 +100,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => DisbursmentAkadProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => BeritaProvider(),
           ),
         ],
         child: MaterialApp(

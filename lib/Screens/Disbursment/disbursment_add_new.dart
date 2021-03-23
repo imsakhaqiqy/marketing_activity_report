@@ -315,19 +315,20 @@ class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
             ),
             actions: <Widget>[
               FlatButton(
+                  color: Colors.white,
                   //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
                   //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
                   child: visible
                       ? CircularProgressIndicator(
                           //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
                           valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
+                              AlwaysStoppedAnimation<Color>(Colors.teal),
                         )
                       : Text(
                           'Simpan',
                           style: TextStyle(
                               fontFamily: 'Montserrat Regular',
-                              color: Colors.white,
+                              color: Colors.teal,
                               fontWeight: FontWeight.bold),
                         ),
                   onPressed: () {
@@ -616,7 +617,7 @@ class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
                 initialDate: currentValue ?? DateTime.now(),
                 lastDate: DateTime(2100));
           },
-          style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontFamily: 'Montserrat Regular')),
     ]);
   }
 }
