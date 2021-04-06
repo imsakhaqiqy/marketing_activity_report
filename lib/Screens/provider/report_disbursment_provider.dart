@@ -34,6 +34,7 @@ class ReportDisbursmentProvider extends ChangeNotifier {
           .map<ReportDisbursmentModel>(
               (json) => ReportDisbursmentModel.fromJson(json))
           .toList();
+      //print(result);
       return _data;
     } else {
       throw Exception();

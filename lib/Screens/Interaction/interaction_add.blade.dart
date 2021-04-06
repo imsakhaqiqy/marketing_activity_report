@@ -485,8 +485,8 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       validator: (value) {
         if (value.isEmpty) {
           return 'No telepon wajib diisi...';
-        } else if (value.length < 11) {
-          return 'No telepon minimal 11 angka...';
+        } else if (value.length < 10) {
+          return 'No telepon minimal 10 angka...';
         } else if (value.length > 13) {
           return 'No telepon maksimal 13 angka...';
         }

@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class PipelineItem {
+class PipelineSubmitItem {
   String nik;
 
-  PipelineItem(this.nik);
+  PipelineSubmitItem(this.nik);
 }
 
-class PipelineProvider extends ChangeNotifier {
+class PipelineSubmitProvider extends ChangeNotifier {
   List<PipelineModel> _data = [];
   List<PipelineModel> get dataPipeline => _data;
 
-  Future<List<PipelineModel>> getPipeline(PipelineItem pipelineItem) async {
-    final url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/getPipeline';
+  Future<List<PipelineModel>> getPipeline(
+      PipelineSubmitItem pipelineItem) async {
+    final url =
+        'https://www.nabasa.co.id/api_marsit_v1/index.php/getPipelineSubmit';
     final response =
         await http.post(url, body: {'nik_sales': pipelineItem.nik});
     //final response = await http.get(url);

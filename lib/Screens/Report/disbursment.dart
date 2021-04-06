@@ -217,7 +217,39 @@ class _ReportDisbursmentScreen extends State<ReportDisbursmentScreen> {
                                               data.dataDisbursmentReport[i]
                                                   .teleponTl,
                                               data.dataDisbursmentReport[i]
-                                                  .namaSales)));
+                                                  .namaSales,
+                                              data.dataDisbursmentReport[i]
+                                                  .cabang,
+                                              data.dataDisbursmentReport[i]
+                                                  .infoSales,
+                                              data.dataDisbursmentReport[i]
+                                                  .statusPipeline,
+                                              data.dataDisbursmentReport[i]
+                                                  .statusKredit,
+                                              data.dataDisbursmentReport[i]
+                                                  .pengelolaPensiun,
+                                              data.dataDisbursmentReport[i]
+                                                  .bankTakeover,
+                                              data.dataDisbursmentReport[i]
+                                                  .tanggalPenyerahan,
+                                              data.dataDisbursmentReport[i]
+                                                  .namaPenerima,
+                                              data.dataDisbursmentReport[i]
+                                                  .teleponPenerima,
+                                              data.dataDisbursmentReport[i]
+                                                  .tanggalPipeline,
+                                              data.dataDisbursmentReport[i]
+                                                  .tempatLahir,
+                                              data.dataDisbursmentReport[i]
+                                                  .tanggalLahir,
+                                              data.dataDisbursmentReport[i]
+                                                  .jenisKelamin,
+                                              data.dataDisbursmentReport[i]
+                                                  .noKtp,
+                                              data.dataDisbursmentReport[i]
+                                                  .npwp,
+                                              data.dataDisbursmentReport[i]
+                                                  .kodeProduk)));
                                 },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,

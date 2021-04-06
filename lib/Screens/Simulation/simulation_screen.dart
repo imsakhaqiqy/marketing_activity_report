@@ -7,6 +7,9 @@ import 'package:kreditpensiun_apps/Screens/Simulation/simulation_result.dart';
 import '../../constants.dart';
 
 class SimulationScreen extends StatefulWidget {
+  String nik;
+
+  SimulationScreen(this.nik);
   @override
   _SimulationScreenState createState() => _SimulationScreenState();
 }
@@ -447,7 +450,8 @@ class _SimulationScreenState extends State<SimulationScreen> {
                           takeoverBankLain,
                           angsuranPerbulan,
                           '0',
-                          '0'))).then((result) {});
+                          '0',
+                          widget.nik))).then((result) {});
             }
           }
         },

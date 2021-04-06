@@ -8,7 +8,7 @@ class ModulProvider extends ChangeNotifier {
   List<ModulModel> get dataModul => _data;
 
   Future<List<ModulModel>> getModul() async {
-    final url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/getModul';
+    final url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/getModul';
     final response = await http.get(url);
     //final response = await http.get(url);
 

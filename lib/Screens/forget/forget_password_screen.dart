@@ -93,7 +93,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                           height: 10,
                         ),
                         Text(
-                          '*Harap masukkan nomor telepon yang terdaftar di PT.Marsit Bangun Sejahtera',
+                          '*Harap masukkan nomor telepon yang terdaftar di aplikasi iMarsyt',
                           style: TextStyle(
                               color: Colors.red,
                               fontFamily: 'Montserrat Regular',

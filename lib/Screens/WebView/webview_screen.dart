@@ -11,47 +11,40 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        bottom: PreferredSize(
-            child: Container(
-              color: Colors.white,
-              height: 4.0,
-            ),
-            preferredSize: Size.fromHeight(4.0)),
+        elevation: 0.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        backgroundColor: kPrimaryColor,
+        backgroundColor: Colors.white,
         title: Text(
-          'LOWONGAN PEKERJAAN',
+          'Daftar',
           style:
-              TextStyle(color: Colors.white, fontFamily: 'Montserrat Regular'),
+              TextStyle(color: Colors.black, fontFamily: 'Montserrat Regular'),
         ),
       ),
-      backgroundColor: kPrimaryColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                _urlButtonMarketing(context, _links),
-                _urlButtonAgen(context, _links1),
-              ]),
-        ),
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _urlButtonMarketing(context, _links),
+              _urlButtonAgen(context, _links1),
+            ]),
       ),
     );
   }
 
   Widget _urlButtonMarketing(BuildContext context, String url) {
     return Container(
-        color: kPrimaryColor,
+        color: Colors.white,
         padding: EdgeInsets.all(20.0),
         child: FlatButton(
             padding:
                 const EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
             child: Card(
-                elevation: 2,
+                elevation: 4,
                 child: Container(
                   padding: new EdgeInsets.all(16.0),
                   child: Column(
@@ -81,12 +74,13 @@ class Home extends StatelessWidget {
 
   Widget _urlButtonAgen(BuildContext context, String url) {
     return Container(
-        color: kPrimaryColor,
+        color: Colors.white,
         padding: EdgeInsets.all(20.0),
         child: FlatButton(
             padding:
                 const EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
             child: Card(
+              elevation: 4,
               child: Container(
                 padding: new EdgeInsets.all(16.0),
                 child: Column(

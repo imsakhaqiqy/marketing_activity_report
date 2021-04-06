@@ -22,6 +22,7 @@ class SimulationResult extends StatefulWidget {
   String angsuranPerbulan;
   String batasUsiaPensiun;
   String tht;
+  String niksales;
   SimulationResult(
     this.simulasiJenis,
     this.namaPensiun,
@@ -38,6 +39,7 @@ class SimulationResult extends StatefulWidget {
     this.angsuranPerbulan,
     this.batasUsiaPensiun,
     this.tht,
+    this.niksales,
   );
 
   @override
@@ -52,911 +54,871 @@ class _SimulationResultState extends State<SimulationResult> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'Hasil Simulasi',
-              style: TextStyle(fontFamily: 'Montserrat Regular'),
-            ),
-            actions: <Widget>[
-              // IconButton(
-              //   icon: Icon(Icons.image),
-              //   onPressed: () async {
-
-              //   },
-              //   color: Colors.white,
-              // )
-            ],
-          ),
-          body: FutureBuilder(
-              future: Provider.of<SimulationProvider>(context, listen: false)
-                  .getSimulation(simulationItem(
-                      widget.simulasiJenis,
-                      widget.namaPensiun,
-                      widget.gajiPensiun,
-                      widget.tanggalLahir,
-                      widget.jenisSimulasi,
-                      widget.jenisKredit,
-                      widget.bankBayarPensiun,
-                      widget.plafondPinjaman,
-                      widget.jangkaWaktu,
-                      widget.jenisAsuransi,
-                      widget.blokirAngsuran,
-                      widget.takeoverBankLain,
-                      widget.angsuranPerbulan,
-                      widget.batasUsiaPensiun,
-                      widget.tht)),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
-                    ),
-                  );
-                }
-                return Consumer<SimulationProvider>(
-                    builder: (context, data, _) {
-                  print(data.dataSimulation.length);
-                  if (data.dataSimulation[0].messageText == "dsr_tinggi") {
-                    return Container(
-                      decoration: BoxDecoration(color: Colors.white54),
-                      padding: EdgeInsets.only(
-                          left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
-                      child: Text(
-                          'Simulasi gagal, DSR ${data.dataSimulation[0].nilai} % melebihi 90.00 %, silahkan coba lagi...'),
-                    );
-                  } else if (data.dataSimulation[0].messageText ==
-                      "jangka_waktu_tinggi") {
-                    return Container(
-                      decoration: BoxDecoration(color: Colors.white54),
-                      padding: EdgeInsets.only(
-                          left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
-                      child: Text(
-                          'Simulasi gagal, jangka waktu maksimal ${data.dataSimulation[0].nilai} bulan, silahkan coba lagi...'),
-                    );
-                  } else {
-                    return Container(
-                      decoration: BoxDecoration(color: Colors.white54),
-                      padding: EdgeInsets.only(
-                          left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
-                      child: ListView(
-                        physics: ClampingScrollPhysics(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Hasil Simulasi',
+          style: TextStyle(fontFamily: 'Montserrat Regular'),
+        ),
+        actions: <Widget>[],
+      ),
+      body: FutureBuilder(
+        future: Provider.of<SimulationProvider>(context, listen: false)
+            .getSimulation(simulationItem(
+                widget.simulasiJenis,
+                widget.namaPensiun,
+                widget.gajiPensiun,
+                widget.tanggalLahir,
+                widget.jenisSimulasi,
+                widget.jenisKredit,
+                widget.bankBayarPensiun,
+                widget.plafondPinjaman,
+                widget.jangkaWaktu,
+                widget.jenisAsuransi,
+                widget.blokirAngsuran,
+                widget.takeoverBankLain,
+                widget.angsuranPerbulan,
+                widget.batasUsiaPensiun,
+                widget.tht,
+                widget.niksales)),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
+              ),
+            );
+          }
+          return Consumer<SimulationProvider>(builder: (context, data, _) {
+            print(data.dataSimulation.length);
+            if (data.dataSimulation[0].messageText == "dsr_tinggi") {
+              return Container(
+                decoration: BoxDecoration(color: Colors.white54),
+                padding: EdgeInsets.only(
+                    left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
+                child: Text(
+                    'Simulasi gagal, DSR ${data.dataSimulation[0].nilai} % melebihi 90.00 %, silahkan coba lagi...'),
+              );
+            } else if (data.dataSimulation[0].messageText ==
+                "jangka_waktu_tinggi") {
+              return Container(
+                decoration: BoxDecoration(color: Colors.white54),
+                padding: EdgeInsets.only(
+                    left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
+                child: Text(
+                    'Simulasi gagal, jangka waktu maksimal ${data.dataSimulation[0].nilai} bulan, silahkan coba lagi...'),
+              );
+            } else {
+              return Container(
+                decoration: BoxDecoration(color: Colors.white54),
+                padding: EdgeInsets.only(
+                    left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
+                child: ListView(
+                  physics: ClampingScrollPhysics(),
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                        color: Colors.grey,
+                      ))),
+                      child: Column(
                         children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.person,
+                                color: kPrimaryColor,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  'DATA PRIBADI',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Montserrat Regular',
+                                      color: kPrimaryColor),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
                           Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                              color: Colors.grey,
-                            ))),
-                            child: Column(
+                            child: Stack(
                               children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.person,
-                                      color: kPrimaryColor,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        'DATA PRIBADI',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontFamily: 'Montserrat Regular',
-                                            color: kPrimaryColor),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Nama Lengkap',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataSimulation[0].namaPensiun}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Nama Lengkap',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
                                   ),
                                 ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Gaji Terakhir',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${formatRupiah(data.dataSimulation[0].gajiPensiun)}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Tanggal Lahir',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataSimulation[0].tanggalLahir}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Usia Saat Ini',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataSimulation[0].umur} TAHUN',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Usia (pembulatan)',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataSimulation[0].umurPembulatan} TAHUN',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Jenis Simulasi',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataSimulation[0].jenisSimulasi}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Jenis Kredit',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataSimulation[0].jenisKredit}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Bank Ambil Gaji',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataSimulation[0].bankBayarPensiun}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                widget.simulasiJenis == 'gp' ||
-                                        widget.simulasiJenis == 'tht'
-                                    ? Container(
-                                        child: Stack(
-                                          children: <Widget>[
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                'Lama Grace Period',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'Montserrat Regular'),
-                                              ),
-                                            ),
-                                            Align(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                child: Text(
-                                                  '${data.dataSimulation[0].lamaGracePeriod} BULAN',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'Montserrat Regular'),
-                                                )),
-                                          ],
-                                        ),
-                                      )
-                                    : SizedBox(height: 0),
-                                SizedBox(height: 10)
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${data.dataSimulation[0].namaPensiun}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
                               ],
                             ),
                           ),
                           SizedBox(height: 10),
                           Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                              color: Colors.grey,
-                            ))),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                            child: Stack(
                               children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.date_range,
-                                      color: kPrimaryColor,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      child: Text('PERHITUNGAN PINJAMAN',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontFamily: 'Montserrat Regular',
-                                              color: kPrimaryColor)),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Nominal Pinjaman',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${formatRupiah(data.dataSimulation[0].plafondMaksimal)}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Gaji Terakhir',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
                                   ),
                                 ),
-                                widget.simulasiJenis == 'tht'
-                                    ? SizedBox(height: 10)
-                                    : SizedBox(height: 0),
-                                widget.simulasiJenis == 'tht'
-                                    ? Container(
-                                        child: Stack(
-                                          children: <Widget>[
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                'THT',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'Montserrat Regular'),
-                                              ),
-                                            ),
-                                            Align(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                child: Text(
-                                                  '${formatRupiah(data.dataSimulation[0].tht)}',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'Montserrat Regular'),
-                                                )),
-                                          ],
-                                        ),
-                                      )
-                                    : SizedBox(height: 0),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Jangka Waktu',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataSimulation[0].jangWaktu} BULAN',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Angsuran per Bulan',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${formatRupiah(data.dataSimulation[0].angsuranPerbulan)}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'DSR Pinjaman',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataSimulation[0].iirPinjaman} %',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Bunga Anuitas',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataSimulation[0].bungaAnuitas} %',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Bunga Efektif',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataSimulation[0].bungaEfektif} %',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Sisa Gaji Pensiun',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${formatRupiah(data.dataSimulation[0].sisaGaji)}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Status Pinjaman',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Container(
-                                            padding: EdgeInsets.all(5),
-                                            color: Colors.blue,
-                                            child: Text(
-                                              "${data.dataSimulation[0].messageText}",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontFamily:
-                                                      'Montserrat Regular',
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${formatRupiah(data.dataSimulation[0].gajiPensiun)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
                               ],
                             ),
                           ),
                           SizedBox(height: 10),
                           Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                              color: Colors.grey,
-                            ))),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                            child: Stack(
                               children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.attach_money,
-                                      color: kPrimaryColor,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        'PERHITUNGAN TERIMA BERSIH',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontFamily: 'Montserrat Regular',
-                                            color: kPrimaryColor),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Jenis Asuransi',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            "${data.dataSimulation[0].jenisAsuransi}",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Tanggal Lahir',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
                                   ),
                                 ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Biaya Provisi',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${formatRupiah(data.dataSimulation[0].biayaProvisi)}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Biaya Administrasi',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${formatRupiah(data.dataSimulation[0].biayaAdministrasi)}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Biaya Materai',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${formatRupiah(data.dataSimulation[0].biayaMaterai)}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Biaya Asuransi',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${formatRupiah(data.dataSimulation[0].biayaAsuransi)}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Total Biaya',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${formatRupiah(data.dataSimulation[0].totalBiaya)}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Blokir Angsuran',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${formatRupiah(data.dataSimulation[0].blokirAngsuran)}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                widget.simulasiJenis == 'gp' ||
-                                        widget.simulasiJenis == 'tht'
-                                    ? SizedBox(height: 10)
-                                    : SizedBox(height: 0),
-                                widget.simulasiJenis == 'gp' ||
-                                        widget.simulasiJenis == 'tht'
-                                    ? Container(
-                                        child: Stack(
-                                          children: <Widget>[
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                'Blokir Grace Period',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'Montserrat Regular'),
-                                              ),
-                                            ),
-                                            Align(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                child: Text(
-                                                  '${formatRupiah(data.dataSimulation[0].gracePeriod)}',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'Montserrat Regular'),
-                                                )),
-                                          ],
-                                        ),
-                                      )
-                                    : SizedBox(height: 0),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Hutang Bank Lain',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${formatRupiah(data.dataSimulation[0].takeoverBankLain)}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Total Potongan',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${formatRupiah(data.dataSimulation[0].totalPotongan)}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Container(
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          'Terima Bersih',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Container(
-                                            color: Colors.blue,
-                                            padding: EdgeInsets.all(5),
-                                            child: Text(
-                                              '${formatRupiah(data.dataSimulation[0].terimaBersih)}',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontFamily:
-                                                      'Montserrat Regular',
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 10),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${data.dataSimulation[0].tanggalLahir}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
                               ],
                             ),
                           ),
-                          SizedBox(
-                            height: 10,
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Usia Saat Ini',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${data.dataSimulation[0].umur} TAHUN',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
                           ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Usia (pembulatan)',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${data.dataSimulation[0].umurPembulatan} TAHUN',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Jenis Simulasi',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${data.dataSimulation[0].jenisSimulasi}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Jenis Kredit',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${data.dataSimulation[0].jenisKredit}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Bank Ambil Gaji',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${data.dataSimulation[0].bankBayarPensiun}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          widget.simulasiJenis == 'gp' ||
+                                  widget.simulasiJenis == 'tht'
+                              ? Container(
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Lama Grace Period',
+                                          style: TextStyle(
+                                              fontFamily: 'Montserrat Regular'),
+                                        ),
+                                      ),
+                                      Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            '${data.dataSimulation[0].lamaGracePeriod} BULAN',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontFamily:
+                                                    'Montserrat Regular'),
+                                          )),
+                                    ],
+                                  ),
+                                )
+                              : SizedBox(height: 0),
+                          SizedBox(height: 10)
                         ],
                       ),
-                    );
-                  }
-                });
-              })),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                        color: Colors.grey,
+                      ))),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.date_range,
+                                color: kPrimaryColor,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Text('PERHITUNGAN PINJAMAN',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'Montserrat Regular',
+                                        color: kPrimaryColor)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Nominal Pinjaman',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${formatRupiah(data.dataSimulation[0].plafondMaksimal)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          widget.simulasiJenis == 'tht'
+                              ? SizedBox(height: 10)
+                              : SizedBox(height: 0),
+                          widget.simulasiJenis == 'tht'
+                              ? Container(
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'THT',
+                                          style: TextStyle(
+                                              fontFamily: 'Montserrat Regular'),
+                                        ),
+                                      ),
+                                      Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            '${formatRupiah(data.dataSimulation[0].tht)}',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontFamily:
+                                                    'Montserrat Regular'),
+                                          )),
+                                    ],
+                                  ),
+                                )
+                              : SizedBox(height: 0),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Jangka Waktu',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${data.dataSimulation[0].jangWaktu} BULAN',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Angsuran per Bulan',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${formatRupiah(data.dataSimulation[0].angsuranPerbulan)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'DSR Pinjaman',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${data.dataSimulation[0].iirPinjaman} %',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Bunga Anuitas',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${data.dataSimulation[0].bungaAnuitas} %',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Bunga Efektif',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${data.dataSimulation[0].bungaEfektif} %',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Sisa Gaji Pensiun',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${formatRupiah(data.dataSimulation[0].sisaGaji)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Status Pinjaman',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Container(
+                                      padding: EdgeInsets.all(5),
+                                      color: Colors.blue,
+                                      child: Text(
+                                        "${data.dataSimulation[0].messageText}",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: 'Montserrat Regular',
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                        color: Colors.grey,
+                      ))),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.attach_money,
+                                color: kPrimaryColor,
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  'PERHITUNGAN TERIMA BERSIH',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Montserrat Regular',
+                                      color: kPrimaryColor),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Jenis Asuransi',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      "${data.dataSimulation[0].jenisAsuransi}",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Biaya Provisi',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${formatRupiah(data.dataSimulation[0].biayaProvisi)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Biaya Administrasi',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${formatRupiah(data.dataSimulation[0].biayaAdministrasi)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Biaya Materai',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${formatRupiah(data.dataSimulation[0].biayaMaterai)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Biaya Asuransi',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${formatRupiah(data.dataSimulation[0].biayaAsuransi)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Total Biaya',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${formatRupiah(data.dataSimulation[0].totalBiaya)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Blokir Angsuran',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${formatRupiah(data.dataSimulation[0].blokirAngsuran)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          widget.simulasiJenis == 'gp' ||
+                                  widget.simulasiJenis == 'tht'
+                              ? SizedBox(height: 10)
+                              : SizedBox(height: 0),
+                          widget.simulasiJenis == 'gp' ||
+                                  widget.simulasiJenis == 'tht'
+                              ? Container(
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Blokir Grace Period',
+                                          style: TextStyle(
+                                              fontFamily: 'Montserrat Regular'),
+                                        ),
+                                      ),
+                                      Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            '${formatRupiah(data.dataSimulation[0].gracePeriod)}',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontFamily:
+                                                    'Montserrat Regular'),
+                                          )),
+                                    ],
+                                  ),
+                                )
+                              : SizedBox(height: 0),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Hutang Bank Lain',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${formatRupiah(data.dataSimulation[0].takeoverBankLain)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Total Potongan',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      '${formatRupiah(data.dataSimulation[0].totalPotongan)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat Regular'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    'Terima Bersih',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat Regular'),
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Container(
+                                      color: Colors.blue,
+                                      padding: EdgeInsets.all(5),
+                                      child: Text(
+                                        '${formatRupiah(data.dataSimulation[0].terimaBersih)}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: 'Montserrat Regular',
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              );
+            }
+          });
+        },
+      ),
     );
   }
 

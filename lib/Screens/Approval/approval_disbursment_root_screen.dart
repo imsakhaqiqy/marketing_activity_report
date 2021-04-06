@@ -84,42 +84,42 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                       print(data.dataApprovalDisbursment.length);
                       if (data.dataApprovalDisbursment.length == 0) {
                         return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Center(
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(50))),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Icon(Icons.hourglass_empty,
-                                              size: 70),
-                                        )),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'Approval Pencairan Yuk!',
-                                      style: TextStyle(
-                                          fontFamily: "Montserrat Regular",
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'Pencairan marketing tidak tersedia.',
-                                      style: TextStyle(
-                                        fontFamily: "Montserrat Regular",
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ]),
+                              child: Column(children: <Widget>[
+                                Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(50))),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child:
+                                          Icon(Icons.hourglass_empty, size: 70),
+                                    )),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Approval Pencairan Yuk!',
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat Regular",
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Pencairan marketing tidak tersedia.',
+                                  style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ]),
                             )
                           ],
                         );
@@ -242,14 +242,6 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                           data
                                                               .dataApprovalDisbursment[
                                                                   i]
-                                                              .namaSales,
-                                                          data
-                                                              .dataApprovalDisbursment[
-                                                                  i]
-                                                              .statusPencairan,
-                                                          data
-                                                              .dataApprovalDisbursment[
-                                                                  i]
                                                               .namaTl,
                                                           data
                                                               .dataApprovalDisbursment[
@@ -259,6 +251,74 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                               .dataApprovalDisbursment[
                                                                   i]
                                                               .teleponTl,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .namaSales,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .cabang,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .infoSales,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .statusPipeline,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .statusKredit,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .pengelolaPensiun,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .bankTakeover,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .tanggalPenyerahan,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .namaPenerima,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .teleponPenerima,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .tanggalPipeline,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .tempatLahir,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .tanggalLahir,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .jenisKelamin,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .noKtp,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .npwp,
+                                                          data
+                                                              .dataApprovalDisbursment[
+                                                                  i]
+                                                              .kodeProduk,
                                                         )));
                                           },
                                           child: ListTile(
@@ -363,42 +423,42 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                       print(data.dataApprovalDisbursmentAgen.length);
                       if (data.dataApprovalDisbursmentAgen.length == 0) {
                         return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Center(
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(50))),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Icon(Icons.hourglass_empty,
-                                              size: 70),
-                                        )),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'Approval Pencairan Yuk!',
-                                      style: TextStyle(
-                                          fontFamily: "Montserrat Regular",
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'Pencairan agent tidak tersedia.',
-                                      style: TextStyle(
-                                        fontFamily: "Montserrat Regular",
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ]),
+                              child: Column(children: <Widget>[
+                                Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(50))),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child:
+                                          Icon(Icons.hourglass_empty, size: 70),
+                                    )),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Approval Pencairan Yuk!',
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat Regular",
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Pencairan agent tidak tersedia.',
+                                  style: TextStyle(
+                                    fontFamily: "Montserrat Regular",
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ]),
                             )
                           ],
                         );
@@ -525,14 +585,6 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                           data
                                                               .dataApprovalDisbursmentAgen[
                                                                   i]
-                                                              .namaSales,
-                                                          data
-                                                              .dataApprovalDisbursmentAgen[
-                                                                  i]
-                                                              .statusPencairan,
-                                                          data
-                                                              .dataApprovalDisbursmentAgen[
-                                                                  i]
                                                               .namaTl,
                                                           data
                                                               .dataApprovalDisbursmentAgen[
@@ -542,6 +594,74 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                               .dataApprovalDisbursmentAgen[
                                                                   i]
                                                               .teleponTl,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .namaSales,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .cabang,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .infoSales,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .statusPipeline,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .statusKredit,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .pengelolaPensiun,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .bankTakeover,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .tanggalPenyerahan,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .namaPenerima,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .teleponPenerima,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .tanggalPipeline,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .tempatLahir,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .tanggalLahir,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .jenisKelamin,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .noKtp,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .npwp,
+                                                          data
+                                                              .dataApprovalDisbursmentAgen[
+                                                                  i]
+                                                              .kodeProduk,
                                                         )));
                                           },
                                           child: ListTile(

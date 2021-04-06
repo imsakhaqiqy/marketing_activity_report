@@ -323,11 +323,12 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
         if (message == 'Nomor Telepon') {
           setState(() {
             _loading = false;
+            print(message);
           });
           Toast.show(
             'Nomor telepon sudah terdaftar, mohon masukkan nomor telepon lain',
             context,
-            duration: Toast.LENGTH_SHORT,
+            duration: Toast.LENGTH_LONG,
             gravity: Toast.BOTTOM,
             backgroundColor: Colors.red,
           );
@@ -517,7 +518,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                                       width: 20.0,
                                     )
                                   : FlatButton(
-                                      color: Colors.red,
+                                      color: Colors.teal,
                                       child: Text("Kirim Kode Verifikasi",
                                           style: TextStyle(
                                               fontFamily: 'Montserrat Regular',

@@ -164,6 +164,9 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
                               elevation: 4,
                               child: InkWell(
                                 onTap: () {
+                                  print(
+                                    data.dataDisbursmentSlReport[i].cabang,
+                                  );
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
                                           DisbursmentViewScreen(
@@ -206,7 +209,39 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
                                               data.dataDisbursmentSlReport[i]
                                                   .teleponTl,
                                               data.dataDisbursmentSlReport[i]
-                                                  .namaSales)));
+                                                  .namaSales,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .cabang,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .infoSales,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .statusPipeline,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .statusKredit,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .pengelolaPensiun,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .bankTakeover,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .tanggalPenyerahan,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .namaPenerima,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .teleponPenerima,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .tanggalPipeline,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .tempatLahir,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .tanggalLahir,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .jenisKelamin,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .noKtp,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .npwp,
+                                              data.dataDisbursmentSlReport[i]
+                                                  .kodeProduk)));
                                 },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,

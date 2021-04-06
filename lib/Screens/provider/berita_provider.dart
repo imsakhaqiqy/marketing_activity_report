@@ -8,7 +8,7 @@ class BeritaProvider extends ChangeNotifier {
   List<BeritaModel> get dataBerita => _data;
 
   Future<List<BeritaModel>> getBerita() async {
-    final url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/getBerita';
+    final url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/getBerita';
     final response = await http.get(url);
     //final response = await http.get(url);
 

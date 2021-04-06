@@ -16,7 +16,7 @@ class DisbursmentAkadProvider extends ChangeNotifier {
   Future<List<DisbursmentAkadModel>> getDisbursmentAkad(
       DisbursmentAkadItem disbursmentAkadItem) async {
     final url =
-        'https://www.nabasa.co.id/api_marsit_v1/tes.php/getDisbursmentAkad';
+        'https://www.nabasa.co.id/api_marsit_v1/index.php/getDisbursmentAkad';
     final response =
         await http.post(url, body: {'nik_sales': disbursmentAkadItem.nik});
     //final response = await http.get(url);

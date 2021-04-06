@@ -189,26 +189,33 @@ class _ReportInteractionScreen extends State<ReportInteractionScreen> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
                                           InteractionViewScreen(
-                                              data.dataInteractionReport[i]
-                                                  .calonDebitur,
-                                              data.dataInteractionReport[i]
-                                                  .alamat,
-                                              data.dataInteractionReport[i]
-                                                  .email,
-                                              data.dataInteractionReport[i]
-                                                  .telepon,
-                                              data.dataInteractionReport[i]
-                                                  .plafond,
-                                              data.dataInteractionReport[i]
-                                                  .salesFeedback,
-                                              data.dataInteractionReport[i]
-                                                  .foto,
-                                              data.dataInteractionReport[i]
-                                                  .tanggalInteraksi,
-                                              data.dataInteractionReport[i]
-                                                  .jamInteraksi,
-                                              data.dataInteractionReport[i]
-                                                  .statusInteraksi)));
+                                            data.dataInteractionReport[i]
+                                                .calonDebitur,
+                                            data.dataInteractionReport[i]
+                                                .alamat,
+                                            data.dataInteractionReport[i].email,
+                                            data.dataInteractionReport[i]
+                                                .telepon,
+                                            data.dataInteractionReport[i]
+                                                .plafond,
+                                            data.dataInteractionReport[i]
+                                                .salesFeedback,
+                                            data.dataInteractionReport[i].foto,
+                                            data.dataInteractionReport[i]
+                                                .tanggalInteraksi,
+                                            data.dataInteractionReport[i]
+                                                .jamInteraksi,
+                                            data.dataInteractionReport[i]
+                                                .statusInteraksi,
+                                            data.dataInteractionReport[i]
+                                                .kelurahan,
+                                            data.dataInteractionReport[i]
+                                                .kecamatan,
+                                            data.dataInteractionReport[i]
+                                                .kabupaten,
+                                            data.dataInteractionReport[i]
+                                                .propinsi,
+                                          )));
                                 },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,

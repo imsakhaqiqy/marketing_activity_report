@@ -14,7 +14,7 @@ class PlanningProvider extends ChangeNotifier {
   List<PlanningModel> get dataPlanning => _data;
 
   Future<List<PlanningModel>> getPlanning(PlanningItem planningItem) async {
-    final url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/getPlanning';
+    final url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/getPlanning';
     final response =
         await http.post(url, body: {'nik_sales': planningItem.nik});
     //final response = await http.get(url);

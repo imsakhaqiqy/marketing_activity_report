@@ -17,7 +17,7 @@ class ReportMarketingSlProvider extends ChangeNotifier {
   Future<List<ReportMarketingModel>> getMarketingSlReport(
       ReportMarketingSlItem reportMarketingSlItem) async {
     final url =
-        'https://www.nabasa.co.id/api_marsit_v1/tes.php/getMarketingSlReport';
+        'https://www.nabasa.co.id/api_marsit_v1/index.php/getMarketingSlReport';
     final response = await http.post(url, body: {
       'nik_sales': reportMarketingSlItem.nik,
     });

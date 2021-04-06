@@ -264,6 +264,16 @@ class _RedeemScreenState extends State<RedeemScreen> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                '*untuk penukaran pulsa dengan nominal voucher dan nomor telepon yang sama hanya bisa dilakukan sekali dalam sehari.',
+                style: TextStyle(
+                  fontFamily: 'Montserrat Regular',
+                  color: Colors.red,
+                ),
+              ),
+            ),
             buildGridViewx(),
           ],
         ),
@@ -372,7 +382,9 @@ class _RedeemScreenState extends State<RedeemScreen> {
                                                   side: BorderSide(
                                                       color: Colors.redAccent)),
                                               color: Colors.redAccent,
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
                                               child: Text(
                                                 'UBAH',
                                                 style: TextStyle(
@@ -534,7 +546,7 @@ class _RedeemScreenState extends State<RedeemScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -542,10 +554,8 @@ class _RedeemScreenState extends State<RedeemScreen> {
     return FlatButton(
       color: Colors.deepPurple,
       child: Text("Cek",
-          style: TextStyle(
-              fontFamily: 'Montserrat Regular',
-              fontSize: 12.0,
-              color: Colors.white)),
+          style:
+              TextStyle(fontFamily: 'Montserrat Regular', color: Colors.white)),
       onPressed: () {
         if (formKey.currentState.validate()) {
           cekPulsa();

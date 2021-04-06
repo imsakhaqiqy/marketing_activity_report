@@ -102,7 +102,7 @@ class _VoucherScreenState extends State<VoucherScreen> {
                               double jumlah =
                                   nominal * double.parse(widget.tarif) / 100;
                               return Card(
-                                color: Colors.yellowAccent,
+                                color: Colors.teal,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8)),
                                 child: Column(
@@ -119,9 +119,9 @@ class _VoucherScreenState extends State<VoucherScreen> {
                                                 ),
                                               ),
                                               child: Icon(
-                                                Icons.attach_money,
+                                                Icons.monetization_on_outlined,
                                                 size: 50,
-                                                color: Colors.black,
+                                                color: Colors.white,
                                               ),
                                             )
                                           ],
@@ -131,10 +131,15 @@ class _VoucherScreenState extends State<VoucherScreen> {
                                           style: TextStyle(
                                               fontFamily: "Montserrat Regular",
                                               fontSize: 30,
-                                              color: Colors.black),
+                                              color: Colors.white),
                                         ),
-                                        subtitle: Text(messageStatus(data
-                                            .dataDisbursment[i].statusBayar)),
+                                        subtitle: Text(
+                                          messageStatus(data
+                                              .dataDisbursment[i].statusBayar),
+                                          style: TextStyle(
+                                              fontFamily: "Montserrat Regular",
+                                              color: Colors.white),
+                                        ),
                                       ),
                                     ]),
                               );

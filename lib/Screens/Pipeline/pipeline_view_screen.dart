@@ -117,7 +117,7 @@ class _PipelineViewScreenState extends State<PipelineViewScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'Data Nasabah',
-                  style: TextStyle(color: Colors.grey[600], fontSize: 18),
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
                 ),
               ),
               Container(
@@ -158,7 +158,7 @@ class _PipelineViewScreenState extends State<PipelineViewScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'Data Kredit',
-                  style: TextStyle(color: Colors.grey[600], fontSize: 18),
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
                 ),
               ),
               Container(
@@ -264,9 +264,9 @@ class _PipelineViewScreenState extends State<PipelineViewScreen> {
 
   messageStatus(String status) {
     if (status == '1') {
-      return 'Belum Pencairan';
+      return 'Pipeline';
     } else if (status == '2') {
-      return 'Sudah Pencairan';
+      return 'Pencairan';
     } else if (status == '3') {
       return 'Submit Dokumen';
     } else if (status == '4') {

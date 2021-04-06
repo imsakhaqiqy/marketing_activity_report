@@ -36,8 +36,8 @@ class _FavoriteWidgetState extends State<Body> {
 
   Future<void> setPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('username', 'ADMIN181');
-    prefs.setString('password', '317510240');
+    prefs.setString('username', usernameController.text);
+    prefs.setString('password', passwordController.text);
   }
 
   getPref() async {
@@ -45,11 +45,15 @@ class _FavoriteWidgetState extends State<Body> {
     usernamePref = preferences.getString("username");
     passwordPref = preferences.getString("password");
     if (usernamePref != null && passwordPref != null) {
-      setState(() {
-        usernameController.text = usernamePref;
-        passwordController.text = passwordPref;
-        checkedValue = true;
-      });
+      if (usernamePref == 'ADMIN181' && passwordPref == '317510240') {
+        removePref();
+      } else {
+        setState(() {
+          usernameController.text = usernamePref;
+          passwordController.text = passwordPref;
+          checkedValue = true;
+        });
+      }
     }
   }
 
@@ -91,7 +95,7 @@ class _FavoriteWidgetState extends State<Body> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: new Text(
-                'Login Failed, Please Check Your Username or Password'),
+                'Login gagal, mohon masukkan username atau password yang benar'),
             actions: <Widget>[
               FlatButton(
                 child: new Text("OK"),
@@ -119,7 +123,7 @@ class _FavoriteWidgetState extends State<Body> {
               builder: (BuildContext context) {
                 return AlertDialog(
                   title: new Text(
-                      'Login Failed, Your Account is Suspend, Please Contact Sales Leader'),
+                      'Login gagal, Account kamu di suspend, mohon hubungi sales leader'),
                   actions: <Widget>[
                     FlatButton(
                       child: new Text("OK"),
@@ -202,67 +206,62 @@ class _FavoriteWidgetState extends State<Body> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  backgroundColor: Colors.blueAccent,
+                  title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(''),
+                        CloseButton(
+                            color: Color(0xFFD5D3D3),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(''),
+                                        CloseButton(
+                                          color: Color(0xFFD5D3D3),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        )
+                                      ],
+                                    ),
+                                    titlePadding: EdgeInsets.all(0.0),
+                                    backgroundColor: Colors.transparent,
+                                    content: Container(
+                                      height: size.width * 0.70,
+                                      child: Column(children: [
+                                        Image.asset(
+                                          "assets/images/warning-03.png",
+                                          height: size.width * 0.70,
+                                          width: size.width * 0.70,
+                                        )
+                                      ]),
+                                    ),
+                                  );
+                                },
+                              );
+                            })
+                      ]),
+                  titlePadding: EdgeInsets.all(0.0),
+                  backgroundColor: Colors.transparent,
                   content: Container(
                     height: size.width * 0.70,
                     width: size.width * 0.70,
                     child: Column(children: [
                       Image.asset(
-                        "assets/images/MARKETING-02.png",
-                        fit: BoxFit.fill,
+                        "assets/images/Pipeline-01.jpg",
                         height: size.width * 0.70,
                         width: size.width * 0.70,
                       )
                     ]),
                   ),
-                  actions: <Widget>[
-                    FlatButton(
-                      color: Colors.white,
-                      child: Text(
-                        "Tutup",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Montserrat Regular'),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        showDialog(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              backgroundColor: Colors.transparent,
-                              content: Container(
-                                height: size.width * 0.70,
-                                child: Column(children: [
-                                  Image.asset(
-                                    "assets/images/warning-03.png",
-                                    fit: BoxFit.fill,
-                                    height: size.width * 0.70,
-                                    width: size.width * 0.70,
-                                  )
-                                ]),
-                              ),
-                              actions: <Widget>[
-                                FlatButton(
-                                  color: Colors.white,
-                                  child: Text(
-                                    "Tutup",
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'Montserrat Regular'),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ],
                 );
               },
             );

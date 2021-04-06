@@ -9,9 +9,11 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
+import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_root_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_screen.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:kreditpensiun_apps/Screens/models/image_upload_model.dart';
+import 'package:kreditpensiun_apps/constants.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:toast/toast.dart';
 
@@ -26,6 +28,7 @@ class PipelineAddScreen extends StatefulWidget {
 }
 
 class _PipelineAddScreen extends State<PipelineAddScreen> {
+  bool loadingScreen = false;
   String image1;
   String image2;
   String base64Image1;
@@ -90,7 +93,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
   List data =
       List(); //DEFINE VARIABLE data DENGAN TYPE List AGAR DAPAT MENAMPUNG COLLECTION / ARRAY
   final String url2 =
-      'https://www.nabasa.co.id/api_marsit_v1/tes.php/getBankTakeover';
+      'https://www.nabasa.co.id/api_marsit_v1/index.php/getBankTakeover';
   List data2 =
       List(); //DEFINE VARIABLE data DENGAN TYPE List AGAR DAPAT MENAMPUNG COLLECTION / ARRAY
   bool visible = false;
@@ -106,14 +109,23 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
 
   // ignore: missing_return
   Future<String> getCabang() async {
+    setState(() {
+      loadingScreen = true;
+    });
     // MEMINTA DATA KE SERVER DENGAN KETENTUAN YANG DI ACCEPT ADALAH JSON
     var res = await http
         .get(Uri.encodeFull(url), headers: {'accept': 'application/json'});
-    var resBody = json.decode(res.body)['Daftar_Cabang'];
-    setState(() {
-      data = resBody;
-      print(data);
-    });
+    if (res.statusCode == 200) {
+      setState(() {
+        if (json.decode(res.body)['Daftar_Cabang'] == '') {
+          loadingScreen = false;
+        } else {
+          var resBody = json.decode(res.body)['Daftar_Cabang'];
+          loadingScreen = false;
+          data = resBody;
+        }
+      });
+    }
   }
 
   Future<String> getBankTakeover() async {
@@ -143,7 +155,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
     keteranganPensiun = keteranganPensiunController.text;
 
     //server save api
-    var url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/savePipeline';
+    var url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/savePipeline';
     String bankTakeovernya;
     if (selectedBankTakeover == null) {
       bankTakeovernya = '';
@@ -199,7 +211,8 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
           backgroundColor: Colors.red,
         );
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => PipelineScreen(widget.username, widget.nik)));
+            builder: (context) =>
+                PipelineRootPage(widget.username, widget.nik)));
       } else {
         setState(() {
           visible = false;
@@ -212,174 +225,190 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
           backgroundColor: Colors.red,
         );
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => PipelineScreen(widget.username, widget.nik)));
+            builder: (context) =>
+                PipelineRootPage(widget.username, widget.nik)));
       }
     }
   }
 
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
-          visible
-              ? Toast.show(
-                  'Mohon menunggu, sedang proses penyimpanan pipeline...',
-                  context,
-                  duration: Toast.LENGTH_SHORT,
-                  gravity: Toast.BOTTOM,
-                  backgroundColor: Colors.red,
-                )
-              : Navigator.of(context).pop();
-        },
-        child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            title: Text(
-              'Tambah Pipeline',
-              style: TextStyle(fontFamily: 'Montserrat Regular'),
+    return loadingScreen
+        ? Container(
+            color: Colors.white,
+            child: Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
+              ),
             ),
-            actions: <Widget>[
-              FlatButton(
-                  color: Colors.white,
-                  //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
-                  //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
-                  child: visible
-                      ? CircularProgressIndicator(
-                          //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.teal),
-                        )
-                      : Text(
-                          'Simpan',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat Regular',
-                              color: Colors.teal,
-                              fontWeight: FontWeight.bold),
-                        ),
-                  onPressed: () {
-                    if (formKey.currentState.validate()) {
-                      if (selectedJenisKelamin == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih jenis kelamin...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedJenisDebitur == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih jenis produk...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedJenisCabang == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih kantor cabang...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedStatusKredit == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih status kredit...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedPengelolaPensiun == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih pengelola pensiun...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (image1 == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih foto ktp...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (image2 == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih foto npwp...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else {
-                        savePipeline();
-                      }
-                    }
-                  })
-            ],
-          ),
-          body: Container(
-              color: Colors.grey[200],
-              child: Form(
-                key: formKey,
-                child: ListView(
-                  physics: ClampingScrollPhysics(),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Data Nasabah',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      child: Column(
-                        children: <Widget>[
-                          fieldKtp(),
-                          fieldDebitur(),
-                          fieldTelepon(),
-                          fieldAlamat(),
-                          fieldTempatLahir(),
-                          fieldTanggalLahir(),
-                          fieldNomorNpwp(),
-                          fieldJenisKelamin(),
-                          SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Data Kredit',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      child: Column(
-                        children: <Widget>[
-                          fieldPlafond(),
-                          fieldKeterangan(),
-                          fieldJenisDebitur(),
-                          fieldKantorCabang(),
-                          fieldStatusKredit(),
-                          Visibility(
-                              visible: _isVisible, child: fieldBankTakeOver()),
-                          fieldPengelolaPensiun(),
-                          SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Dokumen Nasabah',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      //color: Colors.white,
-                      child: Row(
-                        children: <Widget>[Expanded(child: buildGridView())],
-                      ),
-                    ),
-                  ],
+          )
+        : WillPopScope(
+            onWillPop: () async {
+              visible
+                  ? Toast.show(
+                      'Mohon menunggu, sedang proses penyimpanan pipeline...',
+                      context,
+                      duration: Toast.LENGTH_SHORT,
+                      gravity: Toast.BOTTOM,
+                      backgroundColor: Colors.red,
+                    )
+                  : Navigator.of(context).pop();
+            },
+            child: Scaffold(
+              key: _scaffoldKey,
+              appBar: AppBar(
+                title: Text(
+                  'Tambah Pipeline',
+                  style: TextStyle(fontFamily: 'Montserrat Regular'),
                 ),
-              )),
-        ));
+                actions: <Widget>[
+                  FlatButton(
+                      color: Colors.white,
+                      //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
+                      //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
+                      child: visible
+                          ? CircularProgressIndicator(
+                              //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.teal),
+                            )
+                          : Text(
+                              'Simpan',
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat Regular',
+                                  color: Colors.teal,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                      onPressed: () {
+                        if (formKey.currentState.validate()) {
+                          if (selectedJenisKelamin == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih jenis kelamin...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (selectedJenisDebitur == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih jenis produk...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (selectedJenisCabang == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih kantor cabang...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (selectedStatusKredit == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih status kredit...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (selectedPengelolaPensiun == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih pengelola pensiun...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (image1 == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih foto ktp...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (image2 == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih foto npwp...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else {
+                            savePipeline();
+                          }
+                        }
+                      })
+                ],
+              ),
+              body: Container(
+                  color: Colors.grey[200],
+                  child: Form(
+                    key: formKey,
+                    child: ListView(
+                      physics: ClampingScrollPhysics(),
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Data Nasabah',
+                            style: TextStyle(
+                                color: Colors.grey[600], fontSize: 20),
+                          ),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.all(8),
+                          width: double.infinity,
+                          child: Column(
+                            children: <Widget>[
+                              fieldKtp(),
+                              fieldDebitur(),
+                              fieldTelepon(),
+                              fieldAlamat(),
+                              fieldTempatLahir(),
+                              fieldTanggalLahir(),
+                              fieldNomorNpwp(),
+                              fieldJenisKelamin(),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Data Kredit',
+                            style: TextStyle(
+                                color: Colors.grey[600], fontSize: 20),
+                          ),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.all(8),
+                          width: double.infinity,
+                          child: Column(
+                            children: <Widget>[
+                              fieldPlafond(),
+                              fieldKeterangan(),
+                              fieldJenisDebitur(),
+                              fieldKantorCabang(),
+                              fieldStatusKredit(),
+                              Visibility(
+                                  visible: _isVisible,
+                                  child: fieldBankTakeOver()),
+                              fieldPengelolaPensiun(),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Dokumen Nasabah',
+                            style: TextStyle(
+                                color: Colors.grey[600], fontSize: 20),
+                          ),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          padding: EdgeInsets.all(8),
+                          width: double.infinity,
+                          //color: Colors.white,
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(child: buildGridView())
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+            ));
   }
 
   Widget fieldKtp() {
@@ -523,8 +552,8 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
       validator: (value) {
         if (value.isEmpty) {
           return 'No telepon wajib diisi...';
-        } else if (value.length < 11) {
-          return 'No Telepon minimal 11 angka...';
+        } else if (value.length < 10) {
+          return 'No Telepon minimal 10 angka...';
         } else if (value.length > 13) {
           return 'No Telepon maksimal 13 angka...';
         }
@@ -722,7 +751,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
   Widget buildGridView() {
     return GridView.count(
       shrinkWrap: true,
-      crossAxisCount: 3,
+      crossAxisCount: 2,
       childAspectRatio: 1,
       children: List.generate(images.length, (index) {
         if (images[index] is ImageUploadModel) {
@@ -774,10 +803,10 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
           Color colored;
           if (index == 0) {
             titled = 'Foto KTP';
-            colored = Colors.red;
+            colored = Colors.teal;
           } else if (index == 1) {
             titled = 'Foto NPWP';
-            colored = Colors.yellow;
+            colored = Colors.teal;
           }
           return Card(
               shape: RoundedRectangleBorder(

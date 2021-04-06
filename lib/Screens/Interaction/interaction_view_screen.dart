@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
+import 'package:kreditpensiun_apps/Screens/Disbursment/view_image.dart';
 import 'package:kreditpensiun_apps/constants.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InteractionViewScreen extends StatefulWidget {
   String calonDebitur;
@@ -13,274 +17,212 @@ class InteractionViewScreen extends StatefulWidget {
   String tanggalInteraksi;
   String jamInteraksi;
   String status;
+  String kelurahan;
+  String kecamatan;
+  String kabupaten;
+  String propinsi;
 
   InteractionViewScreen(
-      this.calonDebitur,
-      this.alamat,
-      this.email,
-      this.telepon,
-      this.rencanaPinjaman,
-      this.salesFeedback,
-      this.foto,
-      this.tanggalInteraksi,
-      this.jamInteraksi,
-      this.status);
+    this.calonDebitur,
+    this.alamat,
+    this.email,
+    this.telepon,
+    this.rencanaPinjaman,
+    this.salesFeedback,
+    this.foto,
+    this.tanggalInteraksi,
+    this.jamInteraksi,
+    this.status,
+    this.kelurahan,
+    this.kecamatan,
+    this.kabupaten,
+    this.propinsi,
+  );
   @override
   _InteractionViewScreenState createState() => _InteractionViewScreenState();
 }
 
 class _InteractionViewScreenState extends State<InteractionViewScreen> {
+  Future<void> _makePhoneCall(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  void launchWhatsApp({
+    @required String phone,
+    @required String message,
+  }) async {
+    String url() {
+      return "whatsapp://send?phone=$phone&text=${Uri.parse(message)}";
+    }
+
+    if (await canLaunch(url())) {
+      await launch(url());
+    } else {
+      throw 'Could not launch ${url()}';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String foto = 'https://www.nabasa.co.id/marsit/' + widget.foto;
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          title: Text(
-            '${widget.calonDebitur}',
-            style: TextStyle(
-              fontFamily: 'Montserrat Regular',
+      appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        title: Text(
+          '${widget.calonDebitur}',
+          style: TextStyle(
+            fontFamily: 'Montserrat Regular',
+            color: Colors.white,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              String teleponFix = '+62' + widget.telepon.substring(1);
+              launchWhatsApp(phone: teleponFix, message: 'Tes');
+            },
+            icon: Icon(MdiIcons.whatsapp),
+            iconSize: 20,
+          ),
+          IconButton(
+            onPressed: () {
+              _makePhoneCall('tel:${widget.telepon}');
+            },
+            icon: Icon(Icons.call),
+            iconSize: 20,
+          )
+        ],
+      ),
+      body: Container(
+        color: grey,
+        child: ListView(
+          physics: ClampingScrollPhysics(),
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Dokumen Interaksi',
+                style: TextStyle(color: Colors.grey[600], fontSize: 20),
+              ),
+            ),
+            Container(
               color: Colors.white,
+              padding: EdgeInsets.all(8),
+              width: double.infinity,
+              child: Column(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () async {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              ImageView(foto, 'Foto Interaksi')));
+                    },
+                    child: CircleAvatar(
+                      radius: 100,
+                      backgroundImage: NetworkImage(foto),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Data Interaksi',
+                style: TextStyle(color: Colors.grey[600], fontSize: 20),
+              ),
+            ),
+            Container(
+              color: Colors.white,
+              padding: EdgeInsets.all(8),
+              width: double.infinity,
+              child: Column(
+                children: <Widget>[
+                  fieldDebitur('Alamat', setNull(widget.alamat), 120.0),
+                  SizedBox(height: 10),
+                  fieldDebitur('Kelurahan', setNull(widget.kelurahan), 120.0),
+                  SizedBox(height: 10),
+                  fieldDebitur('Kecamatan', setNull(widget.kecamatan), 120.0),
+                  SizedBox(height: 10),
+                  fieldDebitur(
+                    'Kabupaten',
+                    setNull(widget.kabupaten),
+                    120.0,
+                  ),
+                  SizedBox(height: 10),
+                  fieldDebitur(
+                    'Propinsi',
+                    setNull(widget.propinsi),
+                    120.0,
+                  ),
+                  SizedBox(height: 10),
+                  fieldDebitur('Email', setNull(widget.email), 120.0),
+                  SizedBox(height: 10),
+                  fieldDebitur('No Telepon', setNull(widget.telepon), 120.0),
+                  SizedBox(height: 10),
+                  fieldDebitur('Rencana Pinjaman',
+                      formatRupiah(setNull(widget.rencanaPinjaman)), 120.0),
+                  SizedBox(height: 10),
+                  fieldDebitur(
+                      'Sales Feedback', setNull(widget.salesFeedback), 120.0),
+                  SizedBox(height: 10),
+                  fieldDebitur(
+                      'Tanggal', setNull(widget.tanggalInteraksi), 120.0),
+                  SizedBox(height: 10),
+                  fieldDebitur('Jam', setNull(widget.jamInteraksi), 120.0),
+                  SizedBox(height: 10),
+                  fieldDebitur('Status',
+                      setStatusInteraksi(setNull(widget.status)), 120.0),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget fieldDebitur(title, value, size) {
+    return Row(
+      children: <Widget>[
+        Container(
+          width: size,
+          decoration: new BoxDecoration(
+            color: Colors.indigoAccent,
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Text(
+              title,
+              style: TextStyle(
+                  fontFamily: 'Montserrat Regular', color: Colors.white),
             ),
           ),
         ),
-        body: Container(
-            color: grey,
-            padding: EdgeInsets.only(
-                left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
-            child:
-                ListView(physics: ClampingScrollPhysics(), children: <Widget>[
-              Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  //color: Colors.white,
-                  padding: EdgeInsets.only(
-                      left: 16.0, top: 16.0, right: 16.0, bottom: 16.0),
-                  child: Container(
-                      child: Column(
-                    children: <Widget>[
-                      Center(
-                        child: GestureDetector(
-                          onTap: () async {
-                            await showDialog(
-                              context: context,
-                              builder: (_) => Dialog(
-                                child: PhotoView(
-                                  imageProvider: NetworkImage(foto),
-                                  backgroundDecoration:
-                                      BoxDecoration(color: Colors.transparent),
-                                ),
-                              ),
-                            );
-                          },
-                          child: CircleAvatar(
-                            radius: 100,
-                            backgroundImage: NetworkImage(foto),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Alamat',
-                            child: Icon(
-                              Icons.home,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.alamat)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Email',
-                            child: Icon(
-                              Icons.email,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.email)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Telepon',
-                            child: Icon(
-                              Icons.phone,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.telepon)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Rencana Pinjaman',
-                            child: Icon(
-                              Icons.attach_money,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.rencanaPinjaman)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Sales Feedback',
-                            child: Icon(
-                              Icons.info,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.salesFeedback)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Tanggal Interaksi',
-                            child: Icon(
-                              Icons.directions_walk,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.tanggalInteraksi)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Jam Interaksi',
-                            child: Icon(
-                              Icons.timer,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.jamInteraksi)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Status Interaksi',
-                            child: Icon(
-                              Icons.info_outline,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setStatusInteraksi(widget.status)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat Regular',
-                                  color:
-                                      setColorStatusInteraksi(widget.status)),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )))
-            ])));
+        SizedBox(
+          width: 10,
+        ),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+                width: MediaQuery.of(context).size.width * 0.50,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      value,
+                      style: TextStyle(fontFamily: 'Montserrat Regular'),
+                    ),
+                  ],
+                ))),
+      ],
+    );
   }
 
   setNull(String data) {
@@ -303,11 +245,24 @@ class _InteractionViewScreenState extends State<InteractionViewScreen> {
 
   setStatusInteraksi(String nilai) {
     if (nilai == '0') {
-      return 'MENUNGGU PERSETUJUAN';
+      return 'Menunggu Persetujuan';
     } else if (nilai == '1') {
-      return 'INTERAKSI DI SETUJUI';
+      return 'Disetujui Sales Leader';
     } else if (nilai == '11') {
-      return 'INTERAKSI DI TOLAK';
+      return 'Ditolak Sales Leader ';
     }
+  }
+
+  formatRupiah(String a) {
+    FlutterMoneyFormatter fmf = new FlutterMoneyFormatter(
+        amount: double.parse(a),
+        settings: MoneyFormatterSettings(
+          symbol: 'IDR',
+          thousandSeparator: '.',
+          decimalSeparator: ',',
+          symbolAndNumberSeparator: ' ',
+          fractionDigits: 3,
+        ));
+    return 'IDR ' + fmf.output.withoutFractionDigits;
   }
 }

@@ -292,7 +292,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
           ),
           labelText: "Nama Lengkap"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -314,7 +314,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
           ),
           labelText: "Instansi Pensiun"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -337,7 +337,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
         labelText: "Alamat",
       ),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -360,7 +360,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
         labelText: "Kelurahan",
       ),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -383,7 +383,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
         labelText: "Kecamatan",
       ),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -406,7 +406,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
         labelText: "Kota",
       ),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -429,7 +429,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
         labelText: "Propinsi",
       ),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -451,7 +451,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
           ),
           labelText: "Kantor Bayar"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 
@@ -461,8 +461,8 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       validator: (value) {
         if (value.isEmpty) {
           return 'No telepon wajib diisi...';
-        } else if (value.length < 11) {
-          return 'No Telepon minimal 11 angka...';
+        } else if (value.length < 10) {
+          return 'No Telepon minimal 10 angka...';
         } else if (value.length > 13) {
           return 'No Telepon maksimal 13 angka...';
         }
@@ -480,7 +480,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Montserrat Regular'),
     );
   }
 }

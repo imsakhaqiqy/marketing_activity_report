@@ -2,20 +2,13 @@ import 'dart:ui';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Help/help_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Home/app_bar.dart';
-import 'package:kreditpensiun_apps/Screens/Interaction/interaction_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Interaction/not_aktif_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Interaction/planning_interaction_screen.dart';
-import 'package:kreditpensiun_apps/Screens/News/news_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Modul/modul_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Planning/planning_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Report/report_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Report/report_screen_sl.dart';
-import 'package:kreditpensiun_apps/Screens/Simulation/simulation_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Report/report_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Simulation/simulation_view.dart';
-import 'package:kreditpensiun_apps/Screens/provider/disbursment_provider.dart';
-import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 
@@ -141,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            SimulationViewScreen()));
+                                            SimulationViewScreen(widget.nik)));
                               },
                             ),
                             GestureDetector(
@@ -176,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => BeritaScreen()));
+                                        builder: (context) => ModulScreen()));
                               },
                             ),
                           ],

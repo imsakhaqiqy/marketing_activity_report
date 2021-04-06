@@ -8,6 +8,9 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 import '../../constants.dart';
 
 class SimulationGpScreen extends StatefulWidget {
+  String nik;
+
+  SimulationGpScreen(this.nik);
   @override
   _SimulationGpScreenState createState() => _SimulationGpScreenState();
 }
@@ -474,7 +477,8 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
                           takeoverBankLain,
                           angsuranPerbulan,
                           batasUsiaPensiun,
-                          '0'))).then((result) {});
+                          '0',
+                          widget.nik))).then((result) {});
             }
           }
         },

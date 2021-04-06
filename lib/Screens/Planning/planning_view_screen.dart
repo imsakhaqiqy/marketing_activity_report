@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:kreditpensiun_apps/constants.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:toast/toast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PlanningViewScreen extends StatefulWidget {
   String nama;
@@ -18,41 +21,84 @@ class PlanningViewScreen extends StatefulWidget {
   String telepon;
   String visitStatus;
   String notas;
+  String npwp;
+  String namaPenerima;
+  String tanggalLahirPenerima;
+  String nomorSkep;
+  String tanggalSkep;
 
   PlanningViewScreen(
-      this.nama,
-      this.tglLahir,
-      this.gajiPokok,
-      this.alamat,
-      this.kelurahan,
-      this.kecamatan,
-      this.kabupaten,
-      this.provinsi,
-      this.kodepos,
-      this.namaKantor,
-      this.tmtPensiun,
-      this.penerbitSkep,
-      this.telepon,
-      this.visitStatus,
-      this.notas);
+    this.nama,
+    this.tglLahir,
+    this.gajiPokok,
+    this.alamat,
+    this.kelurahan,
+    this.kecamatan,
+    this.kabupaten,
+    this.provinsi,
+    this.kodepos,
+    this.namaKantor,
+    this.tmtPensiun,
+    this.penerbitSkep,
+    this.telepon,
+    this.visitStatus,
+    this.notas,
+    this.npwp,
+    this.namaPenerima,
+    this.tanggalLahirPenerima,
+    this.nomorSkep,
+    this.tanggalSkep,
+  );
   @override
   _PlanningViewScreenState createState() => _PlanningViewScreenState();
 }
 
 class _PlanningViewScreenState extends State<PlanningViewScreen> {
+  Future<void> _makePhoneCall(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  void launchWhatsApp({
+    @required String phone,
+    @required String message,
+  }) async {
+    String url() {
+      return "whatsapp://send?phone=$phone&text=${Uri.parse(message)}";
+    }
+
+    if (await canLaunch(url())) {
+      await launch(url());
+    } else {
+      throw 'Could not launch ${url()}';
+    }
+  }
+
+  String telepon;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      print(widget.telepon);
+      if (widget.telepon == null ||
+          widget.telepon == '' ||
+          widget.telepon.isEmpty) {
+        telepon = setNull(widget.telepon);
+      } else {
+        if (widget.telepon.substring(0, 1) != '0') {
+          telepon = '0' + widget.telepon;
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    String alamat = setNull(widget.alamat) +
-        ' KELURAHAN ' +
-        setNull(widget.kelurahan) +
-        ' KECAMATAN ' +
-        setNull(widget.kecamatan) +
-        ' ' +
-        setNull(widget.kabupaten) +
-        ' ' +
-        setNull(widget.provinsi) +
-        ' ' +
-        setNull(widget.kodepos);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
@@ -63,268 +109,175 @@ class _PlanningViewScreenState extends State<PlanningViewScreen> {
               color: Colors.white,
             ),
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                if (widget.telepon != '') {
+                  String teleponFix = '+62' + telepon.substring(1);
+                  launchWhatsApp(phone: teleponFix, message: 'Tes');
+                } else {
+                  Toast.show(
+                    'No telepon kosong...',
+                    context,
+                    duration: Toast.LENGTH_SHORT,
+                    gravity: Toast.BOTTOM,
+                    backgroundColor: Colors.red,
+                  );
+                }
+              },
+              icon: Icon(MdiIcons.whatsapp),
+              iconSize: 20,
+            ),
+            IconButton(
+              onPressed: () {
+                if (widget.telepon.length >= 10) {
+                  _makePhoneCall('tel:$telepon');
+                } else {
+                  Toast.show(
+                    'No telepon kosong...',
+                    context,
+                    duration: Toast.LENGTH_SHORT,
+                    gravity: Toast.BOTTOM,
+                    backgroundColor: Colors.red,
+                  );
+                }
+              },
+              icon: Icon(Icons.call),
+              iconSize: 20,
+            )
+          ],
         ),
         body: Container(
-            color: grey,
-            padding: EdgeInsets.only(
-                left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
+            color: Colors.grey[200],
             child:
                 ListView(physics: ClampingScrollPhysics(), children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Informasi Pribadi',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                ),
+              ),
               Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  //color: Colors.white,
-                  padding: EdgeInsets.only(
-                      left: 16.0, top: 16.0, right: 16.0, bottom: 16.0),
-                  child: Container(
-                      child: Column(
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Notas / Nopen',
-                            child: Icon(
-                              Icons.perm_device_information,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.notas)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Tanggal Lahir',
-                            child: Icon(
-                              Icons.date_range,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.tglLahir)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Gaji Pokok',
-                            child: Icon(
-                              Icons.monetization_on,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(formatRupiah(widget.gajiPokok))}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Nama Kantor',
-                            child: Icon(
-                              Icons.home,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.namaKantor)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Tanggal Pensiun',
-                            child: Icon(
-                              Icons.data_usage,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.tmtPensiun)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Penerbit SKEP',
-                            child: Icon(
-                              Icons.home,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.penerbitSkep)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Telepon',
-                            child: Icon(
-                              Icons.phone,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.telepon)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Alamat',
-                            child: Icon(
-                              Icons.directions_walk,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(alamat)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Status Interaksi',
-                            child: Icon(
-                              Icons.info,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setStatusVisit(setNull(widget.visitStatus))}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat Regular',
-                                  color:
-                                      setColorStatusVisit(widget.visitStatus)),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )))
+                padding: EdgeInsets.all(8),
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        fieldDebitur('Notas', setNull(widget.notas.trimLeft())),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Tanggal Lahir', setNull(widget.tglLahir)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Gaji Pokok',
+                            setNull(formatRupiah(widget.gajiPokok))),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('NPWP', setNull(widget.npwp)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Telepon', telepon),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur(
+                            'Tanggal Pensiun', setNull(widget.tmtPensiun)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Informasi Penerima',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(8),
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        fieldDebitur(
+                            'Nama Penerima', setNull(widget.namaPenerima)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Tanggal Lahir',
+                            setNull(widget.tanggalLahirPenerima)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Alamat', setNull(widget.alamat)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Kelurahan', setNull(widget.kelurahan)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Kecamatan', setNull(widget.kecamatan)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Kota', setNull(widget.kabupaten)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Propinsi', setNull(widget.provinsi)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Kodepos', setNull(widget.kodepos)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Informasi Lainnya',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(8),
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        fieldDebitur(
+                            'Kantor Bayar', setNull(widget.namaKantor)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Nomor SKEP', setNull(widget.nomorSkep)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur(
+                            'Tanggal SKEP', setNull(widget.tanggalSkep)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur(
+                            'Penerbit SKEP', setNull(widget.penerbitSkep)),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ])));
   }
 
@@ -353,9 +306,9 @@ class _PlanningViewScreenState extends State<PlanningViewScreen> {
   }
 
   formatRupiah(String a) {
-    if (a.substring(0, 1) == '0') {
+    if (a.substring(0, 1) != '0') {
       FlutterMoneyFormatter fmf = new FlutterMoneyFormatter(
-          amount: double.parse(a),
+          amount: double.parse(a.replaceAll(',', '')),
           settings: MoneyFormatterSettings(
             symbol: 'IDR',
             thousandSeparator: '.',
@@ -367,5 +320,47 @@ class _PlanningViewScreenState extends State<PlanningViewScreen> {
     } else {
       return a;
     }
+  }
+
+  Widget fieldDebitur(title, value) {
+    return Row(
+      children: <Widget>[
+        Container(
+          width: 80,
+          decoration: new BoxDecoration(
+            color: Colors.blueAccent,
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Text(
+              title,
+              style: TextStyle(
+                  fontFamily: 'Montserrat Regular', color: Colors.white),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+                width: MediaQuery.of(context).size.width * 0.50,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      value,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Montserrat Regular',
+                        color: Colors.black,
+                      ),
+                    )
+                  ],
+                ))),
+      ],
+    );
   }
 }

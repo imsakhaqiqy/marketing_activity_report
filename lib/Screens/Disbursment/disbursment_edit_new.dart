@@ -124,7 +124,8 @@ class _DisbursmentEditNewScreen extends State<DisbursmentEditNewScreen> {
     String noAkad = widget.nomorAplikasi;
     String nikSales = widget.nik;
     //server login api
-    var url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/getDataPencairan';
+    var url =
+        'https://www.nabasa.co.id/api_marsit_v1/index.php/getDataPencairan';
     //starting web api call
     var response =
         await http.post(url, body: {'no_akad': noAkad, 'nik_sales': nikSales});
@@ -133,6 +134,7 @@ class _DisbursmentEditNewScreen extends State<DisbursmentEditNewScreen> {
       print(message);
       setState(() {
         loadingScreen = false;
+        tanggalPencairan = message[0]['tgl_pencairan'];
         id = message[0]['id'].toString();
         path1 =
             'https://www.nabasa.co.id/marsit/' + message[0]['foto3'].toString();
@@ -252,7 +254,7 @@ class _DisbursmentEditNewScreen extends State<DisbursmentEditNewScreen> {
     tanggalPencairan = tanggalPencairanController.text;
     //server save api
     var url =
-        'https://www.nabasa.co.id/api_marsit_v1/tes.php/updateDisbursmentNew';
+        'https://www.nabasa.co.id/api_marsit_v1/index.php/updateDisbursmentNew';
     var response;
     if (path1 != '') {
       response = await http.post(url, body: {
@@ -343,7 +345,7 @@ class _DisbursmentEditNewScreen extends State<DisbursmentEditNewScreen> {
           key: _scaffoldKey,
           appBar: AppBar(
             title: Text(
-              'Edit Pencairan',
+              'Ubah Pencairan',
               style: TextStyle(fontFamily: 'Montserrat Regular'),
             ),
             actions: <Widget>[
@@ -368,7 +370,7 @@ class _DisbursmentEditNewScreen extends State<DisbursmentEditNewScreen> {
                       onPressed: () {
                         print(image1);
                         if (formKey.currentState.validate()) {
-                          if (image1 == null) {
+                          if (image1 == null || image1 == '') {
                             _scaffoldKey.currentState.showSnackBar(SnackBar(
                               content:
                                   Text('Mohon pilih foto bukti dana cair...'),
@@ -399,7 +401,7 @@ class _DisbursmentEditNewScreen extends State<DisbursmentEditNewScreen> {
                           child: Text(
                             'Informasi Akad',
                             style: TextStyle(
-                                color: Colors.grey[600], fontSize: 14),
+                                color: Colors.grey[600], fontSize: 20),
                           ),
                         ),
                         Container(
@@ -424,13 +426,50 @@ class _DisbursmentEditNewScreen extends State<DisbursmentEditNewScreen> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  fieldDebitur('Nominal',
+                                  fieldDebitur('Plafond',
                                       formatRupiah(widget.plafond), 120),
                                   SizedBox(
                                     height: 10,
                                   ),
                                   fieldDebitur('Jenis Produk',
                                       widget.selectedJenisProduk, 120),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  fieldDebitur('Informasi Sales',
+                                      widget.selectedJenisInfo, 120),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Informasi Petugas Bank',
+                            style: TextStyle(
+                                color: Colors.grey[600], fontSize: 20),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(8),
+                          color: Colors.white,
+                          child: Column(
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  fieldDebitur(
+                                      'Nama', widget.namaPetugasBank, 120),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  fieldDebitur('Jabatan',
+                                      widget.jabatanPetugasBank, 120),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  fieldDebitur('Telepon',
+                                      widget.teleponPetugasBank, 120),
                                 ],
                               ),
                             ],
@@ -441,7 +480,7 @@ class _DisbursmentEditNewScreen extends State<DisbursmentEditNewScreen> {
                           child: Text(
                             'Data Pencairan',
                             style: TextStyle(
-                                color: Colors.grey[600], fontSize: 14),
+                                color: Colors.grey[600], fontSize: 20),
                           ),
                         ),
                         Container(
@@ -466,24 +505,28 @@ class _DisbursmentEditNewScreen extends State<DisbursmentEditNewScreen> {
                                   child: Text(
                                     'Dokumen Pencairan',
                                     style: TextStyle(
-                                        color: Colors.grey[600], fontSize: 14),
+                                        color: Colors.grey[600], fontSize: 20),
                                   ),
                                 ),
-                                Align(
-                                    alignment: Alignment.centerRight,
-                                    child: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            path1 = '';
-                                          });
-                                        },
-                                        child: Tooltip(
-                                          message: 'Reset Photo',
-                                          child: Icon(
-                                            Icons.remove_circle,
-                                            color: Colors.red,
-                                          ),
-                                        )))
+                                path1 != null && path1 != ''
+                                    ? Align(
+                                        alignment: Alignment.centerRight,
+                                        child: InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                path1 = '';
+                                                image1 = '';
+                                                print(path1);
+                                              });
+                                            },
+                                            child: Tooltip(
+                                              message: 'Reset Photo',
+                                              child: Icon(
+                                                Icons.remove_circle,
+                                                color: Colors.red,
+                                              ),
+                                            )))
+                                    : Text('')
                               ],
                             )),
                         Container(
@@ -700,7 +743,7 @@ class _DisbursmentEditNewScreen extends State<DisbursmentEditNewScreen> {
       DateTimeField(
           controller: tanggalPencairanController,
           validator: (DateTime dateTime) {
-            if (dateTime == null) {
+            if (dateTime == null && tanggalPencairan == null) {
               return 'Tanggal pencairan wajib diisi...';
             }
             return null;
@@ -714,7 +757,7 @@ class _DisbursmentEditNewScreen extends State<DisbursmentEditNewScreen> {
                 initialDate: currentValue ?? DateTime.now(),
                 lastDate: DateTime(2100));
           },
-          style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontFamily: 'Montserrat Regular')),
     ]);
   }
 }

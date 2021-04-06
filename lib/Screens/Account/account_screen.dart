@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kreditpensiun_apps/Screens/Help/help_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Modul/modul_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_root_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Profile/profile_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Profile/slip_gaji_screen.dart';
@@ -224,62 +225,8 @@ class _SettingScreenState extends State<AccountScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                ModulScreen()));
-                                  },
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Row(
-                                            children: <Widget>[
-                                              Icon(Icons.library_books_sharp,
-                                                  color: Colors.black54),
-                                              SizedBox(width: 10),
-                                              Expanded(
-                                                child: Text(
-                                                  'Dokumen',
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'Montserrat Regular',
-                                                      color: Colors.black54,
-                                                      fontSize: 16.0),
-                                                ),
-                                              ),
-                                            ],
-                                          )),
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Icon(
-                                          Icons.chevron_right,
-                                          color: Colors.black54,
-                                          size: 20,
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                          color: Colors.black12,
-                        ))),
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              child: FlatButton(
-                                  color: Colors.white,
-                                  padding: EdgeInsets.only(left: 0.0),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                PipelineScreen(widget.username,
+                                                PipelineRootPage(
+                                                    widget.username,
                                                     widget.nik)));
                                   },
                                   child: Stack(
@@ -529,12 +476,14 @@ class _SettingScreenState extends State<AccountScreen> {
                                           alignment: Alignment.centerLeft,
                                           child: Row(
                                             children: <Widget>[
-                                              Icon(Icons.question_answer,
+                                              Icon(
+                                                  Icons
+                                                      .question_answer_outlined,
                                                   color: Colors.black54),
                                               SizedBox(width: 10),
                                               Expanded(
                                                 child: Text(
-                                                  'Tanya Jawab',
+                                                  'FAQ',
                                                   style: TextStyle(
                                                       fontFamily:
                                                           'Montserrat Regular',

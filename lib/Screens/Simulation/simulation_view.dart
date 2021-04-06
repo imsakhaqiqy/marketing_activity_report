@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kreditpensiun_apps/Screens/Simulation/simulation_gp_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Simulation/simulation_image.dart';
 import 'package:kreditpensiun_apps/Screens/Simulation/simulation_kp74_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Simulation/simulation_pa_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Simulation/simulation_prapensiun_screen.dart';
@@ -9,6 +10,8 @@ import 'package:kreditpensiun_apps/Screens/Simulation/simulation_tht_screen.dart
 import 'package:kreditpensiun_apps/constants.dart';
 
 class SimulationViewScreen extends StatefulWidget {
+  String nik;
+  SimulationViewScreen(this.nik);
   @override
   _SimulationViewScreenState createState() => _SimulationViewScreenState();
 }
@@ -17,12 +20,20 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
     with TickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> _animation;
+  Animation<double> _animation1;
+  Animation<double> _animation2;
+  Animation<double> _animation3;
+  Animation<double> _animation4;
   initState() {
     super.initState();
     _controller = AnimationController(
-        duration: const Duration(milliseconds: 2000), vsync: this, value: 0.1);
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.bounceOut);
-
+        duration: const Duration(milliseconds: 3000), vsync: this, value: 0.1);
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.bounceIn);
+    _animation1 = CurvedAnimation(parent: _controller, curve: Curves.bounceOut);
+    _animation2 =
+        CurvedAnimation(parent: _controller, curve: Curves.bounceInOut);
+    _animation3 = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _animation4 = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
     _controller.repeat();
   }
 
@@ -34,7 +45,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: grey,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         title: Text(
@@ -46,19 +57,25 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
         ),
       ),
       body: Container(
+        color: Colors.white,
         margin: EdgeInsets.all(10),
         child: Column(
           children: [
-            Card(
-              color: Colors.white,
-              elevation: 2,
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
               child: InkWell(
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              SimulationPegawaiAktifScreen()));
+                              SimulationPegawaiAktifScreen(widget.nik)));
                 },
                 child:
                     Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
@@ -90,21 +107,27 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                 ]),
               ),
             ),
-            Card(
-              color: Colors.white,
-              elevation: 2,
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
               child: InkWell(
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SimulationGpScreen()));
+                          builder: (context) =>
+                              SimulationGpScreen(widget.nik)));
                 },
                 child:
                     Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                   ListTile(
                     leading: ScaleTransition(
-                      scale: _animation,
+                      scale: _animation1,
                       child: Image.asset(
                         'assets/images/prapen_5.png',
                         height: 50,
@@ -130,22 +153,27 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                 ]),
               ),
             ),
-            Card(
-                color: Colors.white,
-                elevation: 2,
+            Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
                 child: InkWell(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                SimulationRegulerPrapensiunScreen()));
+                                SimulationRegulerPrapensiunScreen(widget.nik)));
                   },
                   child:
                       Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     ListTile(
                       leading: ScaleTransition(
-                        scale: _animation,
+                        scale: _animation2,
                         child: Image.asset(
                           'assets/images/prapens_10.png',
                           height: 50,
@@ -170,21 +198,27 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                     ),
                   ]),
                 )),
-            Card(
-                color: Colors.white,
-                elevation: 2,
+            Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
                 child: InkWell(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SimulationScreen()));
+                            builder: (context) =>
+                                SimulationScreen(widget.nik)));
                   },
                   child:
                       Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     ListTile(
                       leading: ScaleTransition(
-                        scale: _animation,
+                        scale: _animation3,
                         child: Image.asset(
                           'assets/images/pensiun.png',
                           height: 50,
@@ -209,9 +243,14 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                     ),
                   ]),
                 )),
-            Card(
-                color: Colors.white,
-                elevation: 2,
+            Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
                 child: InkWell(
                   onTap: () {
                     Navigator.push(
@@ -223,7 +262,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                       Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     ListTile(
                       leading: ScaleTransition(
-                        scale: _animation,
+                        scale: _animation4,
                         child: Image.asset(
                           'assets/images/platinum.png',
                           height: 50,

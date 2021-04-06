@@ -26,7 +26,7 @@ class _Body extends State<Body> {
   final String url =
       'https://www.nabasa.co.id/api_marsit_v1/index.php/getVersion';
   String versionId;
-  String versionIdApp = '1.0.19';
+  String versionIdApp = '1.0.23';
 
   String title = "title";
   String content = "content";

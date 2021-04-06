@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
+import 'package:kreditpensiun_apps/Screens/Disbursment/view_image.dart';
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -24,28 +26,61 @@ class DisbursmentViewScreen extends StatefulWidget {
   String jabatanTl;
   String teleponTl;
   String namaSales;
+  String cabang;
+  String keterangan;
+  String status;
+  String statusKredit;
+  String pengelolaPensiun;
+  String bankTakeover;
+  String tanggalPenyerahan;
+  String namaPenerima;
+  String teleponPenerima;
+  String tanggalPipeline;
+  String tempatLahir;
+  String tanggalLahir;
+  String jenisKelamin;
+  String nomorKtp;
+  String npwp;
+  String kodeProduk;
 
   DisbursmentViewScreen(
-      this.calonDebitur,
-      this.alamat,
-      this.telepon,
-      this.tanggalAkad,
-      this.nomorAplikasi,
-      this.nomorPerjanjian,
-      this.nominal,
-      this.jenisPencairan,
-      this.jenisProduk,
-      this.kantorCabang,
-      this.informasiSales,
-      this.foto1,
-      this.foto2,
-      this.foto3,
-      this.tanggalPencairan,
-      this.jamPencairan,
-      this.namaTl,
-      this.jabatanTl,
-      this.teleponTl,
-      this.namaSales);
+    this.calonDebitur,
+    this.alamat,
+    this.telepon,
+    this.tanggalAkad,
+    this.nomorAplikasi,
+    this.nomorPerjanjian,
+    this.nominal,
+    this.jenisPencairan,
+    this.jenisProduk,
+    this.kantorCabang,
+    this.informasiSales,
+    this.foto1,
+    this.foto2,
+    this.foto3,
+    this.tanggalPencairan,
+    this.jamPencairan,
+    this.namaTl,
+    this.jabatanTl,
+    this.teleponTl,
+    this.namaSales,
+    this.cabang,
+    this.keterangan,
+    this.status,
+    this.statusKredit,
+    this.pengelolaPensiun,
+    this.bankTakeover,
+    this.tanggalPenyerahan,
+    this.namaPenerima,
+    this.teleponPenerima,
+    this.tanggalPipeline,
+    this.tempatLahir,
+    this.tanggalLahir,
+    this.jenisKelamin,
+    this.nomorKtp,
+    this.npwp,
+    this.kodeProduk,
+  );
   @override
   _DisbursmentViewScreenState createState() => _DisbursmentViewScreenState();
 }
@@ -73,388 +108,294 @@ class _DisbursmentViewScreenState extends State<DisbursmentViewScreen> {
         ),
         body: Container(
             color: grey,
-            padding: EdgeInsets.only(
-                left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
             child:
                 ListView(physics: ClampingScrollPhysics(), children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Dokumen Pencairan',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                ),
+              ),
               Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  //color: Colors.white,
-                  padding: EdgeInsets.only(
-                      left: 16.0, top: 16.0, right: 16.0, bottom: 16.0),
-                  child: Container(
-                      child: Column(
-                    children: <Widget>[
-                      _buildBannerMenu(),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Alamat',
-                            child: Icon(
-                              Icons.home,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.alamat)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Telepon',
-                            child: Icon(
-                              Icons.phone,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.telepon)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Tanggal Akad',
-                            child: Icon(
-                              Icons.check,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.tanggalAkad)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Nomor Aplikasi',
-                            child: Icon(
-                              Icons.turned_in_not,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.nomorAplikasi)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Nomor Perjanjian',
-                            child: Icon(
-                              Icons.turned_in_not,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.nomorPerjanjian)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Jenis Pencairan',
-                            child: Icon(
-                              Icons.people,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.jenisPencairan)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Jenis Produk',
-                            child: Icon(
-                              Icons.turned_in_not,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.jenisProduk)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Kantor Cabang',
-                            child: Icon(
-                              Icons.work,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.kantorCabang)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Sales Informasi',
-                            child: Icon(
-                              Icons.person_outline,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.informasiSales)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Tanggal Pencairan',
-                            child: Icon(
-                              Icons.date_range,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.tanggalPencairan)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Jam Pencairan',
-                            child: Icon(
-                              Icons.access_time,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.jamPencairan)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Nama Sales',
-                            child: Icon(
-                              Icons.person_outline,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.namaSales)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Nama Petugas Bank',
-                            child: Icon(
-                              Icons.person,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.namaTl)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Jabatan Petugas Bank',
-                            child: Icon(
-                              Icons.info,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.jabatanTl)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Tooltip(
-                            message: 'Telepon Petugas Bank',
-                            child: Icon(
-                              Icons.phone,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${setNull(widget.teleponTl)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.black),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )))
+                color: Colors.white,
+                padding: EdgeInsets.all(8),
+                width: double.infinity,
+                child: Column(
+                  children: <Widget>[
+                    _buildBannerMenu(),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Data Nasabah',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                ),
+              ),
+              Container(
+                color: Colors.white,
+                padding: EdgeInsets.all(8),
+                width: double.infinity,
+                child: Column(
+                  children: <Widget>[
+                    fieldDebitur('Tanggal Pipeline',
+                        setNull(widget.tanggalPipeline), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                        'Tempat Lahir', setNull(widget.tempatLahir), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                        'Tanggal Lahir', setNull(widget.tanggalLahir), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                      'Jenis Kelamin',
+                      setJenisKelamin(setNull(widget.jenisKelamin)),
+                      120.0,
+                    ),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                      'No KTP',
+                      setNull(widget.nomorKtp),
+                      120.0,
+                    ),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                      'NPWP',
+                      setNull(widget.npwp),
+                      120.0,
+                    ),
+                    SizedBox(height: 10),
+                    fieldDebitur('Alamat', setNull(widget.alamat), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur('Telepon', setNull(widget.telepon), 120.0),
+                    SizedBox(height: 10),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Data Kredit',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                ),
+              ),
+              Container(
+                color: Colors.white,
+                padding: EdgeInsets.all(8),
+                width: double.infinity,
+                child: Column(
+                  children: <Widget>[
+                    fieldDebitur(
+                      'Jenis Produk',
+                      setNull(widget.jenisPencairan),
+                      120.0,
+                    ),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                      'Plafond',
+                      setNull(formatRupiah(widget.nominal)),
+                      120.0,
+                    ),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                      'Cabang Pencairan',
+                      setNull(widget.cabang),
+                      120.0,
+                    ),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                      'Sales Info',
+                      setNull(widget.keterangan),
+                      120.0,
+                    ),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                      'Status Pipeline',
+                      messageStatus(setNull(widget.status)),
+                      120.0,
+                    ),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                        'Status Kredit', setNull(widget.statusKredit), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                      'Pengelola Pensiun',
+                      setNull(widget.pengelolaPensiun),
+                      120.0,
+                    ),
+                    SizedBox(height: 10),
+                    setNull(widget.statusKredit) == 'TAKEOVER'
+                        ? fieldDebitur(
+                            'Bank Takeover',
+                            setNull(widget.bankTakeover),
+                            120.0,
+                          )
+                        : SizedBox(),
+                    setNull(widget.statusKredit) == 'TAKEOVER'
+                        ? SizedBox(height: 10)
+                        : SizedBox()
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Data Submit',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(8),
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        fieldDebitur('Tanggal Penyerahan',
+                            setNull(widget.tanggalPenyerahan), 120.0),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Nama Penerima',
+                            setNull(widget.namaPenerima), 120.0),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        fieldDebitur('Telepon Penerima',
+                            setNull(widget.teleponPenerima), 120.0),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Data Akad',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(8),
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    fieldDebitur(
+                        'Tanggal Akad', setNull(widget.tanggalAkad), 120.0),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    fieldDebitur(
+                        'Nomor Aplikasi', setNull(widget.nomorAplikasi), 120.0),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    fieldDebitur('Nomor Perjanjian',
+                        setNull(widget.nomorPerjanjian), 120.0),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    fieldDebitur('Nominal Pinjaman',
+                        setNull(formatRupiah(widget.nominal)), 120.0),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    fieldDebitur(
+                        'Kode Produk', setNull(widget.kodeProduk), 120.0),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    fieldDebitur(
+                        'Sales Info', setNull(widget.informasiSales), 120.0),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Data Petugas Bank',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(8),
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    fieldDebitur('Nama', setNull(widget.namaTl), 120.0),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    fieldDebitur('Jabatan', setNull(widget.jabatanTl), 120.0),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    fieldDebitur('Telepon', setNull(widget.teleponTl), 120.0),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Data Pencairan',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                ),
+              ),
+              Container(
+                color: Colors.white,
+                padding: EdgeInsets.all(8),
+                width: double.infinity,
+                child: Column(
+                  children: <Widget>[
+                    fieldDebitur('Tanggal Pencairan',
+                        setNull(widget.tanggalPencairan), 120.0),
+                  ],
+                ),
+              ),
             ])));
+  }
+
+  Widget fieldDebitur(title, value, size) {
+    return Row(
+      children: <Widget>[
+        Container(
+          width: size,
+          decoration: new BoxDecoration(
+            color: Colors.indigoAccent,
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Text(
+              title,
+              style: TextStyle(
+                  fontFamily: 'Montserrat Regular', color: Colors.white),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+                width: MediaQuery.of(context).size.width * 0.50,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      value,
+                      style: TextStyle(fontFamily: 'Montserrat Regular'),
+                    ),
+                  ],
+                ))),
+      ],
+    );
   }
 
   Widget _buildBannerMenu() {
@@ -468,16 +409,9 @@ class _DisbursmentViewScreenState extends State<DisbursmentViewScreen> {
                       children: <Widget>[
                         GestureDetector(
                           onTap: () async {
-                            await showDialog(
-                              context: context,
-                              builder: (_) => Dialog(
-                                child: PhotoView(
-                                  imageProvider: NetworkImage(item),
-                                  backgroundDecoration:
-                                      BoxDecoration(color: Colors.transparent),
-                                ),
-                              ),
-                            );
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    ImageView(item, 'Foto Pencairan')));
                           },
                           child: Image.network(item, fit: BoxFit.fill),
                         ),
@@ -515,10 +449,70 @@ class _DisbursmentViewScreenState extends State<DisbursmentViewScreen> {
   }
 
   setNull(String data) {
-    if (data == null || data == '') {
+    if (data == null || data == '' || data.isEmpty) {
       return 'NULL';
     } else {
       return data;
+    }
+  }
+
+  setJenisKelamin(jenisKelamin) {
+    if (jenisKelamin == '0') {
+      return 'LAKI-LAKI';
+    } else {
+      return 'PEREMPUAN';
+    }
+  }
+
+  setJenisProduk(String produk) {
+    switch (produk) {
+      case "0":
+        return 'PRAPENSIUN';
+        break;
+      case "1":
+        return 'PENSIUN';
+        break;
+      case "2":
+        return 'TAKE OVER KREDIT AKTIF BTPN';
+        break;
+      case "3":
+        return 'PEGAWAI AKTIF PNS';
+        break;
+      case "4":
+        return 'PEGAWAI AKTIF BUMN';
+        break;
+      case "5":
+        return 'PEGAWAI PERGURUAN TINGGI';
+        break;
+      default:
+        return 'NULL';
+    }
+  }
+
+  formatRupiah(String a) {
+    FlutterMoneyFormatter fmf = new FlutterMoneyFormatter(
+        amount: double.parse(a),
+        settings: MoneyFormatterSettings(
+          symbol: 'IDR',
+          thousandSeparator: '.',
+          decimalSeparator: ',',
+          symbolAndNumberSeparator: ' ',
+          fractionDigits: 3,
+        ));
+    return 'IDR ' + fmf.output.withoutFractionDigits;
+  }
+
+  messageStatus(String status) {
+    if (status == '1') {
+      return 'Pipeline';
+    } else if (status == '2') {
+      return 'Pencairan';
+    } else if (status == '3') {
+      return 'Submit Dokumen';
+    } else if (status == '4') {
+      return 'Akad Kredit';
+    } else {
+      return 'NULL';
     }
   }
 }

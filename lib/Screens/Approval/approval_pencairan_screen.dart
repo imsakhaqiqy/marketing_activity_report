@@ -235,14 +235,6 @@ class _ApprovalDisbursmentScreen extends State<ApprovalDisbursmentScreen> {
                                                         data
                                                             .dataApprovalDisbursment[
                                                                 i]
-                                                            .namaSales,
-                                                        data
-                                                            .dataApprovalDisbursment[
-                                                                i]
-                                                            .statusPencairan,
-                                                        data
-                                                            .dataApprovalDisbursment[
-                                                                i]
                                                             .namaTl,
                                                         data
                                                             .dataApprovalDisbursment[
@@ -252,6 +244,74 @@ class _ApprovalDisbursmentScreen extends State<ApprovalDisbursmentScreen> {
                                                             .dataApprovalDisbursment[
                                                                 i]
                                                             .teleponTl,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .namaSales,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .cabang,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .infoSales,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .statusPipeline,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .statusKredit,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .pengelolaPensiun,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .bankTakeover,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .tanggalPenyerahan,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .namaPenerima,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .teleponPenerima,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .tanggalPipeline,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .tempatLahir,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .tanggalLahir,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .jenisKelamin,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .noKtp,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .npwp,
+                                                        data
+                                                            .dataApprovalDisbursment[
+                                                                i]
+                                                            .kodeProduk,
                                                       )));
                                         },
                                         child: ListTile(

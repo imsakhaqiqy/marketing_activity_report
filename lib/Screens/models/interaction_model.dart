@@ -10,6 +10,10 @@ class InteractionModel {
   String foto;
   String statusInteraksi;
   String jamInteraksi;
+  String kelurahan;
+  String kecamatan;
+  String kabupaten;
+  String propinsi;
 
   //BUAT CONSTRUCTOR AGAR KETIKA CLASS INI DILOAD, MAKA DATA YANG DIMINTA HARUS DIPASSING SESUAI TIPE DATA YANG DITETAPKAN
   InteractionModel(
@@ -23,7 +27,11 @@ class InteractionModel {
       this.salesFeedback,
       this.foto,
       this.statusInteraksi,
-      this.jamInteraksi});
+      this.jamInteraksi,
+      this.kelurahan,
+      this.kecamatan,
+      this.kabupaten,
+      this.propinsi});
 
   //FUNGSI INI UNTUK MENGUBAH FORMAT DATA DARI JSON KE FORMAT YANG SESUAI DENGAN EMPLOYEE MODEL
   factory InteractionModel.fromJson(Map<String, dynamic> json) =>
@@ -38,5 +46,9 @@ class InteractionModel {
           salesFeedback: json['sales_feedback'],
           foto: json['foto'],
           statusInteraksi: json['approval_sl'],
-          jamInteraksi: json['jam_kunj']);
+          jamInteraksi: json['jam_kunj'],
+          kelurahan: json['kelurahan'],
+          kecamatan: json['kecamatan'],
+          kabupaten: json['kota_kab'],
+          propinsi: json['provinsi']);
 }

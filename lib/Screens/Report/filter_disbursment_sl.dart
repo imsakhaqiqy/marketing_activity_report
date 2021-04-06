@@ -213,7 +213,39 @@ class _FilterDisbursmentSlReportScreen
                                           data.dataDisbursmentFilterSlReport[i]
                                               .teleponTl,
                                           data.dataDisbursmentFilterSlReport[i]
-                                              .namaSales)));
+                                              .namaSales,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .cabang,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .infoSales,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .statusPipeline,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .statusKredit,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .pengelolaPensiun,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .bankTakeover,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .tanggalPenyerahan,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .namaPenerima,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .teleponPenerima,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .tanggalPipeline,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .tempatLahir,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .tanggalLahir,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .jenisKelamin,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .noKtp,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .npwp,
+                                          data.dataDisbursmentFilterSlReport[i]
+                                              .kodeProduk)));
                                 },
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,

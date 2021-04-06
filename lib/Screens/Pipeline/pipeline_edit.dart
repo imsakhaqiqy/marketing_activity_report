@@ -97,7 +97,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
   List data =
       List(); //DEFINE VARIABLE data DENGAN TYPE List AGAR DAPAT MENAMPUNG COLLECTION / ARRAY
   final String url2 =
-      'https://www.nabasa.co.id/api_marsit_v1/tes.php/getBankTakeover';
+      'https://www.nabasa.co.id/api_marsit_v1/index.php/getBankTakeover';
   List data2 =
       List(); //DEFINE VARIABLE data DENGAN TYPE List AGAR DAPAT MENAMPUNG COLLECTION / ARRAY
   bool visible = false;
@@ -116,7 +116,8 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
     String idPipeline = widget.idPipeline;
     String nikSales = widget.nik;
     //server login api
-    var url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/getDataPipeline';
+    var url =
+        'https://www.nabasa.co.id/api_marsit_v1/index.php/getDataPipeline';
     //starting web api call
     var response = await http
         .post(url, body: {'id_pipeline': idPipeline, 'nik_sales': nikSales});
@@ -125,6 +126,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       print(message);
       setState(() {
         loadingScreen = false;
+        tanggalLahir = message[0]['tgl_lahir'];
         nomorKtpController.text = message[0]['no_ktp'];
         namaPensiunController.text = message[0]['cadeb'];
         teleponController.text = message[0]['telepon'];
@@ -310,7 +312,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
     keteranganPensiun = keteranganPensiunController.text;
 
     //server save api
-    var url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/editPipeline';
+    var url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/editPipeline';
     var response;
     String bankTakeovernya;
     if (selectedBankTakeover == null) {
@@ -431,7 +433,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
           key: _scaffoldKey,
           appBar: AppBar(
             title: Text(
-              'Edit Pipeline',
+              'Ubah Pipeline',
               style: TextStyle(fontFamily: 'Montserrat Regular'),
             ),
             actions: <Widget>[
@@ -480,12 +482,12 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                               content: Text('Mohon pilih pengelola pensiun...'),
                               duration: Duration(seconds: 3),
                             ));
-                          } else if (image1 == null) {
+                          } else if (image1 == null || image1 == '') {
                             _scaffoldKey.currentState.showSnackBar(SnackBar(
                               content: Text('Mohon pilih foto ktp...'),
                               duration: Duration(seconds: 3),
                             ));
-                          } else if (image2 == null) {
+                          } else if (image2 == null || image2 == '') {
                             _scaffoldKey.currentState.showSnackBar(SnackBar(
                               content: Text('Mohon pilih foto npwp...'),
                               duration: Duration(seconds: 3),
@@ -515,7 +517,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                           child: Text(
                             'Data Nasabah',
                             style: TextStyle(
-                                color: Colors.grey[600], fontSize: 14),
+                                color: Colors.grey[600], fontSize: 20),
                           ),
                         ),
                         Container(
@@ -543,7 +545,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                           child: Text(
                             'Data Kredit',
                             style: TextStyle(
-                                color: Colors.grey[600], fontSize: 14),
+                                color: Colors.grey[600], fontSize: 20),
                           ),
                         ),
                         Container(
@@ -576,24 +578,28 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                                   child: Text(
                                     'Dokumen Nasabah',
                                     style: TextStyle(
-                                        color: Colors.grey[600], fontSize: 14),
+                                        color: Colors.grey[600], fontSize: 20),
                                   ),
                                 ),
-                                Align(
-                                    alignment: Alignment.centerRight,
-                                    child: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            path1 = '';
-                                          });
-                                        },
-                                        child: Tooltip(
-                                          message: 'Reset Photo',
-                                          child: Icon(
-                                            Icons.remove_circle,
-                                            color: Colors.red,
-                                          ),
-                                        )))
+                                path1 != null && path1 != ''
+                                    ? Align(
+                                        alignment: Alignment.centerRight,
+                                        child: InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                path1 = '';
+                                                image1 = '';
+                                                image2 = '';
+                                              });
+                                            },
+                                            child: Tooltip(
+                                              message: 'Reset Photo',
+                                              child: Icon(
+                                                Icons.remove_circle,
+                                                color: Colors.red,
+                                              ),
+                                            )))
+                                    : Text('')
                               ],
                             )),
                         Container(
@@ -654,7 +660,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       DateTimeField(
           controller: tanggalLahirController,
           validator: (DateTime dateTime) {
-            if (dateTime == null) {
+            if (dateTime == null && tanggalLahir == null) {
               return 'Tanggal Lahir wajib diisi...';
             }
             return null;
@@ -754,8 +760,8 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       validator: (value) {
         if (value.isEmpty) {
           return 'No telepon wajib diisi...';
-        } else if (value.length < 11) {
-          return 'No Telepon minimal 11 angka...';
+        } else if (value.length < 10) {
+          return 'No Telepon minimal 10 angka...';
         } else if (value.length > 13) {
           return 'No Telepon maksimal 13 angka...';
         }
@@ -953,7 +959,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
   Widget buildGridView() {
     return GridView.count(
       shrinkWrap: true,
-      crossAxisCount: 3,
+      crossAxisCount: 2,
       childAspectRatio: 1,
       children: List.generate(images.length, (index) {
         if (images[index] is ImageUploadModel) {
@@ -1033,10 +1039,10 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
             Color colored;
             if (index == 0) {
               titled = 'Foto KTP';
-              colored = Colors.red;
+              colored = Colors.teal;
             } else if (index == 1) {
               titled = 'Foto NPWP';
-              colored = Colors.yellow;
+              colored = Colors.teal;
             }
             return Card(
               shape: RoundedRectangleBorder(

@@ -10,7 +10,9 @@ import 'package:kreditpensiun_apps/Screens/provider/filter_report_interaction_pr
 import 'package:kreditpensiun_apps/Screens/provider/filter_report_interaction_sl_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/history_income_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/modul_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/pipeline_akad_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/pipeline_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/pipeline_submit_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/planning_interaction_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/report_disbursment_sl_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/report_interaction_sl_provider.dart';
@@ -103,6 +105,12 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => BeritaProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => PipelineSubmitProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => PipelineAkadProvider(),
           ),
         ],
         child: MaterialApp(

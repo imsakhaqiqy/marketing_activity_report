@@ -8,6 +8,8 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 import '../../constants.dart';
 
 class SimulationPegawaiAktifScreen extends StatefulWidget {
+  String nik;
+  SimulationPegawaiAktifScreen(this.nik);
   @override
   _SimulationPegawaiAktifScreenState createState() =>
       _SimulationPegawaiAktifScreenState();
@@ -445,7 +447,8 @@ class _SimulationPegawaiAktifScreenState
                           takeoverBankLain,
                           angsuranPerbulan,
                           '0',
-                          '0'))).then((result) {});
+                          '0',
+                          widget.nik))).then((result) {});
             }
           }
         },

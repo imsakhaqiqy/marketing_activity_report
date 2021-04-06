@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_add.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_akad.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_edit.dart';
+import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_root_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_submit.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_view_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/pipeline_provider.dart';
@@ -35,7 +36,7 @@ class _PipelineScreen extends State<PipelineScreen> {
       visible = true;
     });
     //server save api
-    var url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/deletePipeline';
+    var url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/deletePipeline';
     var response = await http.post(url, body: {'id_pipeline': id});
 
     if (response.statusCode == 200) {
@@ -52,7 +53,8 @@ class _PipelineScreen extends State<PipelineScreen> {
           backgroundColor: Colors.red,
         );
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => PipelineScreen(widget.username, widget.nik)));
+            builder: (context) =>
+                PipelineRootPage(widget.username, widget.nik)));
       } else {
         setState(() {
           visible = false;
@@ -65,7 +67,8 @@ class _PipelineScreen extends State<PipelineScreen> {
           backgroundColor: Colors.red,
         );
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => PipelineScreen(widget.username, widget.nik)));
+            builder: (context) =>
+                PipelineRootPage(widget.username, widget.nik)));
       }
     }
   }
@@ -509,9 +512,10 @@ class _PipelineScreen extends State<PipelineScreen> {
                                                     Text(
                                                       '${formatRupiah(data.dataPipeline[i].plafond)}',
                                                       style: TextStyle(
-                                                        fontFamily:
-                                                            'Montserrat Regular',
-                                                      ),
+                                                          fontFamily:
+                                                              'Montserrat Regular',
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ],
                                                 ),
@@ -533,7 +537,11 @@ class _PipelineScreen extends State<PipelineScreen> {
                                                     ),
                                                     Text(
                                                       '${data.dataPipeline[i].tglPipeline}',
-                                                      style: fontFamily,
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'Montserrat Regular',
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ],
                                                 ),
@@ -546,10 +554,8 @@ class _PipelineScreen extends State<PipelineScreen> {
                                                       message:
                                                           'Status Pipeline',
                                                       child: Icon(
-                                                        iconStatus(
-                                                            '${data.dataPipeline[i].status}'),
-                                                        color: colorStatus(
-                                                            '${data.dataPipeline[i].status}'),
+                                                        Icons.info_outline,
+                                                        color: Colors.black54,
                                                       ),
                                                     ),
                                                     SizedBox(
@@ -558,7 +564,13 @@ class _PipelineScreen extends State<PipelineScreen> {
                                                     Text(
                                                       messageStatus(
                                                           '${data.dataPipeline[i].status}'),
-                                                      style: fontFamily,
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'Montserrat Regular',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: colorStatus(
+                                                              '${data.dataPipeline[i].status}')),
                                                     ),
                                                   ],
                                                 ),
@@ -630,25 +642,13 @@ class _PipelineScreen extends State<PipelineScreen> {
 
   messageStatus(String status) {
     if (status == '1') {
-      return 'Belum Pencairan';
+      return 'Pipeline';
     } else if (status == '2') {
-      return 'Sudah Pencairan';
+      return 'Pencairan';
     } else if (status == '3') {
       return 'Submit Dokumen';
     } else if (status == '4') {
       return 'Akad Kredit';
-    }
-  }
-
-  iconStatus(String status) {
-    if (status == '1') {
-      return Icons.info;
-    } else if (status == '2') {
-      return Icons.check;
-    } else if (status == '3') {
-      return Icons.send;
-    } else if (status == '4') {
-      return Icons.date_range;
     }
   }
 

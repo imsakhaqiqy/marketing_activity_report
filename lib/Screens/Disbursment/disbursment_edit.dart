@@ -128,7 +128,8 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
     String noAkad = widget.noAkad;
     String nikSales = widget.nik;
     //server login api
-    var url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/getDataPencairan';
+    var url =
+        'https://www.nabasa.co.id/api_marsit_v1/index.php/getDataPencairan';
     //starting web api call
     var response =
         await http.post(url, body: {'no_akad': noAkad, 'nik_sales': nikSales});
@@ -590,8 +591,8 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
       validator: (value) {
         if (value.isEmpty) {
           return 'No telepon wajib diisi...';
-        } else if (value.length < 11) {
-          return 'No Telepon minimal 11 angka...';
+        } else if (value.length < 10) {
+          return 'No Telepon minimal 10 angka...';
         } else if (value.length > 13) {
           return 'No Telepon maksimal 13 angka...';
         }
@@ -799,8 +800,8 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
       validator: (value) {
         if (value.isEmpty) {
           return 'No telepon wajib diisi...';
-        } else if (value.length < 11) {
-          return 'No Telepon minimal 11 angka...';
+        } else if (value.length < 10) {
+          return 'No Telepon minimal 10 angka...';
         } else if (value.length > 13) {
           return 'No Telepon maksimal 13 angka...';
         }

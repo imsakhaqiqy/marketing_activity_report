@@ -11,6 +11,10 @@ class FilterReportInteractionModel {
   String jamInteraksi;
   String statusInteraksi;
   String namaSales;
+  String kelurahan;
+  String kecamatan;
+  String kabupaten;
+  String propinsi;
 
   //BUAT CONSTRUCTOR AGAR KETIKA CLASS INI DILOAD, MAKA DATA YANG DIMINTA HARUS DIPASSING SESUAI TIPE DATA YANG DITETAPKAN
   FilterReportInteractionModel(
@@ -25,7 +29,11 @@ class FilterReportInteractionModel {
       this.foto,
       this.jamInteraksi,
       this.statusInteraksi,
-      this.namaSales});
+      this.namaSales,
+      this.kelurahan,
+      this.kecamatan,
+      this.kabupaten,
+      this.propinsi});
 
   //FUNGSI INI UNTUK MENGUBAH FORMAT DATA DARI JSON KE FORMAT YANG SESUAI DENGAN EMPLOYEE MODEL
   factory FilterReportInteractionModel.fromJson(Map<String, dynamic> json) =>
@@ -41,5 +49,9 @@ class FilterReportInteractionModel {
           foto: json['foto_link'],
           jamInteraksi: json['jam_interaksi'],
           statusInteraksi: json['status_interaksi'],
-          namaSales: json['namasales']);
+          namaSales: json['namasales'],
+          kelurahan: json['kelurahan'],
+          kecamatan: json['kecamatan'],
+          kabupaten: json['kota_kab'],
+          propinsi: json['provinsi']);
 }

@@ -106,7 +106,7 @@ class _LogDiamondScreen extends State<LogDiamondScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text('History Diamond'),
+        title: new Text('Riwayat Diamond'),
       ),
       body: Container(
         child: _buildList(),
@@ -130,38 +130,58 @@ class _LogDiamondScreen extends State<LogDiamondScreen> {
                   child: Column(
                     children: <Widget>[
                       ListTile(
-                        title: Text(
-                          setKeterangan(
-                            _kodeTransaksi(_users[index]),
-                            _code(_users[index]),
-                            _number(_users[index]),
-                            _message(_users[index]),
-                          ),
-                          style: setStyle(
-                            _kodeTransaksi(_users[index]),
-                            _debit(_users[index]),
-                            _kredit(_users[index]),
-                          ),
+                        title: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.info_outlined,
+                              color: Colors.black54,
+                              size: 15,
+                            ),
+                            Text(
+                              setKeterangan(
+                                _kodeTransaksi(_users[index]),
+                                _code(_users[index]),
+                                _number(_users[index]),
+                                _message(_users[index]),
+                              ),
+                              style: setStyle(
+                                _kodeTransaksi(_users[index]),
+                                _debit(_users[index]),
+                                _kredit(_users[index]),
+                              ),
+                            ),
+                          ],
                         ),
-                        subtitle: Text(
-                          _createdAt(_users[index]),
-                          style: setStyle(
-                            _kodeTransaksi(_users[index]),
-                            _debit(_users[index]),
-                            _kredit(_users[index]),
-                          ),
+                        subtitle: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.date_range_outlined,
+                              color: Colors.black54,
+                              size: 15,
+                            ),
+                            Text(_createdAt(_users[index]),
+                                style: TextStyle(color: Colors.black54)),
+                          ],
                         ),
-                        trailing: Text(
-                          setDiamond(
-                            _kodeTransaksi(_users[index]),
-                            _debit(_users[index]),
-                            _kredit(_users[index]),
-                          ),
-                          style: setStyle(
-                            _kodeTransaksi(_users[index]),
-                            _debit(_users[index]),
-                            _kredit(_users[index]),
-                          ),
+                        trailing: Column(
+                          children: <Widget>[
+                            Text(
+                              setDiamond(
+                                _kodeTransaksi(_users[index]),
+                                _debit(_users[index]),
+                                _kredit(_users[index]),
+                              ),
+                              style: setStyle(
+                                _kodeTransaksi(_users[index]),
+                                _debit(_users[index]),
+                                _kredit(_users[index]),
+                              ),
+                            ),
+                            Icon(
+                              MdiIcons.diamond,
+                              color: Colors.black54,
+                            )
+                          ],
                         ),
                       ),
                     ],
@@ -173,18 +193,27 @@ class _LogDiamondScreen extends State<LogDiamondScreen> {
           onRefresh: _getData,
         );
       } else {
-        return Container(
-          padding: EdgeInsets.all(8),
-          child: Card(
-            elevation: 2,
-            child: ListTile(
-              leading: SvgPicture.asset(
-                'assets/images/box.svg',
-                height: 50,
-              ),
-              title: Text('DATA TIDAK DITEMUKAN'),
+        return Center(
+          child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Icon(Icons.hourglass_empty, size: 70),
+                )),
+            SizedBox(
+              height: 10,
             ),
-          ),
+            Text(
+              'Riwayat diamond belum tersedia',
+              style: TextStyle(
+                  fontFamily: "Montserrat Regular",
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+            ),
+          ]),
         );
       }
     }
@@ -210,11 +239,11 @@ class _LogDiamondScreen extends State<LogDiamondScreen> {
   setDiamond(String kodeTransaksi, String debit, String kredit) {
     String x = kodeTransaksi.substring(0, 3);
     if (x == 'int') {
-      return '+ ' + debit + ' DIAMOND';
+      return '+ ' + debit;
     } else if (x == 'pnc') {
-      return '+ ' + debit + ' DIAMOND';
+      return '+ ' + debit;
     } else {
-      return '- ' + kredit + ' DIAMOND';
+      return '- ' + kredit;
     }
   }
 

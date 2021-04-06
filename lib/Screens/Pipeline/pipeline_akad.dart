@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
+import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_root_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_screen.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:kreditpensiun_apps/Screens/models/image_upload_model.dart';
@@ -72,6 +73,7 @@ class PipelineAkadScreen extends StatefulWidget {
 class _PipelineAkadScreen extends State<PipelineAkadScreen> {
   bool visible = false;
   final formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String image1, image2;
   String base64Image1, base64Image2;
   List<Object> images = List<Object>();
@@ -124,8 +126,9 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
 
   Future setDataPipeline() async {
     setState(() {
-      print(widget.tanggalPenyerahan);
-      if (widget.tanggalPenyerahan == "null") {
+      print(widget.tanggalAkad);
+      if (widget.tanggalAkad == null || widget.tanggalAkad == 'null') {
+        plafondController.text = widget.nominal;
       } else {
         tanggalAkad = widget.tanggalAkad;
         tanggalPerjanjianController.text = widget.tanggalAkad;
@@ -178,7 +181,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
     teleponPetugasBank = teleponPetugasBankController.text;
 
     //server save api
-    var url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/akadPipeline';
+    var url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/akadPipeline';
 
     //starting web api call
     var response;
@@ -238,7 +241,8 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
           backgroundColor: Colors.red,
         );
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => PipelineScreen(widget.username, widget.nik)));
+            builder: (context) =>
+                PipelineRootPage(widget.username, widget.nik)));
       } else {
         setState(() {
           visible = false;
@@ -251,7 +255,8 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
           backgroundColor: Colors.red,
         );
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => PipelineScreen(widget.username, widget.nik)));
+            builder: (context) =>
+                PipelineRootPage(widget.username, widget.nik)));
       }
     }
   }
@@ -270,6 +275,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
             : Navigator.of(context).pop();
       },
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text(
             'Akad Kredit',
@@ -281,7 +287,19 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
               color: Colors.white,
               onPressed: () {
                 if (formKey.currentState.validate()) {
-                  submitPipeline();
+                  if (image1 == null || image1 == '') {
+                    _scaffoldKey.currentState.showSnackBar(SnackBar(
+                      content: Text('Mohon pilih skk...'),
+                      duration: Duration(seconds: 3),
+                    ));
+                  } else if (image2 == null || image2 == '') {
+                    _scaffoldKey.currentState.showSnackBar(SnackBar(
+                      content: Text('Mohon pilih tanda tangan akad...'),
+                      duration: Duration(seconds: 3),
+                    ));
+                  } else {
+                    submitPipeline();
+                  }
                 }
               },
               child: visible
@@ -313,7 +331,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Informasi Pipeline',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 20),
                     ),
                   ),
                   Container(
@@ -350,7 +368,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Informasi Submit',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 20),
                     ),
                   ),
                   Container(
@@ -381,7 +399,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Data Akad',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 20),
                     ),
                   ),
                   Container(
@@ -405,7 +423,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Data Petugas Bank',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 20),
                     ),
                   ),
                   Container(
@@ -431,17 +449,18 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                             child: Text(
                               'Dokumen Akad',
                               style: TextStyle(
-                                  color: Colors.grey[600], fontSize: 14),
+                                  color: Colors.grey[600], fontSize: 20),
                             ),
                           ),
-                          widget.fotoAkad1 != 'null' &&
-                                  widget.fotoAkad2 != 'null'
+                          path1 != null && path1 != ''
                               ? Align(
                                   alignment: Alignment.centerRight,
                                   child: InkWell(
                                       onTap: () {
                                         setState(() {
                                           path1 = '';
+                                          image1 = '';
+                                          image2 = '';
                                         });
                                       },
                                       child: Tooltip(

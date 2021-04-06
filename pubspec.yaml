@@ -11,7 +11,7 @@ description: A new application for pensioner in indonesia.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.1+19
+version: 1.0.1+23
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -47,7 +47,7 @@ dependencies:
   url_launcher: ^5.7.10
   shared_preferences: ^0.5.12+4
   video_player: ^2.0.2
-  
+  flutter_signature_pad: ^3.0.0
   
 
 dev_dependencies:

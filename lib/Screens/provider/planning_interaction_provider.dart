@@ -16,7 +16,7 @@ class PlanningInteractionProvider extends ChangeNotifier {
   Future<List<PlanningInteractionModel>> getInteraction(
       InteractionItem interactionItem) async {
     final url =
-        'https://www.nabasa.co.id/api_marsit_v1/tes.php/getPlanningInteraction';
+        'https://www.nabasa.co.id/api_marsit_v1/index.php/getPlanningInteraction';
     final response =
         await http.post(url, body: {'nik_sales': interactionItem.nik});
     //final response = await http.get(url);

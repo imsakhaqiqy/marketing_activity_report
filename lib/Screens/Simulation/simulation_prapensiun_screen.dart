@@ -8,6 +8,8 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 import '../../constants.dart';
 
 class SimulationRegulerPrapensiunScreen extends StatefulWidget {
+  String nik;
+  SimulationRegulerPrapensiunScreen(this.nik);
   @override
   _SimulationRegulerPrapensiunScreenState createState() =>
       _SimulationRegulerPrapensiunScreenState();
@@ -452,7 +454,8 @@ class _SimulationRegulerPrapensiunScreenState
                           takeoverBankLain,
                           angsuranPerbulan,
                           '0',
-                          '0'))).then((result) {});
+                          '0',
+                          widget.nik))).then((result) {});
             }
           }
         },

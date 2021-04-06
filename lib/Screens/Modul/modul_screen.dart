@@ -40,7 +40,7 @@ class _ModulScreenState extends State<ModulScreen> {
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
           title: Text(
-            'Dokumen',
+            'Berita',
             style: TextStyle(
               fontFamily: 'Montserrat Regular',
               color: Colors.white,
@@ -67,20 +67,29 @@ class _ModulScreenState extends State<ModulScreen> {
                   return Consumer<ModulProvider>(
                     builder: (context, data, _) {
                       if (data.dataModul.length == 0) {
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
+                        return Center(
                           child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                ListTile(
-                                  leading:
-                                      Icon(Icons.hourglass_empty, size: 50),
-                                  title: Text(
-                                    'DATA TIDAK DITEMUKAN',
-                                    style: cardTextStyle1,
-                                  ),
-                                  subtitle: Text(''),
+                                Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(50))),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child:
+                                          Icon(Icons.hourglass_empty, size: 70),
+                                    )),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Berita belum tersedia',
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat Regular",
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ]),
                         );

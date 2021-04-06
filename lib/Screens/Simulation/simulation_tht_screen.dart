@@ -8,6 +8,8 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 import '../../constants.dart';
 
 class SimulationThtScreen extends StatefulWidget {
+  String nik;
+  SimulationThtScreen(this.nik);
   @override
   _SimulationThtScreenState createState() => _SimulationThtScreenState();
 }
@@ -507,7 +509,8 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
                           takeoverBankLainFix,
                           angsuranPerbulan,
                           batasUsiaPensiun,
-                          thtFix))).then((result) {});
+                          thtFix,
+                          widget.nik))).then((result) {});
             }
           }
         },

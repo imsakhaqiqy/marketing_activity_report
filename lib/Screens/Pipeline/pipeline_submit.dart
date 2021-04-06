@@ -11,9 +11,12 @@ import 'package:http/http.dart' as http;
 import 'package:kreditpensiun_apps/Screens/Account/account_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
+import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_root_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_screen.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:kreditpensiun_apps/Screens/Pipeline/signature_screen.dart';
 import 'package:kreditpensiun_apps/Screens/models/image_upload_model.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:toast/toast.dart';
 
@@ -52,6 +55,7 @@ class PipelineSubmitScreen extends StatefulWidget {
 class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
   bool visible = false;
   final formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String image1;
   String base64Image1;
   List<Object> images = List<Object>();
@@ -77,7 +81,8 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
   Future setDataPipeline() async {
     setState(() {
       print(widget.tanggalPenyerahan);
-      if (widget.tanggalPenyerahan == "null") {
+      if (widget.tanggalPenyerahan == 'null' ||
+          widget.tanggalPenyerahan == null) {
       } else {
         tanggalPenyerahan = widget.tanggalPenyerahan;
         tanggalPenyerahanController.text = widget.tanggalPenyerahan;
@@ -105,7 +110,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
     teleponPenerima = teleponPenerimaController.text;
 
     //server save api
-    var url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/submitPipeline';
+    var url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/submitPipeline';
 
     //starting web api call
     var response;
@@ -147,7 +152,8 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
           backgroundColor: Colors.red,
         );
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => PipelineScreen(widget.username, widget.nik)));
+            builder: (context) =>
+                PipelineRootPage(widget.username, widget.nik)));
       } else {
         setState(() {
           visible = false;
@@ -160,7 +166,8 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
           backgroundColor: Colors.red,
         );
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => PipelineScreen(widget.username, widget.nik)));
+            builder: (context) =>
+                PipelineRootPage(widget.username, widget.nik)));
       }
     }
   }
@@ -180,6 +187,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
             : Navigator.of(context).pop();
       },
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text(
             'Submit Dokumen',
@@ -191,7 +199,14 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
               color: Colors.white,
               onPressed: () {
                 if (formKey.currentState.validate()) {
-                  submitPipeline();
+                  if (image1 == null || image1 == '') {
+                    _scaffoldKey.currentState.showSnackBar(SnackBar(
+                      content: Text('Mohon pilih foto submit dokumen...'),
+                      duration: Duration(seconds: 3),
+                    ));
+                  } else {
+                    submitPipeline();
+                  }
                 }
               },
               child: visible
@@ -224,7 +239,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Informasi Pipeline',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 20),
                     ),
                   ),
                   Container(
@@ -261,7 +276,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Data Submit',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 20),
                     ),
                   ),
                   Container(
@@ -287,16 +302,17 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
                             child: Text(
                               'Dokumen Submit',
                               style: TextStyle(
-                                  color: Colors.grey[600], fontSize: 14),
+                                  color: Colors.grey[600], fontSize: 20),
                             ),
                           ),
-                          widget.fotoTandaTerima != 'null'
+                          path1 != null && path1 != ''
                               ? Align(
                                   alignment: Alignment.centerRight,
                                   child: InkWell(
                                       onTap: () {
                                         setState(() {
                                           path1 = '';
+                                          image1 = '';
                                         });
                                       },
                                       child: Tooltip(
@@ -305,7 +321,8 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
                                           Icons.remove_circle,
                                           color: Colors.red,
                                         ),
-                                      )))
+                                      )),
+                                )
                               : Text('')
                         ],
                       )),
@@ -403,8 +420,8 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
       validator: (value) {
         if (value.isEmpty) {
           return 'No telepon penerima wajib diisi...';
-        } else if (value.length < 11) {
-          return 'No Telepon penerima minimal 11 angka...';
+        } else if (value.length < 10) {
+          return 'No Telepon penerima minimal 10 angka...';
         } else if (value.length > 13) {
           return 'No Telepon penerima maksimal 13 angka...';
         }

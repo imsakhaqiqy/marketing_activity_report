@@ -58,7 +58,7 @@ class _HelpScreenState extends State<HelpScreen> {
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         title: Text(
-          'Tanya Jawab',
+          'FAQ',
           style: TextStyle(
             fontFamily: 'Montserrat Regular',
             color: Colors.white,

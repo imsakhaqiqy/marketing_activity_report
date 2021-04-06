@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_akad_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
@@ -214,7 +215,7 @@ class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
     tanggalPencairan = tanggalPencairanController.text;
     //server save api
     var url =
-        'https://www.nabasa.co.id/api_marsit_v1/tes.php/saveDisbursmentNew';
+        'https://www.nabasa.co.id/api_marsit_v1/index.php/saveDisbursmentNew';
 
     //starting web api call
     var response = await http.post(url, body: {
@@ -357,7 +358,7 @@ class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'Informasi Akad',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                        style: TextStyle(color: Colors.grey[600], fontSize: 20),
                       ),
                     ),
                     Container(
@@ -383,12 +384,47 @@ class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
                                 height: 10,
                               ),
                               fieldDebitur(
-                                  'Nominal', formatRupiah(widget.plafond), 120),
+                                  'Plafond', formatRupiah(widget.plafond), 120),
                               SizedBox(
                                 height: 10,
                               ),
                               fieldDebitur('Jenis Produk',
                                   widget.selectedJenisProduk, 120),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              fieldDebitur('Informasi Sales',
+                                  widget.selectedJenisInfo, 120),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Informasi Petugas Bank',
+                        style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      color: Colors.white,
+                      child: Column(
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              fieldDebitur('Nama', widget.namaPetugasBank, 120),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              fieldDebitur(
+                                  'Jabatan', widget.jabatanPetugasBank, 120),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              fieldDebitur(
+                                  'Telepon', widget.teleponPetugasBank, 120),
                             ],
                           ),
                         ],
@@ -398,7 +434,7 @@ class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'Data Pencairan',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                        style: TextStyle(color: Colors.grey[600], fontSize: 20),
                       ),
                     ),
                     Container(
@@ -537,7 +573,7 @@ class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
           Color colored;
           if (index == 0) {
             titled = 'Foto Bukti Dana Cair';
-            colored = Colors.green;
+            colored = Colors.teal;
           }
           return Card(
               shape: RoundedRectangleBorder(

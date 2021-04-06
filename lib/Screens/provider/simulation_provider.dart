@@ -20,22 +20,25 @@ class simulationItem {
   String angsuranPerbulan;
   String batasUsiaPensiun;
   String tht;
+  String niksales;
   simulationItem(
-      this.simulasiJenis,
-      this.namaPensiun,
-      this.gajiPensiun,
-      this.tanggalLahir,
-      this.jenisSimulasi,
-      this.jenisKredit,
-      this.bankBayarPensiun,
-      this.plafondPinjaman,
-      this.jangkaWaktu,
-      this.jenisAsuransi,
-      this.blokirAngsuran,
-      this.takeoverBankLain,
-      this.angsuranPerbulan,
-      this.batasUsiaPensiun,
-      this.tht);
+    this.simulasiJenis,
+    this.namaPensiun,
+    this.gajiPensiun,
+    this.tanggalLahir,
+    this.jenisSimulasi,
+    this.jenisKredit,
+    this.bankBayarPensiun,
+    this.plafondPinjaman,
+    this.jangkaWaktu,
+    this.jenisAsuransi,
+    this.blokirAngsuran,
+    this.takeoverBankLain,
+    this.angsuranPerbulan,
+    this.batasUsiaPensiun,
+    this.tht,
+    this.niksales,
+  );
 }
 
 class SimulationProvider extends ChangeNotifier {
@@ -73,6 +76,7 @@ class SimulationProvider extends ChangeNotifier {
       'angsuran_perbulan': simulation.angsuranPerbulan,
       'batas_usia_pensiun': simulation.batasUsiaPensiun,
       'tht': simulation.tht,
+      'niksales': simulation.niksales,
     });
 
     if (response.statusCode == 200) {

@@ -9,6 +9,7 @@ import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_edit.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_submit.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_view_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/pipeline_provider.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:http/http.dart' as http;
@@ -30,282 +31,402 @@ class PipelineMarketingScreen extends StatefulWidget {
 
 class _PipelineMarketingScreen extends State<PipelineMarketingScreen> {
   bool visible = false;
+  bool _isLoading = false;
+  final String apiUrl =
+      'https://www.nabasa.co.id/api_marsit_v1/index.php/getPipeline';
+  List<dynamic> _users = [];
+
+  void fetchUsers() async {
+    setState(() {
+      _isLoading = true;
+    });
+    var result = await http.post(apiUrl, body: {'nik_sales': widget.nik});
+    if (result.statusCode == 200) {
+      setState(() {
+        if (json.decode(result.body)['Daftar_Pipeline'] == '') {
+          _isLoading = false;
+        } else {
+          _users = json.decode(result.body)['Daftar_Pipeline'];
+          _isLoading = false;
+        }
+      });
+    }
+  }
+
+  String _id(dynamic user) {
+    return user['id'];
+  }
+
+  String _tglPipeline(dynamic user) {
+    return user['tgl_pipeline'];
+  }
+
+  String _tempatLahir(dynamic user) {
+    return user['tempat_lahir'];
+  }
+
+  String _tanggalLahir(dynamic user) {
+    return user['tgl_lahir'];
+  }
+
+  String _jenisKelamin(dynamic user) {
+    return user['jenis_kelamin'];
+  }
+
+  String _noKtp(dynamic user) {
+    return user['no_ktp'];
+  }
+
+  String _npwp(dynamic user) {
+    return user['npwp'];
+  }
+
+  String _namaNasabah(dynamic user) {
+    return user['cadeb'];
+  }
+
+  String _alamat(dynamic user) {
+    return user['alamat'];
+  }
+
+  String _telepon(dynamic user) {
+    return user['telepon'];
+  }
+
+  String _jenisProduk(dynamic user) {
+    return user['jenis_produk'];
+  }
+
+  String _plafond(dynamic user) {
+    return user['nominal'];
+  }
+
+  String _cabang(dynamic user) {
+    return user['cabang'];
+  }
+
+  String _keterangan(dynamic user) {
+    return user['keterangan'];
+  }
+
+  String _status(dynamic user) {
+    return user['status'];
+  }
+
+  String _statusKredit(dynamic user) {
+    return user['status_kredit'];
+  }
+
+  String _pengelolaPensiun(dynamic user) {
+    return user['pengelola_pensiun'];
+  }
+
+  String _bankTakeover(dynamic user) {
+    return user['bank_takeover'];
+  }
+
+  String _tglPenyerahan(dynamic user) {
+    return user['tgl_penyerahan'];
+  }
+
+  String _namaPenerima(dynamic user) {
+    return user['nama_penerima'];
+  }
+
+  String _teleponPenerima(dynamic user) {
+    return user['telepon_penerima'];
+  }
+
+  String _foto1(dynamic user) {
+    return user['foto1'];
+  }
+
+  String _foto2(dynamic user) {
+    return user['foto2'];
+  }
+
+  String _fotoTandaTerima(dynamic user) {
+    return user['foto_tanda_submit'];
+  }
+
+  String _tanggalAkad(dynamic user) {
+    return user['tanggal_akad'];
+  }
+
+  String _nomorAplikasi(dynamic user) {
+    return user['nomor_aplikasi'];
+  }
+
+  String _nomorPerjanjian(dynamic user) {
+    return user['nomor_perjanjian'];
+  }
+
+  String _nominalPinjaman(dynamic user) {
+    return user['nominal_pinjaman'];
+  }
+
+  String _akadProduk(dynamic user) {
+    return user['akad_produk'];
+  }
+
+  String _salesInfo(dynamic user) {
+    return user['sales_info'];
+  }
+
+  String _namaPetugasBank(dynamic user) {
+    return user['nama_petugas_bank'];
+  }
+
+  String _jabatanPetugasBank(dynamic user) {
+    return user['jabatan_petugas_bank'];
+  }
+
+  String _teleponPetugasBank(dynamic user) {
+    return user['telepon_petugas_bank'];
+  }
+
+  String _fotoAkad1(dynamic user) {
+    return user['foto_akad1'];
+  }
+
+  String _fotoAkad2(dynamic user) {
+    return user['foto_akad2'];
+  }
+
+  String _keluhan(dynamic user) {
+    return user['keluhan'];
+  }
+
+  Future<void> _getData() async {
+    setState(() {
+      fetchUsers();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsers();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(
-            'Pipeline - ' + widget.nama,
-            style: fontFamily,
-          ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          'Pipeline - ' + widget.nama,
+          style: fontFamily,
         ),
-        //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
-        //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
-        body: RefreshIndicator(
-            onRefresh: () =>
-                Provider.of<PipelineProvider>(context, listen: false)
-                    .getPipeline(PipelineItem(widget.nik)),
-            color: Colors.red,
-            child: Container(
-                color: Colors.white,
-                margin: EdgeInsets.all(10),
-                child: FutureBuilder(
-                    future:
-                        Provider.of<PipelineProvider>(context, listen: false)
-                            .getPipeline(PipelineItem(widget.nik)),
-                    builder: (context, snapshot) {
-                      if (snapshot.data == null &&
-                          snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(kPrimaryColor)),
-                        );
-                      } else if (snapshot.data == null) {
-                        return Center(
-                          child: Column(
-                              mainAxisSize: MainAxisSize.min,
+      ),
+      //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
+      //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
+      body: Container(
+        color: Colors.white,
+        child: _buildList(),
+      ),
+    );
+  }
+
+  Widget _buildList() {
+    if (_isLoading == true) {
+      return Center(child: CircularProgressIndicator());
+    } else {
+      if (_users.length > 0) {
+        return RefreshIndicator(
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: _users.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                    color: Colors.grey,
+                  ))),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PipelineViewScreen(
+                                    _namaNasabah(_users[index]),
+                                    _tglPipeline(_users[index]),
+                                    _alamat(_users[index]),
+                                    _telepon(_users[index]),
+                                    _jenisProduk(_users[index]),
+                                    _plafond(_users[index]),
+                                    _cabang(_users[index]),
+                                    _keterangan(_users[index]),
+                                    _status(_users[index]),
+                                    _tempatLahir(_users[index]),
+                                    _tanggalLahir(_users[index]),
+                                    _jenisKelamin(_users[index]),
+                                    _noKtp(_users[index]),
+                                    _npwp(_users[index]),
+                                    _statusKredit(_users[index]),
+                                    _pengelolaPensiun(_users[index]),
+                                    _bankTakeover(_users[index]),
+                                    _foto1(_users[index]),
+                                    _foto2(_users[index]),
+                                  )));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                      child: ListTile(
+                        title: Text(
+                          _namaNasabah(_users[index]),
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Montserrat Regular'),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
                               children: <Widget>[
-                                Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50))),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child:
-                                          Icon(Icons.hourglass_empty, size: 70),
-                                    )),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Buat Pipeline Yuk!',
-                                  style: TextStyle(
-                                      fontFamily: "Montserrat Regular",
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Dapatkan insentif besar dari pencairanmu.',
-                                  style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
-                                    fontSize: 12,
+                                Tooltip(
+                                  message: 'Plafond',
+                                  child: Icon(
+                                    Icons.monetization_on_outlined,
+                                    color: Colors.black54,
                                   ),
                                 ),
-                              ]),
-                        );
-                      } else {
-                        return Consumer<PipelineProvider>(
-                            builder: (context, data, _) {
-                          print(data.dataPipeline.length);
-                          if (data.dataPipeline.length == 0) {
-                            return Center(
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(50))),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Icon(Icons.hourglass_empty,
-                                              size: 70),
-                                        )),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'Buat Pipeline Yuk!',
-                                      style: TextStyle(
-                                          fontFamily: "Montserrat Regular",
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'Dapatkan insentif besar dari pencairanmu.',
-                                      style: TextStyle(
-                                        fontFamily: "Montserrat Regular",
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ]),
-                            );
-                          } else {
-                            return ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                itemCount: data.dataPipeline.length,
-                                itemBuilder: (context, i) {
-                                  return Container(
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                        color: Colors.grey,
-                                      ))),
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PipelineViewScreen(
-                                                        data.dataPipeline[i]
-                                                            .namaNasabah,
-                                                        data.dataPipeline[i]
-                                                            .tglPipeline,
-                                                        data.dataPipeline[i]
-                                                            .alamat,
-                                                        data.dataPipeline[i]
-                                                            .telepon,
-                                                        data.dataPipeline[i]
-                                                            .jenisProduk,
-                                                        data.dataPipeline[i]
-                                                            .plafond,
-                                                        data.dataPipeline[i]
-                                                            .cabang,
-                                                        data.dataPipeline[i]
-                                                            .keterangan,
-                                                        data.dataPipeline[i]
-                                                            .status,
-                                                        data.dataPipeline[i]
-                                                            .tempatLahir,
-                                                        data.dataPipeline[i]
-                                                            .tanggalLahir,
-                                                        data.dataPipeline[i]
-                                                            .jenisKelamin,
-                                                        data.dataPipeline[i]
-                                                            .noKtp,
-                                                        data.dataPipeline[i]
-                                                            .npwp,
-                                                        data.dataPipeline[i]
-                                                            .statusKredit,
-                                                        data.dataPipeline[i]
-                                                            .pengelolaPensiun,
-                                                        data.dataPipeline[i]
-                                                            .bankTakeover,
-                                                        data.dataPipeline[i]
-                                                            .foto1,
-                                                        data.dataPipeline[i]
-                                                            .foto2,
-                                                      )));
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8.0, bottom: 8.0),
-                                          child: ListTile(
-                                            title: Row(children: [
-                                              Tooltip(
-                                                message: messageStatus(
-                                                    '${data.dataPipeline[i].status}'),
-                                                child: Icon(
-                                                  iconStatus(
-                                                      '${data.dataPipeline[i].status}'),
-                                                  color: colorStatus(
-                                                      '${data.dataPipeline[i].status}'),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 10.0,
-                                              ),
-                                              Text(
-                                                data.dataPipeline[i]
-                                                    .namaNasabah,
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily:
-                                                        'Montserrat Regular'),
-                                              ),
-                                            ]),
-                                            subtitle: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Row(
-                                                  children: <Widget>[
-                                                    Container(
-                                                      decoration:
-                                                          new BoxDecoration(
-                                                        color: Colors.teal,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(4.0),
-                                                        child: Text(
-                                                          'Plafond',
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Montserrat Regular',
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text(
-                                                      '${formatRupiah(data.dataPipeline[i].plafond)}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'Montserrat Regular'),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            trailing: Text(
-                                              '${data.dataPipeline[i].tglPipeline}',
-                                              style: fontFamily,
-                                            ),
-                                          ),
-                                        ),
-                                      ));
-                                });
-                          }
-                        });
-                      }
-                    }))));
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${formatRupiah(_plafond(_users[index]))}',
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat Regular',
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Tooltip(
+                                  message: 'Tanggal Input',
+                                  child: Icon(
+                                    Icons.date_range_outlined,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${_tglPipeline(_users[index])}',
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat Regular',
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Tooltip(
+                                  message: 'Status Pipeline',
+                                  child: Icon(
+                                    Icons.info_outline,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  messageStatus('${_status(_users[index])}'),
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat Regular',
+                                      fontWeight: FontWeight.bold,
+                                      color: colorStatus(
+                                          '${_status(_users[index])}')),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Tooltip(
+                                  message: 'Kondisi Pipeline',
+                                  child: Icon(
+                                    MdiIcons.tag,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  '${_keluhan(_users[index])}',
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat Regular',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        trailing: Text(
+                          '',
+                        ),
+                      ),
+                    ),
+                  ));
+            },
+          ),
+          onRefresh: _getData,
+        );
+      } else {
+        return Center(
+          child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Icon(Icons.hourglass_empty, size: 70),
+                )),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Pipeline belum tersedia',
+              style: TextStyle(
+                  fontFamily: "Montserrat Regular",
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+            ),
+          ]),
+        );
+      }
+    }
   }
 
   messageStatus(String status) {
     if (status == '1') {
-      return 'Belum Pencairan';
+      return 'Pipeline';
     } else if (status == '2') {
-      return 'Sudah Pencairan';
+      return 'Pencairan';
     } else if (status == '3') {
       return 'Submit Dokumen';
     } else if (status == '4') {
       return 'Akad Kredit';
-    }
-  }
-
-  iconStatus(String status) {
-    if (status == '1') {
-      return Icons.info;
-    } else if (status == '2') {
-      return Icons.check;
-    } else if (status == '3') {
-      return Icons.send;
-    } else if (status == '4') {
-      return Icons.date_range;
     }
   }
 
