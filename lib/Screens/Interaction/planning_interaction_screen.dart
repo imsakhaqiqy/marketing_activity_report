@@ -158,7 +158,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
         ],
       ),
       body: Container(
-        color: Colors.white,
+        color: grey,
         child: _buildList(),
       ),
       floatingActionButton: FloatingActionButton(
@@ -186,11 +186,14 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
     String tahun = date.year.toString();
     String hari = date.day.toString();
     var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 14,
         color: Color.fromRGBO(63, 63, 63, 1));
     if (_isLoading == true) {
-      return Center(child: CircularProgressIndicator());
+      return Center(
+          child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
+      ));
     } else {
       if (_users.length > 0) {
         return RefreshIndicator(
@@ -220,7 +223,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
                       decoration: BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
-                            color: Colors.grey,
+                            color: Colors.black12,
                           ),
                         ),
                       ),
@@ -248,7 +251,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
                             Toast.show(
                               'Maaf, nasabah sudah di interaksi...',
                               context,
-                              duration: Toast.LENGTH_SHORT,
+                              duration: Toast.LENGTH_LONG,
                               gravity: Toast.BOTTOM,
                               backgroundColor: Colors.red,
                             );
@@ -262,7 +265,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
                               style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat Regular'),
+                                  fontFamily: 'Roboto-Regular'),
                             ),
                             subtitle: Column(
                               children: [
@@ -282,7 +285,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
                                         child: Text(
                                           'Notas',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.white),
                                         ),
                                       ),
@@ -293,7 +296,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
                                     Text(
                                       _nopen(_users[index]),
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     ),
                                   ],
                                 ),
@@ -313,7 +316,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
                                         child: Text(
                                           'Status',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.white),
                                         ),
                                       ),
@@ -326,7 +329,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
                                         _visitStatus(_users[index]),
                                       ),
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     ),
                                   ],
                                 ),
@@ -369,7 +372,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
                                       Toast.show(
                                         'Maaf, nasabah sudah di interaksi...',
                                         context,
-                                        duration: Toast.LENGTH_SHORT,
+                                        duration: Toast.LENGTH_LONG,
                                         gravity: Toast.BOTTOM,
                                         backgroundColor: Colors.red,
                                       );
@@ -413,7 +416,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
                                       Toast.show(
                                         'Maaf, nasabah sudah di interaksi...',
                                         context,
-                                        duration: Toast.LENGTH_SHORT,
+                                        duration: Toast.LENGTH_LONG,
                                         gravity: Toast.BOTTOM,
                                         backgroundColor: Colors.red,
                                       );
@@ -454,7 +457,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
             Text(
               'Rencanain Interaksi Kamu Yuk!',
               style: TextStyle(
-                  fontFamily: "Montserrat Regular",
+                  fontFamily: "Roboto-Regular",
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
@@ -464,7 +467,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
             Text(
               'Dapatkan kemudahan di setiap tempat favoritmu.',
               style: TextStyle(
-                fontFamily: "Montserrat Regular",
+                fontFamily: "Roboto-Regular",
                 fontSize: 12,
               ),
             ),
@@ -472,7 +475,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
               height: 10,
             ),
             FlatButton(
-              color: Colors.teal,
+              color: kPrimaryColor,
               onPressed: () {
                 Navigator.push(
                     context,
@@ -483,7 +486,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
               child: Text(
                 'Lihat Database',
                 style: TextStyle(
-                  fontFamily: "Montserrat Regular",
+                  fontFamily: "Roboto-Regular",
                   color: Colors.white,
                 ),
               ),
@@ -601,7 +604,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
         Toast.show(
           'Sukses delete rencana interaksi...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -612,7 +615,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
         Toast.show(
           'Gagal delete rencana interaksi...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -645,7 +648,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
         Toast.show(
           'Sukses update not valid rencana interaksi...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -656,7 +659,7 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
         Toast.show(
           'Gagal update not valid rencana interaksi...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );

@@ -15,7 +15,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
         appBar: AppBar(
           title: Text(
             'Pendapatan',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
         ),
         body: Container(
@@ -59,7 +59,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
                 child: Text(
                   'GAJI POKOK',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -70,8 +70,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
                     '${formatRupiah(widget.personalData[26])}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -90,7 +89,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
                 child: Text(
                   'TUNJANGAN TKD',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -101,8 +100,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
                     '${formatRupiah(widget.personalData[27])}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -121,7 +119,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
                 child: Text(
                   'TUNJANGAN JABATAN',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -132,8 +130,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
                     '${formatRupiah(widget.personalData[28])}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -152,7 +149,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
                 child: Text(
                   'TUNJANGAN PERUMAHAN',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -163,8 +160,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
                     '${formatRupiah(widget.personalData[29])}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -183,7 +179,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
                 child: Text(
                   'TUNJANGAN TELEPON',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -194,8 +190,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
                     '${formatRupiah(widget.personalData[30])}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -214,7 +209,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
                 child: Text(
                   'TUNJANGAN KINERJA',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -225,8 +220,7 @@ class _IncomeDataScreenState extends State<IncomeDataScreen> {
                     '${formatRupiah(widget.personalData[31])}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),

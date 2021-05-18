@@ -60,7 +60,7 @@ class _HelpScreenState extends State<HelpScreen> {
         title: Text(
           'FAQ',
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.white,
           ),
         ),
@@ -102,7 +102,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                         child: Text(
                                           'BAGAIMANA SAYA BISA LOGIN KE APLIKASI INI ?',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
@@ -139,7 +139,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                         child: Text(
                                           'BAGAIMANA JIKA ACCOUNT SAYA TIDAK BISA LOGIN ?',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
@@ -176,7 +176,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                         child: Text(
                                           'BAGAIMANA SAYA MENDAPATKAN GAJI BULANAN ?',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
@@ -213,7 +213,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                         child: Text(
                                           'BAGAIMANA SAYA MELAKUKAN INTERAKSI ?',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
@@ -250,7 +250,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                         child: Text(
                                           'BAGAIMANA SAYA MELAKUKAN PENCAIRAN KREDIT ?',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
@@ -287,7 +287,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                         child: Text(
                                           'BAGAIMANA SAYA MELAKUKAN SIMULASI KREDIT ?',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
@@ -324,7 +324,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                         child: Text(
                                           'BAGAIMANA SAYA MELIHAT LAPORAN HARIAN INTERAKSI DAN PENCAIRAN ?',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
@@ -361,7 +361,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                         child: Text(
                                           'BAGAIMANA SAYA MELIHAT INFO, BERITA TERBARU DARI KANTOR PUSAT ?',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
@@ -398,7 +398,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                         child: Text(
                                           'BAGAIMANA SAYA MELIHAT DATA PERIBADI SAYA ?',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
@@ -435,7 +435,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                         child: Text(
                                           'BAGAIMANA SAYA MECETAK SLIP GAJI BULANAN ?',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
@@ -472,7 +472,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                         child: Text(
                                           'BAGAIMANA SAYA MELAKUKAN PENGAJUAN FLASH CREDIT ?',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 12.0),
                                         ),
@@ -509,7 +509,7 @@ class _HelpScreenState extends State<HelpScreen> {
                                         child: Text(
                                           'BAGAIMANA SAYA LOGOUT DARI APLIKASI INI ?',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 12.0),
                                         ),

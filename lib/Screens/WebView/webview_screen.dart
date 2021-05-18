@@ -19,8 +19,7 @@ class Home extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text(
           'Daftar',
-          style:
-              TextStyle(color: Colors.black, fontFamily: 'Montserrat Regular'),
+          style: TextStyle(color: Colors.black, fontFamily: 'Roboto-Regular'),
         ),
       ),
       backgroundColor: Colors.white,
@@ -52,8 +51,7 @@ class Home extends StatelessWidget {
                       Text(
                         'SALES LEADER',
                         style: TextStyle(
-                            color: Colors.black,
-                            fontFamily: 'Montserrat Regular'),
+                            color: Colors.black, fontFamily: 'Roboto-Regular'),
                       ),
                       SizedBox(
                         height: 10,
@@ -88,8 +86,7 @@ class Home extends StatelessWidget {
                     Text(
                       'MARKETING AGENT',
                       style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'Montserrat Regular'),
+                          color: Colors.black, fontFamily: 'Roboto-Regular'),
                     ),
                     SizedBox(
                       height: 10,

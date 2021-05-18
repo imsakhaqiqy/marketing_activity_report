@@ -49,7 +49,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
           appBar: AppBar(
             title: Text(
               'Hasil Simulasi',
-              style: TextStyle(fontFamily: 'Montserrat Regular'),
+              style: TextStyle(fontFamily: 'Roboto-Regular'),
             ),
             actions: <Widget>[],
           ),
@@ -101,9 +101,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                           Container(
                             decoration: BoxDecoration(
                                 border: Border(
-                                    bottom: BorderSide(
-                              color: Colors.grey,
-                            ))),
+                                    bottom: BorderSide(color: Colors.black12))),
                             child: Column(
                               children: <Widget>[
                                 Row(
@@ -120,7 +118,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         'DATA PRIBADI',
                                         style: TextStyle(
                                             fontSize: 16,
-                                            fontFamily: 'Montserrat Regular',
+                                            fontFamily: 'Roboto-Regular',
                                             color: kPrimaryColor),
                                       ),
                                     ),
@@ -135,7 +133,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Nama Lengkap',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -144,8 +142,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${data.dataSimulationKp74[0].namaPensiun}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -159,7 +156,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Gaji Pensiun',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -168,8 +165,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].gajiPensiun)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -183,7 +179,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Tanggal Lahir',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -192,8 +188,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${data.dataSimulationKp74[0].tanggalLahir}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -207,7 +202,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Umur',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -216,8 +211,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${data.dataSimulationKp74[0].umur} Tahun',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -233,7 +227,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                             decoration: BoxDecoration(
                                 border: Border(
                                     bottom: BorderSide(
-                              color: Colors.grey,
+                              color: Colors.black12,
                             ))),
                             child: Column(
                               children: <Widget>[
@@ -251,7 +245,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         'PERHITUNGAN PINJAMAN',
                                         style: TextStyle(
                                             fontSize: 16,
-                                            fontFamily: 'Montserrat Regular',
+                                            fontFamily: 'Roboto-Regular',
                                             color: kPrimaryColor),
                                       ),
                                     ),
@@ -268,7 +262,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Plafond',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -277,8 +271,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].plafond)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -292,7 +285,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Angsuran',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -301,8 +294,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].jumlahAngsuran)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -316,7 +308,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Suku Bunga',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -325,8 +317,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${data.dataSimulationKp74[0].sukuBunga} %',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -340,7 +331,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Tarif Asuransi',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -349,8 +340,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${data.dataSimulationKp74[0].premi} %',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -364,7 +354,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Jangka Waktu',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -373,8 +363,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${data.dataSimulationKp74[0].jw} Bulan',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -388,7 +377,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'IIR',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -397,8 +386,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${data.dataSimulationKp74[0].iir} %',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -412,7 +400,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Sisa Gaji',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -421,8 +409,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].sisaGaji)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -436,7 +423,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                             decoration: BoxDecoration(
                                 border: Border(
                                     bottom: BorderSide(
-                              color: Colors.grey,
+                              color: Colors.black12,
                             ))),
                             child: Column(
                               children: <Widget>[
@@ -454,7 +441,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         'PERHITUNGAN TERIMA BERSIH',
                                         style: TextStyle(
                                             fontSize: 16,
-                                            fontFamily: 'Montserrat Regular',
+                                            fontFamily: 'Roboto-Regular',
                                             color: kPrimaryColor),
                                       ),
                                     ),
@@ -469,7 +456,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Administrasi',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -478,8 +465,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].madm)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -493,7 +479,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Provisi',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -502,8 +488,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].mprovi)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -517,7 +502,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Asuransi',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -526,8 +511,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].mpremi)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -541,7 +525,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Materai',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -550,8 +534,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].bmeterai)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -565,7 +548,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Simpanan Sukarela',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -574,8 +557,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].simpananSukarela)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -589,7 +571,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Simpanan Pokok',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -598,8 +580,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].simpananPokok)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -613,7 +594,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Simpanan Wajib',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -622,8 +603,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].simpananWajib)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -637,7 +617,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Jumlah Biaya',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -646,8 +626,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].jumlahBiaya)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -661,7 +640,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                         child: Text(
                                           'Terima Bersih',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -673,8 +652,7 @@ class _SimulationKp74ResultState extends State<SimulationKp74Result> {
                                             '${formatRupiah(data.dataSimulationKp74[0].jumlahBersih)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular',
+                                                fontFamily: 'Roboto-Regular',
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold),
                                           ),

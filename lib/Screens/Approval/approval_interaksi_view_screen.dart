@@ -78,7 +78,7 @@ class _ApprovalInteractionViewScreenState
                 child: Column(children: <Widget>[
               SizedBox(
                 child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
                 ),
                 height: 20,
                 width: 20,
@@ -138,7 +138,6 @@ class _ApprovalInteractionViewScreenState
   }
 
   Future rejectInteraksi() async {
-    //showing CircularProgressIndicator
     setState(() {
       _loadingR = true;
     });
@@ -158,9 +157,6 @@ class _ApprovalInteractionViewScreenState
         setState(() {
           _loadingR = false;
         });
-        // Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => ApprovalInteractionScreen(
-        //         widget.username, widget.nik, widget.hakAkses, widget.nikSdm)));
       } else {
         setState(() {
           _loadingR = false;
@@ -193,7 +189,7 @@ class _ApprovalInteractionViewScreenState
         title: Text(
           '${widget.calonDebitur}',
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.white,
           ),
         ),
@@ -301,7 +297,7 @@ class _ApprovalInteractionViewScreenState
                 child: Text(
                   'Setuju',
                   style: TextStyle(
-                      color: Colors.white, fontFamily: 'Montserrat Regular'),
+                      color: Colors.white, fontFamily: 'Roboto-Regular'),
                 ),
               ),
             ),
@@ -319,7 +315,7 @@ class _ApprovalInteractionViewScreenState
                 child: Text(
                   'Tolak',
                   style: TextStyle(
-                      color: Colors.white, fontFamily: 'Montserrat Regular'),
+                      color: Colors.white, fontFamily: 'Roboto-Regular'),
                 ),
               ),
             ),
@@ -342,8 +338,8 @@ class _ApprovalInteractionViewScreenState
             padding: const EdgeInsets.all(6.0),
             child: Text(
               title,
-              style: TextStyle(
-                  fontFamily: 'Montserrat Regular', color: Colors.white),
+              style:
+                  TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white),
             ),
           ),
         ),
@@ -359,7 +355,7 @@ class _ApprovalInteractionViewScreenState
                   children: <Widget>[
                     Text(
                       value,
-                      style: TextStyle(fontFamily: 'Montserrat Regular'),
+                      style: TextStyle(fontFamily: 'Roboto-Regular'),
                     ),
                   ],
                 ))),

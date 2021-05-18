@@ -19,7 +19,7 @@ class _BeritaScreen extends State<BeritaScreen> {
         title: Text(
           'Berita',
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.white,
           ),
         ),
@@ -67,7 +67,7 @@ class _BeritaScreen extends State<BeritaScreen> {
                               Text(
                                 'Baca Berita Yuk!',
                                 style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
+                                    fontFamily: "Roboto-Regular",
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -77,7 +77,7 @@ class _BeritaScreen extends State<BeritaScreen> {
                               Text(
                                 'Temukan berita terbaru dari kantor pusat.',
                                 style: TextStyle(
-                                  fontFamily: "Montserrat Regular",
+                                  fontFamily: "Roboto-Regular",
                                   fontSize: 12,
                                 ),
                               ),
@@ -120,7 +120,7 @@ class _BeritaScreen extends State<BeritaScreen> {
                                                 style: TextStyle(
                                                     fontSize: 20,
                                                     fontFamily:
-                                                        'Montserrat Regular',
+                                                        'Roboto-Regular',
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
@@ -141,7 +141,7 @@ class _BeritaScreen extends State<BeritaScreen> {
                                                       style: TextStyle(
                                                           color: Colors.black54,
                                                           fontFamily:
-                                                              'Montserrat Regular',
+                                                              'Roboto-Regular',
                                                           fontWeight:
                                                               FontWeight.bold)),
                                                 ],

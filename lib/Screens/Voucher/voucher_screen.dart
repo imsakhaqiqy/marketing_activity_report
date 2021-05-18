@@ -1,13 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Voucher/tracking_voucher_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/disbursment_provider.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 class VoucherScreen extends StatefulWidget {
   String username;
@@ -22,18 +21,34 @@ class VoucherScreen extends StatefulWidget {
 class _VoucherScreenState extends State<VoucherScreen> {
   @override
   Widget build(BuildContext context) {
-    var cardTextStyle1 = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.grey);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
           title: Text(
-            'INSENTIF',
+            'Insentif',
             style: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'CourrierPrime',
               color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
           ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.info_outline,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Toast.show(
+                  'Insentif ' + bulan + ' ' + tahun,
+                  context,
+                  duration: Toast.LENGTH_LONG,
+                  gravity: Toast.CENTER,
+                  backgroundColor: Colors.blueAccent,
+                );
+              },
+            )
+          ],
         ),
         body: RefreshIndicator(
             onRefresh: () =>
@@ -76,7 +91,7 @@ class _VoucherScreenState extends State<VoucherScreen> {
                                 Text(
                                   'Pencairan Kredit Yuk!',
                                   style: TextStyle(
-                                      fontFamily: "Montserrat Regular",
+                                      fontFamily: "Roboto-Regular",
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -86,7 +101,7 @@ class _VoucherScreenState extends State<VoucherScreen> {
                                 Text(
                                   'Dapatkan insentif besar dari pencairanmu.',
                                   style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
+                                    fontFamily: "Roboto-Regular",
                                     fontSize: 12,
                                   ),
                                 ),
@@ -101,47 +116,24 @@ class _VoucherScreenState extends State<VoucherScreen> {
                                   double.parse(data.dataDisbursment[i].plafond);
                               double jumlah =
                                   nominal * double.parse(widget.tarif) / 100;
-                              return Card(
-                                color: Colors.teal,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      ListTile(
-                                        leading: Column(
-                                          children: <Widget>[
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                border: Border(
-                                                  right: BorderSide(
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                              child: Icon(
-                                                Icons.monetization_on_outlined,
-                                                size: 50,
-                                                color: Colors.white,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                        title: Text(
-                                          '${formatRupiah(jumlah.toString())}',
-                                          style: TextStyle(
-                                              fontFamily: "Montserrat Regular",
-                                              fontSize: 30,
-                                              color: Colors.white),
-                                        ),
-                                        subtitle: Text(
-                                          messageStatus(data
-                                              .dataDisbursment[i].statusBayar),
-                                          style: TextStyle(
-                                              fontFamily: "Montserrat Regular",
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                                    ]),
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          TrackingVoucherScreen(
+                                            data.dataDisbursment[i].nomorAkad,
+                                            data.dataDisbursment[i].id,
+                                            data.dataDisbursment[i].plafond,
+                                            jumlah.toString(),
+                                          )));
+                                },
+                                child: _buildCreditCard(
+                                    Color(0xFF090943),
+                                    formatRupiah(jumlah.toString()),
+                                    data.dataDisbursment[i].debitur,
+                                    data.dataDisbursment[i].tanggalPencairan,
+                                    data.dataDisbursment[i].statusBayar,
+                                    data.dataDisbursment[i].nomorAkad),
                               );
                             });
                       }
@@ -150,6 +142,88 @@ class _VoucherScreenState extends State<VoucherScreen> {
                 },
               ),
             )));
+  }
+
+  Widget _buildCreditCard(Color color, String cardNumber, String cardHolder,
+      String cardExpiration, String status, String noAkad) {
+    return Card(
+      elevation: 4.0,
+      color: color,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.0)),
+      child: Container(
+        height: 150,
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 22.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            _buildLogosBlock(status, noAkad),
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: Text(
+                '$cardNumber',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 21,
+                  fontFamily: 'CourrierPrime',
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                _buildDetailsBlock('DEBITUR', cardHolder),
+                _buildDetailsBlock('INPUT', cardExpiration),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailsBlock(String label, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          '$label',
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 9,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          '$value',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildLogosBlock(status, noAkad) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: Tooltip(
+            message: noAkad,
+            child: Icon(
+              MdiIcons.bank,
+              size: 20,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        iconStatus(status)
+      ],
+    );
   }
 
   messageStatus(String status) {
@@ -162,14 +236,25 @@ class _VoucherScreenState extends State<VoucherScreen> {
 
   iconStatus(String status) {
     if (status == '0') {
-      return Icon(
-        Icons.info,
-        size: 30,
+      return Padding(
+        padding: const EdgeInsets.only(top: 16.0),
+        child: Tooltip(
+          message: messageStatus(status),
+          child: Icon(
+            Icons.info,
+            size: 20,
+            color: Colors.white,
+          ),
+        ),
       );
     } else {
-      return Icon(
-        Icons.check,
-        size: 30,
+      return Padding(
+        padding: const EdgeInsets.only(top: 16.0),
+        child: Icon(
+          Icons.check,
+          size: 20,
+          color: Colors.white,
+        ),
       );
     }
   }

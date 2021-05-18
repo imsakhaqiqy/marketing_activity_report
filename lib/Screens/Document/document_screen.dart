@@ -15,7 +15,7 @@ class _DocumentScreenState extends State<DocumentScreen> {
         appBar: AppBar(
           title: Text(
             'DOKUMEN',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
         ),
         body: Container(

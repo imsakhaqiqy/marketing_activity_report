@@ -101,7 +101,7 @@ class _DisbursmentViewScreenState extends State<DisbursmentViewScreen> {
           title: Text(
             '${widget.calonDebitur}',
             style: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
               color: Colors.white,
             ),
           ),
@@ -373,8 +373,8 @@ class _DisbursmentViewScreenState extends State<DisbursmentViewScreen> {
             padding: const EdgeInsets.all(6.0),
             child: Text(
               title,
-              style: TextStyle(
-                  fontFamily: 'Montserrat Regular', color: Colors.white),
+              style:
+                  TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white),
             ),
           ),
         ),
@@ -390,7 +390,7 @@ class _DisbursmentViewScreenState extends State<DisbursmentViewScreen> {
                   children: <Widget>[
                     Text(
                       value,
-                      style: TextStyle(fontFamily: 'Montserrat Regular'),
+                      style: TextStyle(fontFamily: 'Roboto-Regular'),
                     ),
                   ],
                 ))),

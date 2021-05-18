@@ -124,7 +124,7 @@ class _Body extends State<Body> {
                 "iMarsyt - Marketing Report System",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                     color: Colors.white),
               ),
               SizedBox(height: size.height * 0.05),
@@ -136,13 +136,13 @@ class _Body extends State<Body> {
               RoundedButton(
                 text: "MASUK",
                 color: Colors.white,
-                textColor: Colors.teal,
+                textColor: kPrimaryColor,
                 press: () {
                   if (versionIdApp != versionId) {
                     Toast.show(
                       'Versi aplikasi anda belum diupdate, mohon untuk melakukan update terlebih dahulu di playstore...',
                       context,
-                      duration: Toast.LENGTH_SHORT,
+                      duration: Toast.LENGTH_LONG,
                       gravity: Toast.BOTTOM,
                       backgroundColor: Colors.red,
                     );
@@ -168,10 +168,10 @@ class _Body extends State<Body> {
                 child: Text(
                   'DAFTAR',
                   style: TextStyle(
-                      color: Colors.teal,
+                      color: kPrimaryColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 10,
-                      fontFamily: 'Montserrat Regular'),
+                      fontFamily: 'Roboto-Regular'),
                 ),
               ),
               SizedBox(
@@ -185,8 +185,7 @@ class _Body extends State<Body> {
                     child: Text(
                       'v ' + versionIdApp,
                       style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Montserrat Regular'),
+                          color: Colors.white, fontFamily: 'Roboto-Regular'),
                     ),
                   ),
                 ),

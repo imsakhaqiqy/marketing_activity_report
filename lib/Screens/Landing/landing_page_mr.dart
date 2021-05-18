@@ -78,30 +78,30 @@ class _LandingMrScreenState extends State<LandingMrScreen> {
       currentIndex: _bottomNavCurrentIndex,
       items: [
         BottomNavigationBarItem(
-            activeIcon: new Icon(Icons.home, color: kPrimaryColor),
-            icon: new Icon(Icons.home, color: Colors.grey),
-            title: new Text(
+            activeIcon: Icon(Icons.home, color: kPrimaryColor),
+            icon: Icon(Icons.home, color: Colors.grey),
+            title: Text(
               'Beranda',
               style: TextStyle(
-                fontFamily: 'Montserrat Regular',
+                fontFamily: 'Roboto-Regular',
               ),
             )),
         BottomNavigationBarItem(
-            activeIcon: new Icon(Icons.history, color: kPrimaryColor),
+            activeIcon: Icon(Icons.history, color: kPrimaryColor),
             icon: new Icon(Icons.history, color: Colors.grey),
             title: new Text(
               'Pinjaman',
               style: TextStyle(
-                fontFamily: 'Montserrat Regular',
+                fontFamily: 'Roboto-Regular',
               ),
             )),
         BottomNavigationBarItem(
-            activeIcon: new Icon(Icons.account_circle, color: kPrimaryColor),
+            activeIcon: Icon(Icons.account_circle, color: kPrimaryColor),
             icon: new Icon(Icons.account_circle, color: Colors.grey),
             title: new Text(
               'Akun',
               style: TextStyle(
-                fontFamily: 'Montserrat Regular',
+                fontFamily: 'Roboto-Regular',
               ),
             )),
       ],

@@ -27,9 +27,9 @@ class _ApprovalDisbursmentScreen extends State<ApprovalDisbursmentScreen> {
     String tahun = date.year.toString();
     String hari = date.day.toString();
     var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.white);
+        fontFamily: "Roboto-Regular", fontSize: 14, color: Colors.white);
     var cardTextStyle1 = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.grey);
+        fontFamily: "Roboto-Regular", fontSize: 14, color: Colors.grey);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -83,7 +83,7 @@ class _ApprovalDisbursmentScreen extends State<ApprovalDisbursmentScreen> {
                               Text(
                                 'Approval Pencairan Yuk!',
                                 style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
+                                    fontFamily: "Roboto-Regular",
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -93,7 +93,7 @@ class _ApprovalDisbursmentScreen extends State<ApprovalDisbursmentScreen> {
                               Text(
                                 'Pencairan tim kamu tidak tersedia.',
                                 style: TextStyle(
-                                  fontFamily: "Montserrat Regular",
+                                  fontFamily: "Roboto-Regular",
                                   fontSize: 12,
                                 ),
                               ),
@@ -336,7 +336,7 @@ class _ApprovalDisbursmentScreen extends State<ApprovalDisbursmentScreen> {
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.bold,
                                                     fontFamily:
-                                                        'Montserrat Regular'),
+                                                        'Roboto-Regular'),
                                               ),
                                             ],
                                           ),
@@ -354,7 +354,7 @@ class _ApprovalDisbursmentScreen extends State<ApprovalDisbursmentScreen> {
                                                           fontStyle:
                                                               FontStyle.italic,
                                                           fontFamily:
-                                                              'Montserrat Regular'),
+                                                              'Roboto-Regular'),
                                                     ),
                                                   ],
                                                 ),
@@ -369,7 +369,7 @@ class _ApprovalDisbursmentScreen extends State<ApprovalDisbursmentScreen> {
                                                           fontStyle:
                                                               FontStyle.italic,
                                                           fontFamily:
-                                                              'Montserrat Regular'),
+                                                              'Roboto-Regular'),
                                                     ),
                                                   ],
                                                 ),

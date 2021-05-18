@@ -89,7 +89,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       appBar: AppBar(
         title: Text(
           'Prapensiun THT',
-          style: TextStyle(fontFamily: 'Montserrat Regular'),
+          style: TextStyle(fontFamily: 'Roboto-Regular'),
         ),
       ),
       body: Container(
@@ -128,8 +128,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12),
                 ),
                 value: value,
               ))
@@ -142,8 +141,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       decoration: InputDecoration(
           labelText: 'Simulasi',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          labelStyle:
-              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+          labelStyle: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12)),
       value: selectedPensiun,
       isExpanded: true,
     );
@@ -155,8 +153,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12),
                 ),
                 value: value,
               ))
@@ -169,8 +166,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       decoration: InputDecoration(
           labelText: 'Kredit',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          labelStyle:
-              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+          labelStyle: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12)),
       value: selectedJenisKredit,
       isExpanded: true,
     );
@@ -188,10 +184,10 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Nama Lengkap",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Nama Lengkap"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -207,13 +203,13 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Gaji Terakhir",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Gaji Terakhir"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -231,7 +227,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
         decoration: InputDecoration(
             //Add th Hint text here.
             hintText: "Tanggal Lahir",
-            hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+            hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
             labelText: "Tanggal Lahir"),
         format: format,
         onShowPicker: (context, currentValue) {
@@ -241,7 +237,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
         },
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+        style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
       ),
     ]);
   }
@@ -258,10 +254,10 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Bank Ambil Gaji",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Bank Ambil Gaji"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -277,13 +273,13 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Plafond",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Plafond"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -293,8 +289,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12),
                 ),
                 value: value,
               ))
@@ -307,8 +302,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       decoration: InputDecoration(
           labelText: 'Jangka Waktu',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          labelStyle:
-              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+          labelStyle: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12)),
       value: selectedJangkaWaktuType,
       isExpanded: true,
     );
@@ -320,8 +314,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12),
                 ),
                 value: value,
               ))
@@ -334,8 +327,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       decoration: InputDecoration(
           labelText: 'Blokir Angsuran',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          labelStyle:
-              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+          labelStyle: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12)),
       value: selectedBlokirAngsuranType,
       isExpanded: true,
     );
@@ -353,13 +345,13 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Batas Usia Pensiun (bulan)",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Batas Usia Pensiun (bulan)"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -369,13 +361,13 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Hutang Bank Lain",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Hutang Bank Lain"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -389,7 +381,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -399,8 +391,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12),
                 ),
                 value: value,
               ))
@@ -413,8 +404,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       decoration: InputDecoration(
           labelText: 'Asuransi',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          labelStyle:
-              TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+          labelStyle: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12)),
       value: selectedAsuransiType,
       isExpanded: true,
     );
@@ -432,13 +422,13 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "THT",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "THT"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -516,8 +506,7 @@ class _SimulationThtScreenState extends State<SimulationThtScreen> {
         },
         child: Text(
           'Hitung',
-          style:
-              TextStyle(color: Colors.white, fontFamily: 'Montserrat Regular'),
+          style: TextStyle(color: Colors.white, fontFamily: 'Roboto-Regular'),
         ),
       ),
     );

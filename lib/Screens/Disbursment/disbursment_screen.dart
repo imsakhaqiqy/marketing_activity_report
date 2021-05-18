@@ -2,14 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_akad_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_edit.dart';
 import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_edit_new.dart';
 import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_view_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
-import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_screen.dart';
-import 'package:kreditpensiun_apps/Screens/provider/disbursment_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:toast/toast.dart';
@@ -336,7 +332,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
         Toast.show(
           'Sukses hapus pencairan',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -348,7 +344,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
         Toast.show(
           'Gagal hapus pencairan',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -365,9 +361,24 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
           'Pencairan',
           style: fontFamily,
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.info_outline,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Toast.show(
+                'Pencairan Kredit ' + bulan + ' ' + tahun,
+                context,
+                duration: Toast.LENGTH_LONG,
+                gravity: Toast.CENTER,
+                backgroundColor: Colors.blueAccent,
+              );
+            },
+          )
+        ],
       ),
-      //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
-      //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
       body: Container(
         color: Colors.white,
         child: _buildList(),
@@ -391,7 +402,10 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
 
   Widget _buildList() {
     if (_isLoading == true) {
-      return Center(child: CircularProgressIndicator());
+      return Center(
+          child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
+      ));
     } else {
       if (_users.length > 0) {
         return RefreshIndicator(
@@ -403,7 +417,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: Colors.grey,
+                      color: Colors.black12,
                     ),
                   ),
                 ),
@@ -458,7 +472,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'Montserrat Regular'),
+                                fontFamily: 'Roboto-Regular'),
                           ),
                         ],
                       ),
@@ -482,8 +496,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
                               ),
                               Text(
                                 formatRupiah(_plafond(_users[index])),
-                                style:
-                                    TextStyle(fontFamily: 'Montserrat Regular'),
+                                style: TextStyle(fontFamily: 'Roboto-Regular'),
                               ),
                             ],
                           ),
@@ -582,7 +595,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
                                           _approvalSl(_users[index])) +
                                       ', data tidak bisa di edit kembali',
                                   context,
-                                  duration: Toast.LENGTH_SHORT,
+                                  duration: Toast.LENGTH_LONG,
                                   gravity: Toast.BOTTOM,
                                   backgroundColor: Colors.red,
                                 );
@@ -644,7 +657,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
                                           _approvalSl(_users[index])) +
                                       ', data tidak bisa di hapus kembali',
                                   context,
-                                  duration: Toast.LENGTH_SHORT,
+                                  duration: Toast.LENGTH_LONG,
                                   gravity: Toast.BOTTOM,
                                   backgroundColor: Colors.red,
                                 );
@@ -691,7 +704,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
             Text(
               'Pencairan Kredit Yuk!',
               style: TextStyle(
-                  fontFamily: "Montserrat Regular",
+                  fontFamily: "Roboto-Regular",
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
@@ -701,7 +714,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
             Text(
               'Dapatkan insentif besar dari pencairanmu.',
               style: TextStyle(
-                fontFamily: "Montserrat Regular",
+                fontFamily: "Roboto-Regular",
                 fontSize: 12,
               ),
             ),
@@ -709,7 +722,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
               height: 10,
             ),
             FlatButton(
-              color: Colors.teal,
+              color: kPrimaryColor,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) =>
@@ -718,7 +731,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
               child: Text(
                 'Lihat Akad Kredit',
                 style: TextStyle(
-                  fontFamily: "Montserrat Regular",
+                  fontFamily: "Roboto-Regular",
                   color: Colors.white,
                 ),
               ),

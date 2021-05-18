@@ -18,7 +18,7 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
           login ? "Don’t have an Account ? " : "Already have an Account ? ",
           style: TextStyle(
               color: Color.fromRGBO(0, 0, 204, 1),
-              fontFamily: 'Montserrat Regular'),
+              fontFamily: 'Roboto-Regular'),
         ),
         GestureDetector(
           onTap: press,
@@ -27,7 +27,7 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
             style: TextStyle(
                 color: Color.fromRGBO(0, 0, 204, 1),
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Montserrat Regular'),
+                fontFamily: 'Roboto-Regular'),
           ),
         )
       ],

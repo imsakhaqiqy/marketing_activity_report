@@ -16,7 +16,7 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
   @override
   Widget build(BuildContext context) {
     var cardTextStyle = TextStyle(
-      fontFamily: "Montserrat Regular",
+      fontFamily: "Roboto-Regular",
       fontSize: 20,
       color: Colors.white,
       fontWeight: FontWeight.bold,
@@ -30,7 +30,7 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
               child: Text(
                 'Approval',
                 style: TextStyle(
-                  fontFamily: 'Montserrat Regular',
+                  fontFamily: 'Roboto-Regular',
                   color: Colors.white,
                 ),
               ),
@@ -76,7 +76,7 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
                                                 'Approval Interaksi',
                                                 style: TextStyle(
                                                     fontFamily:
-                                                        'Montserrat Regular',
+                                                        'Roboto-Regular',
                                                     color: Colors.black54,
                                                     fontSize: 16.0),
                                               ),
@@ -132,7 +132,7 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
                                                 'Approval Pencairan',
                                                 style: TextStyle(
                                                     fontFamily:
-                                                        'Montserrat Regular',
+                                                        'Roboto-Regular',
                                                     color: Colors.black54,
                                                     fontSize: 16.0),
                                               ),

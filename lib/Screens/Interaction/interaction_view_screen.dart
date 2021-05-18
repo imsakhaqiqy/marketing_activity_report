@@ -75,7 +75,7 @@ class _InteractionViewScreenState extends State<InteractionViewScreen> {
         title: Text(
           '${widget.calonDebitur}',
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.white,
           ),
         ),
@@ -200,8 +200,8 @@ class _InteractionViewScreenState extends State<InteractionViewScreen> {
             padding: const EdgeInsets.all(6.0),
             child: Text(
               title,
-              style: TextStyle(
-                  fontFamily: 'Montserrat Regular', color: Colors.white),
+              style:
+                  TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white),
             ),
           ),
         ),
@@ -217,7 +217,7 @@ class _InteractionViewScreenState extends State<InteractionViewScreen> {
                   children: <Widget>[
                     Text(
                       value,
-                      style: TextStyle(fontFamily: 'Montserrat Regular'),
+                      style: TextStyle(fontFamily: 'Roboto-Regular'),
                     ),
                   ],
                 ))),

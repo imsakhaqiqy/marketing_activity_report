@@ -25,7 +25,7 @@ class _DetailNews extends State<DetailNews> {
         title: Text(
           '',
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.white,
           ),
         ),

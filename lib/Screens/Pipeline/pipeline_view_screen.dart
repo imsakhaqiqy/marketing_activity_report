@@ -87,7 +87,7 @@ class _PipelineViewScreenState extends State<PipelineViewScreen> {
           title: Text(
             '${widget.calonDebitur}',
             style: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
               color: Colors.white,
             ),
           ),
@@ -213,8 +213,8 @@ class _PipelineViewScreenState extends State<PipelineViewScreen> {
             padding: const EdgeInsets.all(6.0),
             child: Text(
               title,
-              style: TextStyle(
-                  fontFamily: 'Montserrat Regular', color: Colors.white),
+              style:
+                  TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white),
             ),
           ),
         ),
@@ -230,7 +230,7 @@ class _PipelineViewScreenState extends State<PipelineViewScreen> {
                   children: <Widget>[
                     Text(
                       value,
-                      style: TextStyle(fontFamily: 'Montserrat Regular'),
+                      style: TextStyle(fontFamily: 'Roboto-Regular'),
                     ),
                   ],
                 ))),

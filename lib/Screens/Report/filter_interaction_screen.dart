@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'dart:io';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:kreditpensiun_apps/Screens/Report/filter_interaction.dart';
-import 'package:kreditpensiun_apps/Screens/Report/interaction.dart';
 
 import '../../constants.dart';
 
@@ -38,7 +35,7 @@ class _FilterInteractionScreenState extends State<FilterInteractionScreen> {
         appBar: AppBar(
           title: Text(
             'Filter Interaction',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
         ),
         body: Container(
@@ -79,7 +76,7 @@ class _FilterInteractionScreenState extends State<FilterInteractionScreen> {
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
         },
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+        style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
       ),
     ]);
   }
@@ -104,7 +101,7 @@ class _FilterInteractionScreenState extends State<FilterInteractionScreen> {
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
         },
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+        style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
       ),
     ]);
   }
@@ -130,8 +127,7 @@ class _FilterInteractionScreenState extends State<FilterInteractionScreen> {
         },
         child: Text(
           'Cari',
-          style:
-              TextStyle(color: Colors.white, fontFamily: 'Montserrat Regular'),
+          style: TextStyle(color: Colors.white, fontFamily: 'Roboto-Regular'),
         ),
       ),
     );

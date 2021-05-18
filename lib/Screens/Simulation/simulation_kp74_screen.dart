@@ -50,7 +50,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
       appBar: AppBar(
         title: Text(
           'Pensiunan Platinum',
-          style: TextStyle(fontFamily: 'Montserrat Regular'),
+          style: TextStyle(fontFamily: 'Roboto-Regular'),
         ),
       ),
       body: Container(
@@ -86,10 +86,10 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Nama Lengkap",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Nama Lengkap"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -105,13 +105,13 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Gaji Terakhir",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Gaji Terakhir"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -129,7 +129,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
         decoration: InputDecoration(
             //Add th Hint text here.
             hintText: "Tanggal Lahir",
-            hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+            hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
             labelText: "Tanggal Lahir"),
         format: format,
         onShowPicker: (context, currentValue) {
@@ -139,7 +139,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
         },
-        style: TextStyle(fontFamily: 'Montserrat Regular'),
+        style: TextStyle(fontFamily: 'Roboto-Regular'),
       ),
     ]);
   }
@@ -156,13 +156,13 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Suku Bunga",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Suku Bunga"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -176,7 +176,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -187,7 +187,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
                 child: Text(
                   value,
                   style: TextStyle(
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                   ),
                 ),
                 value: value,
@@ -202,7 +202,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
           labelText: 'Jangka Waktu (bulan)',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
           )),
       value: selectedJangkaWaktuType,
       isExpanded: true,
@@ -235,8 +235,7 @@ class _SimulationKp74ScreenState extends State<SimulationKp74Screen> {
         },
         child: Text(
           'Hitung',
-          style:
-              TextStyle(color: Colors.white, fontFamily: 'Montserrat Regular'),
+          style: TextStyle(color: Colors.white, fontFamily: 'Roboto-Regular'),
         ),
       ),
     );

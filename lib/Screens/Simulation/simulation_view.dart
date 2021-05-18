@@ -20,21 +20,12 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
     with TickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> _animation;
-  Animation<double> _animation1;
-  Animation<double> _animation2;
-  Animation<double> _animation3;
-  Animation<double> _animation4;
   initState() {
     super.initState();
     _controller = AnimationController(
-        duration: const Duration(milliseconds: 3000), vsync: this, value: 0.1);
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.bounceIn);
-    _animation1 = CurvedAnimation(parent: _controller, curve: Curves.bounceOut);
-    _animation2 =
-        CurvedAnimation(parent: _controller, curve: Curves.bounceInOut);
-    _animation3 = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
-    _animation4 = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
-    _controller.repeat();
+        duration: const Duration(milliseconds: 1000), vsync: this, value: 0.1);
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.bounceOut);
+    _controller.forward();
   }
 
   dispose() {
@@ -51,7 +42,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
         title: Text(
           'Simulasi',
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.white,
           ),
         ),
@@ -65,7 +56,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.grey,
+                    color: Colors.black12,
                   ),
                 ),
               ),
@@ -111,7 +102,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.grey,
+                    color: Colors.black12,
                   ),
                 ),
               ),
@@ -127,7 +118,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                     Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                   ListTile(
                     leading: ScaleTransition(
-                      scale: _animation1,
+                      scale: _animation,
                       child: Image.asset(
                         'assets/images/prapen_5.png',
                         height: 50,
@@ -157,7 +148,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: Colors.grey,
+                      color: Colors.black12,
                     ),
                   ),
                 ),
@@ -173,7 +164,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                       Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     ListTile(
                       leading: ScaleTransition(
-                        scale: _animation2,
+                        scale: _animation,
                         child: Image.asset(
                           'assets/images/prapens_10.png',
                           height: 50,
@@ -202,7 +193,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: Colors.grey,
+                      color: Colors.black12,
                     ),
                   ),
                 ),
@@ -218,7 +209,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                       Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     ListTile(
                       leading: ScaleTransition(
-                        scale: _animation3,
+                        scale: _animation,
                         child: Image.asset(
                           'assets/images/pensiun.png',
                           height: 50,
@@ -247,7 +238,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: Colors.grey,
+                      color: Colors.black12,
                     ),
                   ),
                 ),
@@ -262,7 +253,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                       Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                     ListTile(
                       leading: ScaleTransition(
-                        scale: _animation4,
+                        scale: _animation,
                         child: Image.asset(
                           'assets/images/platinum.png',
                           height: 50,
@@ -277,7 +268,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                         ),
                       ),
                       subtitle: Text(
-                        'Pensiunan diatas 70 tahun sampai 80 tahun  ',
+                        'Pensiunan 70 tahun sampai 80 tahun',
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black,

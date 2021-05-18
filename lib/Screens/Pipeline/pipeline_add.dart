@@ -206,7 +206,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
         Toast.show(
           'Sukses menambahkan data pipeline...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -220,7 +220,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
         Toast.show(
           'Gagal menambahkan data pipeline...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -247,7 +247,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
                   ? Toast.show(
                       'Mohon menunggu, sedang proses penyimpanan pipeline...',
                       context,
-                      duration: Toast.LENGTH_SHORT,
+                      duration: Toast.LENGTH_LONG,
                       gravity: Toast.BOTTOM,
                       backgroundColor: Colors.red,
                     )
@@ -258,68 +258,92 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
               appBar: AppBar(
                 title: Text(
                   'Tambah Pipeline',
-                  style: TextStyle(fontFamily: 'Montserrat Regular'),
+                  style: TextStyle(fontFamily: 'Roboto-Regular'),
                 ),
                 actions: <Widget>[
                   FlatButton(
-                      color: Colors.white,
-                      //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
-                      //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
-                      child: visible
-                          ? CircularProgressIndicator(
-                              //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.teal),
-                            )
-                          : Text(
-                              'Simpan',
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.teal,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                      onPressed: () {
-                        if (formKey.currentState.validate()) {
-                          if (selectedJenisKelamin == null) {
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(
-                              content: Text('Mohon pilih jenis kelamin...'),
-                              duration: Duration(seconds: 3),
-                            ));
-                          } else if (selectedJenisDebitur == null) {
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(
-                              content: Text('Mohon pilih jenis produk...'),
-                              duration: Duration(seconds: 3),
-                            ));
-                          } else if (selectedJenisCabang == null) {
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(
-                              content: Text('Mohon pilih kantor cabang...'),
-                              duration: Duration(seconds: 3),
-                            ));
-                          } else if (selectedStatusKredit == null) {
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(
-                              content: Text('Mohon pilih status kredit...'),
-                              duration: Duration(seconds: 3),
-                            ));
-                          } else if (selectedPengelolaPensiun == null) {
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(
-                              content: Text('Mohon pilih pengelola pensiun...'),
-                              duration: Duration(seconds: 3),
-                            ));
-                          } else if (image1 == null) {
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(
-                              content: Text('Mohon pilih foto ktp...'),
-                              duration: Duration(seconds: 3),
-                            ));
-                          } else if (image2 == null) {
-                            _scaffoldKey.currentState.showSnackBar(SnackBar(
-                              content: Text('Mohon pilih foto npwp...'),
-                              duration: Duration(seconds: 3),
-                            ));
-                          } else {
-                            savePipeline();
-                          }
+                    color: Colors.white,
+                    //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
+                    //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
+                    child: Text(
+                      'Simpan',
+                      style: TextStyle(
+                          fontFamily: 'Roboto-Regular',
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {
+                      if (formKey.currentState.validate()) {
+                        if (selectedJenisKelamin == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih jenis kelamin...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (selectedJenisDebitur == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih jenis produk...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (selectedJenisCabang == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih kantor cabang...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (selectedStatusKredit == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih status kredit...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (selectedPengelolaPensiun == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih pengelola pensiun...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (image1 == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih foto ktp...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (image2 == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih foto npwp...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else {
+                          showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12
+                                .withOpacity(0.6), // background color
+                            barrierDismissible:
+                                false, // should dialog be dismissed when tapped outside
+                            barrierLabel: "Dialog", // label for barrier
+                            transitionDuration: Duration(
+                                milliseconds:
+                                    400), // how long it takes to popup dialog after button click
+                            pageBuilder: (_, __, ___) {
+                              // your widget implementation
+                              return Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 50,
+                                    width: 50,
+                                    child: CircularProgressIndicator(
+                                      //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          kPrimaryColor),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                          savePipeline();
                         }
-                      })
+                      }
+                    },
+                  )
                 ],
               ),
               body: Container(
@@ -427,7 +451,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -442,7 +466,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Tempat Lahir'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -466,7 +490,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
                 initialDate: currentValue ?? DateTime.now(),
                 lastDate: DateTime(2100));
           },
-          style: TextStyle(fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontFamily: 'Roboto-Regular')),
     ]);
   }
 
@@ -477,7 +501,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value,
@@ -492,7 +516,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
             labelText: 'Jenis Kelamin',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedJenisKelamin,
         isExpanded: true);
@@ -512,7 +536,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -527,7 +551,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Nama sesuai KTP'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -542,7 +566,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Alamat'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -564,7 +588,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -575,7 +599,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value,
@@ -590,7 +614,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
             labelText: 'Jenis Produk',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedJenisDebitur,
         isExpanded: true);
@@ -603,7 +627,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
                   child: Text(
                     value['NAMA'],
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value['NAMA'].toString(),
@@ -618,7 +642,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
             labelText: 'Kantor Cabang',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedJenisCabang,
         isExpanded: true);
@@ -640,7 +664,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
         inputFormatters: <TextInputFormatter>[
           WhitelistingTextInputFormatter.digitsOnly
         ],
-        style: TextStyle(fontFamily: 'Montserrat Regular'));
+        style: TextStyle(fontFamily: 'Roboto-Regular'));
   }
 
   Widget fieldKeterangan() {
@@ -654,7 +678,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Keterangan'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -665,7 +689,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value,
@@ -686,7 +710,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
             labelText: 'Status Kredit',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedStatusKredit,
         isExpanded: true);
@@ -699,7 +723,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
                   child: Text(
                     value['nama'],
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value['nama'].toString(),
@@ -714,7 +738,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
             labelText: 'Bank Takeover',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedBankTakeover,
         isExpanded: true);
@@ -727,7 +751,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value,
@@ -742,7 +766,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
             labelText: 'Pengelola Pensiun',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedPengelolaPensiun,
         isExpanded: true);
@@ -803,10 +827,10 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
           Color colored;
           if (index == 0) {
             titled = 'Foto KTP';
-            colored = Colors.teal;
+            colored = kPrimaryColor;
           } else if (index == 1) {
             titled = 'Foto NPWP';
-            colored = Colors.teal;
+            colored = kPrimaryColor;
           }
           return Card(
               shape: RoundedRectangleBorder(
@@ -817,8 +841,8 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
                 children: [
                   Text(
                     titled,
-                    style: TextStyle(
-                        fontSize: 8.0, fontFamily: 'Montserrat Regular'),
+                    style:
+                        TextStyle(fontSize: 8.0, fontFamily: 'Roboto-Regular'),
                   ),
                   IconButton(
                     icon: Icon(Icons.add),

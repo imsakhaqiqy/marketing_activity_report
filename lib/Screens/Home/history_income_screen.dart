@@ -20,7 +20,7 @@ class _HistoryIncomeScreenScreen extends State<HistoryIncomeScreen> {
   @override
   Widget build(BuildContext context) {
     var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 14,
         color: Color.fromRGBO(63, 63, 63, 1));
     return Scaffold(
@@ -106,7 +106,7 @@ class _HistoryIncomeScreenScreen extends State<HistoryIncomeScreen> {
                                           style: TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold,
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ],
                                     ),
@@ -114,7 +114,7 @@ class _HistoryIncomeScreenScreen extends State<HistoryIncomeScreen> {
                                       'Tanggal : ${data.dataHistoryIncome[i].tglIncome}',
                                       style: TextStyle(
                                           fontStyle: FontStyle.italic,
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     ),
                                     trailing: Text(
                                       '${formatRupiah(data.dataHistoryIncome[i].plafond)}',

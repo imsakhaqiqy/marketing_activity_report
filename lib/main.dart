@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:kreditpensiun_apps/Screens/launcher/launcher_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/approval_disbursment_agen_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/approval_disbursment_provider.dart';
@@ -20,6 +24,8 @@ import 'package:kreditpensiun_apps/Screens/provider/report_marketing_sl_provider
 import 'package:kreditpensiun_apps/Screens/provider/simulation_kp74_provider.dart';
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:kreditpensiun_apps/Screens/provider/simulation_provider.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import 'Screens/provider/disbursment_provider.dart';
@@ -29,7 +35,13 @@ import 'Screens/provider/report_disbursment_provider.dart';
 import 'Screens/provider/report_interaction_provider.dart';
 import 'Screens/provider/berita_provider.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize(
+      debug: true // optional: set false to disable printing logs to console
+      );
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

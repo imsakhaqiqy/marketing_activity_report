@@ -193,7 +193,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
         Toast.show(
           'Sukses menambahkan data rencana interaksi...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -204,7 +204,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
         Toast.show(
           'Gagal menambahkan data rencana interaksi...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -220,7 +220,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       appBar: AppBar(
         title: Text(
           'Rencana Interaksi OTS',
-          style: TextStyle(fontFamily: 'Montserrat Regular'),
+          style: TextStyle(fontFamily: 'Roboto-Regular'),
         ),
         actions: <Widget>[
           FlatButton(
@@ -232,7 +232,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
                 : Text(
                     'Simpan',
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
+                        fontFamily: 'Roboto-Regular',
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
@@ -267,7 +267,8 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
             SizedBox(height: size.height * 0.02),
             fieldNamaKantor(),
             SizedBox(height: size.height * 0.02),
-            fieldPenerbitSkep()
+            fieldPenerbitSkep(),
+            SizedBox(height: size.height * 0.02),
           ]),
         ),
       ),
@@ -286,13 +287,15 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Nama Lengkap",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
           labelText: "Nama Lengkap"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(
+        fontFamily: 'Roboto-Regular',
+      ),
     );
   }
 
@@ -308,13 +311,13 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Instansi Pensiun",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
           labelText: "Instansi Pensiun"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -330,14 +333,14 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       decoration: InputDecoration(
         //Add th Hint text here.
         hintText: "Alamat",
-        hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+        hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
         labelText: "Alamat",
       ),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -353,14 +356,14 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       decoration: InputDecoration(
         //Add th Hint text here.
         hintText: "Kelurahan",
-        hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+        hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
         labelText: "Kelurahan",
       ),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -376,14 +379,14 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       decoration: InputDecoration(
         //Add th Hint text here.
         hintText: "Kecamatan",
-        hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+        hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
         labelText: "Kecamatan",
       ),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -399,14 +402,14 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       decoration: InputDecoration(
         //Add th Hint text here.
         hintText: "Kota",
-        hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+        hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
         labelText: "Kota",
       ),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -422,14 +425,14 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       decoration: InputDecoration(
         //Add th Hint text here.
         hintText: "Propinsi",
-        hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+        hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
         labelText: "Propinsi",
       ),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -445,13 +448,13 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Kantor Bayar",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
           labelText: "Kantor Bayar"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -471,7 +474,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Telepon",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
@@ -480,7 +483,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 }

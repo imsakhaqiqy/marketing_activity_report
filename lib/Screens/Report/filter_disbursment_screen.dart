@@ -1,12 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'dart:io';
-import 'package:http/http.dart' as http;
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-import 'package:kreditpensiun_apps/Screens/Report/disbursment.dart';
 import 'package:kreditpensiun_apps/Screens/Report/filter_disbursment.dart';
 
 import '../../constants.dart';
@@ -36,7 +30,7 @@ class _FilterDisbursmentScreenState extends State<FilterDisbursmentScreen> {
         appBar: AppBar(
           title: Text(
             'Filter Pencairan',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
         ),
         body: Container(
@@ -76,7 +70,7 @@ class _FilterDisbursmentScreenState extends State<FilterDisbursmentScreen> {
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
         },
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+        style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
       ),
     ]);
   }
@@ -101,7 +95,7 @@ class _FilterDisbursmentScreenState extends State<FilterDisbursmentScreen> {
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
         },
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+        style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
       ),
     ]);
   }
@@ -125,8 +119,7 @@ class _FilterDisbursmentScreenState extends State<FilterDisbursmentScreen> {
         },
         child: Text(
           'Cari',
-          style:
-              TextStyle(color: Colors.white, fontFamily: 'Montserrat Regular'),
+          style: TextStyle(color: Colors.white, fontFamily: 'Roboto-Regular'),
         ),
       ),
     );

@@ -8,15 +8,10 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:kreditpensiun_apps/Screens/Account/account_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
-import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
+
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_root_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_screen.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
-import 'package:kreditpensiun_apps/Screens/Pipeline/signature_screen.dart';
 import 'package:kreditpensiun_apps/Screens/models/image_upload_model.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:kreditpensiun_apps/constants.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:toast/toast.dart';
 
@@ -93,7 +88,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
         images.replaceRange(0, 0 + 1, [path1]);
         image1 = 'https://www.nabasa.co.id/marsit/assets/images/submit/' +
             widget.fotoTandaTerima;
-        action = 'Update';
+        action = 'Ubah';
       }
     });
   }
@@ -147,7 +142,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
         Toast.show(
           'Sukses submit dokumen debitur ' + widget.debitur,
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -161,7 +156,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
         Toast.show(
           'Gagal submit dokumen debitur ' + widget.debitur,
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -180,7 +175,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
                 'Mohon menunggu, sedang proses submit dokumen...' +
                     widget.debitur,
                 context,
-                duration: Toast.LENGTH_SHORT,
+                duration: Toast.LENGTH_LONG,
                 gravity: Toast.BOTTOM,
                 backgroundColor: Colors.red,
               )
@@ -191,7 +186,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
         appBar: AppBar(
           title: Text(
             'Submit Dokumen',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
           actions: [
             FlatButton(
@@ -205,26 +200,47 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
                       duration: Duration(seconds: 3),
                     ));
                   } else {
+                    showGeneralDialog(
+                      context: context,
+                      barrierColor:
+                          Colors.black12.withOpacity(0.6), // background color
+                      barrierDismissible:
+                          false, // should dialog be dismissed when tapped outside
+                      barrierLabel: "Dialog", // label for barrier
+                      transitionDuration: Duration(
+                          milliseconds:
+                              400), // how long it takes to popup dialog after button click
+                      pageBuilder: (_, __, ___) {
+                        // your widget implementation
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 50,
+                              width: 50,
+                              child: CircularProgressIndicator(
+                                //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    kPrimaryColor),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                     submitPipeline();
                   }
                 }
               },
-              child: visible
-                  ? SizedBox(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.teal),
-                      ),
-                      height: 20.0,
-                      width: 20.0,
-                    )
-                  : Text(
-                      '$action',
-                      style: TextStyle(
-                        color: Colors.teal,
-                        fontFamily: 'Montserrat Regular',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+              child: Text(
+                '$action',
+                style: TextStyle(
+                  color: kPrimaryColor,
+                  fontFamily: 'Roboto-Regular',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),
@@ -348,15 +364,15 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
         Container(
           width: 70,
           decoration: new BoxDecoration(
-            color: Colors.teal,
+            color: kPrimaryColor,
             borderRadius: BorderRadius.circular(5.0),
           ),
           child: Padding(
             padding: const EdgeInsets.all(6.0),
             child: Text(
               title,
-              style: TextStyle(
-                  fontFamily: 'Montserrat Regular', color: Colors.white),
+              style:
+                  TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white),
             ),
           ),
         ),
@@ -367,7 +383,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
           value,
           textAlign: TextAlign.right,
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.black,
           ),
         )
@@ -395,7 +411,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
                 initialDate: currentValue ?? DateTime.now(),
                 lastDate: DateTime(2100));
           },
-          style: TextStyle(fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontFamily: 'Roboto-Regular')),
     ]);
   }
 
@@ -410,7 +426,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
       },
       decoration: InputDecoration(labelText: 'Nama Penerima'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -432,7 +448,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -532,7 +548,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
             Color colored;
             if (index == 0) {
               titled = 'Foto Submit Dokumen ';
-              colored = Colors.teal;
+              colored = kPrimaryColor;
             }
             return Card(
                 shape: RoundedRectangleBorder(
@@ -543,7 +559,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
                   children: [
                     Text(
                       titled,
-                      style: TextStyle(fontFamily: 'Montserrat Regular'),
+                      style: TextStyle(fontFamily: 'Roboto-Regular'),
                     ),
                     IconButton(
                       icon: Icon(Icons.add),

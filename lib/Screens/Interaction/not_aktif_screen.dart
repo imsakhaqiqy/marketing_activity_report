@@ -11,7 +11,7 @@ class _NotAktiInteractionScreenState extends State<NotAktiInteractionScreen> {
   @override
   Widget build(BuildContext context) {
     var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.white);
+        fontFamily: "Roboto-Regular", fontSize: 14, color: Colors.white);
     return Scaffold(
       appBar: AppBar(
         title: Text(

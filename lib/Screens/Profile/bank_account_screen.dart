@@ -14,7 +14,7 @@ class _BankAccountDataScreenState extends State<BankAccountDataScreen> {
         appBar: AppBar(
           title: Text(
             'Rekening',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
         ),
         body: Container(
@@ -46,7 +46,7 @@ class _BankAccountDataScreenState extends State<BankAccountDataScreen> {
                 child: Text(
                   'NOMOR REKENING',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -57,8 +57,7 @@ class _BankAccountDataScreenState extends State<BankAccountDataScreen> {
                     '${widget.personalData[17]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -77,7 +76,7 @@ class _BankAccountDataScreenState extends State<BankAccountDataScreen> {
                 child: Text(
                   'NAMA BANK',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -88,8 +87,7 @@ class _BankAccountDataScreenState extends State<BankAccountDataScreen> {
                     '${widget.personalData[18]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -108,7 +106,7 @@ class _BankAccountDataScreenState extends State<BankAccountDataScreen> {
                 child: Text(
                   'NAMA REKENING',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -119,8 +117,7 @@ class _BankAccountDataScreenState extends State<BankAccountDataScreen> {
                     '${widget.personalData[19]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),

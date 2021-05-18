@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_view_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Interaction/interaction_view_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Report/filter_interaction_sl_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Report/report_interaction_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/filter_report_disbursment_sl_provider.dart';
-import 'package:kreditpensiun_apps/Screens/provider/filter_report_interaction_provider.dart';
-import 'package:kreditpensiun_apps/Screens/provider/filter_report_interaction_sl_provider.dart';
-import 'package:kreditpensiun_apps/Screens/provider/report_interaction_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import '../../constants.dart';
-import 'filter_interaction_screen.dart';
 
 // ignore: must_be_immutable
 class FilterDisbursmentSlReportScreen extends StatefulWidget {
@@ -35,24 +25,23 @@ class _FilterDisbursmentSlReportScreen
   Widget build(BuildContext context) {
     String calonDebitur;
     String rencanaPinjaman;
-    String alamat;
     var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 13,
         color: Color.fromRGBO(63, 63, 63, 1),
         fontWeight: FontWeight.bold);
     var cardTextStyleChild = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 12,
         color: Colors.red,
         fontWeight: FontWeight.bold);
     var cardTextStyleFooter1 = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 12,
         color: Color.fromRGBO(63, 63, 63, 1));
     var cardTextStyleFooter2 = TextStyle(
-        fontFamily: "Montserrat Regular",
-        fontSize: 9,
+        fontFamily: "Roboto-Regular",
+        fontSize: 12,
         color: Color.fromRGBO(63, 63, 63, 1));
     return Scaffold(
       backgroundColor: grey,
@@ -86,7 +75,6 @@ class _FilterDisbursmentSlReportScreen
                   widget.nik, widget.tglAwal, widget.tglAkhir)),
           color: Colors.red,
           child: Container(
-            margin: EdgeInsets.all(10),
             child: FutureBuilder(
               future: Provider.of<FilterReportDisbursmentSlProvider>(context,
                       listen: false)
@@ -124,7 +112,7 @@ class _FilterDisbursmentSlReportScreen
                               Text(
                                 'Pencairan Tidak Ditemukan!',
                                 style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
+                                    fontFamily: "Roboto-Regular",
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -166,144 +154,216 @@ class _FilterDisbursmentSlReportScreen
                             }
 
                             return Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              elevation: 4,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => DisbursmentViewScreen(
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .debitur,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .alamat,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .telepon,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .tanggalAkad,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .nomorAkad,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .noJanji,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .plafond,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .jenisPencairan,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .jenisProduk,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .cabang,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .infoSales,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .foto1,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .foto2,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .foto3,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .tanggalPencairan,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .jamPencairan,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .namaTl,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .jabatanTl,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .teleponTl,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .namaSales,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .cabang,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .infoSales,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .statusPipeline,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .statusKredit,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .pengelolaPensiun,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .bankTakeover,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .tanggalPenyerahan,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .namaPenerima,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .teleponPenerima,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .tanggalPipeline,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .tempatLahir,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .tanggalLahir,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .jenisKelamin,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .noKtp,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .npwp,
-                                          data.dataDisbursmentFilterSlReport[i]
-                                              .kodeProduk)));
-                                },
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        child: Image.network(
-                                          'https://www.nabasa.co.id/marsit/${data.dataDisbursmentFilterSlReport[i].foto1}',
-                                          fit: BoxFit.contain,
-                                        ),
-                                        height: 100.0,
-                                        width: double.infinity,
+                              elevation: 0,
+                              child: GridTile(
+                                footer: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.person_outline,
+                                        color: kPrimaryColor,
+                                        size: 12,
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            '$calonDebitur',
-                                            style: cardTextStyle,
-                                          ),
+                                      Expanded(
+                                        child: Text(
+                                          '${data.dataDisbursmentFilterSlReport[i].namaSales}',
+                                          style: cardTextStyleFooter2,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            '${formatRupiah(rencanaPinjaman)}',
-                                            style: cardTextStyleChild,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataDisbursmentFilterSlReport[i].tanggalPencairan}',
-                                            style: cardTextStyleFooter1,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 5.0),
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.person_outline,
-                                                color: kPrimaryColor),
-                                            Expanded(
-                                              child: Text(
-                                                '${data.dataDisbursmentFilterSlReport[i].namaSales}',
-                                                style: cardTextStyleFooter2,
-                                              ),
+                                    ],
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => DisbursmentViewScreen(
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .debitur,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .alamat,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .telepon,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .tanggalAkad,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .nomorAkad,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .noJanji,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .plafond,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .jenisPencairan,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .jenisProduk,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .cabang,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .infoSales,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .foto1,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .foto2,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .foto3,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .tanggalPencairan,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .jamPencairan,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .namaTl,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .jabatanTl,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .teleponTl,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .namaSales,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .cabang,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .infoSales,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .statusPipeline,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .statusKredit,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .pengelolaPensiun,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .bankTakeover,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .tanggalPenyerahan,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .namaPenerima,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .teleponPenerima,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .tanggalPipeline,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .tempatLahir,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .tanggalLahir,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .jenisKelamin,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .noKtp,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .npwp,
+                                              data
+                                                  .dataDisbursmentFilterSlReport[
+                                                      i]
+                                                  .kodeProduk)));
+                                    },
+                                    child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          SizedBox(
+                                            child: Image.network(
+                                              'https://www.nabasa.co.id/marsit/${data.dataDisbursmentFilterSlReport[i].foto2}',
+                                              fit: BoxFit.cover,
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                    ]),
+                                            height: 100.0,
+                                            width: double.infinity,
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              '$calonDebitur',
+                                              style: cardTextStyle,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              '${formatRupiah(rencanaPinjaman)}',
+                                              style: cardTextStyleChild,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              '${data.dataDisbursmentFilterSlReport[i].tanggalPencairan}',
+                                              style: cardTextStyleFooter1,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                        ]),
+                                  ),
+                                ),
                               ),
                             );
                           });

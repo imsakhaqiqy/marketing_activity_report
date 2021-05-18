@@ -84,7 +84,7 @@ class _LandingScreenState extends State<LandingScreen> {
             title: new Text(
               'Beranda',
               style: TextStyle(
-                fontFamily: 'Montserrat Regular',
+                fontFamily: 'Roboto-Regular',
               ),
             )),
         BottomNavigationBarItem(
@@ -93,7 +93,7 @@ class _LandingScreenState extends State<LandingScreen> {
             title: new Text(
               'Approval',
               style: TextStyle(
-                fontFamily: 'Montserrat Regular',
+                fontFamily: 'Roboto-Regular',
               ),
             )),
         BottomNavigationBarItem(
@@ -102,7 +102,7 @@ class _LandingScreenState extends State<LandingScreen> {
             title: new Text(
               'Pinjaman',
               style: TextStyle(
-                fontFamily: 'Montserrat Regular',
+                fontFamily: 'Roboto-Regular',
               ),
             )),
         BottomNavigationBarItem(
@@ -111,7 +111,7 @@ class _LandingScreenState extends State<LandingScreen> {
             title: new Text(
               'Akun',
               style: TextStyle(
-                fontFamily: 'Montserrat Regular',
+                fontFamily: 'Roboto-Regular',
               ),
             )),
       ],

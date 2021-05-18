@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_add.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_akad.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_edit.dart';
@@ -10,12 +8,12 @@ import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_root_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_submit.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_view_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/pipeline_provider.dart';
+import 'package:kreditpensiun_apps/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 import '../../constants.dart';
-import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class PipelineScreen extends StatefulWidget {
@@ -48,7 +46,7 @@ class _PipelineScreen extends State<PipelineScreen> {
         Toast.show(
           'Sukses delete pipeline',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -62,7 +60,7 @@ class _PipelineScreen extends State<PipelineScreen> {
         Toast.show(
           'Gagal delete pipeline',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -115,7 +113,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                     children: <Widget>[
                       Icon(
                         Icons.edit,
-                        color: Colors.teal,
+                        color: kPrimaryColor,
                         size: 20,
                       ),
                       SizedBox(
@@ -151,7 +149,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                   Toast.show(
                     'Pipeline sudah pencairan dan tidak bisa submit dokumen kembali',
                     context,
-                    duration: Toast.LENGTH_SHORT,
+                    duration: Toast.LENGTH_LONG,
                     gravity: Toast.BOTTOM,
                     backgroundColor: Colors.red,
                   );
@@ -163,7 +161,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                     children: <Widget>[
                       Icon(
                         Icons.send,
-                        color: Colors.teal,
+                        color: kPrimaryColor,
                         size: 20,
                       ),
                       SizedBox(
@@ -209,7 +207,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                   Toast.show(
                     'Silahkan submit dokumen terlebih dahulu',
                     context,
-                    duration: Toast.LENGTH_SHORT,
+                    duration: Toast.LENGTH_LONG,
                     gravity: Toast.BOTTOM,
                     backgroundColor: Colors.red,
                   );
@@ -221,7 +219,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                     children: <Widget>[
                       Icon(
                         Icons.date_range,
-                        color: Colors.teal,
+                        color: kPrimaryColor,
                         size: 20,
                       ),
                       SizedBox(
@@ -267,7 +265,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                   Toast.show(
                     'Pipeline sudah pencairan dan tidak bisa di hapus',
                     context,
-                    duration: Toast.LENGTH_SHORT,
+                    duration: Toast.LENGTH_LONG,
                     gravity: Toast.BOTTOM,
                     backgroundColor: Colors.red,
                   );
@@ -279,7 +277,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                     children: <Widget>[
                       Icon(
                         Icons.delete,
-                        color: Colors.teal,
+                        color: kPrimaryColor,
                         size: 20,
                       ),
                       SizedBox(
@@ -297,14 +295,16 @@ class _PipelineScreen extends State<PipelineScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var cardTextStyle1 =
-        TextStyle(fontFamily: "Montserrat Regular", fontSize: 14);
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: kPrimaryColor,
           title: Text(
             'Pipeline',
-            style: fontFamily,
+            style: TextStyle(
+                fontFamily: "Roboto-Regular",
+                fontSize: 16,
+                fontWeight: FontWeight.bold),
           ),
           actions: [
             IconButton(
@@ -362,7 +362,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                                 Text(
                                   'Buat Pipeline Yuk!',
                                   style: TextStyle(
-                                      fontFamily: "Montserrat Regular",
+                                      fontFamily: "Roboto-Regular",
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -372,7 +372,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                                 Text(
                                   'Dapatkan insentif besar dari pencairanmu.',
                                   style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
+                                    fontFamily: "Roboto-Regular",
                                     fontSize: 12,
                                   ),
                                 ),
@@ -403,7 +403,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                                     Text(
                                       'Buat Pipeline Yuk!',
                                       style: TextStyle(
-                                          fontFamily: "Montserrat Regular",
+                                          fontFamily: "Roboto-Regular",
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -413,7 +413,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                                     Text(
                                       'Dapatkan insentif besar dari pencairanmu.',
                                       style: TextStyle(
-                                        fontFamily: "Montserrat Regular",
+                                        fontFamily: "Roboto-Regular",
                                         fontSize: 12,
                                       ),
                                     ),
@@ -428,7 +428,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                                       decoration: BoxDecoration(
                                           border: Border(
                                               bottom: BorderSide(
-                                        color: Colors.grey,
+                                        color: Colors.black12,
                                       ))),
                                       child: InkWell(
                                         onTap: () {
@@ -486,8 +486,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                                               style: TextStyle(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.bold,
-                                                  fontFamily:
-                                                      'Montserrat Regular'),
+                                                  fontFamily: 'Roboto-Regular'),
                                             ),
                                             subtitle: Column(
                                               crossAxisAlignment:
@@ -513,7 +512,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                                                       '${formatRupiah(data.dataPipeline[i].plafond)}',
                                                       style: TextStyle(
                                                           fontFamily:
-                                                              'Montserrat Regular',
+                                                              'Roboto-Regular',
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
@@ -539,7 +538,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                                                       '${data.dataPipeline[i].tglPipeline}',
                                                       style: TextStyle(
                                                           fontFamily:
-                                                              'Montserrat Regular',
+                                                              'Roboto-Regular',
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
@@ -566,7 +565,7 @@ class _PipelineScreen extends State<PipelineScreen> {
                                                           '${data.dataPipeline[i].status}'),
                                                       style: TextStyle(
                                                           fontFamily:
-                                                              'Montserrat Regular',
+                                                              'Roboto-Regular',
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           color: colorStatus(
@@ -730,8 +729,8 @@ class _PipelineScreen extends State<PipelineScreen> {
             padding: const EdgeInsets.all(4.0),
             child: Text(
               title,
-              style: TextStyle(
-                  fontFamily: 'Montserrat Regular', color: Colors.white),
+              style:
+                  TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white),
             ),
           ),
         ),
@@ -742,7 +741,7 @@ class _PipelineScreen extends State<PipelineScreen> {
           value,
           textAlign: TextAlign.right,
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.black,
           ),
         )

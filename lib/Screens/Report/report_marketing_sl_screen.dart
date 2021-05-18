@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:kreditpensiun_apps/Screens/Report/interaksi_marketing_sl_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Report/pipeline_marketing_sl_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Report/disbursment_marketing_sl_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Report/report_insentif_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/report_marketing_sl_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +22,8 @@ class ReportMarketingSlScreen extends StatefulWidget {
   ReportMarketingSlScreen(this.nik);
 }
 
-_showPopupMenu(String niksales, String nama) => PopupMenuButton<int>(
+_showPopupMenu(String niksales, String nama, String tarif) =>
+    PopupMenuButton<int>(
       padding: EdgeInsets.only(left: 2),
       itemBuilder: (context) => [
         PopupMenuItem(
@@ -40,7 +43,7 @@ _showPopupMenu(String niksales, String nama) => PopupMenuButton<int>(
                   children: <Widget>[
                     Icon(
                       Icons.assignment_outlined,
-                      color: Colors.teal,
+                      color: kPrimaryColor,
                       size: 20,
                     ),
                     SizedBox(
@@ -67,13 +70,67 @@ _showPopupMenu(String niksales, String nama) => PopupMenuButton<int>(
                   children: <Widget>[
                     Icon(
                       Icons.linear_scale,
-                      color: Colors.teal,
+                      color: kPrimaryColor,
                       size: 20,
                     ),
                     SizedBox(
                       width: 10,
                     ),
                     Text('Pipeline')
+                  ],
+                )),
+          ),
+        ),
+        PopupMenuItem(
+          value: 3,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          InteraksiMarketingScreen('', niksales, nama)));
+            },
+            child: Tooltip(
+                message: 'Interaksi',
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.directions_walk_outlined,
+                      color: kPrimaryColor,
+                      size: 20,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text('Interaksi')
+                  ],
+                )),
+          ),
+        ),
+        PopupMenuItem(
+          value: 4,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ReportInsentifScreen('', niksales, tarif)));
+            },
+            child: Tooltip(
+                message: 'Insentif',
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.monetization_on_outlined,
+                      color: kPrimaryColor,
+                      size: 20,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text('Insentif')
                   ],
                 )),
           ),
@@ -121,7 +178,7 @@ class _ReportMarketingSlScreen extends State<ReportMarketingSlScreen> {
 
   bool _isLoading = false;
   final String apiUrl =
-      'https://www.nabasa.co.id/api_marsit_v1/index.php/getMarketingSlReport';
+      'https://www.nabasa.co.id/api_marsit_v1/tes.php/getMarketingSlReport';
   List<dynamic> _users = [];
 
   void fetchUsers() async {
@@ -167,6 +224,10 @@ class _ReportMarketingSlScreen extends State<ReportMarketingSlScreen> {
 
   String _noTelepon(dynamic user) {
     return user['no_telepon_2'];
+  }
+
+  String _tarif(dynamic user) {
+    return user['tarif'];
   }
 
   Future<void> _getData() async {
@@ -215,7 +276,7 @@ class _ReportMarketingSlScreen extends State<ReportMarketingSlScreen> {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: Colors.grey,
+                      color: Colors.black12,
                     ),
                   ),
                 ),
@@ -302,7 +363,7 @@ class _ReportMarketingSlScreen extends State<ReportMarketingSlScreen> {
                                 Text(
                                   _joinDate(_users[index]),
                                   style: TextStyle(
-                                    fontFamily: 'Montserrat Regular',
+                                    fontFamily: 'Roboto-Regular',
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -326,7 +387,7 @@ class _ReportMarketingSlScreen extends State<ReportMarketingSlScreen> {
                                 Text(
                                   _jabatan(_users[index]),
                                   style: TextStyle(
-                                    fontFamily: 'Montserrat Regular',
+                                    fontFamily: 'Roboto-Regular',
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -334,8 +395,8 @@ class _ReportMarketingSlScreen extends State<ReportMarketingSlScreen> {
                             ),
                           ],
                         ),
-                        trailing: _showPopupMenu(
-                            _nik(_users[index]), _nama(_users[index]))),
+                        trailing: _showPopupMenu(_nik(_users[index]),
+                            _nama(_users[index]), _tarif(_users[index]))),
                   ),
                 ),
               );
@@ -360,7 +421,7 @@ class _ReportMarketingSlScreen extends State<ReportMarketingSlScreen> {
             Text(
               'Tim Marketing Tidak Ditemukan!',
               style: TextStyle(
-                  fontFamily: "Montserrat Regular",
+                  fontFamily: "Roboto-Regular",
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
@@ -382,8 +443,8 @@ class _ReportMarketingSlScreen extends State<ReportMarketingSlScreen> {
             padding: const EdgeInsets.all(4.0),
             child: Text(
               title,
-              style: TextStyle(
-                  fontFamily: 'Montserrat Regular', color: Colors.white),
+              style:
+                  TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white),
             ),
           ),
         ),
@@ -394,7 +455,7 @@ class _ReportMarketingSlScreen extends State<ReportMarketingSlScreen> {
           value,
           textAlign: TextAlign.right,
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.black,
           ),
         )

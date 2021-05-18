@@ -196,7 +196,7 @@ class _PlanningScreen extends State<PlanningScreen> {
     Toast.show(
       'Maaf, silahkan pilih tanggal interaksi terlebih dahulu...',
       context,
-      duration: Toast.LENGTH_SHORT,
+      duration: Toast.LENGTH_LONG,
       gravity: Toast.BOTTOM,
       backgroundColor: Colors.red,
     );
@@ -241,7 +241,7 @@ class _PlanningScreen extends State<PlanningScreen> {
                       itemSelected.toString() + ' data dipilih',
                       style: TextStyle(
                           color: Colors.red,
-                          fontFamily: 'Montserrat Regular',
+                          fontFamily: 'Roboto-Regular',
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -293,8 +293,7 @@ class _PlanningScreen extends State<PlanningScreen> {
                       child: Text(
                         'Selanjutnya',
                         style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Montserrat Regular'),
+                            color: Colors.white, fontFamily: 'Roboto-Regular'),
                       ),
                     ),
                   )
@@ -309,7 +308,10 @@ class _PlanningScreen extends State<PlanningScreen> {
 
   Widget _buildList() {
     if (_isLoading == true) {
-      return Center(child: CircularProgressIndicator());
+      return Center(
+          child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
+      ));
     } else {
       if (_users.length > 0) {
         return RefreshIndicator(
@@ -355,7 +357,7 @@ class _PlanningScreen extends State<PlanningScreen> {
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'Montserrat Regular'),
+                                fontFamily: 'Roboto-Regular'),
                           ),
                         ],
                       ),
@@ -382,7 +384,7 @@ class _PlanningScreen extends State<PlanningScreen> {
                                         .toString()),
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'Montserrat Regular'),
+                                    fontFamily: 'Roboto-Regular'),
                               ),
                             ],
                           ),
@@ -408,7 +410,7 @@ class _PlanningScreen extends State<PlanningScreen> {
                                     ' TAHUN',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: 'Montserrat Regular'),
+                                    fontFamily: 'Roboto-Regular'),
                               ),
                             ],
                           ),
@@ -457,7 +459,7 @@ class _PlanningScreen extends State<PlanningScreen> {
               Text(
                 'Request Database Yuk!',
                 style: TextStyle(
-                    fontFamily: "Montserrat Regular",
+                    fontFamily: "Roboto-Regular",
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),
@@ -467,7 +469,7 @@ class _PlanningScreen extends State<PlanningScreen> {
               Text(
                 'Hubungi tim IT Support kantor pusat, Imam Tri Prabowo (089612277567).',
                 style: TextStyle(
-                  fontFamily: "Montserrat Regular",
+                  fontFamily: "Roboto-Regular",
                   fontSize: 12,
                 ),
               ),
@@ -521,7 +523,7 @@ class _PlanningScreen extends State<PlanningScreen> {
                 initialDate: currentValue ?? DateTime.now(),
                 lastDate: DateTime(2100));
           },
-          style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular')),
     ]);
   }
 

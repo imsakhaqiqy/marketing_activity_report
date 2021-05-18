@@ -132,7 +132,7 @@ class _InteractionScreen extends State<InteractionScreen> {
       //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
       //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
       body: Container(
-        color: Colors.white,
+        color: grey,
         child: _buildList(),
       ),
     );
@@ -140,7 +140,10 @@ class _InteractionScreen extends State<InteractionScreen> {
 
   Widget _buildList() {
     if (_isLoading == true) {
-      return Center(child: CircularProgressIndicator());
+      return Center(
+          child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
+      ));
     } else {
       if (_users.length > 0) {
         return RefreshIndicator(
@@ -152,7 +155,7 @@ class _InteractionScreen extends State<InteractionScreen> {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: Colors.grey,
+                      color: Colors.black12,
                     ),
                   ),
                 ),
@@ -184,7 +187,7 @@ class _InteractionScreen extends State<InteractionScreen> {
                         style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'Montserrat Regular'),
+                            fontFamily: 'Roboto-Regular'),
                       ),
                       subtitle: Column(
                         children: [
@@ -205,8 +208,7 @@ class _InteractionScreen extends State<InteractionScreen> {
                               ),
                               Text(
                                 formatRupiah(_plafond(_users[index])),
-                                style:
-                                    TextStyle(fontFamily: 'Montserrat Regular'),
+                                style: TextStyle(fontFamily: 'Roboto-Regular'),
                               ),
                             ],
                           ),
@@ -229,8 +231,7 @@ class _InteractionScreen extends State<InteractionScreen> {
                                 _tanggalInteraksi(_users[index]) +
                                     ' ' +
                                     _jamInteraksi(_users[index]),
-                                style:
-                                    TextStyle(fontFamily: 'Montserrat Regular'),
+                                style: TextStyle(fontFamily: 'Roboto-Regular'),
                               ),
                             ],
                           ),
@@ -251,8 +252,7 @@ class _InteractionScreen extends State<InteractionScreen> {
                               ),
                               Text(
                                 messageStatus(_statusInteraksi(_users[index])),
-                                style:
-                                    TextStyle(fontFamily: 'Montserrat Regular'),
+                                style: TextStyle(fontFamily: 'Roboto-Regular'),
                               ),
                             ],
                           ),
@@ -285,7 +285,7 @@ class _InteractionScreen extends State<InteractionScreen> {
               Text(
                 'Interaksi Yuk!',
                 style: TextStyle(
-                    fontFamily: "Montserrat Regular",
+                    fontFamily: "Roboto-Regular",
                     fontSize: 16,
                     fontWeight: FontWeight.bold),
               ),
@@ -295,7 +295,7 @@ class _InteractionScreen extends State<InteractionScreen> {
               Text(
                 'Dapatkan keuntungan besar di setiap interaksimu.',
                 style: TextStyle(
-                  fontFamily: "Montserrat Regular",
+                  fontFamily: "Roboto-Regular",
                   fontSize: 12,
                 ),
               ),
@@ -303,7 +303,7 @@ class _InteractionScreen extends State<InteractionScreen> {
                 height: 10,
               ),
               FlatButton(
-                color: Colors.teal,
+                color: kPrimaryColor,
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -314,7 +314,7 @@ class _InteractionScreen extends State<InteractionScreen> {
                 child: Text(
                   'Lihat Rencana Interaksi',
                   style: TextStyle(
-                    fontFamily: "Montserrat Regular",
+                    fontFamily: "Roboto-Regular",
                     color: Colors.white,
                   ),
                 ),

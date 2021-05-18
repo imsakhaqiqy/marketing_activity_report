@@ -8,12 +8,9 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
-import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_root_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_screen.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:kreditpensiun_apps/Screens/models/image_upload_model.dart';
+import 'package:kreditpensiun_apps/constants.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:toast/toast.dart';
 
@@ -160,7 +157,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
         image2 =
             'https://www.nabasa.co.id/marsit/assets/images/pencairan_sales/' +
                 widget.fotoAkad2;
-        action = 'Update';
+        action = 'Ubah';
       }
     });
   }
@@ -236,7 +233,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
         Toast.show(
           'Sukses akad kredit debitur ' + widget.debitur,
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -250,7 +247,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
         Toast.show(
           'Gagal akad kredit debitur ' + widget.debitur,
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -268,7 +265,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
             ? Toast.show(
                 'Mohon menunggu, sedang proses akad kredit...' + widget.debitur,
                 context,
-                duration: Toast.LENGTH_SHORT,
+                duration: Toast.LENGTH_LONG,
                 gravity: Toast.BOTTOM,
                 backgroundColor: Colors.red,
               )
@@ -279,7 +276,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
         appBar: AppBar(
           title: Text(
             'Akad Kredit',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
           actions: [
             FlatButton(
@@ -298,25 +295,46 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                       duration: Duration(seconds: 3),
                     ));
                   } else {
+                    showGeneralDialog(
+                      context: context,
+                      barrierColor:
+                          Colors.black12.withOpacity(0.6), // background color
+                      barrierDismissible:
+                          false, // should dialog be dismissed when tapped outside
+                      barrierLabel: "Dialog", // label for barrier
+                      transitionDuration: Duration(
+                          milliseconds:
+                              400), // how long it takes to popup dialog after button click
+                      pageBuilder: (_, __, ___) {
+                        // your widget implementation
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 50,
+                              width: 50,
+                              child: CircularProgressIndicator(
+                                //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    kPrimaryColor),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                     submitPipeline();
                   }
                 }
               },
-              child: visible
-                  ? SizedBox(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.teal),
-                      ),
-                      height: 20.0,
-                      width: 20.0,
-                    )
-                  : Text(
-                      '$action',
-                      style: TextStyle(
-                          color: Colors.teal,
-                          fontFamily: 'Montserrat Regular',
-                          fontWeight: FontWeight.bold),
-                    ),
+              child: Text(
+                '$action',
+                style: TextStyle(
+                    color: kPrimaryColor,
+                    fontFamily: 'Roboto-Regular',
+                    fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),
@@ -495,15 +513,15 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
         Container(
           width: size,
           decoration: new BoxDecoration(
-            color: Colors.teal,
+            color: kPrimaryColor,
             borderRadius: BorderRadius.circular(5.0),
           ),
           child: Padding(
             padding: const EdgeInsets.all(6.0),
             child: Text(
               title,
-              style: TextStyle(
-                  fontFamily: 'Montserrat Regular', color: Colors.white),
+              style:
+                  TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white),
             ),
           ),
         ),
@@ -514,7 +532,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
           value,
           textAlign: TextAlign.right,
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.black,
           ),
         )
@@ -542,7 +560,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                 initialDate: currentValue ?? DateTime.now(),
                 lastDate: DateTime(2100));
           },
-          style: TextStyle(fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontFamily: 'Roboto-Regular')),
     ]);
   }
 
@@ -560,7 +578,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
         inputFormatters: <TextInputFormatter>[
           WhitelistingTextInputFormatter.digitsOnly
         ],
-        style: TextStyle(fontFamily: 'Montserrat Regular'));
+        style: TextStyle(fontFamily: 'Roboto-Regular'));
   }
 
   Widget fieldNomorPerjanjian() {
@@ -574,7 +592,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
       },
       decoration: InputDecoration(labelText: 'Nomor Perjanjian'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -596,7 +614,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
         inputFormatters: <TextInputFormatter>[
           WhitelistingTextInputFormatter.digitsOnly
         ],
-        style: TextStyle(fontFamily: 'Montserrat Regular'));
+        style: TextStyle(fontFamily: 'Roboto-Regular'));
   }
 
   Widget fieldKodeProduk() {
@@ -606,7 +624,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value,
@@ -621,7 +639,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
             labelText: 'Jenis Produk',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedJenisProduk,
         isExpanded: true);
@@ -634,7 +652,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value,
@@ -649,7 +667,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
             labelText: 'Informasi Sales',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedJenisInfo,
         isExpanded: true);
@@ -666,7 +684,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
       },
       decoration: InputDecoration(labelText: 'Nama'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -681,7 +699,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
       },
       decoration: InputDecoration(labelText: 'Jabatan'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -703,7 +721,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -803,10 +821,10 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
             Color colored;
             if (index == 0) {
               titled = 'Foto SKK';
-              colored = Colors.teal;
+              colored = kPrimaryColor;
             } else {
               titled = 'Foto Tanda Tangan Akad';
-              colored = Colors.teal;
+              colored = kPrimaryColor;
             }
             return Card(
                 shape: RoundedRectangleBorder(
@@ -818,7 +836,7 @@ class _PipelineAkadScreen extends State<PipelineAkadScreen> {
                     Text(
                       titled,
                       style: TextStyle(
-                          fontSize: 8.0, fontFamily: 'Montserrat Regular'),
+                          fontSize: 8.0, fontFamily: 'Roboto-Regular'),
                     ),
                     IconButton(
                       icon: Icon(Icons.add),

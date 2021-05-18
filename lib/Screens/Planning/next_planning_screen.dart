@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:kreditpensiun_apps/Screens/Interaction/planning_interaction_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
 import 'package:kreditpensiun_apps/constants.dart';
@@ -152,7 +151,7 @@ class _NextPlanningScreenState extends State<NextPlanningScreen> {
         Toast.show(
           'Sukses menambahkan data rencana interaksi...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -164,7 +163,7 @@ class _NextPlanningScreenState extends State<NextPlanningScreen> {
         Toast.show(
           'Gagal menambahkan data rencana interaksi...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -201,7 +200,7 @@ class _NextPlanningScreenState extends State<NextPlanningScreen> {
             title: Text(
               'Tambah Rencana Interaksi',
               style: TextStyle(
-                fontFamily: 'Montserrat Regular',
+                fontFamily: 'Roboto-Regular',
                 color: Colors.white,
               ),
             ),
@@ -223,7 +222,7 @@ class _NextPlanningScreenState extends State<NextPlanningScreen> {
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'Montserrat Regular'),
+                                fontFamily: 'Roboto-Regular'),
                           ),
                         ],
                       ),
@@ -231,7 +230,7 @@ class _NextPlanningScreenState extends State<NextPlanningScreen> {
                         '${widget.notas[i]}',
                         style: TextStyle(
                             fontStyle: FontStyle.italic,
-                            fontFamily: 'Montserrat Regular'),
+                            fontFamily: 'Roboto-Regular'),
                       ),
                       trailing: null),
                 );
@@ -259,7 +258,7 @@ class _NextPlanningScreenState extends State<NextPlanningScreen> {
                         widget.notas.length.toString() + ' data dipilih',
                         style: TextStyle(
                             color: Colors.red,
-                            fontFamily: 'Montserrat Regular',
+                            fontFamily: 'Roboto-Regular',
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -283,7 +282,7 @@ class _NextPlanningScreenState extends State<NextPlanningScreen> {
                           child: Text(
                             widget.tglInteraksi,
                             style: TextStyle(
-                                fontFamily: 'Montserrat Regular',
+                                fontFamily: 'Roboto-Regular',
                                 color: Colors.blueGrey,
                                 fontSize: 16.0),
                           ),
@@ -314,7 +313,7 @@ class _NextPlanningScreenState extends State<NextPlanningScreen> {
                                   'Simpan',
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontFamily: 'Montserrat Regular'),
+                                      fontFamily: 'Roboto-Regular'),
                                 )),
                     )
                   ],

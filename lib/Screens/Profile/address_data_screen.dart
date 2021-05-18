@@ -14,7 +14,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
         appBar: AppBar(
           title: Text(
             'Alamat',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
         ),
         body: Container(
@@ -58,7 +58,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
                 child: Text(
                   'ALAMAT',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -69,7 +69,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
                   '${widget.personalData[11]}',
                   textAlign: TextAlign.right,
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
         ],
@@ -89,7 +89,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
                 child: Text(
                   'KELURAHAN',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -100,8 +100,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
                     '${widget.personalData[12]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -120,7 +119,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
                 child: Text(
                   'KECAMATAN',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -131,8 +130,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
                     '${widget.personalData[13]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -151,7 +149,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
                 child: Text(
                   'KABUPATEN',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -162,8 +160,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
                     '${widget.personalData[14]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -182,7 +179,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
                 child: Text(
                   'KODEPOS',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -193,8 +190,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
                     '${widget.personalData[15]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -213,7 +209,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
                 child: Text(
                   'PROPINSI',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -224,8 +220,7 @@ class _AddressDataScreenState extends State<AddressDataScreen> {
                     '${widget.personalData[16]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),

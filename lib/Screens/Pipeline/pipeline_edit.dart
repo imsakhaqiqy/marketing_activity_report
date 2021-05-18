@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
+import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_root_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_screen.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:kreditpensiun_apps/Screens/models/image_upload_model.dart';
@@ -202,98 +203,6 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
     });
   }
 
-  Future userLogin() async {
-    //getting value from controller
-    String username = widget.username;
-    String password = widget.nik;
-
-    //server login api
-    var url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/getLogin';
-
-    //starting web api call
-    var response = await http
-        .post(url, body: {'username': username, 'password': password});
-
-    if (username == '' || password == '') {
-    } else {
-      //if the response message is matched
-      if (response.statusCode == 200) {
-        var message = jsonDecode(response.body)['Daftar_Login'];
-        print(message);
-        if (message['message'].toString() == 'Login Success') {
-          if (message['status_account'] == 'SUSPEND') {
-          } else {
-            setState(() {
-              personalData[0] = message['nik'];
-              personalData[1] = message['full_name'];
-              personalData[2] = message['marital_status'];
-              personalData[3] = message['date_of_birth'];
-              personalData[4] = message['place_of_birth'];
-              personalData[5] = message['no_ktp'];
-              personalData[6] = message['gender'];
-              personalData[7] = message['religion'];
-              personalData[8] = message['email_address'];
-              personalData[9] = message['phone_number'];
-              personalData[10] = message['education'];
-              personalData[11] = message['alamat'];
-              personalData[12] = message['kelurahan'];
-              personalData[13] = message['kecamatan'];
-              personalData[14] = message['kabupaten'];
-              personalData[15] = message['kode_pos'];
-              personalData[16] = message['propinsi'];
-              personalData[17] = message['no_rekening'];
-              personalData[18] = message['nama_bank'];
-              personalData[19] = message['nama_rekening'];
-              personalData[20] = message['divisi_karyawan'];
-              personalData[21] = message['jabatan_karyawan'];
-              personalData[22] = message['wilayah_karyawan'];
-              personalData[23] = message['branch'];
-              personalData[24] = message['status_karyawan'];
-              personalData[25] = message['grade_karyawan'];
-              personalData[26] = message['gaji_pokok'];
-              personalData[27] = message['tunjangan_tkd'];
-              personalData[28] = message['tunjangan_jabatan'];
-              personalData[29] = message['tunjangan_perumahan'];
-              personalData[30] = message['tunjangan_telepon'];
-              personalData[31] = message['tunjangan_kinerja'];
-              personalData[32] = message['nik_marsit'];
-              personalData[33] = message['diamond'];
-            });
-            if (message['hak_akses'] == '5') {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LandingScreen(
-                      widget.username,
-                      message['nik_marsit'],
-                      message['income'],
-                      message['pict'],
-                      message['divisi'],
-                      message['greeting'],
-                      message['hak_akses'],
-                      personalData,
-                      message['tarif'],
-                      message['diamond'])));
-            } else {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LandingMrScreen(
-                      widget.username,
-                      message['nik_marsit'],
-                      message['income'],
-                      message['pict'],
-                      message['divisi'],
-                      message['greeting'],
-                      message['hak_akses'],
-                      personalData,
-                      message['tarif'],
-                      message['diamond'])));
-            }
-          }
-        } else {}
-      } else {
-        print('error');
-      }
-    }
-  }
-
   Future updatePipeline() async {
     //showing CircularProgressIndicator
     setState(() {
@@ -384,14 +293,16 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
           plafondController.clear();
           keteranganPensiunController.clear();
         });
-        userLogin();
         Toast.show(
           'Sukses update pipeline',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) =>
+                PipelineRootPage(widget.username, widget.nik)));
       } else {
         setState(() {
           visible = false;
@@ -399,10 +310,13 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
         Toast.show(
           'Gagal update pipeline',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) =>
+                PipelineRootPage(widget.username, widget.nik)));
       }
     }
   }
@@ -434,27 +348,22 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
           appBar: AppBar(
             title: Text(
               'Ubah Pipeline',
-              style: TextStyle(fontFamily: 'Montserrat Regular'),
+              style: TextStyle(fontFamily: 'Roboto-Regular'),
             ),
             actions: <Widget>[
               loadingScreen
                   ? Text('')
                   : FlatButton(
+                      color: Colors.white,
                       //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
                       //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
-                      child: visible
-                          ? CircularProgressIndicator(
-                              //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
-                            )
-                          : Text(
-                              'Update',
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat Regular',
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                      child: Text(
+                        'Ubah',
+                        style: TextStyle(
+                            fontFamily: 'Roboto-Regular',
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.bold),
+                      ),
                       onPressed: () {
                         if (formKey.currentState.validate()) {
                           if (selectedJenisKelamin == null) {
@@ -493,6 +402,36 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                               duration: Duration(seconds: 3),
                             ));
                           } else {
+                            showGeneralDialog(
+                              context: context,
+                              barrierColor: Colors.black12
+                                  .withOpacity(0.6), // background color
+                              barrierDismissible:
+                                  false, // should dialog be dismissed when tapped outside
+                              barrierLabel: "Dialog", // label for barrier
+                              transitionDuration: Duration(
+                                  milliseconds:
+                                      400), // how long it takes to popup dialog after button click
+                              pageBuilder: (_, __, ___) {
+                                // your widget implementation
+                                return Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: 50,
+                                      width: 50,
+                                      child: CircularProgressIndicator(
+                                        //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                kPrimaryColor),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                             updatePipeline();
                           }
                         }
@@ -635,7 +574,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -650,7 +589,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Tempat Lahir'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -674,7 +613,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                 initialDate: currentValue ?? DateTime.now(),
                 lastDate: DateTime(2100));
           },
-          style: TextStyle(fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontFamily: 'Roboto-Regular')),
     ]);
   }
 
@@ -685,7 +624,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value,
@@ -700,7 +639,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
             labelText: 'Jenis Kelamin',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedJenisKelamin,
         isExpanded: true);
@@ -720,7 +659,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -735,7 +674,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Nama sesuai KTP'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -750,7 +689,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Alamat'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -772,7 +711,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -783,7 +722,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value,
@@ -798,7 +737,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
             labelText: 'Jenis Produk',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedJenisDebitur,
         isExpanded: true);
@@ -811,7 +750,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                   child: Text(
                     value['NAMA'],
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value['NAMA'].toString(),
@@ -826,7 +765,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
             labelText: 'Kantor Cabang',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedJenisCabang,
         isExpanded: true);
@@ -848,7 +787,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
         inputFormatters: <TextInputFormatter>[
           WhitelistingTextInputFormatter.digitsOnly
         ],
-        style: TextStyle(fontFamily: 'Montserrat Regular'));
+        style: TextStyle(fontFamily: 'Roboto-Regular'));
   }
 
   Widget fieldKeterangan() {
@@ -862,7 +801,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Keterangan'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -873,7 +812,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value,
@@ -894,7 +833,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
             labelText: 'Status Kredit',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedStatusKredit,
         isExpanded: true);
@@ -907,7 +846,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                   child: Text(
                     value['nama'],
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value['nama'].toString(),
@@ -922,7 +861,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
             labelText: 'Bank Takeover',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedBankTakeover,
         isExpanded: true);
@@ -935,7 +874,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value,
@@ -950,7 +889,7 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
             labelText: 'Pengelola Pensiun',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedPengelolaPensiun,
         isExpanded: true);
@@ -1039,10 +978,10 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
             Color colored;
             if (index == 0) {
               titled = 'Foto KTP';
-              colored = Colors.teal;
+              colored = kPrimaryColor;
             } else if (index == 1) {
               titled = 'Foto NPWP';
-              colored = Colors.teal;
+              colored = kPrimaryColor;
             }
             return Card(
               shape: RoundedRectangleBorder(
@@ -1053,8 +992,8 @@ class _PipelineEditScreen extends State<PipelineEditScreen> {
                 children: [
                   Text(
                     titled,
-                    style: TextStyle(
-                        fontSize: 8.0, fontFamily: 'Montserrat Regular'),
+                    style:
+                        TextStyle(fontSize: 8.0, fontFamily: 'Roboto-Regular'),
                   ),
                   IconButton(
                     icon: Icon(Icons.add),

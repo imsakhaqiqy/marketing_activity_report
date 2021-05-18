@@ -4,9 +4,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:kreditpensiun_apps/Screens/Approval/approval_disbursment_root_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Approval/approval_pencairan_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
-import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:photo_view/photo_view.dart';
@@ -123,7 +120,7 @@ class _ApprovalDisbursmentViewScreenState
                 child: Column(children: <Widget>[
               SizedBox(
                 child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                  valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
                 ),
                 height: 20,
                 width: 20,
@@ -240,7 +237,7 @@ class _ApprovalDisbursmentViewScreenState
         title: Text(
           '${widget.calonDebitur}',
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.white,
           ),
         ),
@@ -514,7 +511,7 @@ class _ApprovalDisbursmentViewScreenState
                 child: Text(
                   'Setuju',
                   style: TextStyle(
-                      color: Colors.white, fontFamily: 'Montserrat Regular'),
+                      color: Colors.white, fontFamily: 'Roboto-Regular'),
                 ),
               ),
             ),
@@ -532,7 +529,7 @@ class _ApprovalDisbursmentViewScreenState
                 child: Text(
                   'Tolak',
                   style: TextStyle(
-                      color: Colors.white, fontFamily: 'Montserrat Regular'),
+                      color: Colors.white, fontFamily: 'Roboto-Regular'),
                 ),
               ),
             )
@@ -555,8 +552,8 @@ class _ApprovalDisbursmentViewScreenState
             padding: const EdgeInsets.all(6.0),
             child: Text(
               title,
-              style: TextStyle(
-                  fontFamily: 'Montserrat Regular', color: Colors.white),
+              style:
+                  TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white),
             ),
           ),
         ),
@@ -572,7 +569,7 @@ class _ApprovalDisbursmentViewScreenState
                   children: <Widget>[
                     Text(
                       value,
-                      style: TextStyle(fontFamily: 'Montserrat Regular'),
+                      style: TextStyle(fontFamily: 'Roboto-Regular'),
                     ),
                   ],
                 ))),

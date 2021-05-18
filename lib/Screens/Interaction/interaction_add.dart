@@ -270,7 +270,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       Toast.show(
         'No telepon wajib diisi terlebih dahulu',
         context,
-        duration: Toast.LENGTH_SHORT,
+        duration: Toast.LENGTH_LONG,
         gravity: Toast.BOTTOM,
         backgroundColor: Colors.red,
       );
@@ -286,7 +286,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
           Toast.show(
             'Kode verifikasi berhasil dikirim ke nomor nasabah, mohon ditanyakan ya',
             context,
-            duration: Toast.LENGTH_SHORT,
+            duration: Toast.LENGTH_LONG,
             gravity: Toast.BOTTOM,
             backgroundColor: Colors.red,
           );
@@ -354,7 +354,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
           Toast.show(
             'Sukses menambahkan data interaksi',
             context,
-            duration: Toast.LENGTH_SHORT,
+            duration: Toast.LENGTH_LONG,
             gravity: Toast.BOTTOM,
             backgroundColor: Colors.red,
           );
@@ -366,7 +366,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
         Toast.show(
           'Gagal menambahkan data interaksi',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -378,7 +378,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       Toast.show(
         'Gagal menambahkan data interaksi',
         context,
-        duration: Toast.LENGTH_SHORT,
+        duration: Toast.LENGTH_LONG,
         gravity: Toast.BOTTOM,
         backgroundColor: Colors.red,
       );
@@ -399,8 +399,8 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
           ),
           child: Center(
               child: Text("Foto Selfie / KTP",
-                  style: TextStyle(
-                      fontSize: 20, fontFamily: 'Montserrat Regular'))));
+                  style:
+                      TextStyle(fontSize: 20, fontFamily: 'Roboto-Regular'))));
     } else {
       base64Image = base64Encode(tmpFile.readAsBytesSync());
       tmpFile = tmpFile;
@@ -424,7 +424,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
               ? Toast.show(
                   'Mohon menunggu, sedang proses penyimpanan interaksi',
                   context,
-                  duration: Toast.LENGTH_SHORT,
+                  duration: Toast.LENGTH_LONG,
                   gravity: Toast.BOTTOM,
                   backgroundColor: Colors.red,
                 )
@@ -435,23 +435,17 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
           appBar: AppBar(
             title: Text(
               'Interaksi',
-              style: TextStyle(fontFamily: 'Montserrat Regular'),
+              style: TextStyle(fontFamily: 'Roboto-Regular'),
             ),
             actions: <Widget>[
               FlatButton(
-                  child: _loading
-                      ? CircularProgressIndicator(
-                          //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        )
-                      : Text(
-                          'Simpan',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat Regular',
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
+                  child: Text(
+                    'Simpan',
+                    style: TextStyle(
+                        fontFamily: 'Roboto-Regular',
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
                   onPressed: () {
                     if (formKey.currentState.validate()) {
                       if (selectedSalesFeedback == null) {
@@ -474,6 +468,35 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                         setState(() {
                           _loading = true;
                         });
+                        showGeneralDialog(
+                          context: context,
+                          barrierColor: Colors.black12
+                              .withOpacity(0.6), // background color
+                          barrierDismissible:
+                              false, // should dialog be dismissed when tapped outside
+                          barrierLabel: "Dialog", // label for barrier
+                          transitionDuration: Duration(
+                              milliseconds:
+                                  400), // how long it takes to popup dialog after button click
+                          pageBuilder: (_, __, ___) {
+                            // your widget implementation
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: CircularProgressIndicator(
+                                    //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        kPrimaryColor),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                         startUpload();
                       }
                     }
@@ -518,10 +541,10 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                                       width: 20.0,
                                     )
                                   : FlatButton(
-                                      color: Colors.teal,
+                                      color: kPrimaryColor,
                                       child: Text("Kirim Kode Verifikasi",
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               fontSize: 12.0,
                                               color: Colors.white)),
                                       onPressed: () {
@@ -545,7 +568,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                   ? Toast.show(
                       'Mohon menunggu, sedang proses penyimpanan interaksi',
                       context,
-                      duration: Toast.LENGTH_SHORT,
+                      duration: Toast.LENGTH_LONG,
                       gravity: Toast.BOTTOM,
                       backgroundColor: Colors.red,
                     )
@@ -568,7 +591,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Calon debitur'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -583,7 +606,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Alamat'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -598,7 +621,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Kelurahan'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -613,7 +636,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Kecamatan'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -628,7 +651,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Kabupaten'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -643,7 +666,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Propinsi'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -651,7 +674,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
     return TextFormField(
       controller: emailController,
       decoration: InputDecoration(labelText: 'Email'),
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -673,7 +696,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -695,7 +718,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -717,7 +740,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -728,7 +751,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                   child: Text(
                     value,
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value,
@@ -743,7 +766,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
             labelText: 'Sales Feedback',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedSalesFeedback,
         isExpanded: true);

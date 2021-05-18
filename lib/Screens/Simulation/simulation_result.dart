@@ -58,7 +58,7 @@ class _SimulationResultState extends State<SimulationResult> {
       appBar: AppBar(
         title: Text(
           'Hasil Simulasi',
-          style: TextStyle(fontFamily: 'Montserrat Regular'),
+          style: TextStyle(fontFamily: 'Roboto-Regular'),
         ),
         actions: <Widget>[],
       ),
@@ -120,7 +120,7 @@ class _SimulationResultState extends State<SimulationResult> {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                        color: Colors.grey,
+                        color: Colors.black12,
                       ))),
                       child: Column(
                         children: <Widget>[
@@ -138,7 +138,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                   'DATA PRIBADI',
                                   style: TextStyle(
                                       fontSize: 16,
-                                      fontFamily: 'Montserrat Regular',
+                                      fontFamily: 'Roboto-Regular',
                                       color: kPrimaryColor),
                                 ),
                               ),
@@ -152,8 +152,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Nama Lengkap',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -162,7 +162,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${data.dataSimulation[0].namaPensiun}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -175,8 +175,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Gaji Terakhir',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -185,7 +185,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${formatRupiah(data.dataSimulation[0].gajiPensiun)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -198,8 +198,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Tanggal Lahir',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -208,7 +208,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${data.dataSimulation[0].tanggalLahir}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -221,8 +221,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Usia Saat Ini',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -231,7 +231,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${data.dataSimulation[0].umur} TAHUN',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -244,8 +244,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Usia (pembulatan)',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -254,7 +254,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${data.dataSimulation[0].umurPembulatan} TAHUN',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -267,8 +267,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Jenis Simulasi',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -277,7 +277,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${data.dataSimulation[0].jenisSimulasi}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -290,8 +290,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Jenis Kredit',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -300,7 +300,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${data.dataSimulation[0].jenisKredit}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -313,8 +313,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Bank Ambil Gaji',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -323,7 +323,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${data.dataSimulation[0].bankBayarPensiun}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -339,7 +339,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                         child: Text(
                                           'Lama Grace Period',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -348,8 +348,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                             '${data.dataSimulation[0].lamaGracePeriod} BULAN',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -364,7 +363,7 @@ class _SimulationResultState extends State<SimulationResult> {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                        color: Colors.grey,
+                        color: Colors.black12,
                       ))),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -382,7 +381,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                 child: Text('PERHITUNGAN PINJAMAN',
                                     style: TextStyle(
                                         fontSize: 16,
-                                        fontFamily: 'Montserrat Regular',
+                                        fontFamily: 'Roboto-Regular',
                                         color: kPrimaryColor)),
                               ),
                             ],
@@ -395,8 +394,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Nominal Pinjaman',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -405,7 +404,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${formatRupiah(data.dataSimulation[0].plafondMaksimal)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -422,7 +421,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                         child: Text(
                                           'THT',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -431,8 +430,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                             '${formatRupiah(data.dataSimulation[0].tht)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -446,8 +444,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Jangka Waktu',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -456,7 +454,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${data.dataSimulation[0].jangWaktu} BULAN',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -469,8 +467,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Angsuran per Bulan',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -479,7 +477,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${formatRupiah(data.dataSimulation[0].angsuranPerbulan)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -492,8 +490,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'DSR Pinjaman',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -502,7 +500,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${data.dataSimulation[0].iirPinjaman} %',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -515,8 +513,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Bunga Anuitas',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -525,7 +523,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${data.dataSimulation[0].bungaAnuitas} %',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -538,8 +536,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Bunga Efektif',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -548,7 +546,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${data.dataSimulation[0].bungaEfektif} %',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -561,8 +559,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Sisa Gaji Pensiun',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -571,7 +569,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${formatRupiah(data.dataSimulation[0].sisaGaji)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -584,8 +582,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Status Pinjaman',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -597,7 +595,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                         "${data.dataSimulation[0].messageText}",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Montserrat Regular',
+                                            fontFamily: 'Roboto-Regular',
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
                                       ),
@@ -614,7 +612,7 @@ class _SimulationResultState extends State<SimulationResult> {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                        color: Colors.grey,
+                        color: Colors.black12,
                       ))),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -633,7 +631,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                   'PERHITUNGAN TERIMA BERSIH',
                                   style: TextStyle(
                                       fontSize: 16,
-                                      fontFamily: 'Montserrat Regular',
+                                      fontFamily: 'Roboto-Regular',
                                       color: kPrimaryColor),
                                 ),
                               ),
@@ -647,8 +645,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Jenis Asuransi',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -657,7 +655,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       "${data.dataSimulation[0].jenisAsuransi}",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -670,8 +668,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Biaya Provisi',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -680,7 +678,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${formatRupiah(data.dataSimulation[0].biayaProvisi)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -693,8 +691,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Biaya Administrasi',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -703,7 +701,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${formatRupiah(data.dataSimulation[0].biayaAdministrasi)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -716,8 +714,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Biaya Materai',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -726,7 +724,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${formatRupiah(data.dataSimulation[0].biayaMaterai)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -739,8 +737,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Biaya Asuransi',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -749,7 +747,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${formatRupiah(data.dataSimulation[0].biayaAsuransi)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -762,8 +760,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Total Biaya',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -772,7 +770,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${formatRupiah(data.dataSimulation[0].totalBiaya)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -785,8 +783,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Blokir Angsuran',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -795,7 +793,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${formatRupiah(data.dataSimulation[0].blokirAngsuran)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -814,7 +812,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                         child: Text(
                                           'Blokir Grace Period',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular'),
+                                              fontFamily: 'Roboto-Regular'),
                                         ),
                                       ),
                                       Align(
@@ -823,8 +821,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                             '${formatRupiah(data.dataSimulation[0].gracePeriod)}',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           )),
                                     ],
                                   ),
@@ -838,8 +835,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Hutang Bank Lain',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -848,7 +845,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${formatRupiah(data.dataSimulation[0].takeoverBankLain)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -861,8 +858,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Total Potongan',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -871,7 +868,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                       '${formatRupiah(data.dataSimulation[0].totalPotongan)}',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontFamily: 'Montserrat Regular'),
+                                          fontFamily: 'Roboto-Regular'),
                                     )),
                               ],
                             ),
@@ -884,8 +881,8 @@ class _SimulationResultState extends State<SimulationResult> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     'Terima Bersih',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat Regular'),
+                                    style:
+                                        TextStyle(fontFamily: 'Roboto-Regular'),
                                   ),
                                 ),
                                 Align(
@@ -897,7 +894,7 @@ class _SimulationResultState extends State<SimulationResult> {
                                         '${formatRupiah(data.dataSimulation[0].terimaBersih)}',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Montserrat Regular',
+                                            fontFamily: 'Roboto-Regular',
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold),
                                       ),

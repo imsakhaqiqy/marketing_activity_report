@@ -1,9 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import '../../../constants.dart';
 
 // ignore: must_be_immutable
 class LogDiamondScreen extends StatefulWidget {
@@ -116,7 +117,10 @@ class _LogDiamondScreen extends State<LogDiamondScreen> {
 
   Widget _buildList() {
     if (_isLoading == true) {
-      return Center(child: CircularProgressIndicator());
+      return Center(
+          child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
+      ));
     } else {
       if (_users.length > 0) {
         return RefreshIndicator(
@@ -209,7 +213,7 @@ class _LogDiamondScreen extends State<LogDiamondScreen> {
             Text(
               'Riwayat diamond belum tersedia',
               style: TextStyle(
-                  fontFamily: "Montserrat Regular",
+                  fontFamily: "Roboto-Regular",
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),

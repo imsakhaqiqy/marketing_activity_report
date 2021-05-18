@@ -19,7 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         appBar: AppBar(
           title: Text(
             'Profil',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
         ),
         body: Container(
@@ -50,7 +50,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             alignment: Alignment.centerLeft,
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.person, color: Colors.black54),
+                                Icon(
+                                  Icons.person,
+                                ),
                                 SizedBox(
                                   width: 10,
                                 ),
@@ -58,9 +60,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: Text(
                                     'Pribadi',
                                     style: TextStyle(
-                                        fontFamily: 'Montserrat Regular',
-                                        fontSize: 16.0,
-                                        color: Colors.black54),
+                                      fontFamily: 'Roboto-Regular',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16.0,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -69,8 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           alignment: Alignment.centerRight,
                           child: Icon(
                             Icons.chevron_right,
-                            color: Colors.black54,
-                            size: 20,
+                            size: 22,
                           ),
                         ),
                       ],
@@ -100,7 +102,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: <Widget>[
                                 Icon(
                                   Icons.home,
-                                  color: Colors.black54,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -109,9 +110,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: Text(
                                     'Alamat',
                                     style: TextStyle(
-                                        fontFamily: 'Montserrat Regular',
-                                        fontSize: 16.0,
-                                        color: Colors.black54),
+                                      fontFamily: 'Roboto-Regular',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16.0,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -120,8 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           alignment: Alignment.centerRight,
                           child: Icon(
                             Icons.chevron_right,
-                            color: Colors.black54,
-                            size: 20,
+                            size: 22,
                           ),
                         ),
                       ],
@@ -151,7 +152,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: <Widget>[
                                 Icon(
                                   Icons.credit_card,
-                                  color: Colors.black54,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -160,9 +160,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: Text(
                                     'Rekening',
                                     style: TextStyle(
-                                        fontFamily: 'Montserrat Regular',
-                                        fontSize: 16.0,
-                                        color: Colors.black54),
+                                      fontFamily: 'Roboto-Regular',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16.0,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -171,8 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           alignment: Alignment.centerRight,
                           child: Icon(
                             Icons.chevron_right,
-                            color: Colors.black54,
-                            size: 20,
+                            size: 22,
                           ),
                         ),
                       ],
@@ -202,7 +202,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: <Widget>[
                                 Icon(
                                   Icons.person_outline,
-                                  color: Colors.black54,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -211,9 +210,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: Text(
                                     'Karyawan',
                                     style: TextStyle(
-                                        fontFamily: 'Montserrat Regular',
-                                        fontSize: 16.0,
-                                        color: Colors.black54),
+                                      fontFamily: 'Roboto-Regular',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16.0,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -222,8 +222,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           alignment: Alignment.centerRight,
                           child: Icon(
                             Icons.chevron_right,
-                            color: Colors.black54,
-                            size: 20,
+                            size: 22,
                           ),
                         ),
                       ],
@@ -253,7 +252,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: <Widget>[
                                 Icon(
                                   Icons.monetization_on,
-                                  color: Colors.black54,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -262,9 +260,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: Text(
                                     'Pendapatan',
                                     style: TextStyle(
-                                        fontFamily: 'Montserrat Regular',
-                                        fontSize: 16.0,
-                                        color: Colors.black54),
+                                        fontFamily: 'Roboto-Regular',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.0),
                                   ),
                                 ),
                               ],
@@ -273,7 +271,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           alignment: Alignment.centerRight,
                           child: Icon(
                             Icons.chevron_right,
-                            color: Colors.black54,
                             size: 20,
                           ),
                         ),

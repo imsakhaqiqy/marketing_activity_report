@@ -26,7 +26,7 @@ class _ImageView extends State<ImageView> {
           title: Text(
             widget.title,
             style: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
               color: Colors.white,
             ),
           ),

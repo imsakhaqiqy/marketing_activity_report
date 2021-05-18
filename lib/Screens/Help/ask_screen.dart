@@ -19,7 +19,7 @@ class _AskScreenState extends State<AskScreen> {
         title: Text(
           'Jawaban',
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.white,
           ),
         ),
@@ -47,7 +47,7 @@ class _AskScreenState extends State<AskScreen> {
                             child: Text(
                               '${widget.question}',
                               style: TextStyle(
-                                fontFamily: 'Montserrat Regular',
+                                fontFamily: 'Roboto-Regular',
                                 color: Colors.white,
                                 fontSize: 12.0,
                               ),
@@ -66,7 +66,7 @@ class _AskScreenState extends State<AskScreen> {
                             child: Text(
                               '${widget.asking}',
                               style: TextStyle(
-                                  fontFamily: 'Montserrat Regular',
+                                  fontFamily: 'Roboto-Regular',
                                   color: Colors.white,
                                   fontSize: 12.0),
                             ),

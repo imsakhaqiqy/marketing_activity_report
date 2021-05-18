@@ -36,7 +36,7 @@ class _SimulationImageScreenState extends State<SimulationImageScreen> {
         Toast.show(
           'Sukses download simulasi...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -44,7 +44,7 @@ class _SimulationImageScreenState extends State<SimulationImageScreen> {
         Toast.show(
           'Gagal download simulasi...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -61,7 +61,7 @@ class _SimulationImageScreenState extends State<SimulationImageScreen> {
         title: Text(
           'Save to Image',
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.white,
           ),
         ),

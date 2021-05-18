@@ -102,7 +102,7 @@ class _RedeemScreenState extends State<RedeemScreen> {
         Toast.show(
           'Success redeem pulsa',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -115,7 +115,7 @@ class _RedeemScreenState extends State<RedeemScreen> {
         Toast.show(
           'Failed redeem pulsa',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -227,55 +227,48 @@ class _RedeemScreenState extends State<RedeemScreen> {
         title: Text(
           'Tukar Pulsa',
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.white,
           ),
         ),
       ),
-      body: Container(
-        color: grey,
-        padding:
-            EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0, bottom: 16.0),
-        child: ListView(
-          physics: ClampingScrollPhysics(),
-          children: <Widget>[
-            Container(
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                elevation: 4,
+      body: Form(
+        key: formKey,
+        child: Container(
+          color: grey,
+          child: ListView(
+            physics: ClampingScrollPhysics(),
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(16.0),
+                color: Colors.white,
+                width: double.infinity,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: fieldTelepon(),
+                    ),
+                    fieldKirim(),
+                  ],
+                ),
+              ),
+              Container(
                 color: Colors.white,
                 child: Padding(
-                  padding:
-                      EdgeInsets.only(left: 16.0, right: 16.0, bottom: 4.0),
-                  child: Form(
-                    key: formKey,
-                    child: Row(children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.50,
-                        child: fieldTelepon(),
-                      ),
-                      Container(
-                          padding: EdgeInsets.only(
-                              left: 16.0, right: 16.0, top: 16.0),
-                          child: Center(child: fieldKirim()))
-                    ]),
+                  padding: const EdgeInsets.only(
+                      left: 16.0, right: 16.0, bottom: 16.0),
+                  child: Text(
+                    '*untuk penukaran pulsa dengan nominal voucher dan nomor telepon yang sama hanya bisa dilakukan sekali dalam sehari.',
+                    style: TextStyle(
+                      fontFamily: 'Roboto-Regular',
+                      color: Colors.red,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                '*untuk penukaran pulsa dengan nominal voucher dan nomor telepon yang sama hanya bisa dilakukan sekali dalam sehari.',
-                style: TextStyle(
-                  fontFamily: 'Montserrat Regular',
-                  color: Colors.red,
-                ),
-              ),
-            ),
-            buildGridViewx(),
-          ],
+              buildGridViewx(),
+            ],
+          ),
         ),
       ),
     );
@@ -296,8 +289,8 @@ class _RedeemScreenState extends State<RedeemScreen> {
     } else {
       if (pricelist.length > 0) {
         return Container(
+          padding: EdgeInsets.all(8.0),
           width: double.infinity,
-          //color: Colors.white,
           child: Row(
             children: <Widget>[
               Expanded(
@@ -363,81 +356,74 @@ class _RedeemScreenState extends State<RedeemScreen> {
                                       ),
                                       12.0,
                                       FontWeight.bold),
-                                  Container(
-                                    padding: EdgeInsets.only(left: 8, right: 8),
-                                    child: Stack(
-                                      children: <Widget>[
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.40,
-                                            child: FlatButton(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                  side: BorderSide(
-                                                      color: Colors.redAccent)),
-                                              color: Colors.redAccent,
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text(
-                                                'UBAH',
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
+                                  Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: FlatButton(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                side: BorderSide(
+                                                    color:
+                                                        Colors.orangeAccent)),
+                                            color: Colors.orangeAccent,
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text(
+                                              'UBAH',
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             ),
                                           ),
                                         ),
-                                        Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.40,
-                                            child: FlatButton(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                  side: BorderSide(
-                                                      color: konfirmasi
-                                                          ? kPrimaryColor
-                                                          : Colors.white)),
-                                              color: konfirmasi
-                                                  ? kPrimaryColor
-                                                  : Colors.white,
-                                              onPressed: () {
-                                                if (konfirmasi) {
-                                                  dialogLoading(_konfirmasi);
-                                                  konfirmasiPulsa(
-                                                      widget.nik,
-                                                      telepon,
-                                                      pricelist[i]
-                                                          ['harga_jual'],
-                                                      pricelist[i]['codex']
-                                                          .toString());
-                                                } else {
-                                                  print('NOT');
-                                                }
-                                              },
-                                              child: Text(
-                                                'KONFIRMASI',
-                                                style: TextStyle(
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: FlatButton(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                side: BorderSide(
                                                     color: konfirmasi
-                                                        ? Colors.white
-                                                        : Colors.black),
-                                              ),
+                                                        ? kPrimaryColor
+                                                        : Colors.redAccent)),
+                                            color: konfirmasi
+                                                ? kPrimaryColor
+                                                : Colors.redAccent,
+                                            onPressed: () {
+                                              if (konfirmasi) {
+                                                dialogLoading(_konfirmasi);
+                                                konfirmasiPulsa(
+                                                    widget.nik,
+                                                    telepon,
+                                                    pricelist[i]['harga_jual'],
+                                                    pricelist[i]['codex']
+                                                        .toString());
+                                              } else {
+                                                Toast.show(
+                                                  'Maaf, diamond anda tidak mencukupi',
+                                                  context,
+                                                  duration: Toast.LENGTH_LONG,
+                                                  gravity: Toast.BOTTOM,
+                                                  backgroundColor: Colors.red,
+                                                );
+                                              }
+                                            },
+                                            child: Text(
+                                              'BELI',
+                                              style: TextStyle(
+                                                  color: konfirmasi
+                                                      ? Colors.white
+                                                      : Colors.white),
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -492,7 +478,7 @@ class _RedeemScreenState extends State<RedeemScreen> {
                 child: Text(
                   title,
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                       color: Colors.black,
                       fontSize: size,
                       fontWeight: weight),
@@ -506,7 +492,7 @@ class _RedeemScreenState extends State<RedeemScreen> {
                     nama,
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
+                        fontFamily: 'Roboto-Regular',
                         color: Colors.black,
                         fontSize: size,
                         fontWeight: weight),
@@ -540,29 +526,32 @@ class _RedeemScreenState extends State<RedeemScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Telepon",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Telepon"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
   Widget fieldKirim() {
-    return FlatButton(
-      color: Colors.deepPurple,
-      child: Text("Cek",
-          style:
-              TextStyle(fontFamily: 'Montserrat Regular', color: Colors.white)),
-      onPressed: () {
-        if (formKey.currentState.validate()) {
-          cekPulsa();
-        }
-      },
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width / 4,
+      child: RaisedButton(
+        color: Colors.blueAccent,
+        child: Text("CEK",
+            style:
+                TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white)),
+        onPressed: () {
+          if (formKey.currentState.validate()) {
+            cekPulsa();
+          }
+        },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
       ),
     );
   }

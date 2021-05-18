@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kreditpensiun_apps/constants.dart';
 
 class PersonalDataScreen extends StatefulWidget {
   List personalData;
@@ -14,7 +15,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
         appBar: AppBar(
           title: Text(
             'Pribadi',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
         ),
         body: Container(
@@ -78,7 +79,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                 child: Text(
                   'NIK',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -89,8 +90,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     '${widget.personalData[0]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -109,7 +109,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                 child: Text(
                   'NAMA LENGKAP',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -120,8 +120,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     '${widget.personalData[1]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -140,7 +139,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                 child: Text(
                   'STATUS PERKAWINAN',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -151,8 +150,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     '${widget.personalData[2]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -171,7 +169,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                 child: Text(
                   'TANGGAL LAHIR',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -182,8 +180,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     '${widget.personalData[3]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -202,7 +199,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                 child: Text(
                   'TEMPAT LAHIR',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -213,8 +210,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     '${widget.personalData[4]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -233,7 +229,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
               child: Text(
                 'NO KTP',
                 style: TextStyle(
-                    fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                    fontFamily: 'Roboto-Regular', color: Colors.black54),
               ),
             ),
           ),
@@ -245,8 +241,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     '${widget.personalData[5]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -265,7 +260,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                 child: Text(
                   'JENIS KELAMIN',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -276,8 +271,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     '${widget.personalData[6]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -296,7 +290,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                 child: Text(
                   'AGAMA',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -307,8 +301,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     '${widget.personalData[7]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -327,7 +320,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                 child: Text(
                   'EMAIL',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -338,8 +331,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     '${widget.personalData[8]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -358,7 +350,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                 child: Text(
                   'NO TELEPON',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -369,8 +361,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     '${widget.personalData[9]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -389,7 +380,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                 child: Text(
                   'PENDIDIKAN',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -400,8 +391,7 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
                     '${widget.personalData[10]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),

@@ -105,7 +105,7 @@ class _PlanningViewScreenState extends State<PlanningViewScreen> {
           title: Text(
             '${setNull(widget.nama)}',
             style: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
               color: Colors.white,
             ),
           ),
@@ -119,7 +119,7 @@ class _PlanningViewScreenState extends State<PlanningViewScreen> {
                   Toast.show(
                     'No telepon kosong...',
                     context,
-                    duration: Toast.LENGTH_SHORT,
+                    duration: Toast.LENGTH_LONG,
                     gravity: Toast.BOTTOM,
                     backgroundColor: Colors.red,
                   );
@@ -136,7 +136,7 @@ class _PlanningViewScreenState extends State<PlanningViewScreen> {
                   Toast.show(
                     'No telepon kosong...',
                     context,
-                    duration: Toast.LENGTH_SHORT,
+                    duration: Toast.LENGTH_LONG,
                     gravity: Toast.BOTTOM,
                     backgroundColor: Colors.red,
                   );
@@ -335,8 +335,8 @@ class _PlanningViewScreenState extends State<PlanningViewScreen> {
             padding: const EdgeInsets.all(6.0),
             child: Text(
               title,
-              style: TextStyle(
-                  fontFamily: 'Montserrat Regular', color: Colors.white),
+              style:
+                  TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white),
             ),
           ),
         ),
@@ -354,7 +354,7 @@ class _PlanningViewScreenState extends State<PlanningViewScreen> {
                       value,
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
+                        fontFamily: 'Roboto-Regular',
                         color: Colors.black,
                       ),
                     )

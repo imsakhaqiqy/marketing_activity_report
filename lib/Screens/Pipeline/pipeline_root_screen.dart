@@ -1,17 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-import 'package:kreditpensiun_apps/Screens/Approval/approval_pencairan_view_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_add.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_akad.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_edit.dart';
-import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_submit.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_view_screen.dart';
-import 'package:kreditpensiun_apps/Screens/provider/approval_disbursment_agen_provider.dart';
-import 'package:kreditpensiun_apps/Screens/provider/approval_disbursment_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/pipeline_akad_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/pipeline_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/pipeline_submit_provider.dart';
@@ -83,7 +78,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
         Toast.show(
           'Sukses delete pipeline',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -97,7 +92,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
         Toast.show(
           'Gagal delete pipeline',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -129,7 +124,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
         Toast.show(
           'Sukses simpan kondisi pipeline',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -143,7 +138,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
         Toast.show(
           'Gagal simpan kondisi pipeline',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -178,31 +173,46 @@ class _PipelinePageState extends State<PipelineRootPage> {
           String fotoAkad1,
           String fotoAkad2) =>
       PopupMenuButton<int>(
-        padding: EdgeInsets.only(left: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 0),
         itemBuilder: (context) => [
           PopupMenuItem(
             value: 1,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
+                if (statusPipeline != '2') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PipelineEditScreen(
+                              widget.username, widget.nik, id)));
+                } else {
+                  Toast.show(
+                    'Pipeline sudah pencairan dan tidak bisa ubah pipeline',
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => PipelineEditScreen(
-                            widget.username, widget.nik, id)));
+                    duration: Toast.LENGTH_LONG,
+                    gravity: Toast.BOTTOM,
+                    backgroundColor: Colors.red,
+                  );
+                }
               },
               child: Tooltip(
-                  message: 'Edit',
+                  message: 'Ubah',
                   child: Row(
                     children: <Widget>[
                       Icon(
                         Icons.edit,
-                        color: Colors.teal,
+                        color: kPrimaryColor,
                         size: 20,
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Ubah')
+                      Text(
+                        'Ubah',
+                        style: TextStyle(
+                          fontFamily: 'Roboto-Regular',
+                        ),
+                      )
                     ],
                   )),
             ),
@@ -232,7 +242,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                   Toast.show(
                     'Pipeline sudah pencairan dan tidak bisa submit dokumen kembali',
                     context,
-                    duration: Toast.LENGTH_SHORT,
+                    duration: Toast.LENGTH_LONG,
                     gravity: Toast.BOTTOM,
                     backgroundColor: Colors.red,
                   );
@@ -244,13 +254,18 @@ class _PipelinePageState extends State<PipelineRootPage> {
                     children: <Widget>[
                       Icon(
                         Icons.send,
-                        color: Colors.teal,
+                        color: kPrimaryColor,
                         size: 20,
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Submit Dokumen')
+                      Text(
+                        'Submit Dokumen',
+                        style: TextStyle(
+                          fontFamily: 'Roboto-Regular',
+                        ),
+                      )
                     ],
                   )),
             ),
@@ -259,38 +274,48 @@ class _PipelinePageState extends State<PipelineRootPage> {
             value: 3,
             child: GestureDetector(
               onTap: () {
-                if (statusPipeline == '3' || statusPipeline == '4') {
-                  Navigator.push(
+                if (statusPipeline != '2') {
+                  if (statusPipeline == '3' || statusPipeline == '4') {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PipelineAkadScreen(
+                                widget.username,
+                                widget.nik,
+                                id,
+                                namaNasabah,
+                                noKtp,
+                                telepon,
+                                plafond,
+                                cabang,
+                                tanggalPenyerahan,
+                                namaPenerima,
+                                teleponPenerima,
+                                tanggalAkad,
+                                nomorAplikasi,
+                                nomorPerjanjian,
+                                nominalPinjaman,
+                                jenisProduk,
+                                informasiSales,
+                                namaPetugasBank,
+                                jabatanPetugasBank,
+                                teleponPetugasBank,
+                                fotoAkad1,
+                                fotoAkad2)));
+                  } else {
+                    Toast.show(
+                      'Silahkan submit dokumen terlebih dahulu',
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => PipelineAkadScreen(
-                              widget.username,
-                              widget.nik,
-                              id,
-                              namaNasabah,
-                              noKtp,
-                              telepon,
-                              plafond,
-                              cabang,
-                              tanggalPenyerahan,
-                              namaPenerima,
-                              teleponPenerima,
-                              tanggalAkad,
-                              nomorAplikasi,
-                              nomorPerjanjian,
-                              nominalPinjaman,
-                              jenisProduk,
-                              informasiSales,
-                              namaPetugasBank,
-                              jabatanPetugasBank,
-                              teleponPetugasBank,
-                              fotoAkad1,
-                              fotoAkad2)));
+                      duration: Toast.LENGTH_LONG,
+                      gravity: Toast.BOTTOM,
+                      backgroundColor: Colors.red,
+                    );
+                  }
                 } else {
                   Toast.show(
-                    'Silahkan submit dokumen terlebih dahulu',
+                    'Pipeline sudah pencairan dan tidak bisa akad kredit kembali',
                     context,
-                    duration: Toast.LENGTH_SHORT,
+                    duration: Toast.LENGTH_LONG,
                     gravity: Toast.BOTTOM,
                     backgroundColor: Colors.red,
                   );
@@ -302,13 +327,18 @@ class _PipelinePageState extends State<PipelineRootPage> {
                     children: <Widget>[
                       Icon(
                         Icons.date_range,
-                        color: Colors.teal,
+                        color: kPrimaryColor,
                         size: 20,
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Akad Kredit')
+                      Text(
+                        'Akad Kredit',
+                        style: TextStyle(
+                          fontFamily: 'Roboto-Regular',
+                        ),
+                      )
                     ],
                   )),
             ),
@@ -322,15 +352,24 @@ class _PipelinePageState extends State<PipelineRootPage> {
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
                       title: Text(
-                          'Apakah anda ingin menghapus pipeline debitur ' +
-                              namaNasabah +
-                              ' ?'),
+                        'Apakah anda ingin menghapus pipeline debitur ' +
+                            namaNasabah +
+                            ' ?',
+                        style: TextStyle(
+                          fontFamily: 'Roboto-Regular',
+                        ),
+                      ),
                       actions: <Widget>[
                         FlatButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: Text('Tidak'),
+                          child: Text(
+                            'Tidak',
+                            style: TextStyle(
+                              fontFamily: 'Roboto-Regular',
+                            ),
+                          ),
                         ),
                         FlatButton(
                           onPressed: () {
@@ -339,7 +378,12 @@ class _PipelinePageState extends State<PipelineRootPage> {
                               id,
                             );
                           },
-                          child: Text('Ya'),
+                          child: Text(
+                            'Ya',
+                            style: TextStyle(
+                              fontFamily: 'Roboto-Regular',
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -348,7 +392,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                   Toast.show(
                     'Pipeline sudah pencairan dan tidak bisa di hapus',
                     context,
-                    duration: Toast.LENGTH_SHORT,
+                    duration: Toast.LENGTH_LONG,
                     gravity: Toast.BOTTOM,
                     backgroundColor: Colors.red,
                   );
@@ -360,13 +404,18 @@ class _PipelinePageState extends State<PipelineRootPage> {
                     children: <Widget>[
                       Icon(
                         Icons.delete,
-                        color: Colors.teal,
+                        color: kPrimaryColor,
                         size: 20,
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Hapus')
+                      Text(
+                        'Hapus',
+                        style: TextStyle(
+                          fontFamily: 'Roboto-Regular',
+                        ),
+                      )
                     ],
                   )),
             ),
@@ -379,7 +428,12 @@ class _PipelinePageState extends State<PipelineRootPage> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: Text('Kondisi Pipeline'),
+                      title: Text(
+                        'Kondisi Pipeline',
+                        style: TextStyle(
+                          fontFamily: 'Roboto-Regular',
+                        ),
+                      ),
                       actions: <Widget>[
                         FlatButton(
                           onPressed: () {
@@ -387,7 +441,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                               Toast.show(
                                 'silahkan pilih kondisi pipeline terlebih dahulu...',
                                 context,
-                                duration: Toast.LENGTH_SHORT,
+                                duration: Toast.LENGTH_LONG,
                                 gravity: Toast.BOTTOM,
                                 backgroundColor: Colors.red,
                               );
@@ -400,9 +454,14 @@ class _PipelinePageState extends State<PipelineRootPage> {
                               ? CircularProgressIndicator(
                                   //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
                                   valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.teal),
+                                      kPrimaryColor),
                                 )
-                              : Text('Simpan'),
+                              : Text(
+                                  'Simpan',
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto-Regular',
+                                  ),
+                                ),
                         ),
                       ],
                       content: fieldKeteranganPipeline(),
@@ -410,9 +469,9 @@ class _PipelinePageState extends State<PipelineRootPage> {
                   );
                 } else {
                   Toast.show(
-                    'Pipeline sudah pencairan dan tidak bisa di hapus',
+                    'Pipeline sudah pencairan dan tidak bisa ubah kondisi kembali',
                     context,
-                    duration: Toast.LENGTH_SHORT,
+                    duration: Toast.LENGTH_LONG,
                     gravity: Toast.BOTTOM,
                     backgroundColor: Colors.red,
                   );
@@ -424,13 +483,18 @@ class _PipelinePageState extends State<PipelineRootPage> {
                     children: <Widget>[
                       Icon(
                         Icons.notes_outlined,
-                        color: Colors.teal,
+                        color: kPrimaryColor,
                         size: 20,
                       ),
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Kondisi')
+                      Text(
+                        'Kondisi',
+                        style: TextStyle(
+                          fontFamily: 'Roboto-Regular',
+                        ),
+                      )
                     ],
                   )),
             ),
@@ -447,23 +511,50 @@ class _PipelinePageState extends State<PipelineRootPage> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(100.0),
           child: AppBar(
-            backgroundColor: Colors.white,
-            title: Center(
-              child: Text(
-                'Pipeline',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.teal,
-                    fontFamily: 'Montserrat Regular',
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
+            automaticallyImplyLeading: false,
+            centerTitle: false,
+            titleSpacing: 0.0,
+            backgroundColor: kPrimaryColor,
+            title: Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      'Pipeline',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto-Regular',
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.info_outline,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        Toast.show(
+                          'Pipeline ' + bulan + ' ' + tahun,
+                          context,
+                          duration: Toast.LENGTH_LONG,
+                          gravity: Toast.CENTER,
+                          backgroundColor: Colors.blueAccent,
+                        );
+                      },
+                    ),
+                  ],
+                )),
             actions: <Widget>[
               IconButton(
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.teal,
+                icon: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.white),
+                  padding: EdgeInsets.all(2.0),
+                  child: Icon(
+                    Icons.add,
+                    color: kPrimaryColor,
+                  ),
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -475,17 +566,25 @@ class _PipelinePageState extends State<PipelineRootPage> {
               )
             ],
             bottom: TabBar(
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.teal,
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.white54,
+              labelStyle: TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'Roboto-Regular',
+                  fontWeight: FontWeight.bold), //For Selected tab
+              unselectedLabelStyle: TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'Roboto-Regular',
+                  fontWeight: FontWeight.bold), //For Un-selected Tabs
               tabs: <Widget>[
                 Tab(
-                  text: 'Semua',
+                  text: 'SEMUA',
                 ),
                 Tab(
-                  text: 'Submit Dokumen',
+                  text: 'SUBMIT DOKUMEN',
                 ),
                 Tab(
-                  text: 'Akad Kredit',
+                  text: 'AKAD KREDIT',
                 )
               ],
             ),
@@ -518,8 +617,11 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                           Radius.circular(50))),
                                   child: Padding(
                                     padding: const EdgeInsets.all(16.0),
-                                    child:
-                                        Icon(Icons.hourglass_empty, size: 70),
+                                    child: Icon(
+                                      Icons.hourglass_empty,
+                                      size: 70,
+                                      color: Colors.black54,
+                                    ),
                                   )),
                               SizedBox(
                                 height: 10,
@@ -527,9 +629,11 @@ class _PipelinePageState extends State<PipelineRootPage> {
                               Text(
                                 'Pipeline belum tersedia',
                                 style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
+                                  fontFamily: "Roboto-Regular",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54,
+                                ),
                               ),
                             ]),
                       );
@@ -549,8 +653,11 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                               Radius.circular(50))),
                                       child: Padding(
                                         padding: const EdgeInsets.all(16.0),
-                                        child: Icon(Icons.hourglass_empty,
-                                            size: 70),
+                                        child: Icon(
+                                          Icons.hourglass_empty,
+                                          size: 70,
+                                          color: Colors.black54,
+                                        ),
                                       )),
                                   SizedBox(
                                     height: 10,
@@ -558,9 +665,11 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                   Text(
                                     'Pipeline belum tersedia',
                                     style: TextStyle(
-                                        fontFamily: "Montserrat Regular",
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                      fontFamily: "Roboto-Regular",
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black54,
+                                    ),
                                   ),
                                 ]),
                           );
@@ -573,7 +682,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                     decoration: BoxDecoration(
                                         border: Border(
                                             bottom: BorderSide(
-                                      color: Colors.grey,
+                                      color: Colors.black12,
                                     ))),
                                     child: InkWell(
                                       onTap: () {
@@ -630,8 +739,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold,
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           ),
                                           subtitle: Column(
                                             crossAxisAlignment:
@@ -657,7 +765,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                                     '${formatRupiah(data.dataPipeline[i].plafond)}',
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            'Montserrat Regular',
+                                                            'Roboto-Regular',
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -682,7 +790,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                                     '${data.dataPipeline[i].tglPipeline}',
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            'Montserrat Regular',
+                                                            'Roboto-Regular',
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -708,7 +816,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                                         '${data.dataPipeline[i].status}'),
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            'Montserrat Regular',
+                                                            'Roboto-Regular',
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: colorStatus(
@@ -735,7 +843,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                                     '${data.dataPipeline[i].keluhan}',
                                                     style: TextStyle(
                                                       fontFamily:
-                                                          'Montserrat Regular',
+                                                          'Roboto-Regular',
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -828,8 +936,11 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                           Radius.circular(50))),
                                   child: Padding(
                                     padding: const EdgeInsets.all(16.0),
-                                    child:
-                                        Icon(Icons.hourglass_empty, size: 70),
+                                    child: Icon(
+                                      Icons.hourglass_empty,
+                                      size: 70,
+                                      color: Colors.black54,
+                                    ),
                                   )),
                               SizedBox(
                                 height: 10,
@@ -837,9 +948,11 @@ class _PipelinePageState extends State<PipelineRootPage> {
                               Text(
                                 'Submit dokumen belum tersedia',
                                 style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
+                                  fontFamily: "Roboto-Regular",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54,
+                                ),
                               ),
                             ]),
                       );
@@ -859,8 +972,11 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                               Radius.circular(50))),
                                       child: Padding(
                                         padding: const EdgeInsets.all(16.0),
-                                        child: Icon(Icons.hourglass_empty,
-                                            size: 70),
+                                        child: Icon(
+                                          Icons.hourglass_empty,
+                                          size: 70,
+                                          color: Colors.black54,
+                                        ),
                                       )),
                                   SizedBox(
                                     height: 10,
@@ -868,9 +984,11 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                   Text(
                                     'Submit dokumen belum tersedia',
                                     style: TextStyle(
-                                        fontFamily: "Montserrat Regular",
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                      fontFamily: "Roboto-Regular",
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black54,
+                                    ),
                                   ),
                                 ]),
                           );
@@ -883,7 +1001,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                     decoration: BoxDecoration(
                                         border: Border(
                                             bottom: BorderSide(
-                                      color: Colors.grey,
+                                      color: Colors.black12,
                                     ))),
                                     child: InkWell(
                                       onTap: () {
@@ -940,8 +1058,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold,
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           ),
                                           subtitle: Column(
                                             crossAxisAlignment:
@@ -967,7 +1084,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                                     '${formatRupiah(data.dataPipeline[i].plafond)}',
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            'Montserrat Regular',
+                                                            'Roboto-Regular',
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -992,7 +1109,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                                     '${data.dataPipeline[i].tglPipeline}',
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            'Montserrat Regular',
+                                                            'Roboto-Regular',
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -1018,7 +1135,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                                         '${data.dataPipeline[i].status}'),
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            'Montserrat Regular',
+                                                            'Roboto-Regular',
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: colorStatus(
@@ -1045,7 +1162,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                                     '${data.dataPipeline[i].keluhan}',
                                                     style: TextStyle(
                                                       fontFamily:
-                                                          'Montserrat Regular',
+                                                          'Roboto-Regular',
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -1138,8 +1255,11 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                           Radius.circular(50))),
                                   child: Padding(
                                     padding: const EdgeInsets.all(16.0),
-                                    child:
-                                        Icon(Icons.hourglass_empty, size: 70),
+                                    child: Icon(
+                                      Icons.hourglass_empty,
+                                      size: 70,
+                                      color: Colors.black54,
+                                    ),
                                   )),
                               SizedBox(
                                 height: 10,
@@ -1147,9 +1267,11 @@ class _PipelinePageState extends State<PipelineRootPage> {
                               Text(
                                 'Akad kredit belum tersedia',
                                 style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
+                                  fontFamily: "Roboto-Regular",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54,
+                                ),
                               ),
                             ]),
                       );
@@ -1169,8 +1291,11 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                               Radius.circular(50))),
                                       child: Padding(
                                         padding: const EdgeInsets.all(16.0),
-                                        child: Icon(Icons.hourglass_empty,
-                                            size: 70),
+                                        child: Icon(
+                                          Icons.hourglass_empty,
+                                          size: 70,
+                                          color: Colors.black54,
+                                        ),
                                       )),
                                   SizedBox(
                                     height: 10,
@@ -1178,9 +1303,11 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                   Text(
                                     'Akad kredit belum tersedia',
                                     style: TextStyle(
-                                        fontFamily: "Montserrat Regular",
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
+                                      fontFamily: "Roboto-Regular",
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black54,
+                                    ),
                                   ),
                                 ]),
                           );
@@ -1193,7 +1320,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                     decoration: BoxDecoration(
                                         border: Border(
                                             bottom: BorderSide(
-                                      color: Colors.grey,
+                                      color: Colors.black12,
                                     ))),
                                     child: InkWell(
                                       onTap: () {
@@ -1250,8 +1377,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold,
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           ),
                                           subtitle: Column(
                                             crossAxisAlignment:
@@ -1277,7 +1403,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                                     '${formatRupiah(data.dataPipeline[i].plafond)}',
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            'Montserrat Regular',
+                                                            'Roboto-Regular',
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -1302,7 +1428,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                                     '${data.dataPipeline[i].tglPipeline}',
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            'Montserrat Regular',
+                                                            'Roboto-Regular',
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -1328,7 +1454,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                                         '${data.dataPipeline[i].status}'),
                                                     style: TextStyle(
                                                         fontFamily:
-                                                            'Montserrat Regular',
+                                                            'Roboto-Regular',
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: colorStatus(
@@ -1355,7 +1481,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                                                     '${data.dataPipeline[i].keluhan}',
                                                     style: TextStyle(
                                                       fontFamily:
-                                                          'Montserrat Regular',
+                                                          'Roboto-Regular',
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
@@ -1444,7 +1570,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
     } else if (status == '2') {
       return Colors.blueAccent;
     } else if (status == '3') {
-      return Colors.teal;
+      return kPrimaryColor;
     } else if (status == '4') {
       return Colors.orangeAccent;
     }
@@ -1511,7 +1637,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
                   child: Text(
                     value['keluhan'],
                     style: TextStyle(
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                     ),
                   ),
                   value: value['id'].toString(),
@@ -1526,7 +1652,7 @@ class _PipelinePageState extends State<PipelineRootPage> {
             labelText: 'Kondisi Pipeline',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
             labelStyle: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
             )),
         value: selectedKeterangan,
         isExpanded: true);

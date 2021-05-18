@@ -1,24 +1,130 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:kreditpensiun_apps/Screens/Modul/view_image_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Modul/view_modul_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Modul/view_video_screen.dart';
-import 'package:kreditpensiun_apps/Screens/provider/modul_provider.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 import 'package:kreditpensiun_apps/constants.dart';
-import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
+import 'package:toast/toast.dart';
 
 class ModulScreen extends StatefulWidget {
   @override
   _ModulScreenState createState() => _ModulScreenState();
 }
 
-class _ModulScreenState extends State<ModulScreen> {
-  bool _isLoading = true;
+class _ModulScreenState extends State<ModulScreen>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> _animation;
+  int progress = 0;
+
+  ReceivePort _receivePort = ReceivePort();
+
+  static downloadingCallback(id, status, progress) {
+    ///Looking up for a send port
+    SendPort sendPort = IsolateNameServer.lookupPortByName("downloading");
+
+    ///ssending the data
+    sendPort.send([id, status, progress]);
+  }
+
+  _createFolder() async {
+    final folderName = "iMarsyt";
+    final path = Directory("storage/emulated/0/Download/$folderName");
+    if ((await path.exists())) {
+      // TODO:
+      print("exist");
+    } else {
+      // TODO:
+      print("not exist");
+      path.create();
+    }
+  }
+
+  bool _isLoading = false;
+  final String apiUrl =
+      'https://www.nabasa.co.id/api_marsit_v1/index.php/getModul';
+  List<dynamic> _users = [];
+
+  void fetchUsers() async {
+    setState(() {
+      _isLoading = true;
+    });
+    var result = await http.get(apiUrl);
+    if (result.statusCode == 200) {
+      setState(() {
+        if (json.decode(result.body)['Daftar_Modul'] == '') {
+          _isLoading = false;
+        } else {
+          _users = json.decode(result.body)['Daftar_Modul'];
+          _isLoading = false;
+        }
+      });
+    }
+  }
+
+  String _id(dynamic user) {
+    return user['id'];
+  }
+
+  String _title(dynamic user) {
+    return user['title'];
+  }
+
+  String _path(dynamic user) {
+    return user['path'];
+  }
+
+  String _created_at(dynamic user) {
+    return user['created_at'];
+  }
+
+  String _jenis(dynamic user) {
+    return user['jenis'];
+  }
+
+  Future<void> _getData() async {
+    setState(() {
+      fetchUsers();
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchUsers();
+    _createFolder();
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 1000), vsync: this, value: 0.1);
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.bounceOut);
+
+    ///register a send port for the other isolates
+    IsolateNameServer.registerPortWithName(
+        _receivePort.sendPort, "downloading");
+
+    ///Listening for the data is comming other isolataes
+    _receivePort.listen((message) {
+      setState(() {
+        progress = message[2];
+        if (progress == 100) {
+          Navigator.of(context).pop();
+        }
+      });
+
+      print(message);
+    });
+    FlutterDownloader.registerCallback(downloadingCallback);
+  }
+
   String pathPDF = "";
   File file;
   Future<File> createFileOfPdfUrl(final url) async {
@@ -34,205 +140,215 @@ class _ModulScreenState extends State<ModulScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var cardTextStyle1 = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.grey);
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          title: Text(
-            'Berita',
-            style: TextStyle(
-              fontFamily: 'Montserrat Regular',
-              color: Colors.white,
-            ),
+      appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        title: Text(
+          'Berita',
+          style: TextStyle(
+            fontFamily: 'Roboto-Regular',
+            color: Colors.white,
           ),
         ),
-        body: RefreshIndicator(
-            onRefresh: () =>
-                Provider.of<ModulProvider>(context, listen: false).getModul(),
-            color: Colors.red,
-            child: Container(
-              margin: EdgeInsets.all(0),
-              child: FutureBuilder(
-                future: Provider.of<ModulProvider>(context, listen: false)
-                    .getModul(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(kPrimaryColor)),
-                    );
-                  }
-                  return Consumer<ModulProvider>(
-                    builder: (context, data, _) {
-                      if (data.dataModul.length == 0) {
-                        return Center(
-                          child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50))),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child:
-                                          Icon(Icons.hourglass_empty, size: 70),
-                                    )),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Berita belum tersedia',
-                                  style: TextStyle(
-                                      fontFamily: "Montserrat Regular",
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ]),
-                        );
-                      } else {
-                        return ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: data.dataModul.length,
-                            itemBuilder: (context, i) {
-                              final path = 'https://nabasa.co.id/marsit/' +
-                                  data.dataModul[i].path;
-                              return Container(
-                                  padding:
-                                      EdgeInsets.only(top: 16.0, bottom: 16.0),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                    color: Colors.grey,
-                                  ))),
-                                  child: InkWell(
-                                    onTap: () {
-                                      if (data.dataModul[i].jenis == 'FILE') {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              AlertDialog(
-                                            title: Center(
-                                              child: CircularProgressIndicator(
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                              Color>(
-                                                          kPrimaryColor)),
-                                            ),
-                                            actions: <Widget>[],
-                                          ),
-                                        );
-                                        createFileOfPdfUrl(path)
-                                            .then((f) async {
-                                          pathPDF = f.path;
-                                          if (pathPDF != '' &&
-                                              data.dataModul[i].jenis ==
-                                                  'FILE') {
-                                            Navigator.of(context).pop();
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        PDFScreen(
-                                                            pathPDF,
-                                                            data.dataModul[i]
-                                                                .title)));
-                                          }
-                                        });
-                                      } else if (data.dataModul[i].jenis ==
-                                          'VIDEO') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => VideoApp(
-                                                    data.dataModul[i].path,
-                                                    data.dataModul[i].title)));
-                                      } else {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => ImageApp(
-                                                    data.dataModul[i].path,
-                                                    data.dataModul[i].title)));
-                                      }
-                                    },
-                                    child: ListTile(
-                                        title: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              data.dataModul[i].title,
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily:
-                                                      'Montserrat Regular'),
-                                            ),
-                                          ],
-                                        ),
-                                        subtitle: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Row(
-                                              children: <Widget>[
-                                                data.dataModul[i].jenis ==
-                                                        'FILE'
-                                                    ? Icon(
-                                                        Icons
-                                                            .picture_as_pdf_outlined,
-                                                        color: Colors.black54,
-                                                      )
-                                                    : Icon(
-                                                        Icons
-                                                            .video_collection_outlined,
-                                                        color: Colors.black54),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  '${data.dataModul[i].jenis}',
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'Montserrat Regular'),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Row(
-                                              children: <Widget>[
-                                                Icon(Icons.date_range_outlined,
-                                                    color: Colors.black54),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  '${data.dataModul[i].createdAt}',
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'Montserrat Regular'),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        trailing: null),
-                                  ));
-                            });
-                      }
-                    },
-                  );
-                },
-              ),
-            )));
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.info_outline,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Toast.show(
+                'Download file tersimpan di interal_storage/Download/iMarsyt/',
+                context,
+                duration: Toast.LENGTH_LONG,
+                gravity: Toast.CENTER,
+                backgroundColor: Colors.blueAccent,
+              );
+            },
+          )
+        ],
+      ),
+      body: Container(
+        color: Colors.white,
+        child: _buildList(),
+      ),
+    );
+  }
+
+  Widget _buildList() {
+    if (_isLoading == true) {
+      return Center(
+          child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(kPrimaryColor),
+      ));
+    } else {
+      if (_users.length > 0) {
+        return RefreshIndicator(
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: _users.length,
+            itemBuilder: (BuildContext context, int index) {
+              final path =
+                  'https://nabasa.co.id/marsit/' + _path(_users[index]);
+              return Container(
+                padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                  color: Colors.black12,
+                ))),
+                child: InkWell(
+                  onTap: () {
+                    if (_jenis(_users[index]) == 'FILE') {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: Center(
+                            child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    kPrimaryColor)),
+                          ),
+                          actions: <Widget>[],
+                        ),
+                      );
+                      createFileOfPdfUrl(path).then((f) async {
+                        pathPDF = f.path;
+                        if (pathPDF != '' && _jenis(_users[index]) == 'FILE') {
+                          Navigator.of(context).pop();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PDFScreen(
+                                      pathPDF, _title(_users[index]))));
+                        }
+                      });
+                    } else if (_jenis(_users[index]) == 'VIDEO') {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => VideoApp(
+                                  _path(_users[index]),
+                                  _title(_users[index]))));
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ImageApp(
+                                  _path(_users[index]),
+                                  _title(_users[index]))));
+                    }
+                  },
+                  child: ListTile(
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _title(_users[index]),
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Roboto-Regular'),
+                        ),
+                      ],
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            _jenis(_users[index]) == 'FILE'
+                                ? Icon(
+                                    Icons.picture_as_pdf_outlined,
+                                    color: Colors.black54,
+                                  )
+                                : Icon(Icons.video_collection_outlined,
+                                    color: Colors.black54),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              _jenis(_users[index]),
+                              style: TextStyle(fontFamily: 'Roboto-Regular'),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Icon(Icons.date_range_outlined,
+                                color: Colors.black54),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              _created_at(_users[index]),
+                              style: TextStyle(fontFamily: 'Roboto-Regular'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    trailing: InkWell(
+                      child: Icon(
+                        Icons.file_download,
+                      ),
+                      onTap: () async {
+                        final status = await Permission.storage.request();
+                        if (status.isGranted) {
+                          final externalDir =
+                              await getExternalStorageDirectory();
+                          String fileName = _path(_users[index]).substring(
+                              _path(_users[index]).lastIndexOf("/") + 1);
+                          final id = await FlutterDownloader.enqueue(
+                            url: "https://nabasa.co.id/marsit/" +
+                                _path(_users[index]),
+                            savedDir: "/storage/emulated/0/Download/iMarsyt/",
+                            fileName: fileName,
+                            showNotification: true,
+                            openFileFromNotification: true,
+                          );
+                        } else {
+                          print("Permission deined");
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+          onRefresh: _getData,
+        );
+      } else {
+        return Center(
+          child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Icon(Icons.hourglass_empty, size: 70),
+                )),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Berita belum tersedia',
+              style: TextStyle(
+                  fontFamily: "Roboto-Regular",
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+            ),
+          ]),
+        );
+      }
+    }
   }
 }

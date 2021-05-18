@@ -25,24 +25,23 @@ class _FilterDisbursmentReportScreen
   Widget build(BuildContext context) {
     String calonDebitur;
     String rencanaPinjaman;
-    String alamat;
     var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 14,
         color: Color.fromRGBO(63, 63, 63, 1),
         fontWeight: FontWeight.bold);
     var cardTextStyleChild = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 13,
         color: Colors.red,
         fontWeight: FontWeight.bold);
     var cardTextStyleFooter1 = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 12,
         color: Color.fromRGBO(63, 63, 63, 1));
     var cardTextStyleFooter2 = TextStyle(
-        fontFamily: "Montserrat Regular",
-        fontSize: 9,
+        fontFamily: "Roboto-Regular",
+        fontSize: 12,
         color: Color.fromRGBO(63, 63, 63, 1));
     return Scaffold(
       backgroundColor: grey,
@@ -52,20 +51,6 @@ class _FilterDisbursmentReportScreen
           style: fontFamily,
         ),
         actions: <Widget>[
-          // Padding(
-          //     padding: EdgeInsets.only(right: 20.0),
-          //     child: GestureDetector(
-          //       onTap: () async {
-          //         Navigator.push(
-          //             context,
-          //             MaterialPageRoute(
-          //                 builder: (context) => ReportDisbursmentPdfScreen()));
-          //       },
-          //       child: Icon(
-          //         Icons.picture_as_pdf,
-          //         size: 26.0,
-          //       ),
-          //     )),
           Padding(
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
@@ -89,7 +74,6 @@ class _FilterDisbursmentReportScreen
                   widget.nik, widget.tglAwal, widget.tglAkhir)),
           color: Colors.red,
           child: Container(
-            margin: EdgeInsets.all(10),
             child: FutureBuilder(
               future: Provider.of<FilterReportDisbursmentProvider>(context,
                       listen: false)
@@ -127,7 +111,7 @@ class _FilterDisbursmentReportScreen
                               Text(
                                 'Pencairan Tidak Ditemukan!',
                                 style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
+                                    fontFamily: "Roboto-Regular",
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -169,15 +153,30 @@ class _FilterDisbursmentReportScreen
                             }
 
                             return Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              elevation: 4,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          DisbursmentViewScreen(
+                              elevation: 0,
+                              child: GridTile(
+                                footer: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.location_on,
+                                        color: kPrimaryColor,
+                                        size: 12,
+                                      ),
+                                      Text(
+                                        '${data.dataFilterDisbursmentReport[i].cabang}',
+                                        style: cardTextStyleFooter2,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (context) => DisbursmentViewScreen(
                                               data
                                                   .dataFilterDisbursmentReport[
                                                       i]
@@ -322,63 +321,46 @@ class _FilterDisbursmentReportScreen
                                                   .dataFilterDisbursmentReport[
                                                       i]
                                                   .kodeProduk)));
-                                },
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        child: Image.network(
-                                          'https://www.nabasa.co.id/marsit/${data.dataFilterDisbursmentReport[i].foto1}',
-                                          fit: BoxFit.contain,
-                                        ),
-                                        height: 100.0,
-                                        width: double.infinity,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            '$calonDebitur',
-                                            style: cardTextStyle,
+                                    },
+                                    child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          SizedBox(
+                                            child: Image.network(
+                                              'https://www.nabasa.co.id/marsit/${data.dataFilterDisbursmentReport[i].foto2}',
+                                              fit: BoxFit.cover,
+                                            ),
+                                            height: 100.0,
+                                            width: double.infinity,
                                           ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            '${formatRupiah(rencanaPinjaman)}',
-                                            style: cardTextStyleChild,
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              '$calonDebitur',
+                                              style: cardTextStyle,
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataFilterDisbursmentReport[i].tanggalPencairan}',
-                                            style: cardTextStyleFooter1,
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              '${formatRupiah(rencanaPinjaman)}',
+                                              style: cardTextStyleChild,
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      Padding(
-                                          padding: EdgeInsets.only(right: 5.0),
-                                          child: Row(
-                                            children: [
-                                              Icon(Icons.location_on,
-                                                  color: kPrimaryColor),
-                                              Expanded(
-                                                child: Text(
-                                                  '${data.dataFilterDisbursmentReport[i].cabang}',
-                                                  style: cardTextStyleFooter2,
-                                                ),
-                                              ),
-                                            ],
-                                          )),
-                                    ]),
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              '${data.dataFilterDisbursmentReport[i].tanggalPencairan}',
+                                              style: cardTextStyleFooter1,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                        ]),
+                                  ),
+                                ),
                               ),
                             );
                           });

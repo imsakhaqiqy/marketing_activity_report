@@ -78,7 +78,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
       appBar: AppBar(
         title: Text(
           'Pensiunan Regular',
-          style: TextStyle(fontFamily: 'Montserrat Regular'),
+          style: TextStyle(fontFamily: 'Roboto-Regular'),
         ),
       ),
       body: Container(
@@ -115,7 +115,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
                 child: Text(
                   value,
                   style: TextStyle(
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                   ),
                 ),
                 value: value,
@@ -130,7 +130,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
           labelText: 'Simulasi',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
           )),
       value: selectedPensiun,
       isExpanded: true,
@@ -144,7 +144,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
                 child: Text(
                   value,
                   style: TextStyle(
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                   ),
                 ),
                 value: value,
@@ -159,7 +159,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
           labelText: 'Kredit',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
           )),
       value: selectedJenisKredit,
       isExpanded: true,
@@ -178,10 +178,10 @@ class _SimulationScreenState extends State<SimulationScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Nama Lengkap",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Nama Lengkap"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -197,13 +197,13 @@ class _SimulationScreenState extends State<SimulationScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Gaji Terakhir",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Gaji Terakhir"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -221,7 +221,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
         decoration: InputDecoration(
             //Add th Hint text here.
             hintText: "Tanggal Lahir",
-            hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+            hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
             labelText: "Tanggal Lahir"),
         format: format,
         onShowPicker: (context, currentValue) {
@@ -231,7 +231,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
         },
-        style: TextStyle(fontFamily: 'Montserrat Regular'),
+        style: TextStyle(fontFamily: 'Roboto-Regular'),
       ),
     ]);
   }
@@ -248,10 +248,10 @@ class _SimulationScreenState extends State<SimulationScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Bank Ambil Gaji",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Bank Ambil Gaji"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -267,13 +267,13 @@ class _SimulationScreenState extends State<SimulationScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Plafond",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Plafond"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -284,7 +284,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
                 child: Text(
                   value,
                   style: TextStyle(
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                   ),
                 ),
                 value: value,
@@ -299,7 +299,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
           labelText: 'Jangka Waktu (bulan)',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
           )),
       value: selectedJangkaWaktuType,
       isExpanded: true,
@@ -313,7 +313,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
                 child: Text(
                   value,
                   style: TextStyle(
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                   ),
                 ),
                 value: value,
@@ -328,7 +328,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
           labelText: 'Blokir Angsuran',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
           )),
       value: selectedBlokirAngsuranType,
       isExpanded: true,
@@ -341,13 +341,13 @@ class _SimulationScreenState extends State<SimulationScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Hutang Bank Lain",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Hutang Bank Lain"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -361,7 +361,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -372,7 +372,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
                 child: Text(
                   value,
                   style: TextStyle(
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                   ),
                 ),
                 value: value,
@@ -387,7 +387,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
           labelText: 'Asuransi',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
           )),
       value: selectedAsuransiType,
       isExpanded: true,
@@ -457,8 +457,7 @@ class _SimulationScreenState extends State<SimulationScreen> {
         },
         child: Text(
           'Hitung',
-          style:
-              TextStyle(color: Colors.white, fontFamily: 'Montserrat Regular'),
+          style: TextStyle(color: Colors.white, fontFamily: 'Roboto-Regular'),
         ),
       ),
     );

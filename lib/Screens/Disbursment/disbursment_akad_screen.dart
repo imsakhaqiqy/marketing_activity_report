@@ -82,7 +82,7 @@ _showPopupMenu(
                   children: <Widget>[
                     Icon(
                       Icons.attach_money_sharp,
-                      color: Colors.teal,
+                      color: kPrimaryColor,
                       size: 20,
                     ),
                     Text('Pencairan')
@@ -242,7 +242,7 @@ class _DisbursmentAkadScreen extends State<DisbursmentAkadScreen> {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: Colors.grey,
+                      color: Colors.black12,
                     ),
                   ),
                 ),
@@ -258,7 +258,7 @@ class _DisbursmentAkadScreen extends State<DisbursmentAkadScreen> {
                             style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: 'Montserrat Regular'),
+                                fontFamily: 'Roboto-Regular'),
                           ),
                         ],
                       ),
@@ -283,7 +283,7 @@ class _DisbursmentAkadScreen extends State<DisbursmentAkadScreen> {
                               Text(
                                 formatRupiah(_nominalPinjaman(_users[index])),
                                 style: TextStyle(
-                                  fontFamily: 'Montserrat Regular',
+                                  fontFamily: 'Roboto-Regular',
                                 ),
                               ),
                             ],
@@ -306,7 +306,7 @@ class _DisbursmentAkadScreen extends State<DisbursmentAkadScreen> {
                               Text(
                                 _tanggalAkad(_users[index]),
                                 style: TextStyle(
-                                  fontFamily: 'Montserrat Regular',
+                                  fontFamily: 'Roboto-Regular',
                                 ),
                               ),
                             ],
@@ -329,7 +329,7 @@ class _DisbursmentAkadScreen extends State<DisbursmentAkadScreen> {
                               Text(
                                 _nomorAplikasi(_users[index]),
                                 style: TextStyle(
-                                  fontFamily: 'Montserrat Regular',
+                                  fontFamily: 'Roboto-Regular',
                                 ),
                               ),
                             ],
@@ -387,7 +387,7 @@ class _DisbursmentAkadScreen extends State<DisbursmentAkadScreen> {
             Text(
               'Akad Kredit Yuk!',
               style: TextStyle(
-                  fontFamily: "Montserrat Regular",
+                  fontFamily: "Roboto-Regular",
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
@@ -397,7 +397,7 @@ class _DisbursmentAkadScreen extends State<DisbursmentAkadScreen> {
             Text(
               'Dapatkan insentif besar dari pencairanmu.',
               style: TextStyle(
-                fontFamily: "Montserrat Regular",
+                fontFamily: "Roboto-Regular",
                 fontSize: 12,
               ),
             ),
@@ -405,7 +405,7 @@ class _DisbursmentAkadScreen extends State<DisbursmentAkadScreen> {
               height: 10,
             ),
             FlatButton(
-              color: Colors.teal,
+              color: kPrimaryColor,
               onPressed: () {
                 Navigator.push(
                     context,
@@ -416,7 +416,7 @@ class _DisbursmentAkadScreen extends State<DisbursmentAkadScreen> {
               child: Text(
                 'Lihat Pipeline',
                 style: TextStyle(
-                  fontFamily: "Montserrat Regular",
+                  fontFamily: "Roboto-Regular",
                   color: Colors.white,
                 ),
               ),

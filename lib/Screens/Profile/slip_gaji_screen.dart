@@ -17,7 +17,7 @@ class _SlipGajiScreenState extends State<SlipGajiScreen> {
           title: Text(
             'Slip Gaji',
             style: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
               color: Colors.white,
             ),
           ),
@@ -42,7 +42,7 @@ class _SlipGajiScreenState extends State<SlipGajiScreen> {
                 Text(
                   'Lihat Slip Gaji Yuk!',
                   style: TextStyle(
-                      fontFamily: "Montserrat Regular",
+                      fontFamily: "Roboto-Regular",
                       fontSize: 16,
                       fontWeight: FontWeight.bold),
                 ),
@@ -52,7 +52,7 @@ class _SlipGajiScreenState extends State<SlipGajiScreen> {
                 Text(
                   'Dapatkan slip gaji anda disini.',
                   style: TextStyle(
-                    fontFamily: "Montserrat Regular",
+                    fontFamily: "Roboto-Regular",
                     fontSize: 12,
                   ),
                 ),
@@ -60,12 +60,12 @@ class _SlipGajiScreenState extends State<SlipGajiScreen> {
                   height: 10,
                 ),
                 FlatButton(
-                  color: Colors.teal,
+                  color: kPrimaryColor,
                   onPressed: () {
                     Toast.show(
                       'Maaf, untuk saat ini slip gaji belum tersedia',
                       context,
-                      duration: Toast.LENGTH_SHORT,
+                      duration: Toast.LENGTH_LONG,
                       gravity: Toast.BOTTOM,
                       backgroundColor: Colors.red,
                     );
@@ -73,7 +73,7 @@ class _SlipGajiScreenState extends State<SlipGajiScreen> {
                   child: Text(
                     'Belum Tersedia',
                     style: TextStyle(
-                      fontFamily: "Montserrat Regular",
+                      fontFamily: "Roboto-Regular",
                       color: Colors.white,
                     ),
                   ),

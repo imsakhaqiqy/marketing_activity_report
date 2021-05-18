@@ -97,7 +97,7 @@ class _MitraScreen extends State<MitraScreen> {
         Toast.show(
           'Sukses mendaftar sebagai mitra, silahkan menunggu proses verifikasi dari kami...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -108,7 +108,7 @@ class _MitraScreen extends State<MitraScreen> {
         Toast.show(
           'Nomor KTP ini sudah terdaftar sebagai mitra,mohon masukkan nomor KTP lain...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -126,7 +126,7 @@ class _MitraScreen extends State<MitraScreen> {
         Toast.show(
           'Gagal mendaftar sebagai mitra, silahkan mencoba kembali...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -160,7 +160,7 @@ class _MitraScreen extends State<MitraScreen> {
         appBar: AppBar(
           title: Text(
             'Mitra',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
           actions: <Widget>[
             FlatButton(
@@ -172,7 +172,7 @@ class _MitraScreen extends State<MitraScreen> {
                     : Text(
                         'Simpan',
                         style: TextStyle(
-                            fontFamily: 'Montserrat Regular',
+                            fontFamily: 'Roboto-Regular',
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
@@ -216,7 +216,7 @@ class _MitraScreen extends State<MitraScreen> {
                     '*Informasi lebih lanjut mengenai mitra',
                     style: TextStyle(
                         color: Colors.blue,
-                        fontFamily: 'Montserrat Regular',
+                        fontFamily: 'Roboto-Regular',
                         fontSize: 12),
                   ),
                 )
@@ -247,7 +247,7 @@ class _MitraScreen extends State<MitraScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -262,7 +262,7 @@ class _MitraScreen extends State<MitraScreen> {
       },
       decoration: InputDecoration(labelText: 'Nama'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -276,7 +276,7 @@ class _MitraScreen extends State<MitraScreen> {
         return null;
       },
       decoration: InputDecoration(labelText: 'Email'),
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -294,7 +294,7 @@ class _MitraScreen extends State<MitraScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -312,7 +312,7 @@ class _MitraScreen extends State<MitraScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -385,8 +385,8 @@ class _MitraScreen extends State<MitraScreen> {
                 children: [
                   Text(
                     titled,
-                    style: TextStyle(
-                        fontSize: 8.0, fontFamily: 'Montserrat Regular'),
+                    style:
+                        TextStyle(fontSize: 8.0, fontFamily: 'Roboto-Regular'),
                   ),
                   IconButton(
                     icon: Icon(Icons.add),

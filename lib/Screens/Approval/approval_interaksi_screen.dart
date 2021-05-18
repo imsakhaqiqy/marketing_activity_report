@@ -30,9 +30,9 @@ class _ApprovalInteractionScreen extends State<ApprovalInteractionScreen> {
     String tahun = date.year.toString();
     String hari = date.day.toString();
     var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.white);
+        fontFamily: "Roboto-Regular", fontSize: 14, color: Colors.white);
     var cardTextStyle1 = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.grey);
+        fontFamily: "Roboto-Regular", fontSize: 14, color: Colors.grey);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -86,7 +86,7 @@ class _ApprovalInteractionScreen extends State<ApprovalInteractionScreen> {
                               Text(
                                 'Approval Interaksi Yuk!',
                                 style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
+                                    fontFamily: "Roboto-Regular",
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -96,7 +96,7 @@ class _ApprovalInteractionScreen extends State<ApprovalInteractionScreen> {
                               Text(
                                 'Interaksi tim kamu tidak tersedia.',
                                 style: TextStyle(
-                                  fontFamily: "Montserrat Regular",
+                                  fontFamily: "Roboto-Regular",
                                   fontSize: 12,
                                 ),
                               ),
@@ -231,8 +231,7 @@ class _ApprovalInteractionScreen extends State<ApprovalInteractionScreen> {
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold,
-                                                fontFamily:
-                                                    'Montserrat Regular'),
+                                                fontFamily: 'Roboto-Regular'),
                                           ),
                                         ],
                                       ),
@@ -249,7 +248,7 @@ class _ApprovalInteractionScreen extends State<ApprovalInteractionScreen> {
                                                 style: TextStyle(
                                                     fontStyle: FontStyle.italic,
                                                     fontFamily:
-                                                        'Montserrat Regular'),
+                                                        'Roboto-Regular'),
                                               ),
                                             ],
                                           ),
@@ -263,7 +262,7 @@ class _ApprovalInteractionScreen extends State<ApprovalInteractionScreen> {
                                                 style: TextStyle(
                                                     fontStyle: FontStyle.italic,
                                                     fontFamily:
-                                                        'Montserrat Regular'),
+                                                        'Roboto-Regular'),
                                               ),
                                             ],
                                           ),

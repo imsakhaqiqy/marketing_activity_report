@@ -211,11 +211,15 @@ class _PipelineMarketingScreen extends State<PipelineMarketingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var date = new DateTime.now();
+    String bulan = namaBulan(date.month.toString());
+    String tahun = date.year.toString();
+    String periode = bulan + ' ' + tahun;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Pipeline - ' + widget.nama,
+          'Pipeline',
           style: fontFamily,
         ),
       ),
@@ -223,8 +227,71 @@ class _PipelineMarketingScreen extends State<PipelineMarketingScreen> {
       //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
       body: Container(
         color: Colors.white,
-        child: _buildList(),
+        child: Column(
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.black12,
+                  ),
+                ),
+              ),
+              padding: EdgeInsets.all(8),
+              width: double.infinity,
+              child: Column(
+                children: <Widget>[
+                  fieldDebitur('Nama Sales', widget.nama, 120.0),
+                  SizedBox(height: 10),
+                  fieldDebitur('Periode', periode, 120.0),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
+            Expanded(
+              child: _buildList(),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget fieldDebitur(title, value, size) {
+    return Row(
+      children: <Widget>[
+        Container(
+          width: size,
+          decoration: new BoxDecoration(
+            color: Colors.indigoAccent,
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Text(
+              title,
+              style:
+                  TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+                width: MediaQuery.of(context).size.width * 0.50,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      value,
+                      style: TextStyle(fontFamily: 'Roboto-Regular'),
+                    ),
+                  ],
+                ))),
+      ],
     );
   }
 
@@ -242,7 +309,7 @@ class _PipelineMarketingScreen extends State<PipelineMarketingScreen> {
                   decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                    color: Colors.grey,
+                    color: Colors.black12,
                   ))),
                   child: InkWell(
                     onTap: () {
@@ -279,7 +346,7 @@ class _PipelineMarketingScreen extends State<PipelineMarketingScreen> {
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'Montserrat Regular'),
+                              fontFamily: 'Roboto-Regular'),
                         ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -302,7 +369,7 @@ class _PipelineMarketingScreen extends State<PipelineMarketingScreen> {
                                 Text(
                                   '${formatRupiah(_plafond(_users[index]))}',
                                   style: TextStyle(
-                                      fontFamily: 'Montserrat Regular',
+                                      fontFamily: 'Roboto-Regular',
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -325,7 +392,7 @@ class _PipelineMarketingScreen extends State<PipelineMarketingScreen> {
                                 Text(
                                   '${_tglPipeline(_users[index])}',
                                   style: TextStyle(
-                                      fontFamily: 'Montserrat Regular',
+                                      fontFamily: 'Roboto-Regular',
                                       fontWeight: FontWeight.bold),
                                 ),
                               ],
@@ -348,7 +415,7 @@ class _PipelineMarketingScreen extends State<PipelineMarketingScreen> {
                                 Text(
                                   messageStatus('${_status(_users[index])}'),
                                   style: TextStyle(
-                                      fontFamily: 'Montserrat Regular',
+                                      fontFamily: 'Roboto-Regular',
                                       fontWeight: FontWeight.bold,
                                       color: colorStatus(
                                           '${_status(_users[index])}')),
@@ -373,7 +440,7 @@ class _PipelineMarketingScreen extends State<PipelineMarketingScreen> {
                                 Text(
                                   '${_keluhan(_users[index])}',
                                   style: TextStyle(
-                                    fontFamily: 'Montserrat Regular',
+                                    fontFamily: 'Roboto-Regular',
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -408,7 +475,7 @@ class _PipelineMarketingScreen extends State<PipelineMarketingScreen> {
             Text(
               'Pipeline belum tersedia',
               style: TextStyle(
-                  fontFamily: "Montserrat Regular",
+                  fontFamily: "Roboto-Regular",
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
@@ -494,37 +561,5 @@ class _PipelineMarketingScreen extends State<PipelineMarketingScreen> {
           fractionDigits: 3,
         ));
     return 'IDR ' + fmf.output.withoutFractionDigits;
-  }
-
-  Widget fieldDebitur(title, value) {
-    return Row(
-      children: <Widget>[
-        Container(
-          decoration: new BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Text(
-              title,
-              style: TextStyle(
-                  fontFamily: 'Montserrat Regular', color: Colors.white),
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Text(
-          value,
-          textAlign: TextAlign.right,
-          style: TextStyle(
-            fontFamily: 'Montserrat Regular',
-            color: Colors.black,
-          ),
-        )
-      ],
-    );
   }
 }

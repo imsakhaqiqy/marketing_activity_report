@@ -1,3 +1,4 @@
+import 'package:kreditpensiun_apps/constants.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
@@ -33,21 +34,23 @@ class _VideoApp extends State<VideoApp> {
         title: Text(
           widget.title,
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.white,
           ),
         ),
       ),
       body: Center(
+          child: Container(
+        height: MediaQuery.of(context).size.height / 2,
         child: _controller.value.isInitialized
             ? AspectRatio(
                 aspectRatio: _controller.value.aspectRatio,
                 child: VideoPlayer(_controller),
               )
             : Container(),
-      ),
+      )),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.teal,
+        backgroundColor: kPrimaryColor,
         onPressed: () {
           setState(() {
             _controller.value.isPlaying

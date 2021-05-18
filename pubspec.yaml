@@ -31,16 +31,13 @@ dependencies:
   flutter_money_formatter: ^0.8.3
   image_picker:
   pdf: ^1.11.0
-  connectivity: ^0.4.8+2
   animated_splash_screen: ^1.0.0+1
   carousel_slider: ^2.2.1
   flutter_masked_text: ^0.7.0
-  path_provider: ^1.6.5
+  path_provider: ^1.6.0
   flutter_full_pdf_viewer: ^1.0.6
-  package_info: ^0.4.0+6
   webview_flutter: ^0.3.3
   photo_view: ^0.10.2
-  youtube_player_flutter: ^7.0.0+7
   onesignal_flutter: ^2.6.1
   geolocator: ^5.3.1
   toast: ^0.1.5
@@ -48,7 +45,11 @@ dependencies:
   shared_preferences: ^0.5.12+4
   video_player: ^2.0.2
   flutter_signature_pad: ^3.0.0
-  
+  flutter_downloader: ^1.6.0
+  permission_handler: any
+  local_auth: ^0.6.3+4
+  font_awesome_flutter: ^9.0.0
+  google_fonts: ^1.1.2
 
 dev_dependencies:
   flutter_test:
@@ -70,7 +71,6 @@ flutter:
     - assets/icons/
     - assets/menus/
     - assets/
-    - assets/images/calculator.svg
     - assets/images/pns_aktif.png
     - assets/images/prapen_5.png
     - assets/images/prapens_10.png
@@ -87,16 +87,8 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Montserrat Regular
+    - family: Roboto-Regular
       fonts:
-        - asset: assets/fonts/Montserrat-Regular.ttf
-  #     - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-    - family: OpenSans Regular
-      fonts:
-        - asset: assets/fonts/OpenSans-Regular.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
+        - asset: assets/fonts/Roboto-Regular.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

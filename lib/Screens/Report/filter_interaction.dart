@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kreditpensiun_apps/Screens/Interaction/interaction_view_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Report/report_interaction_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/filter_report_interaction_provider.dart';
-import 'package:kreditpensiun_apps/Screens/provider/report_interaction_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import '../../constants.dart';
 import 'filter_interaction_screen.dart';
 
@@ -33,22 +27,22 @@ class _FilterInteractionReportScreen
     String rencanaPinjaman;
     String alamat;
     var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 13,
         color: Color.fromRGBO(63, 63, 63, 1),
         fontWeight: FontWeight.bold);
     var cardTextStyleChild = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 12,
         color: Colors.red,
         fontWeight: FontWeight.bold);
     var cardTextStyleFooter1 = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 12,
         color: Color.fromRGBO(63, 63, 63, 1));
     var cardTextStyleFooter2 = TextStyle(
-        fontFamily: "Montserrat Regular",
-        fontSize: 9,
+        fontFamily: "Roboto-Regular",
+        fontSize: 12,
         color: Color.fromRGBO(63, 63, 63, 1));
     return Scaffold(
       backgroundColor: grey,
@@ -58,20 +52,6 @@ class _FilterInteractionReportScreen
           style: fontFamily,
         ),
         actions: <Widget>[
-          // Padding(
-          //     padding: EdgeInsets.only(right: 20.0),
-          //     child: GestureDetector(
-          //       onTap: () async {
-          //         Navigator.push(
-          //             context,
-          //             MaterialPageRoute(
-          //                 builder: (context) => ReportInteractionPdfScreen()));
-          //       },
-          //       child: Icon(
-          //         Icons.picture_as_pdf,
-          //         size: 26.0,
-          //       ),
-          //     )),
           Padding(
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
@@ -95,7 +75,6 @@ class _FilterInteractionReportScreen
                   widget.nik, widget.tglAwal, widget.tglAkhir)),
           color: Colors.red,
           child: Container(
-            margin: EdgeInsets.all(10),
             child: FutureBuilder(
               future: Provider.of<FilterReportInteractionProvider>(context,
                       listen: false)
@@ -133,7 +112,7 @@ class _FilterInteractionReportScreen
                               Text(
                                 'Interaksi Tidak Ditemukan!',
                                 style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
+                                    fontFamily: "Roboto-Regular",
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -189,101 +168,131 @@ class _FilterInteractionReportScreen
                             }
 
                             return Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              elevation: 4,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          InteractionViewScreen(
-                                            data.dataInteractionFilterReport[i]
-                                                .calonDebitur,
-                                            data.dataInteractionFilterReport[i]
-                                                .alamat,
-                                            data.dataInteractionFilterReport[i]
-                                                .email,
-                                            data.dataInteractionFilterReport[i]
-                                                .telepon,
-                                            data.dataInteractionFilterReport[i]
-                                                .plafond,
-                                            data.dataInteractionFilterReport[i]
-                                                .salesFeedback,
-                                            data.dataInteractionFilterReport[i]
-                                                .foto,
-                                            data.dataInteractionFilterReport[i]
-                                                .tanggalInteraksi,
-                                            data.dataInteractionFilterReport[i]
-                                                .jamInteraksi,
-                                            data.dataInteractionFilterReport[i]
-                                                .statusInteraksi,
-                                            data.dataInteractionFilterReport[i]
-                                                .kelurahan,
-                                            data.dataInteractionFilterReport[i]
-                                                .kecamatan,
-                                            data.dataInteractionFilterReport[i]
-                                                .kabupaten,
-                                            data.dataInteractionFilterReport[i]
-                                                .propinsi,
-                                          )));
-                                },
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        child: Image.network(
-                                          'https://www.nabasa.co.id/marsit/${data.dataInteractionFilterReport[i].foto}',
-                                          fit: BoxFit.contain,
-                                        ),
-                                        height: 100.0,
-                                        width: double.infinity,
+                              elevation: 0,
+                              child: GridTile(
+                                footer: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.location_on,
+                                        color: kPrimaryColor,
+                                        size: 12,
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            '$calonDebitur',
-                                            style: cardTextStyle,
+                                      Expanded(
+                                        child: Text(
+                                          '$alamat',
+                                          style: cardTextStyleFooter2,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  InteractionViewScreen(
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .calonDebitur,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .alamat,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .email,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .telepon,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .plafond,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .salesFeedback,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .foto,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .tanggalInteraksi,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .jamInteraksi,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .statusInteraksi,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .kelurahan,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .kecamatan,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .kabupaten,
+                                                    data
+                                                        .dataInteractionFilterReport[
+                                                            i]
+                                                        .propinsi,
+                                                  )));
+                                    },
+                                    child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          SizedBox(
+                                            child: Image.network(
+                                              'https://www.nabasa.co.id/marsit/${data.dataInteractionFilterReport[i].foto}',
+                                              fit: BoxFit.cover,
+                                            ),
+                                            height: 100.0,
+                                            width: double.infinity,
                                           ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            '$rencanaPinjaman',
-                                            style: cardTextStyleChild,
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              '$calonDebitur',
+                                              style: cardTextStyle,
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataInteractionFilterReport[i].tanggalInteraksi}',
-                                            style: cardTextStyleFooter1,
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              formatRupiah(rencanaPinjaman),
+                                              style: cardTextStyleChild,
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      Padding(
-                                          padding: EdgeInsets.only(right: 5.0),
-                                          child: Row(
-                                            children: [
-                                              Icon(Icons.location_on,
-                                                  color: kPrimaryColor),
-                                              Expanded(
-                                                child: Text(
-                                                  '$alamat',
-                                                  style: cardTextStyleFooter2,
-                                                ),
-                                              ),
-                                            ],
-                                          )),
-                                    ]),
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              '${data.dataInteractionFilterReport[i].tanggalInteraksi}',
+                                              style: cardTextStyleFooter1,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                        ]),
+                                  ),
+                                ),
                               ),
                             );
                           });

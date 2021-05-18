@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:kreditpensiun_apps/Screens/Account/LogDiamond/lod_diamond_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Home/history_income_screen.dart';
-import 'package:kreditpensiun_apps/Screens/News/news_screen.dart';
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -14,77 +12,94 @@ class MarsytAppBar extends AppBar {
   MarsytAppBar(this.income, this.nik, this.diamond, BuildContext context)
       : super(
             elevation: 0.25,
-            backgroundColor: Colors.white,
             automaticallyImplyLeading: false,
             flexibleSpace: _buildMarsytAppBar(income.toString(), nik.toString(),
                 diamond.toString(), context));
 
   static Widget _buildMarsytAppBar(
       String income, String nik, String diamond, BuildContext context) {
-    var date = new DateTime.now();
+    var date = DateTime.now();
     String bulan = namaBulan(date.month.toString());
     String tahun = date.year.toString();
-    String hari = date.day.toString();
     Size size = MediaQuery.of(context).size;
-    return new Container(
-      padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 10.0),
-      child: new Row(
+    return Container(
+      color: kPrimaryColor,
+      height: 130.0,
+      padding: EdgeInsets.only(left: 16.0, right: 16.0),
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          new Container(
-            padding: EdgeInsets.only(top: 30.0),
-            child: Image.asset(
-              "assets/imarsyt 2-03.png",
-              fit: BoxFit.fill,
-              width: size.width * 0.30,
+          Padding(
+            padding: const EdgeInsets.only(top: 30.0),
+            child: Container(
+              color: Colors.white,
+              child: Image.asset(
+                "assets/imarsyt 2-03.png",
+                fit: BoxFit.fill,
+                width: size.width * 0.30,
+              ),
             ),
           ),
-          new Container(
+          Container(
             padding: EdgeInsets.only(top: 30.0),
-            child: new Row(
+            child: Row(
               children: <Widget>[
-                Icon(
-                  MdiIcons.diamond,
-                  color: Colors.black,
-                  size: 20.0,
-                ),
-                new Container(
-                  padding: EdgeInsets.all(6.0),
-                  decoration: new BoxDecoration(
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(5.0)),
-                      color: Colors.black),
-                  child: Tooltip(
-                      message: 'Total Diamond',
-                      child: InkWell(
-                        child: Text(
-                          "${diamond}",
-                          style: TextStyle(fontSize: 14.0, color: Colors.white),
-                        ),
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => LogDiamondScreen(nik)));
-                        },
+                InkWell(
+                  child: Container(
+                      padding: EdgeInsets.all(6.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                        color: Color(0xFF8f246b),
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            MdiIcons.diamond,
+                            color: Colors.white,
+                            size: 20.0,
+                          ),
+                          Tooltip(
+                            message: 'Total Diamond',
+                            child: Text(
+                              "${diamond}",
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.white),
+                            ),
+                          ),
+                        ],
                       )),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => LogDiamondScreen(nik)));
+                  },
                 ),
-                Icon(
-                  Icons.attach_money_outlined,
-                  color: Colors.black,
-                  size: 20.0,
+                SizedBox(
+                  width: 10,
                 ),
-                new Container(
-                  padding: EdgeInsets.all(6.0),
-                  decoration: new BoxDecoration(
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(5.0)),
-                      color: Colors.lightBlueAccent),
-                  child: Tooltip(
-                    message: 'Terhitung periode $bulan $tahun',
-                    child: Text(
-                      "${formatRupiah(income)}",
-                      style: TextStyle(fontSize: 14.0, color: Colors.white),
-                    ),
-                  ),
+                InkWell(
+                  child: Container(
+                      padding: EdgeInsets.all(6.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          color: Color(0xFF193366)),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.attach_money_outlined,
+                            color: Colors.white,
+                            size: 20.0,
+                          ),
+                          Tooltip(
+                            message: 'Terhitung periode $bulan $tahun',
+                            child: Text(
+                              "${formatRupiah(income)}",
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.white),
+                            ),
+                          ),
+                        ],
+                      )),
+                  onTap: () {},
                 )
               ],
             ),

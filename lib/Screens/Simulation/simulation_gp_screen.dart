@@ -83,7 +83,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
       appBar: AppBar(
         title: Text(
           'Prapensiun Grace Period',
-          style: TextStyle(fontFamily: 'Montserrat Regular'),
+          style: TextStyle(fontFamily: 'Roboto-Regular'),
         ),
       ),
       body: Container(
@@ -120,7 +120,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
                 child: Text(
                   value,
                   style: TextStyle(
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                   ),
                 ),
                 value: value,
@@ -135,7 +135,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
           labelText: 'Simulasi',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
           )),
       value: selectedPensiun,
       isExpanded: true,
@@ -149,7 +149,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
                 child: Text(
                   value,
                   style: TextStyle(
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                   ),
                 ),
                 value: value,
@@ -164,7 +164,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
           labelText: 'Kredit',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
           )),
       value: selectedJenisKredit,
       isExpanded: true,
@@ -183,10 +183,10 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Nama Lengkap",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Nama Lengkap"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -202,13 +202,13 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Gaji Terakhir",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Gaji Terakhir"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -226,7 +226,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
         decoration: InputDecoration(
             //Add th Hint text here.
             hintText: "Tanggal Lahir",
-            hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+            hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
             labelText: "Tanggal Lahir"),
         format: format,
         onShowPicker: (context, currentValue) {
@@ -236,7 +236,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
         },
-        style: TextStyle(fontFamily: 'Montserrat Regular'),
+        style: TextStyle(fontFamily: 'Roboto-Regular'),
       ),
     ]);
   }
@@ -253,10 +253,10 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Bank Ambil Gaji",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Bank Ambil Gaji"),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -272,13 +272,13 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Plafond",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Plafond"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -289,7 +289,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
                 child: Text(
                   value,
                   style: TextStyle(
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                   ),
                 ),
                 value: value,
@@ -304,7 +304,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
           labelText: 'Jangka Waktu (bulan)',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
           )),
       value: selectedJangkaWaktuType,
       isExpanded: true,
@@ -318,7 +318,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
                 child: Text(
                   value,
                   style: TextStyle(
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                   ),
                 ),
                 value: value,
@@ -333,7 +333,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
           labelText: 'Blokir Angsuran',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
           )),
       value: selectedBlokirAngsuranType,
       isExpanded: true,
@@ -352,13 +352,13 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Batas Usia Pensiun (bulan)",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Batas Usia Pensiun (bulan)"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -368,13 +368,13 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Hutang Bank Lain",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Hutang Bank Lain"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -388,7 +388,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -399,7 +399,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
                 child: Text(
                   value,
                   style: TextStyle(
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                   ),
                 ),
                 value: value,
@@ -414,7 +414,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
           labelText: 'Asuransi',
           contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
           labelStyle: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
           )),
       value: selectedAsuransiType,
       isExpanded: true,
@@ -484,8 +484,7 @@ class _SimulationGpScreenState extends State<SimulationGpScreen> {
         },
         child: Text(
           'Hitung',
-          style:
-              TextStyle(color: Colors.white, fontFamily: 'Montserrat Regular'),
+          style: TextStyle(color: Colors.white, fontFamily: 'Roboto-Regular'),
         ),
       ),
     );

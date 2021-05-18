@@ -14,7 +14,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
         appBar: AppBar(
           title: Text(
             'Karyawan',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
         ),
         body: Container(
@@ -58,7 +58,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
                 child: Text(
                   'DIVISI',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -69,8 +69,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
                     '${widget.personalData[20]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -89,7 +88,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
                 child: Text(
                   'JABATAN',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -100,8 +99,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
                     '${widget.personalData[21]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -120,7 +118,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
                 child: Text(
                   'WILAYAH KERJA',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -131,8 +129,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
                     '${widget.personalData[22]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -151,7 +148,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
                 child: Text(
                   'KANTOR CABANG',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -162,8 +159,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
                     '${widget.personalData[23]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -182,7 +178,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
                 child: Text(
                   'STATUS KARYAWAN',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -193,8 +189,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
                     '${widget.personalData[24]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),
@@ -213,7 +208,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
                 child: Text(
                   'GRADE',
                   style: TextStyle(
-                      fontFamily: 'Montserrat Regular', color: Colors.blueGrey),
+                      fontFamily: 'Roboto-Regular', color: Colors.black54),
                 ),
               )),
           Align(
@@ -224,8 +219,7 @@ class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
                     '${widget.personalData[25]}',
                     textAlign: TextAlign.right,
                     style: TextStyle(
-                        fontFamily: 'Montserrat Regular',
-                        color: Colors.blueGrey),
+                        fontFamily: 'Roboto-Regular', color: Colors.black54),
                   ))),
         ],
       ),

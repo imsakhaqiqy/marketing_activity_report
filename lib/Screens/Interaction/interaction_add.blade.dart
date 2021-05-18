@@ -220,7 +220,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
         Toast.show(
           'Sukses menambahkan data interaksi...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -231,7 +231,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
         Toast.show(
           'Gagal menambahkan data interaksi...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -243,7 +243,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       Toast.show(
         'Gagal menambahkan data interaksi...',
         context,
-        duration: Toast.LENGTH_SHORT,
+        duration: Toast.LENGTH_LONG,
         gravity: Toast.BOTTOM,
         backgroundColor: Colors.red,
       );
@@ -264,8 +264,8 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
           ),
           child: Center(
               child: Text("Foto Selfie / KTP",
-                  style: TextStyle(
-                      fontSize: 20, fontFamily: 'Montserrat Regular'))));
+                  style:
+                      TextStyle(fontSize: 20, fontFamily: 'Roboto-Regular'))));
     } else {
       base64Image = base64Encode(tmpFile.readAsBytesSync());
       tmpFile = tmpFile;
@@ -309,7 +309,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
           appBar: AppBar(
             title: Text(
               'Interaksi',
-              style: TextStyle(fontFamily: 'Montserrat Regular'),
+              style: TextStyle(fontFamily: 'Roboto-Regular'),
             ),
             actions: <Widget>[
               FlatButton(
@@ -322,7 +322,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                       : Text(
                           'Simpan',
                           style: TextStyle(
-                              fontFamily: 'Montserrat Regular',
+                              fontFamily: 'Roboto-Regular',
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
@@ -396,7 +396,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                                       color: Colors.red,
                                       child: Text("Kode Verifikasi",
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               fontSize: 12.0,
                                               color: Colors.white)),
                                       onPressed: () {
@@ -452,7 +452,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Nama Pensiun'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -467,7 +467,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       },
       decoration: InputDecoration(labelText: 'Alamat'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -475,7 +475,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
     return TextFormField(
       controller: emailController,
       decoration: InputDecoration(labelText: 'Email'),
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -497,7 +497,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -519,7 +519,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -529,8 +529,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12),
                 ),
                 value: value,
               ))
@@ -543,7 +542,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       value: selectedRencanaPinjaman,
       isExpanded: true,
       hint: Text('Rencana Pinjaman',
-          style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular')),
     );
   }
 
@@ -553,8 +552,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
           .map((value) => DropdownMenuItem(
                 child: Text(
                   value,
-                  style:
-                      TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12),
+                  style: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12),
                 ),
                 value: value,
               ))
@@ -567,7 +565,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
       value: selectedSalesFeedback,
       isExpanded: true,
       hint: Text('Sales Feedback',
-          style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular')),
     );
   }
 }

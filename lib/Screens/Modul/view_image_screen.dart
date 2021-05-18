@@ -26,7 +26,7 @@ class _ImageApp extends State<ImageApp> {
           title: Text(
             widget.title,
             style: TextStyle(
-              fontFamily: 'Montserrat Regular',
+              fontFamily: 'Roboto-Regular',
               color: Colors.white,
             ),
           ),

@@ -25,22 +25,24 @@ class _FilterInteractionSlReportScreen
   Widget build(BuildContext context) {
     String calonDebitur;
     String rencanaPinjaman;
-    String alamat;
     var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 13,
         color: Color.fromRGBO(63, 63, 63, 1),
         fontWeight: FontWeight.bold);
     var cardTextStyleChild = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 12,
         color: Colors.red,
         fontWeight: FontWeight.bold);
     var cardTextStyleFooter1 = TextStyle(
-        fontFamily: "Montserrat Regular",
+        fontFamily: "Roboto-Regular",
         fontSize: 12,
         color: Color.fromRGBO(63, 63, 63, 1));
-
+    var cardTextStyleFooter2 = TextStyle(
+        fontFamily: "Roboto-Regular",
+        fontSize: 12,
+        color: Color.fromRGBO(63, 63, 63, 1));
     return Scaffold(
       backgroundColor: grey,
       appBar: AppBar(
@@ -73,7 +75,6 @@ class _FilterInteractionSlReportScreen
                   widget.nik, widget.tglAwal, widget.tglAkhir)),
           color: Colors.red,
           child: Container(
-            margin: EdgeInsets.all(10),
             child: FutureBuilder(
               future: Provider.of<FilterReportInteractionSlProvider>(context,
                       listen: false)
@@ -111,7 +112,7 @@ class _FilterInteractionSlReportScreen
                               Text(
                                 'Interaksi Tidak Ditemukan!',
                                 style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
+                                    fontFamily: "Roboto-Regular",
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -152,141 +153,131 @@ class _FilterInteractionSlReportScreen
                               rencanaPinjaman = '';
                             }
 
-                            if (data.dataInteractionFilterSlReport[i].alamat !=
-                                '') {
-                              if (data.dataInteractionFilterSlReport[i].alamat
-                                      .length >
-                                  15) {
-                                alamat = data
-                                    .dataInteractionFilterSlReport[i].alamat;
-                              } else {
-                                alamat = data
-                                    .dataInteractionFilterSlReport[i].alamat;
-                              }
-                            } else {
-                              alamat = '';
-                            }
-
                             return Card(
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              elevation: 4,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          InteractionViewScreen(
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .calonDebitur,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .alamat,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .email,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .telepon,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .plafond,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .salesFeedback,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .foto,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .tanggalInteraksi,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .jamInteraksi,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .statusInteraksi,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .kelurahan,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .kecamatan,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .kabupaten,
-                                            data
-                                                .dataInteractionFilterSlReport[
-                                                    i]
-                                                .propinsi,
-                                          )));
-                                },
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        child: Image.network(
-                                          'https://www.nabasa.co.id/marsit/${data.dataInteractionFilterSlReport[i].foto}',
-                                          fit: BoxFit.contain,
+                              elevation: 0,
+                              child: GridTile(
+                                footer: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.person_outline,
+                                          color: kPrimaryColor,
+                                          size: 12,
                                         ),
-                                        height: 100.0,
-                                        width: double.infinity,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            '$calonDebitur',
-                                            style: cardTextStyle,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            '$rencanaPinjaman',
-                                            style: cardTextStyleChild,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerRight,
-                                          child: Text(
-                                            '${data.dataInteractionFilterSlReport[i].tanggalInteraksi}',
-                                            style: cardTextStyleFooter1,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(right: 5.0),
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
+                                        Expanded(
                                           child: Text(
                                             '${data.dataInteractionFilterSlReport[i].namaSales}',
-                                            style: cardTextStyleFooter1,
+                                            style: cardTextStyleFooter2,
                                           ),
                                         ),
-                                      ),
-                                    ]),
+                                      ],
+                                    )),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  InteractionViewScreen(
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .calonDebitur,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .alamat,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .email,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .telepon,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .plafond,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .salesFeedback,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .foto,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .tanggalInteraksi,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .jamInteraksi,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .statusInteraksi,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .kelurahan,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .kecamatan,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .kabupaten,
+                                                    data
+                                                        .dataInteractionFilterSlReport[
+                                                            i]
+                                                        .propinsi,
+                                                  )));
+                                    },
+                                    child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          SizedBox(
+                                            child: Image.network(
+                                              'https://www.nabasa.co.id/marsit/${data.dataInteractionFilterSlReport[i].foto}',
+                                              fit: BoxFit.cover,
+                                            ),
+                                            height: 100.0,
+                                            width: double.infinity,
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              '$calonDebitur',
+                                              style: cardTextStyle,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              formatRupiah(rencanaPinjaman),
+                                              style: cardTextStyleChild,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              '${data.dataInteractionFilterSlReport[i].tanggalInteraksi}',
+                                              style: cardTextStyleFooter1,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                        ]),
+                                  ),
+                                ),
                               ),
                             );
                           });

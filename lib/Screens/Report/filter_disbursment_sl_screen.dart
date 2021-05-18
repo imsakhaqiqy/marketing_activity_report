@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'dart:io';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:kreditpensiun_apps/Screens/Report/filter_disbursment_sl.dart';
-import 'package:kreditpensiun_apps/Screens/Report/filter_interaction.dart';
-import 'package:kreditpensiun_apps/Screens/Report/filter_interaction_sl.dart';
-import 'package:kreditpensiun_apps/Screens/Report/interaction.dart';
 
 import '../../constants.dart';
 
@@ -40,7 +35,7 @@ class _FilterDisbursmentSlScreenState extends State<FilterDisbursmentSlScreen> {
         appBar: AppBar(
           title: Text(
             'Filter Disbursment',
-            style: TextStyle(fontFamily: 'Montserrat Regular'),
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
           ),
         ),
         body: Container(
@@ -82,7 +77,7 @@ class _FilterDisbursmentSlScreenState extends State<FilterDisbursmentSlScreen> {
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
         },
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+        style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
       ),
     ]);
   }
@@ -107,7 +102,7 @@ class _FilterDisbursmentSlScreenState extends State<FilterDisbursmentSlScreen> {
               initialDate: currentValue ?? DateTime.now(),
               lastDate: DateTime(2100));
         },
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+        style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
       ),
     ]);
   }
@@ -135,8 +130,7 @@ class _FilterDisbursmentSlScreenState extends State<FilterDisbursmentSlScreen> {
         },
         child: Text(
           'Cari',
-          style:
-              TextStyle(color: Colors.white, fontFamily: 'Montserrat Regular'),
+          style: TextStyle(color: Colors.white, fontFamily: 'Roboto-Regular'),
         ),
       ),
     );

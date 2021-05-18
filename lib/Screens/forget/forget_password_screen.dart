@@ -64,7 +64,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         title: Text(
           'Lupa Password',
           style: TextStyle(
-            fontFamily: 'Montserrat Regular',
+            fontFamily: 'Roboto-Regular',
             color: Colors.white,
           ),
         ),
@@ -93,10 +93,10 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                           height: 10,
                         ),
                         Text(
-                          '*Harap masukkan nomor telepon yang terdaftar di aplikasi iMarsyt',
+                          '*Harap masukkan nomor telepon yang terdaftar di aplikasi kreditpensiun_apps',
                           style: TextStyle(
                               color: Colors.red,
-                              fontFamily: 'Montserrat Regular',
+                              fontFamily: 'Roboto-Regular',
                               fontSize: 12),
                         ),
                         SizedBox(
@@ -131,13 +131,13 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       decoration: InputDecoration(
           //Add th Hint text here.
           hintText: "Telepon",
-          hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+          hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
           labelText: "Telepon"),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -154,7 +154,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             color: Colors.deepPurple,
             child: Text("Kirim",
                 style: TextStyle(
-                    fontFamily: 'Montserrat Regular',
+                    fontFamily: 'Roboto-Regular',
                     fontSize: 12.0,
                     color: Colors.white)),
             onPressed: () {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //const kPrimaryColor = Color(0xFF6F35A5);
 //Color(0xFF2196F3);
-const kPrimaryColor = Colors.teal;
+const kPrimaryColor = Color(0xFF004d39);
 const kPrimaryLightColor = Color(0xFFF1E6FF);
 const Color green200 = Color(0xFF1B5E20);
 const Color green = Color.fromRGBO(0, 177, 106, 1);
@@ -21,4 +21,49 @@ const Color menuMart = Color(0xff68a9e3);
 const Color menuTix = Color(0xffe86f16);
 
 //default font
-const fontFamily = TextStyle(fontFamily: 'Montserrat Regular');
+const fontFamily = TextStyle(fontFamily: 'Roboto-Regular');
+
+var date = DateTime.now();
+String bulan = namaBulan(date.month.toString());
+String tahun = date.year.toString();
+
+namaBulan(String bulan) {
+  switch (bulan) {
+    case '1':
+      return 'Januari';
+      break;
+    case '2':
+      return 'Februari';
+      break;
+    case '3':
+      return 'Maret';
+      break;
+    case '4':
+      return 'April';
+      break;
+    case '5':
+      return 'Mei';
+      break;
+    case '6':
+      return 'Juni';
+      break;
+    case '7':
+      return 'Juli';
+      break;
+    case '8':
+      return 'Agustus';
+      break;
+    case '9':
+      return 'September';
+      break;
+    case '10':
+      return 'Oktober';
+      break;
+    case '11':
+      return 'November';
+      break;
+    case '12':
+      return 'Desember';
+      break;
+  }
+}

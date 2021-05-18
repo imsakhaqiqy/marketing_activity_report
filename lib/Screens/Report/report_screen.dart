@@ -73,7 +73,7 @@ class _ReportScreen extends State<ReportScreen> {
                                         child: Text(
                                           'Laporan Interaksi',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 16.0),
                                         ),
@@ -128,7 +128,7 @@ class _ReportScreen extends State<ReportScreen> {
                                         child: Text(
                                           'Laporan Pencairan',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 16.0),
                                         ),

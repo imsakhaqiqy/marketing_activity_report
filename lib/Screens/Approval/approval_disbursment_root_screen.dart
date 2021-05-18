@@ -25,9 +25,9 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
     String tahun = date.year.toString();
     String hari = date.day.toString();
     var cardTextStyle = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.white);
+        fontFamily: "Roboto-Regular", fontSize: 14, color: Colors.white);
     var cardTextStyle1 = TextStyle(
-        fontFamily: "Montserrat Regular", fontSize: 14, color: Colors.grey);
+        fontFamily: "Roboto-Regular", fontSize: 14, color: Colors.grey);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
@@ -43,7 +43,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white,
-                      fontFamily: 'Montserrat Regular',
+                      fontFamily: 'Roboto-Regular',
                       fontSize: 14,
                       fontWeight: FontWeight.bold),
                 ),
@@ -105,7 +105,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                 Text(
                                   'Approval Pencairan Yuk!',
                                   style: TextStyle(
-                                      fontFamily: "Montserrat Regular",
+                                      fontFamily: "Roboto-Regular",
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -115,7 +115,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                 Text(
                                   'Pencairan marketing tidak tersedia.',
                                   style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
+                                    fontFamily: "Roboto-Regular",
                                     fontSize: 12,
                                   ),
                                 ),
@@ -160,7 +160,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                         decoration: BoxDecoration(
                                             border: Border(
                                                 bottom: BorderSide(
-                                          color: Colors.grey,
+                                          color: Colors.black12,
                                         ))),
                                         child: InkWell(
                                           onTap: () {
@@ -344,7 +344,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontFamily:
-                                                          'Montserrat Regular'),
+                                                          'Roboto-Regular'),
                                                 ),
                                               ],
                                             ),
@@ -362,7 +362,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                             fontStyle: FontStyle
                                                                 .italic,
                                                             fontFamily:
-                                                                'Montserrat Regular'),
+                                                                'Roboto-Regular'),
                                                       ),
                                                     ],
                                                   ),
@@ -377,7 +377,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                             fontStyle: FontStyle
                                                                 .italic,
                                                             fontFamily:
-                                                                'Montserrat Regular'),
+                                                                'Roboto-Regular'),
                                                       ),
                                                     ],
                                                   ),
@@ -444,7 +444,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                 Text(
                                   'Approval Pencairan Yuk!',
                                   style: TextStyle(
-                                      fontFamily: "Montserrat Regular",
+                                      fontFamily: "Roboto-Regular",
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -454,7 +454,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                 Text(
                                   'Pencairan agent tidak tersedia.',
                                   style: TextStyle(
-                                    fontFamily: "Montserrat Regular",
+                                    fontFamily: "Roboto-Regular",
                                     fontSize: 12,
                                   ),
                                 ),
@@ -503,7 +503,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                         decoration: BoxDecoration(
                                             border: Border(
                                                 bottom: BorderSide(
-                                          color: Colors.grey,
+                                          color: Colors.black12,
                                         ))),
                                         child: InkWell(
                                           onTap: () {
@@ -687,7 +687,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontFamily:
-                                                          'Montserrat Regular'),
+                                                          'Roboto-Regular'),
                                                 ),
                                               ],
                                             ),
@@ -705,7 +705,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                             fontStyle: FontStyle
                                                                 .italic,
                                                             fontFamily:
-                                                                'Montserrat Regular'),
+                                                                'Roboto-Regular'),
                                                       ),
                                                     ],
                                                   ),
@@ -720,7 +720,7 @@ class _LauncherPageState extends State<ApprovalDisbursmentRootPage> {
                                                             fontStyle: FontStyle
                                                                 .italic,
                                                             fontFamily:
-                                                                'Montserrat Regular'),
+                                                                'Roboto-Regular'),
                                                       ),
                                                     ],
                                                   ),

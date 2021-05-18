@@ -285,7 +285,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
         Toast.show(
           'Sukses update data pencairan kredit...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -296,7 +296,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
         Toast.show(
           'Maaf, nomor aplikasi sudah terdaftar, mohon masukkan nomor aplikasi yang lain...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -312,7 +312,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
         Toast.show(
           'Gagal update data pencairan kredit...',
           context,
-          duration: Toast.LENGTH_SHORT,
+          duration: Toast.LENGTH_LONG,
           gravity: Toast.BOTTOM,
           backgroundColor: Colors.red,
         );
@@ -347,7 +347,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
           appBar: AppBar(
             title: Text(
               'Pencairan',
-              style: TextStyle(fontFamily: 'Montserrat Regular'),
+              style: TextStyle(fontFamily: 'Roboto-Regular'),
             ),
             actions: <Widget>[
               loadingScreen
@@ -364,7 +364,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
                           : Text(
                               'Update',
                               style: TextStyle(
-                                  fontFamily: 'Montserrat Regular',
+                                  fontFamily: 'Roboto-Regular',
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -566,7 +566,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Nama'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -581,7 +581,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Jabatan'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -603,7 +603,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -707,8 +707,8 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
                 children: [
                   Text(
                     titled,
-                    style: TextStyle(
-                        fontSize: 8.0, fontFamily: 'Montserrat Regular'),
+                    style:
+                        TextStyle(fontSize: 8.0, fontFamily: 'Roboto-Regular'),
                   ),
                   IconButton(
                     icon: Icon(Icons.add),
@@ -775,7 +775,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Nama Pensiun'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -790,7 +790,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Alamat'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -812,7 +812,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
       inputFormatters: <TextInputFormatter>[
         WhitelistingTextInputFormatter.digitsOnly
       ],
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -822,8 +822,8 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
             .map((value) => DropdownMenuItem(
                   child: Text(
                     value,
-                    style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                    style:
+                        TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12),
                   ),
                   value: value,
                 ))
@@ -836,8 +836,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
         decoration: InputDecoration(
             labelText: 'Jenis Pencairan',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12)),
         value: selectedJenisDebitur,
         isExpanded: true);
   }
@@ -848,8 +847,8 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
             .map((value) => DropdownMenuItem(
                   child: Text(
                     value,
-                    style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                    style:
+                        TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12),
                   ),
                   value: value,
                 ))
@@ -862,8 +861,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
         decoration: InputDecoration(
             labelText: 'Jenis Produk',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12)),
         value: selectedJenisProduk,
         isExpanded: true);
   }
@@ -874,8 +872,8 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
             .map((value) => DropdownMenuItem(
                   child: Text(
                     value,
-                    style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                    style:
+                        TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12),
                   ),
                   value: value,
                 ))
@@ -888,8 +886,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
         decoration: InputDecoration(
             labelText: 'Status Kredit',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12)),
         value: selectedStatusKredit,
         isExpanded: true);
   }
@@ -908,7 +905,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
                 initialDate: currentValue ?? DateTime.now(),
                 lastDate: DateTime(2100));
           },
-          style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular')),
+          style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular')),
     ]);
   }
 
@@ -926,7 +923,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
         inputFormatters: <TextInputFormatter>[
           WhitelistingTextInputFormatter.digitsOnly
         ],
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'));
+        style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'));
   }
 
   Widget fieldNomorPerjanjian() {
@@ -940,7 +937,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
       },
       decoration: InputDecoration(labelText: 'Nomor Perjanjian'),
       textCapitalization: TextCapitalization.characters,
-      style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'),
+      style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'),
     );
   }
 
@@ -950,8 +947,8 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
             .map((value) => DropdownMenuItem(
                   child: Text(
                     value['NAMA'],
-                    style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                    style:
+                        TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12),
                   ),
                   value: value['NAMA'].toString(),
                 ))
@@ -964,8 +961,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
         decoration: InputDecoration(
             labelText: 'Kantor Cabang',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12)),
         value: selectedJenisCabang,
         isExpanded: true);
   }
@@ -988,7 +984,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
         inputFormatters: <TextInputFormatter>[
           WhitelistingTextInputFormatter.digitsOnly
         ],
-        style: TextStyle(fontSize: 12, fontFamily: 'Montserrat Regular'));
+        style: TextStyle(fontSize: 12, fontFamily: 'Roboto-Regular'));
   }
 
   Widget fieldSalesInfo() {
@@ -997,8 +993,8 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
             .map((value) => DropdownMenuItem(
                   child: Text(
                     value,
-                    style: TextStyle(
-                        fontFamily: 'Montserrat Regular', fontSize: 12),
+                    style:
+                        TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12),
                   ),
                   value: value,
                 ))
@@ -1011,8 +1007,7 @@ class _DisbursmentEditScreen extends State<DisbursmentEditScreen> {
         decoration: InputDecoration(
             labelText: 'Informasi Sales',
             contentPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            labelStyle:
-                TextStyle(fontFamily: 'Montserrat Regular', fontSize: 12)),
+            labelStyle: TextStyle(fontFamily: 'Roboto-Regular', fontSize: 12)),
         value: selectedJenisInfo,
         isExpanded: true);
   }

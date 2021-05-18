@@ -344,7 +344,7 @@ class _FavoriteWidgetState extends State<Body> {
               "Selamat Datang",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Montserrat Regular',
+                fontFamily: 'Roboto-Regular',
                 color: Colors.black,
               ),
             ),
@@ -362,7 +362,7 @@ class _FavoriteWidgetState extends State<Body> {
                 decoration: InputDecoration(
                   //Add th Hint text here.
                   hintText: "Username",
-                  hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+                  hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -379,7 +379,7 @@ class _FavoriteWidgetState extends State<Body> {
                 decoration: InputDecoration(
                   //Add th Hint text here.
                   hintText: "Password",
-                  hintStyle: TextStyle(fontFamily: 'Montserrat Regular'),
+                  hintStyle: TextStyle(fontFamily: 'Roboto-Regular'),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -405,7 +405,7 @@ class _FavoriteWidgetState extends State<Body> {
                 title: Text(
                   'Simpan username',
                   style: TextStyle(
-                      color: Colors.blue, fontFamily: 'Montserrat Regular'),
+                      color: Colors.blue, fontFamily: 'Roboto-Regular'),
                 ),
                 value: checkedValue,
                 onChanged: (newValue) {
@@ -446,7 +446,7 @@ class _FavoriteWidgetState extends State<Body> {
                           'Masuk',
                           style: TextStyle(
                               color: Colors.white,
-                              fontFamily: 'Montserrat Regular',
+                              fontFamily: 'Roboto-Regular',
                               fontWeight: FontWeight.bold),
                         ),
                 ),
@@ -467,7 +467,7 @@ class _FavoriteWidgetState extends State<Body> {
                   child: Text(
                     'Lupa password ?',
                     style: TextStyle(
-                        color: Colors.blue, fontFamily: 'Montserrat Regular'),
+                        color: Colors.blue, fontFamily: 'Roboto-Regular'),
                   ),
                 ),
               ),

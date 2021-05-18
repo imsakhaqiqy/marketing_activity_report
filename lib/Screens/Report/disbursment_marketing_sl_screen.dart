@@ -215,19 +215,85 @@ class _DisbursmentMarketingScreen extends State<DisbursmentMarketingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var date = new DateTime.now();
+    String bulan = namaBulan(date.month.toString());
+    String tahun = date.year.toString();
+    String periode = bulan + ' ' + tahun;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Pencairan - ' + widget.nama,
+          'Pencairan',
           style: fontFamily,
         ),
       ),
       //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
       //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
       body: Container(
-        color: Colors.white,
-        child: _buildList(),
-      ),
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.black12,
+                    ),
+                  ),
+                ),
+                padding: EdgeInsets.all(8),
+                width: double.infinity,
+                child: Column(
+                  children: <Widget>[
+                    fieldDebitur('Nama Sales', widget.nama, 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur('Periode', periode, 120.0),
+                    SizedBox(height: 10),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: _buildList(),
+              ),
+            ],
+          )),
+    );
+  }
+
+  Widget fieldDebitur(title, value, size) {
+    return Row(
+      children: <Widget>[
+        Container(
+          width: size,
+          decoration: new BoxDecoration(
+            color: Colors.indigoAccent,
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Text(
+              title,
+              style:
+                  TextStyle(fontFamily: 'Roboto-Regular', color: Colors.white),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+                width: MediaQuery.of(context).size.width * 0.50,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      value,
+                      style: TextStyle(fontFamily: 'Roboto-Regular'),
+                    ),
+                  ],
+                ))),
+      ],
     );
   }
 
@@ -242,137 +308,137 @@ class _DisbursmentMarketingScreen extends State<DisbursmentMarketingScreen> {
             itemCount: _users.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                    color: Colors.grey,
-                  ))),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => DisbursmentViewScreen(
-                              _debitur(_users[index]),
-                              _alamat(_users[index]),
-                              _telepon(_users[index]),
-                              _tanggalAkad(_users[index]),
-                              _nomorAkad(_users[index]),
-                              _noJanji(_users[index]),
-                              _plafond(_users[index]),
-                              _jenisPencairan(_users[index]),
-                              _jenisProduk(_users[index]),
-                              _cabang(_users[index]),
-                              _infoSales(_users[index]),
-                              _foto1(_users[index]),
-                              _foto2(_users[index]),
-                              _foto3(_users[index]),
-                              _tanggalPencairan(_users[index]),
-                              _jamPencairan(_users[index]),
-                              _namaTl(_users[index]),
-                              _jabatanTl(_users[index]),
-                              _teleponTl(_users[index]),
-                              _namaSales(_users[index]),
-                              _cabang(_users[index]),
-                              _infoSales(_users[index]),
-                              _statusPipeline(_users[index]),
-                              _statusKredit(_users[index]),
-                              _pengelolaPensiun(_users[index]),
-                              _bankTakeover(_users[index]),
-                              _tanggalPenyerahan(_users[index]),
-                              _namaPenerima(_users[index]),
-                              _teleponPenerima(_users[index]),
-                              _tanggalPipeline(_users[index]),
-                              _tempatLahir(_users[index]),
-                              _tanggalLahir(_users[index]),
-                              _jenisKelamin(_users[index]),
-                              _noKtp(_users[index]),
-                              _npwp(_users[index]),
-                              _kodeProduk(_users[index]))));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListTile(
-                        title: Text(
-                          _debitur(_users[index]),
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Montserrat Regular'),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Tooltip(
-                                  message: 'Plafond',
-                                  child: Icon(
-                                    Icons.monetization_on_outlined,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  '${formatRupiah(_plafond(_users[index]))}',
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat Regular'),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Tooltip(
-                                  message: 'Tanggal Pencairan',
-                                  child: Icon(
-                                    Icons.date_range_outlined,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  '${_tanggalPencairan(_users[index])}',
-                                  style: fontFamily,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Tooltip(
-                                  message: 'Status Pencairan',
-                                  child: Icon(
-                                    Icons.info,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  messageStatus(
-                                    '${_statusPencairan(_users[index])}',
-                                  ),
-                                  style: fontFamily,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        trailing: Text(''),
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                  color: Colors.black12,
+                ))),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => DisbursmentViewScreen(
+                            _debitur(_users[index]),
+                            _alamat(_users[index]),
+                            _telepon(_users[index]),
+                            _tanggalAkad(_users[index]),
+                            _nomorAkad(_users[index]),
+                            _noJanji(_users[index]),
+                            _plafond(_users[index]),
+                            _jenisPencairan(_users[index]),
+                            _jenisProduk(_users[index]),
+                            _cabang(_users[index]),
+                            _infoSales(_users[index]),
+                            _foto1(_users[index]),
+                            _foto2(_users[index]),
+                            _foto3(_users[index]),
+                            _tanggalPencairan(_users[index]),
+                            _jamPencairan(_users[index]),
+                            _namaTl(_users[index]),
+                            _jabatanTl(_users[index]),
+                            _teleponTl(_users[index]),
+                            _namaSales(_users[index]),
+                            _cabang(_users[index]),
+                            _infoSales(_users[index]),
+                            _statusPipeline(_users[index]),
+                            _statusKredit(_users[index]),
+                            _pengelolaPensiun(_users[index]),
+                            _bankTakeover(_users[index]),
+                            _tanggalPenyerahan(_users[index]),
+                            _namaPenerima(_users[index]),
+                            _teleponPenerima(_users[index]),
+                            _tanggalPipeline(_users[index]),
+                            _tempatLahir(_users[index]),
+                            _tanggalLahir(_users[index]),
+                            _jenisKelamin(_users[index]),
+                            _noKtp(_users[index]),
+                            _npwp(_users[index]),
+                            _kodeProduk(_users[index]))));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      title: Text(
+                        _debitur(_users[index]),
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Roboto-Regular'),
                       ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Tooltip(
+                                message: 'Plafond',
+                                child: Icon(
+                                  Icons.monetization_on_outlined,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                '${formatRupiah(_plafond(_users[index]))}',
+                                style: TextStyle(fontFamily: 'Roboto-Regular'),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Tooltip(
+                                message: 'Tanggal Pencairan',
+                                child: Icon(
+                                  Icons.date_range_outlined,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                '${_tanggalPencairan(_users[index])}',
+                                style: fontFamily,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Tooltip(
+                                message: 'Status Pencairan',
+                                child: Icon(
+                                  Icons.info,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                messageStatus(
+                                  '${_statusPencairan(_users[index])}',
+                                ),
+                                style: fontFamily,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      trailing: Text(''),
                     ),
-                  ));
+                  ),
+                ),
+              );
             },
           ),
           onRefresh: _getData,
@@ -394,7 +460,7 @@ class _DisbursmentMarketingScreen extends State<DisbursmentMarketingScreen> {
             Text(
               'pencairan belum tersedia',
               style: TextStyle(
-                  fontFamily: "Montserrat Regular",
+                  fontFamily: "Roboto-Regular",
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),

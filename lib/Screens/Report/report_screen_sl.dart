@@ -76,7 +76,7 @@ class _ReportScreenSl extends State<ReportScreenSl> {
                                         child: Text(
                                           'Laporan Interaksi',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 16.0),
                                         ),
@@ -131,7 +131,7 @@ class _ReportScreenSl extends State<ReportScreenSl> {
                                         child: Text(
                                           'Laporan Pencairan',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 16.0),
                                         ),
@@ -185,7 +185,7 @@ class _ReportScreenSl extends State<ReportScreenSl> {
                                         child: Text(
                                           'Tim Marketing',
                                           style: TextStyle(
-                                              fontFamily: 'Montserrat Regular',
+                                              fontFamily: 'Roboto-Regular',
                                               color: Colors.black54,
                                               fontSize: 16.0),
                                         ),
