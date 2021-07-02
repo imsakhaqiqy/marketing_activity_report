@@ -178,7 +178,7 @@ class _ReportMarketingSlScreen extends State<ReportMarketingSlScreen> {
 
   bool _isLoading = false;
   final String apiUrl =
-      'https://www.nabasa.co.id/api_marsit_v1/tes.php/getMarketingSlReport';
+      'https://www.nabasa.co.id/api_marsit_v1/index.php/getMarketingSlReport';
   List<dynamic> _users = [];
 
   void fetchUsers() async {
@@ -244,20 +244,22 @@ class _ReportMarketingSlScreen extends State<ReportMarketingSlScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          'Tim Marketing',
-          style: fontFamily,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(
+            'Tim Marketing',
+            style: fontFamily,
+          ),
+          actions: <Widget>[],
         ),
-        actions: <Widget>[],
-      ),
-      //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
-      //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
-      body: Container(
-        color: Colors.white,
-        child: _buildList(),
+        //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
+        //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
+        body: Container(
+          color: Colors.white,
+          child: _buildList(),
+        ),
       ),
     );
   }

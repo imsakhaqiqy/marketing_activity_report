@@ -5,8 +5,6 @@ import 'package:kreditpensiun_apps/Screens/Interaction/interaction_add.dart';
 import 'package:kreditpensiun_apps/Screens/Interaction/interaction_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Planning/planning_add_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Planning/planning_screen.dart';
-import 'package:kreditpensiun_apps/Screens/provider/planning_interaction_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:toast/toast.dart';
@@ -131,51 +129,53 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
     String bulan = namaBulan(date.month.toString());
     String tahun = date.year.toString();
 
-    return Scaffold(
-      backgroundColor: grey,
-      appBar: AppBar(
-        title: Text(
-          'Rencana Interaksi',
-          style: fontFamily,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => InteractionScreen(
-                            widget.username, widget.nik, widget.hakAkses)));
-              },
-              child: Tooltip(
-                message: 'Daftar Interaksi Periode $bulan $tahun',
-                child: Icon(Icons.directions_walk),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: grey,
+        appBar: AppBar(
+          title: Text(
+            'Rencana Interaksi',
+            style: fontFamily,
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => InteractionScreen(
+                              widget.username, widget.nik, widget.hakAkses)));
+                },
+                child: Tooltip(
+                  message: 'Daftar Interaksi Periode $bulan $tahun',
+                  child: Icon(Icons.directions_walk),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-      body: Container(
-        color: grey,
-        child: _buildList(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Tambah rencana interaksi hari ini',
-        backgroundColor: kPrimaryColor,
-        child: Text('+',
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 30.0)),
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      PlanningAddScreen(widget.username, widget.nik)));
-        },
+          ],
+        ),
+        body: Container(
+          color: Colors.white,
+          child: _buildList(),
+        ),
+        floatingActionButton: FloatingActionButton(
+          tooltip: 'Tambah rencana interaksi hari ini',
+          backgroundColor: kPrimaryColor,
+          child: Text('+',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30.0)),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        PlanningAddScreen(widget.username, widget.nik)));
+          },
+        ),
       ),
     );
   }
@@ -186,9 +186,10 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
     String tahun = date.year.toString();
     String hari = date.day.toString();
     var cardTextStyle = TextStyle(
-        fontFamily: "Roboto-Regular",
-        fontSize: 14,
-        color: Color.fromRGBO(63, 63, 63, 1));
+      fontFamily: "Roboto-Regular",
+      fontSize: 14,
+      color: Colors.white,
+    );
     if (_isLoading == true) {
       return Center(
           child: CircularProgressIndicator(
@@ -199,20 +200,31 @@ class _PlanningInteractionScreen extends State<PlanningInteractionScreen> {
         return RefreshIndicator(
           child: Column(
             children: <Widget>[
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                child:
-                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                  ListTile(
-                    leading: Icon(Icons.date_range, size: 50),
-                    title: Text(
-                      'Jadwal Interaksi Hari ini $hari-$bulan-$tahun',
-                      style: cardTextStyle,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  color: Colors.blueAccent,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  child:
+                      Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                    ListTile(
+                      leading: Icon(
+                        Icons.date_range,
+                        size: 50,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'Jadwal Interaksi Hari ini $hari-$bulan-$tahun',
+                        style: cardTextStyle,
+                      ),
+                      subtitle: Text(
+                        'Selamat bekerja, sukses selalu',
+                        style: cardTextStyle,
+                      ),
                     ),
-                    subtitle: Text('Selamat bekerja, sukses selalu'),
-                  ),
-                ]),
+                  ]),
+                ),
               ),
               Expanded(
                 child: ListView.builder(

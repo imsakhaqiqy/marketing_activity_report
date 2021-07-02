@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kreditpensiun_apps/Screens/Aplikasi/aplikasi_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Approval/approval_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Home/home_screen.dart';
@@ -41,14 +42,16 @@ class _LandingMrScreenState extends State<LandingMrScreen> {
     print(widget.income.toString());
     _container = [
       new HomeScreen(
-          widget.username,
-          widget.nik,
-          widget.income,
-          widget.greeting,
-          widget.hakAkses,
-          widget.personalData[0],
-          widget.personalData[24],
-          widget.diamond),
+        widget.username,
+        widget.nik,
+        widget.income,
+        widget.greeting,
+        widget.hakAkses,
+        widget.personalData[0],
+        widget.personalData[24],
+        widget.diamond,
+        widget.personalData[37],
+      ),
       new AplikasiScreen(),
       new AccountScreen(
           widget.username,
@@ -60,9 +63,12 @@ class _LandingMrScreenState extends State<LandingMrScreen> {
           widget.hakAkses,
           widget.diamond),
     ];
-    return new Scaffold(
-      body: _container.elementAt(_bottomNavCurrentIndex),
-      bottomNavigationBar: _buildBottomNavigation(),
+
+    return new SafeArea(
+      child: Scaffold(
+        body: _container.elementAt(_bottomNavCurrentIndex),
+        bottomNavigationBar: _buildBottomNavigation(),
+      ),
     );
   }
 

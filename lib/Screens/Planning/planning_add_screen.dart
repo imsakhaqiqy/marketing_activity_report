@@ -34,7 +34,7 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
   String teleponPensiun;
   String kantorBayarPensiun;
   String instansiPensiun;
-  var personalData = new List(34);
+  var personalData = new List(38);
 
   final namaPensiunController = TextEditingController();
   final alamatPensiunController = TextEditingController();
@@ -102,6 +102,10 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
               personalData[33] = message['diamond'];
+              personalData[34] = message['total_pencairan'];
+              personalData[35] = message['total_interaksi'];
+              personalData[36] = message['rating'];
+              personalData[37] = message['tgl_cut_off'];
             });
             if (message['hak_akses'] == '5') {
               Navigator.of(context).push(MaterialPageRoute(
@@ -215,61 +219,73 @@ class _PlanningAddScreen extends State<PlanningAddScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text(
-          'Rencana Interaksi OTS',
-          style: TextStyle(fontFamily: 'Roboto-Regular'),
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: Text(
+            'Rencana Interaksi OTS',
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: visible
+                  ? CircularProgressIndicator(
+                      //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: Colors.white),
+                      padding: EdgeInsets.all(2.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Simpan',
+                          style: TextStyle(
+                              fontFamily: 'Roboto-Regular',
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+              onPressed: () {
+                if (formKey.currentState.validate()) {
+                  savePlanning();
+                }
+              },
+            )
+          ],
         ),
-        actions: <Widget>[
-          FlatButton(
-            child: visible
-                ? CircularProgressIndicator(
-                    //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                  )
-                : Text(
-                    'Simpan',
-                    style: TextStyle(
-                        fontFamily: 'Roboto-Regular',
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-            onPressed: () {
-              if (formKey.currentState.validate()) {
-                savePlanning();
-              }
-            },
-          )
-        ],
-      ),
-      body: Container(
-        padding:
-            EdgeInsets.only(left: 16.0, right: 16.0, top: 0.0, bottom: 0.0),
-        child: Form(
-          key: formKey,
-          child: ListView(physics: ClampingScrollPhysics(), children: <Widget>[
-            SizedBox(height: size.height * 0.02),
-            fieldNama(),
-            SizedBox(height: size.height * 0.02),
-            fieldAlamat(),
-            SizedBox(height: size.height * 0.02),
-            fieldKelurahan(),
-            SizedBox(height: size.height * 0.02),
-            fieldKecamatan(),
-            SizedBox(height: size.height * 0.02),
-            fieldKotakab(),
-            SizedBox(height: size.height * 0.02),
-            fieldPropinsi(),
-            SizedBox(height: size.height * 0.02),
-            fieldTelepon(),
-            SizedBox(height: size.height * 0.02),
-            fieldNamaKantor(),
-            SizedBox(height: size.height * 0.02),
-            fieldPenerbitSkep(),
-            SizedBox(height: size.height * 0.02),
-          ]),
+        body: Container(
+          padding:
+              EdgeInsets.only(left: 16.0, right: 16.0, top: 0.0, bottom: 0.0),
+          child: Form(
+            key: formKey,
+            child:
+                ListView(physics: ClampingScrollPhysics(), children: <Widget>[
+              SizedBox(height: size.height * 0.02),
+              fieldNama(),
+              SizedBox(height: size.height * 0.02),
+              fieldAlamat(),
+              SizedBox(height: size.height * 0.02),
+              fieldKelurahan(),
+              SizedBox(height: size.height * 0.02),
+              fieldKecamatan(),
+              SizedBox(height: size.height * 0.02),
+              fieldKotakab(),
+              SizedBox(height: size.height * 0.02),
+              fieldPropinsi(),
+              SizedBox(height: size.height * 0.02),
+              fieldTelepon(),
+              SizedBox(height: size.height * 0.02),
+              fieldNamaKantor(),
+              SizedBox(height: size.height * 0.02),
+              fieldPenerbitSkep(),
+              SizedBox(height: size.height * 0.02),
+            ]),
+          ),
         ),
       ),
     );

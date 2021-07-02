@@ -23,112 +23,116 @@ class _HistoryIncomeScreenScreen extends State<HistoryIncomeScreen> {
         fontFamily: "Roboto-Regular",
         fontSize: 14,
         color: Color.fromRGBO(63, 63, 63, 1));
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Riwayat Pendapatan',
-          style: fontFamily,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Riwayat Pendapatan',
+            style: fontFamily,
+          ),
         ),
-      ),
-      //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
-      //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
-      body: RefreshIndicator(
-          onRefresh: () =>
-              Provider.of<HistoryIncomeProvider>(context, listen: false)
-                  .getHistoryIncome(HistoryIncomeItem(widget.nik)),
-          color: Colors.red,
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: FutureBuilder(
-              future: Provider.of<HistoryIncomeProvider>(context, listen: false)
-                  .getHistoryIncome(HistoryIncomeItem(widget.nik)),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(kPrimaryColor)),
-                  );
-                }
-                return Consumer<HistoryIncomeProvider>(
-                  builder: (context, data, _) {
-                    print(data.dataHistoryIncome.length);
-                    if (data.dataHistoryIncome.length == 0) {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              ListTile(
-                                leading: Icon(Icons.hourglass_empty, size: 50),
-                                title: Text(
-                                  'RIWAYAT PENDAPATAN TIDAK DITEMUKAN',
-                                  style: cardTextStyle,
-                                ),
-                                subtitle: Text(''),
-                              ),
-                            ]),
-                      );
-                    } else {
-                      return ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemCount: data.dataHistoryIncome.length,
-                          itemBuilder: (context, i) {
-                            String namaNasabah = '';
-                            if (data.dataHistoryIncome[i].namaNasabah.length >
-                                20) {
-                              namaNasabah = data
-                                  .dataHistoryIncome[i].namaNasabah
-                                  .substring(0, 20);
-                            } else {
-                              namaNasabah =
-                                  data.dataHistoryIncome[i].namaNasabah;
-                            }
-                            return Card(
-                                elevation: 8,
-                                child: InkWell(
-                                  onTap: () {},
-                                  child: ListTile(
-                                    title: Row(
-                                      children: [
-                                        Icon(
-                                          iconStatus(
-                                              '${data.dataHistoryIncome[i].status}'),
-                                          color: colorStatus(
-                                              '${data.dataHistoryIncome[i].status}'),
-                                        ),
-                                        SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        Text(
-                                          namaNasabah,
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Roboto-Regular'),
-                                        ),
-                                      ],
-                                    ),
-                                    subtitle: Text(
-                                      'Tanggal : ${data.dataHistoryIncome[i].tglIncome}',
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.italic,
-                                          fontFamily: 'Roboto-Regular'),
-                                    ),
-                                    trailing: Text(
-                                      '${formatRupiah(data.dataHistoryIncome[i].plafond)}',
-                                      style: fontFamily,
-                                    ),
+        //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
+        //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
+        body: RefreshIndicator(
+            onRefresh: () =>
+                Provider.of<HistoryIncomeProvider>(context, listen: false)
+                    .getHistoryIncome(HistoryIncomeItem(widget.nik)),
+            color: Colors.red,
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: FutureBuilder(
+                future:
+                    Provider.of<HistoryIncomeProvider>(context, listen: false)
+                        .getHistoryIncome(HistoryIncomeItem(widget.nik)),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(kPrimaryColor)),
+                    );
+                  }
+                  return Consumer<HistoryIncomeProvider>(
+                    builder: (context, data, _) {
+                      print(data.dataHistoryIncome.length);
+                      if (data.dataHistoryIncome.length == 0) {
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                ListTile(
+                                  leading:
+                                      Icon(Icons.hourglass_empty, size: 50),
+                                  title: Text(
+                                    'RIWAYAT PENDAPATAN TIDAK DITEMUKAN',
+                                    style: cardTextStyle,
                                   ),
-                                ));
-                          });
-                    }
-                  },
-                );
-              },
-            ),
-          )),
+                                  subtitle: Text(''),
+                                ),
+                              ]),
+                        );
+                      } else {
+                        return ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: data.dataHistoryIncome.length,
+                            itemBuilder: (context, i) {
+                              String namaNasabah = '';
+                              if (data.dataHistoryIncome[i].namaNasabah.length >
+                                  20) {
+                                namaNasabah = data
+                                    .dataHistoryIncome[i].namaNasabah
+                                    .substring(0, 20);
+                              } else {
+                                namaNasabah =
+                                    data.dataHistoryIncome[i].namaNasabah;
+                              }
+                              return Card(
+                                  elevation: 8,
+                                  child: InkWell(
+                                    onTap: () {},
+                                    child: ListTile(
+                                      title: Row(
+                                        children: [
+                                          Icon(
+                                            iconStatus(
+                                                '${data.dataHistoryIncome[i].status}'),
+                                            color: colorStatus(
+                                                '${data.dataHistoryIncome[i].status}'),
+                                          ),
+                                          SizedBox(
+                                            width: 10.0,
+                                          ),
+                                          Text(
+                                            namaNasabah,
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'Roboto-Regular'),
+                                          ),
+                                        ],
+                                      ),
+                                      subtitle: Text(
+                                        'Tanggal : ${data.dataHistoryIncome[i].tglIncome}',
+                                        style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            fontFamily: 'Roboto-Regular'),
+                                      ),
+                                      trailing: Text(
+                                        '${formatRupiah(data.dataHistoryIncome[i].plafond)}',
+                                        style: fontFamily,
+                                      ),
+                                    ),
+                                  ));
+                            });
+                      }
+                    },
+                  );
+                },
+              ),
+            )),
+      ),
     );
   }
 

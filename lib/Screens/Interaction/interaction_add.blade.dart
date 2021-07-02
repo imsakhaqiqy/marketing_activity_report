@@ -304,139 +304,141 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                 )
               : Navigator.of(context).pop();
         },
-        child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            title: Text(
-              'Interaksi',
-              style: TextStyle(fontFamily: 'Roboto-Regular'),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                  child: _loading
-                      ? CircularProgressIndicator(
-                          //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        )
-                      : Text(
-                          'Simpan',
-                          style: TextStyle(
-                              fontFamily: 'Roboto-Regular',
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                  onPressed: () {
-                    if (formKey.currentState.validate()) {
-                      if (selectedRencanaPinjaman == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih rencana pinjaman...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedSalesFeedback == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih sales feedback...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (tmpFile == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih foto selfie/KTP...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (otpController.text != kodeOtp) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content:
-                              Text('Mohon isi kode verifikasi dengan benar...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else {
-                        setState(() {
-                          _loading = true;
-                        });
-                        startUpload();
-                      }
-                    }
-
-                    //_showProgressDialog(context);
-                    //saveInteraction();
-                  })
-            ],
-          ),
-          body: Container(
-              padding: EdgeInsets.only(
-                  left: 16.0, right: 16.0, top: 0.0, bottom: 0.0),
-              child: Form(
-                key: formKey,
-                child: ListView(
-                    physics: ClampingScrollPhysics(),
-                    children: <Widget>[
-                      fieldDebitur(),
-                      fieldAlamat(),
-                      fieldEmail(),
-                      fieldTelepon(),
-                      Row(children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.50,
-                          child: fieldOTP(),
-                        ),
-                        Container(
-                            padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                            child: Center(
-                              child: _loadingOtp
-                                  ? SizedBox(
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                                Colors.red),
-                                      ),
-                                      height: 20.0,
-                                      width: 20.0,
-                                    )
-                                  : FlatButton(
-                                      color: Colors.red,
-                                      child: Text("Kode Verifikasi",
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              fontSize: 12.0,
-                                              color: Colors.white)),
-                                      onPressed: () {
-                                        requestOtp();
-                                      },
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0),
-                                      ),
-                                    ),
-                            ))
-                      ]),
-                      fieldRencanaPinjaman(),
-                      fieldSalesFeedback(),
-                      _decideImageView(),
-                    ]),
-              )),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              _loading
-                  ? showDialog(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: Text(
-                            'Mohon menunggu, sedang proses penyimpanan interaksi...'),
-                        //content: Text('We hate to see you leave...'),
-                        actions: <Widget>[
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('OK'),
+        child: SafeArea(
+          child: Scaffold(
+            key: _scaffoldKey,
+            appBar: AppBar(
+              title: Text(
+                'Interaksi',
+                style: TextStyle(fontFamily: 'Roboto-Regular'),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                    child: _loading
+                        ? CircularProgressIndicator(
+                            //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
+                          )
+                        : Text(
+                            'Simpan',
+                            style: TextStyle(
+                                fontFamily: 'Roboto-Regular',
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
-                        ],
-                      ),
-                    )
-                  : _showChoiceDialog(context);
-            },
-            backgroundColor: kPrimaryColor,
-            child: new Icon(Icons.camera_alt),
+                    onPressed: () {
+                      if (formKey.currentState.validate()) {
+                        if (selectedRencanaPinjaman == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih rencana pinjaman...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (selectedSalesFeedback == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih sales feedback...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (tmpFile == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih foto selfie/KTP...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (otpController.text != kodeOtp) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text(
+                                'Mohon isi kode verifikasi dengan benar...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else {
+                          setState(() {
+                            _loading = true;
+                          });
+                          startUpload();
+                        }
+                      }
+
+                      //_showProgressDialog(context);
+                      //saveInteraction();
+                    })
+              ],
+            ),
+            body: Container(
+                padding: EdgeInsets.only(
+                    left: 16.0, right: 16.0, top: 0.0, bottom: 0.0),
+                child: Form(
+                  key: formKey,
+                  child: ListView(
+                      physics: ClampingScrollPhysics(),
+                      children: <Widget>[
+                        fieldDebitur(),
+                        fieldAlamat(),
+                        fieldEmail(),
+                        fieldTelepon(),
+                        Row(children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.50,
+                            child: fieldOTP(),
+                          ),
+                          Container(
+                              padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                              child: Center(
+                                child: _loadingOtp
+                                    ? SizedBox(
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                                  Colors.red),
+                                        ),
+                                        height: 20.0,
+                                        width: 20.0,
+                                      )
+                                    : FlatButton(
+                                        color: Colors.red,
+                                        child: Text("Kode Verifikasi",
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                fontSize: 12.0,
+                                                color: Colors.white)),
+                                        onPressed: () {
+                                          requestOtp();
+                                        },
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                      ),
+                              ))
+                        ]),
+                        fieldRencanaPinjaman(),
+                        fieldSalesFeedback(),
+                        _decideImageView(),
+                      ]),
+                )),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                _loading
+                    ? showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: Text(
+                              'Mohon menunggu, sedang proses penyimpanan interaksi...'),
+                          //content: Text('We hate to see you leave...'),
+                          actions: <Widget>[
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('OK'),
+                            ),
+                          ],
+                        ),
+                      )
+                    : _showChoiceDialog(context);
+              },
+              backgroundColor: kPrimaryColor,
+              child: new Icon(Icons.camera_alt),
+            ),
           ),
         ));
   }

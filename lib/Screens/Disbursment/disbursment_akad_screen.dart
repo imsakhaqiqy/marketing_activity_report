@@ -12,6 +12,7 @@ import 'package:kreditpensiun_apps/Screens/provider/disbursment_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
+import 'package:toast/toast.dart';
 
 import '../../constants.dart';
 
@@ -212,18 +213,37 @@ class _DisbursmentAkadScreen extends State<DisbursmentAkadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          'Akad Kredit',
-          style: fontFamily,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(
+            'Akad Kredit',
+            style: fontFamily,
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.info_outline,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Toast.show(
+                  'Akad Kredit ' + bulan + ' ' + tahun,
+                  context,
+                  duration: Toast.LENGTH_LONG,
+                  gravity: Toast.CENTER,
+                  backgroundColor: Colors.blueAccent,
+                );
+              },
+            ),
+          ],
         ),
-      ),
-      //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
-      //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
-      body: Container(
-        child: _buildList(),
+        //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
+        //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
+        body: Container(
+          child: _buildList(),
+        ),
       ),
     );
   }

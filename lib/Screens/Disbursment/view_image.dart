@@ -20,21 +20,23 @@ class _ImageView extends State<ImageView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(
-            widget.title,
-            style: TextStyle(
-              fontFamily: 'Roboto-Regular',
-              color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: Text(
+              widget.title,
+              style: TextStyle(
+                fontFamily: 'Roboto-Regular',
+                color: Colors.white,
+              ),
             ),
           ),
-        ),
-        body: Container(
-          child: PhotoView(
-            imageProvider: NetworkImage(widget.path),
-          ),
-        ));
+          body: Container(
+            child: PhotoView(
+              imageProvider: NetworkImage(widget.path),
+            ),
+          )),
+    );
   }
 }

@@ -2,12 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:kreditpensiun_apps/Screens/Interaction/interaction_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Interaction/planning_interaction_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
 import 'package:kreditpensiun_apps/constants.dart';
@@ -93,7 +89,7 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
   bool _loading = false;
   bool _loadingOtp = false;
   var hasil;
-  var personalData = new List(34);
+  var personalData = new List(38);
 
   final namaPensiunController = TextEditingController();
   final alamatController = TextEditingController();
@@ -178,6 +174,10 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
               personalData[33] = message['diamond'];
+              personalData[34] = message['total_pencairan'];
+              personalData[35] = message['total_interaksi'];
+              personalData[36] = message['rating'];
+              personalData[37] = message['tgl_cut_off'];
             });
             if (message['hak_akses'] == '5') {
               Navigator.of(context).push(MaterialPageRoute(
@@ -388,8 +388,8 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
   Widget _decideImageView() {
     if (tmpFile == null) {
       return Container(
-          width: 250,
-          height: 200,
+          width: 100,
+          height: 100,
           decoration: BoxDecoration(
             color: Colors.white70,
             border: Border.all(
@@ -430,21 +430,32 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                 )
               : Navigator.of(context).pop();
         },
-        child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            title: Text(
-              'Interaksi',
-              style: TextStyle(fontFamily: 'Roboto-Regular'),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                  child: Text(
-                    'Simpan',
-                    style: TextStyle(
-                        fontFamily: 'Roboto-Regular',
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: grey,
+            key: _scaffoldKey,
+            appBar: AppBar(
+              title: Text(
+                'Interaksi',
+                style: TextStyle(fontFamily: 'Roboto-Regular'),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color: Colors.white),
+                    padding: EdgeInsets.all(2.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Simpan',
+                        style: TextStyle(
+                            fontFamily: 'Roboto-Regular',
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
                   onPressed: () {
                     if (formKey.currentState.validate()) {
@@ -500,82 +511,88 @@ class _InteractionAddScreen extends State<InteractionAddScreen> {
                         startUpload();
                       }
                     }
-
-                    //_showProgressDialog(context);
-                    //saveInteraction();
-                  })
-            ],
-          ),
-          body: Container(
-              padding: EdgeInsets.only(
-                  left: 16.0, right: 16.0, top: 0.0, bottom: 0.0),
-              child: Form(
-                key: formKey,
-                child: ListView(
-                    physics: ClampingScrollPhysics(),
-                    children: <Widget>[
-                      fieldDebitur(),
-                      fieldAlamat(),
-                      fieldKelurahan(),
-                      fieldKecamatan(),
-                      fieldKotakab(),
-                      fieldPropinsi(),
-                      fieldEmail(),
-                      fieldTelepon(),
-                      Row(children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          child: fieldOTP(),
-                        ),
-                        Container(
-                            padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                            child: Center(
-                              child: _loadingOtp
-                                  ? SizedBox(
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                                Colors.red),
-                                      ),
-                                      height: 20.0,
-                                      width: 20.0,
-                                    )
-                                  : FlatButton(
-                                      color: kPrimaryColor,
-                                      child: Text("Kirim Kode Verifikasi",
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              fontSize: 12.0,
-                                              color: Colors.white)),
-                                      onPressed: () {
-                                        requestOtp();
-                                      },
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                    ),
-                            ))
-                      ]),
-                      fieldRencanaPinjaman(),
-                      fieldSalesFeedback(),
-                      _decideImageView(),
-                    ]),
-              )),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              _loading
-                  ? Toast.show(
-                      'Mohon menunggu, sedang proses penyimpanan interaksi',
-                      context,
-                      duration: Toast.LENGTH_LONG,
-                      gravity: Toast.BOTTOM,
-                      backgroundColor: Colors.red,
-                    )
-                  : _showChoiceDialog(context);
-            },
-            backgroundColor: kPrimaryColor,
-            child: new Icon(Icons.camera_alt),
+                  },
+                )
+              ],
+            ),
+            body: Padding(
+              padding: const EdgeInsets.only(
+                  left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
+              child: Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white),
+                  child: Form(
+                    key: formKey,
+                    child: ListView(
+                        physics: ClampingScrollPhysics(),
+                        children: <Widget>[
+                          fieldDebitur(),
+                          fieldAlamat(),
+                          fieldKelurahan(),
+                          fieldKecamatan(),
+                          fieldKotakab(),
+                          fieldPropinsi(),
+                          fieldEmail(),
+                          fieldTelepon(),
+                          Row(children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              child: fieldOTP(),
+                            ),
+                            Container(
+                                padding:
+                                    EdgeInsets.only(left: 16.0, right: 16.0),
+                                child: Center(
+                                  child: _loadingOtp
+                                      ? SizedBox(
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                                    Colors.red),
+                                          ),
+                                          height: 20.0,
+                                          width: 20.0,
+                                        )
+                                      : FlatButton(
+                                          color: kPrimaryColor,
+                                          child: Text("Kirim Kode Verifikasi",
+                                              style: TextStyle(
+                                                  fontFamily: 'Roboto-Regular',
+                                                  fontSize: 12.0,
+                                                  color: Colors.white)),
+                                          onPressed: () {
+                                            requestOtp();
+                                          },
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                        ),
+                                ))
+                          ]),
+                          fieldRencanaPinjaman(),
+                          fieldSalesFeedback(),
+                          _decideImageView(),
+                        ]),
+                  )),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                _loading
+                    ? Toast.show(
+                        'Mohon menunggu, sedang proses penyimpanan interaksi',
+                        context,
+                        duration: Toast.LENGTH_LONG,
+                        gravity: Toast.BOTTOM,
+                        backgroundColor: Colors.red,
+                      )
+                    : _showChoiceDialog(context);
+              },
+              backgroundColor: kPrimaryColor,
+              child: new Icon(Icons.camera_alt),
+            ),
           ),
         ));
   }

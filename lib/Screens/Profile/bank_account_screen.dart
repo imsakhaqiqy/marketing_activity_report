@@ -10,28 +10,30 @@ class BankAccountDataScreen extends StatefulWidget {
 class _BankAccountDataScreenState extends State<BankAccountDataScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Rekening',
-            style: TextStyle(fontFamily: 'Roboto-Regular'),
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Rekening',
+              style: TextStyle(fontFamily: 'Roboto-Regular'),
+            ),
           ),
-        ),
-        body: Container(
-            color: Color.fromARGB(255, 242, 242, 242),
-            child: ListView(
-              children: <Widget>[
-                noRekeningField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                namaBankField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                namaRekeningField(),
-              ],
-            )));
+          body: Container(
+              color: Color.fromARGB(255, 242, 242, 242),
+              child: ListView(
+                children: <Widget>[
+                  noRekeningField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  namaBankField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  namaRekeningField(),
+                ],
+              ))),
+    );
   }
 
   Widget noRekeningField() {

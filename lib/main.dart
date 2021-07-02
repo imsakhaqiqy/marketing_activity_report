@@ -1,7 +1,5 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:kreditpensiun_apps/Screens/launcher/launcher_screen.dart';
 import 'package:kreditpensiun_apps/Screens/provider/approval_disbursment_agen_provider.dart';
@@ -21,11 +19,10 @@ import 'package:kreditpensiun_apps/Screens/provider/planning_interaction_provide
 import 'package:kreditpensiun_apps/Screens/provider/report_disbursment_sl_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/report_interaction_sl_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/report_marketing_sl_provider.dart';
+import 'package:kreditpensiun_apps/Screens/provider/report_pipeline_sl_provider.dart';
 import 'package:kreditpensiun_apps/Screens/provider/simulation_kp74_provider.dart';
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:kreditpensiun_apps/Screens/provider/simulation_provider.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import 'Screens/provider/disbursment_provider.dart';
@@ -36,6 +33,11 @@ import 'Screens/provider/report_interaction_provider.dart';
 import 'Screens/provider/berita_provider.dart';
 
 void main() async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: kPrimaryColor, // status bar color
+    statusBarBrightness: Brightness.light, //status bar brigtness
+    statusBarIconBrightness: Brightness.light, //status barIcon Brightness
+  ));
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(
       debug: true // optional: set false to disable printing logs to console
@@ -44,7 +46,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -108,6 +109,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (context) => ReportMarketingSlProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => ReportPipelineSlProvider(),
           ),
           ChangeNotifierProvider(
             create: (context) => SimulationKp74Provider(),

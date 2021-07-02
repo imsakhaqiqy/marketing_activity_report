@@ -15,45 +15,47 @@ class DetailNews extends StatefulWidget {
 class _DetailNews extends State<DetailNews> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
-        elevation: 0,
-        title: Text(
-          '',
-          style: TextStyle(
-            fontFamily: 'Roboto-Regular',
-            color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(
+            color: Colors.black54, //change your color here
+          ),
+          elevation: 0,
+          title: Text(
+            '',
+            style: TextStyle(
+              fontFamily: 'Roboto-Regular',
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-      body: Container(
-        child: ListView(
-          children: [
-            Column(
-              children: [
-                Image(
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.height / 3,
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                    'https://nabasa.co.id/marsit/' + widget.path,
+        body: Container(
+          child: ListView(
+            children: [
+              Column(
+                children: [
+                  Image(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height / 3,
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      'https://nabasa.co.id/marsit/' + widget.path,
+                    ),
                   ),
-                ),
-                SizedBox(height: 10),
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    widget.content,
-                    textAlign: TextAlign.justify,
+                  SizedBox(height: 10),
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      widget.content,
+                      textAlign: TextAlign.justify,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

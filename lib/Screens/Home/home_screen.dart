@@ -1,10 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Home/app_bar.dart';
 import 'package:kreditpensiun_apps/Screens/Interaction/planning_interaction_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Modul/modul_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_root_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Planning/planning_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Report/report_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Report/report_screen_rsl.dart';
@@ -27,9 +26,10 @@ class HomeScreen extends StatefulWidget {
   String nikSdm;
   String statusKaryawan;
   int diamond;
+  String personalData;
 
   HomeScreen(this.username, this.nik, this.income, this.greeting, this.hakAkses,
-      this.nikSdm, this.statusKaryawan, this.diamond);
+      this.nikSdm, this.statusKaryawan, this.diamond, this.personalData);
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -41,260 +41,296 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MarsytAppBar(widget.income, widget.nik, widget.diamond, context),
-      backgroundColor: grey,
-      body: WillPopScope(
-          child: Stack(
-            children: <Widget>[
-              SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                          child: Center(
-                              child: Text(
-                                  "${widget.greeting}, ${widget.username}",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: 'Roboto-Regular',
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blueGrey)))),
-                      Container(
-                          padding: EdgeInsets.only(bottom: 16.0),
-                          child: Center(
-                              child: Text(
-                                  "Selamat bekerja, tetap jaga kesehatan ya ...",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontStyle: FontStyle.italic,
-                                      fontFamily: 'Roboto-Regular',
-                                      color: Colors.blueGrey)))),
-                      Container(
-                        child: Expanded(
-                            child: GridView.count(
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
-                          primary: false,
-                          crossAxisCount: 2,
-                          children: <Widget>[
-                            GestureDetector(
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Icon(
-                                        MdiIcons.database,
-                                        size: 80,
-                                        color: Colors.blueGrey,
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          'Database',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.blueGrey),
+    return SafeArea(
+      child: Scaffold(
+        appBar:
+            MarsytAppBar(widget.income, widget.nik, widget.diamond, context),
+        backgroundColor: grey,
+        body: WillPopScope(
+            child: Stack(
+              children: <Widget>[
+                SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                            child: Center(
+                                child: Text(
+                                    "${widget.greeting}, ${widget.username}",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'Roboto-Regular',
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blueGrey)))),
+                        Container(
+                            padding: EdgeInsets.only(bottom: 16.0),
+                            child: Center(
+                                child: Text(
+                                    "Selamat bekerja, tetap jaga kesehatan ya ...",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontStyle: FontStyle.italic,
+                                        fontFamily: 'Roboto-Regular',
+                                        color: Colors.blueGrey)))),
+                        Container(
+                          child: Expanded(
+                              child: GridView.count(
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            primary: false,
+                            crossAxisCount: 2,
+                            children: <Widget>[
+                              GestureDetector(
+                                child: Card(
+                                  elevation: 3,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Icon(
+                                          MdiIcons.database,
+                                          size: 80,
+                                          color: kPrimaryColor,
                                         ),
-                                      )
-                                    ],
+                                        Expanded(
+                                          child: Text(
+                                            'Database',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontFamily: 'Roboto-Regular',
+                                                color: kPrimaryColor),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => PlanningScreen(
-                                            widget.username, widget.nik)));
-                              },
-                            ),
-                            GestureDetector(
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Icon(MdiIcons.human,
-                                          size: 80, color: Colors.blueGrey),
-                                      Expanded(
-                                        child: Column(
-                                          children: <Widget>[
-                                            Expanded(
-                                              child: Text(
-                                                'Interaksi',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontFamily:
-                                                        'Roboto-Regular',
-                                                    color: Colors.blueGrey),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            PlanningInteractionScreen(
-                                                widget.username,
-                                                widget.nik,
-                                                widget.hakAkses)));
-                              },
-                            ),
-                            GestureDetector(
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Icon(MdiIcons.bank,
-                                          size: 80, color: Colors.blueGrey),
-                                      Expanded(
-                                        child: Text(
-                                          'Pencairan',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.blueGrey),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => DisbursmentScreen(
-                                            widget.username,
-                                            widget.nik,
-                                            widget.statusKaryawan)));
-                              },
-                            ),
-                            GestureDetector(
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Icon(MdiIcons.calculator,
-                                          size: 80, color: Colors.blueGrey),
-                                      Expanded(
-                                        child: Text(
-                                          'Simulasi',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.blueGrey),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            SimulationViewScreen(widget.nik)));
-                              },
-                            ),
-                            GestureDetector(
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Icon(Icons.report_outlined,
-                                          size: 80, color: Colors.blueGrey),
-                                      Expanded(
-                                        child: Text(
-                                          'Laporan',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.blueGrey),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              onTap: () {
-                                if (widget.hakAkses == '5') {
+                                onTap: () {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => ReportScreenSl(
-                                              widget.username, widget.nikSdm)));
-                                } else if (widget.hakAkses == '90') {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ReportScreenRsl(
-                                              widget.username, widget.nikSdm)));
-                                } else {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ReportScreen(
+                                          builder: (context) => PlanningScreen(
                                               widget.username, widget.nik)));
-                                }
-                              },
-                            ),
-                            GestureDetector(
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Icon(MdiIcons.fileDocumentBoxOutline,
-                                          size: 80, color: Colors.blueGrey),
-                                      Expanded(
-                                        child: Text(
-                                          'Berita',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.blueGrey),
-                                        ),
-                                      )
-                                    ],
+                                },
+                              ),
+                              GestureDetector(
+                                child: Card(
+                                  elevation: 3,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Icon(MdiIcons.human,
+                                            size: 80, color: kPrimaryColor),
+                                        Expanded(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Text(
+                                                  'Interaksi',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontFamily:
+                                                          'Roboto-Regular',
+                                                      color: kPrimaryColor),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PlanningInteractionScreen(
+                                                  widget.username,
+                                                  widget.nik,
+                                                  widget.hakAkses)));
+                                },
                               ),
-                              onTap: () {
-                                Navigator.push(
+                              GestureDetector(
+                                child: Card(
+                                  elevation: 3,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Icon(MdiIcons.bank,
+                                            size: 80, color: kPrimaryColor),
+                                        Expanded(
+                                          child: Text(
+                                            'Pencairan',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontFamily: 'Roboto-Regular',
+                                                color: kPrimaryColor),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ModulScreen()));
-                              },
-                            ),
-                          ],
-                        )),
-                      )
-                    ],
+                                      builder: (context) => DisbursmentScreen(
+                                        widget.username,
+                                        widget.nik,
+                                        widget.statusKaryawan,
+                                        widget.personalData,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                              GestureDetector(
+                                child: Card(
+                                  elevation: 3,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Icon(MdiIcons.calculator,
+                                            size: 80, color: kPrimaryColor),
+                                        Expanded(
+                                          child: Text(
+                                            'Simulasi',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontFamily: 'Roboto-Regular',
+                                                color: kPrimaryColor),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SimulationViewScreen(
+                                                  widget.nik)));
+                                },
+                              ),
+                              GestureDetector(
+                                child: Card(
+                                  elevation: 3,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Icon(Icons.report_outlined,
+                                            size: 80, color: kPrimaryColor),
+                                        Expanded(
+                                          child: Text(
+                                            'Laporan',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontFamily: 'Roboto-Regular',
+                                                color: kPrimaryColor),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  if (widget.hakAkses == '5') {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ReportScreenSl(widget.username,
+                                                    widget.nikSdm)));
+                                  } else if (widget.hakAkses == '90') {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ReportScreenRsl(widget.username,
+                                                    widget.nikSdm)));
+                                  } else {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ReportScreen(
+                                                widget.username, widget.nik)));
+                                  }
+                                },
+                              ),
+                              GestureDetector(
+                                child: Card(
+                                  elevation: 3,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Icon(Icons.linear_scale,
+                                            size: 80, color: kPrimaryColor),
+                                        Expanded(
+                                          child: Text(
+                                            'Pipeline',
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontFamily: 'Roboto-Regular',
+                                                color: kPrimaryColor),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PipelineRootPage(widget.username,
+                                                  widget.nik)));
+                                },
+                              ),
+                            ],
+                          )),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
-          ),
-          // ignore: missing_return
-          onWillPop: () async {
-            Future.value(false);
-          }),
+                )
+              ],
+            ),
+            // ignore: missing_return
+            onWillPop: () async {
+              Future.value(false);
+            }),
+      ),
     );
   }
 }

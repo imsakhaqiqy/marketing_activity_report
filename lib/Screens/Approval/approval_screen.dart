@@ -22,141 +22,143 @@ class _ApprovalScreenState extends State<ApprovalScreen> {
       fontWeight: FontWeight.bold,
     );
 
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-            backgroundColor: kPrimaryColor,
-            title: Center(
-              child: Text(
-                'Approval',
-                style: TextStyle(
-                  fontFamily: 'Roboto-Regular',
-                  color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+              backgroundColor: kPrimaryColor,
+              title: Center(
+                child: Text(
+                  'Approval',
+                  style: TextStyle(
+                    fontFamily: 'Roboto-Regular',
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
-            automaticallyImplyLeading: false),
-        body: WillPopScope(
-            child: Container(
-                margin: EdgeInsets.all(10),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            child: FlatButton(
-                                color: Colors.white,
-                                padding: EdgeInsets.only(left: 0.0),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ApprovalInteractionScreen(
-                                                  '', '', '', widget.nikSdm)));
-                                },
-                                child: Stack(
-                                  children: <Widget>[
-                                    Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Row(
-                                          children: <Widget>[
-                                            Icon(Icons.verified_outlined,
-                                                color: Colors.black54),
-                                            SizedBox(width: 10),
-                                            Expanded(
-                                              child: Text(
-                                                'Approval Interaksi',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'Roboto-Regular',
-                                                    color: Colors.black54,
-                                                    fontSize: 16.0),
+              automaticallyImplyLeading: false),
+          body: WillPopScope(
+              child: Container(
+                  margin: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              child: FlatButton(
+                                  color: Colors.white,
+                                  padding: EdgeInsets.only(left: 0.0),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ApprovalInteractionScreen('',
+                                                    '', '', widget.nikSdm)));
+                                  },
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Icon(Icons.verified_outlined,
+                                                  color: Colors.black54),
+                                              SizedBox(width: 10),
+                                              Expanded(
+                                                child: Text(
+                                                  'Approval Interaksi',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'Roboto-Regular',
+                                                      color: Colors.black54,
+                                                      fontSize: 16.0),
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        )),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Icon(
-                                        Icons.chevron_right,
-                                        color: Colors.black54,
-                                        size: 20,
+                                            ],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Icon(
+                                          Icons.chevron_right,
+                                          color: Colors.black54,
+                                          size: 20,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        ],
+                                    ],
+                                  )),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            child: FlatButton(
-                                color: Colors.white,
-                                padding: EdgeInsets.only(left: 0.0),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ApprovalDisbursmentRootPage(
-                                                  '', '', widget.nikSdm)));
-                                },
-                                child: Stack(
-                                  children: <Widget>[
-                                    Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Row(
-                                          children: <Widget>[
-                                            Icon(Icons.verified_outlined,
-                                                color: Colors.black54),
-                                            SizedBox(width: 10),
-                                            Expanded(
-                                              child: Text(
-                                                'Approval Pencairan',
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                        'Roboto-Regular',
-                                                    color: Colors.black54,
-                                                    fontSize: 16.0),
+                      Container(
+                        padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              child: FlatButton(
+                                  color: Colors.white,
+                                  padding: EdgeInsets.only(left: 0.0),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ApprovalDisbursmentRootPage(
+                                                    '', '', widget.nikSdm)));
+                                  },
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Icon(Icons.verified_outlined,
+                                                  color: Colors.black54),
+                                              SizedBox(width: 10),
+                                              Expanded(
+                                                child: Text(
+                                                  'Approval Pencairan',
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'Roboto-Regular',
+                                                      color: Colors.black54,
+                                                      fontSize: 16.0),
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        )),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Icon(
-                                        Icons.chevron_right,
-                                        color: Colors.black54,
-                                        size: 20,
+                                            ],
+                                          )),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Icon(
+                                          Icons.chevron_right,
+                                          color: Colors.black54,
+                                          size: 20,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        ],
+                                    ],
+                                  )),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                )),
-            onWillPop: () async {
-              Future.value(false);
-            }));
+                    ],
+                  )),
+              onWillPop: () async {
+                Future.value(false);
+              })),
+    );
   }
 }

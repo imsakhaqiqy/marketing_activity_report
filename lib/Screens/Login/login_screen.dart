@@ -10,8 +10,10 @@ class LoginScreen extends StatelessWidget {
       this.currentLocation, this.currentLatitude, this.currentLongitude);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Body(
-            this.currentLocation, this.currentLatitude, this.currentLongitude));
+    return SafeArea(
+      child: Scaffold(
+          body: Body(this.currentLocation, this.currentLatitude,
+              this.currentLongitude)),
+    );
   }
 }

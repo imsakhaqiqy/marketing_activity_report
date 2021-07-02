@@ -183,143 +183,145 @@ class _ApprovalInteractionViewScreenState
   @override
   Widget build(BuildContext context) {
     String foto = 'https://www.nabasa.co.id/marsit/' + widget.foto;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        title: Text(
-          '${widget.calonDebitur}',
-          style: TextStyle(
-            fontFamily: 'Roboto-Regular',
-            color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: Text(
+            '${widget.calonDebitur}',
+            style: TextStyle(
+              fontFamily: 'Roboto-Regular',
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-      body: Container(
-        color: grey,
-        child: ListView(
-          physics: ClampingScrollPhysics(),
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Dokumen Interaksi',
-                style: TextStyle(color: Colors.grey[600], fontSize: 20),
+        body: Container(
+          color: grey,
+          child: ListView(
+            physics: ClampingScrollPhysics(),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Dokumen Interaksi',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                ),
               ),
-            ),
-            Container(
-              color: Colors.white,
-              padding: EdgeInsets.all(8),
-              width: double.infinity,
-              child: Column(
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () async {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              ImageView(foto, 'Foto Interaksi')));
-                    },
-                    child: CircleAvatar(
-                      radius: 100,
-                      backgroundImage: NetworkImage(foto),
+              Container(
+                color: Colors.white,
+                padding: EdgeInsets.all(8),
+                width: double.infinity,
+                child: Column(
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () async {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                ImageView(foto, 'Foto Interaksi')));
+                      },
+                      child: CircleAvatar(
+                        radius: 100,
+                        backgroundImage: NetworkImage(foto),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Data Interaksi',
-                style: TextStyle(color: Colors.grey[600], fontSize: 20),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Data Interaksi',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                ),
               ),
-            ),
-            Container(
-              color: Colors.white,
-              padding: EdgeInsets.all(8),
-              width: double.infinity,
-              child: Column(
-                children: <Widget>[
-                  fieldDebitur('Alamat', setNull(widget.alamat), 120.0),
-                  SizedBox(height: 10),
-                  fieldDebitur('Kelurahan', setNull(widget.kelurahan), 120.0),
-                  SizedBox(height: 10),
-                  fieldDebitur('Kecamatan', setNull(widget.kecamatan), 120.0),
-                  SizedBox(height: 10),
-                  fieldDebitur(
-                    'Kabupaten',
-                    setNull(widget.kabupaten),
-                    120.0,
-                  ),
-                  SizedBox(height: 10),
-                  fieldDebitur(
-                    'Propinsi',
-                    setNull(widget.propinsi),
-                    120.0,
-                  ),
-                  SizedBox(height: 10),
-                  fieldDebitur('Email', setNull(widget.email), 120.0),
-                  SizedBox(height: 10),
-                  fieldDebitur('No Telepon', setNull(widget.telepon), 120.0),
-                  SizedBox(height: 10),
-                  fieldDebitur('Rencana Pinjaman',
-                      formatRupiah(setNull(widget.rencanaPinjaman)), 120.0),
-                  SizedBox(height: 10),
-                  fieldDebitur(
-                      'Sales Feedback', setNull(widget.salesFeedback), 120.0),
-                  SizedBox(height: 10),
-                  fieldDebitur(
-                      'Tanggal', setNull(widget.tanggalInteraksi), 120.0),
-                  SizedBox(height: 10),
-                  fieldDebitur('Jam', setNull(widget.jamInteraksi), 120.0),
-                  SizedBox(height: 10),
-                  fieldDebitur('Status',
-                      setStatusInteraksi(setNull(widget.status)), 120.0),
-                  SizedBox(height: 50),
-                ],
+              Container(
+                color: Colors.white,
+                padding: EdgeInsets.all(8),
+                width: double.infinity,
+                child: Column(
+                  children: <Widget>[
+                    fieldDebitur('Alamat', setNull(widget.alamat), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur('Kelurahan', setNull(widget.kelurahan), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur('Kecamatan', setNull(widget.kecamatan), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                      'Kabupaten',
+                      setNull(widget.kabupaten),
+                      120.0,
+                    ),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                      'Propinsi',
+                      setNull(widget.propinsi),
+                      120.0,
+                    ),
+                    SizedBox(height: 10),
+                    fieldDebitur('Email', setNull(widget.email), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur('No Telepon', setNull(widget.telepon), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur('Rencana Pinjaman',
+                        formatRupiah(setNull(widget.rencanaPinjaman)), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                        'Sales Feedback', setNull(widget.salesFeedback), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur(
+                        'Tanggal', setNull(widget.tanggalInteraksi), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur('Jam', setNull(widget.jamInteraksi), 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur('Status',
+                        setStatusInteraksi(setNull(widget.status)), 120.0),
+                    SizedBox(height: 50),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      bottomSheet: Container(
-        margin: EdgeInsets.only(bottom: 8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.40,
-              child: FlatButton(
-                color: Colors.blue,
-                onPressed: () {
-                  dialogLoading(_loadingA);
-                  approvalInteraksi();
-                },
-                child: Text(
-                  'Setuju',
-                  style: TextStyle(
-                      color: Colors.white, fontFamily: 'Roboto-Regular'),
+        bottomSheet: Container(
+          margin: EdgeInsets.only(bottom: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.40,
+                child: FlatButton(
+                  color: Colors.blue,
+                  onPressed: () {
+                    dialogLoading(_loadingA);
+                    approvalInteraksi();
+                  },
+                  child: Text(
+                    'Setuju',
+                    style: TextStyle(
+                        color: Colors.white, fontFamily: 'Roboto-Regular'),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.40,
-              child: FlatButton(
-                color: Colors.redAccent,
-                onPressed: () {
-                  dialogLoading(_loadingR);
-                  rejectInteraksi();
-                },
-                child: Text(
-                  'Tolak',
-                  style: TextStyle(
-                      color: Colors.white, fontFamily: 'Roboto-Regular'),
+              SizedBox(
+                width: 10,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.40,
+                child: FlatButton(
+                  color: Colors.redAccent,
+                  onPressed: () {
+                    dialogLoading(_loadingR);
+                    rejectInteraksi();
+                  },
+                  child: Text(
+                    'Tolak',
+                    style: TextStyle(
+                        color: Colors.white, fontFamily: 'Roboto-Regular'),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

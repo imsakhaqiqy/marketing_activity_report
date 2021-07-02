@@ -75,37 +75,39 @@ class _SimulationPegawaiAktifScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text(
-          'Pegawai Aktif Reguler',
-          style: TextStyle(fontFamily: 'Roboto-Regular'),
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: Text(
+            'Pegawai Aktif Reguler',
+            style: TextStyle(fontFamily: 'Roboto-Regular'),
+          ),
         ),
+        body: Container(
+            padding: EdgeInsets.only(
+                left: 16.0, right: 16.0, top: 0.0, bottom: 16.0),
+            child: Form(
+              key: formKey,
+              child: ListView(
+                physics: ClampingScrollPhysics(),
+                children: <Widget>[
+                  namaCalonDebitur(),
+                  gajiCalonDebitur(),
+                  tanggalLahirCalonDebitur(),
+                  plafondCalonDebitur(),
+                  pelunasanCalonDebitur(),
+                  bankGajiCalonDebitur(),
+                  typeSimulasiCalonDebitur(),
+                  typeCreditCalonDebitur(),
+                  jangkaWaktuCalonDebitur(),
+                  asuransiCalonDebitur(),
+                  blokirAngsuranDebitur(),
+                  calculationButton(),
+                ],
+              ),
+            )),
       ),
-      body: Container(
-          padding:
-              EdgeInsets.only(left: 16.0, right: 16.0, top: 0.0, bottom: 16.0),
-          child: Form(
-            key: formKey,
-            child: ListView(
-              physics: ClampingScrollPhysics(),
-              children: <Widget>[
-                namaCalonDebitur(),
-                gajiCalonDebitur(),
-                tanggalLahirCalonDebitur(),
-                plafondCalonDebitur(),
-                pelunasanCalonDebitur(),
-                bankGajiCalonDebitur(),
-                typeSimulasiCalonDebitur(),
-                typeCreditCalonDebitur(),
-                jangkaWaktuCalonDebitur(),
-                asuransiCalonDebitur(),
-                blokirAngsuranDebitur(),
-                calculationButton(),
-              ],
-            ),
-          )),
     );
   }
 

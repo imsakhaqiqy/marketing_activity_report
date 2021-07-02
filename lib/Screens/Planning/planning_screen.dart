@@ -204,102 +204,105 @@ class _PlanningScreen extends State<PlanningScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: grey,
-      appBar: AppBar(
-        title: Text(
-          'Database',
-          style: fontFamily,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: grey,
+        appBar: AppBar(
+          title: Text(
+            'Database',
+            style: fontFamily,
+          ),
+          actions: <Widget>[],
         ),
-        actions: <Widget>[],
-      ),
-      //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
-      //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
-      body: Container(
-        color: Colors.white,
-        child: _buildList(),
-      ),
-      bottomSheet: Container(
-        decoration: BoxDecoration(
-            border: Border(
-                top: BorderSide(
-          color: Colors.black12,
-        ))),
-        padding: EdgeInsets.all(16),
-        height: 120,
-        child: Form(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.50,
-                    child: Text(
-                      itemSelected.toString() + ' data dipilih',
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontFamily: 'Roboto-Regular',
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.30,
-                      child: null)
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.50,
-                    child: fieldTanggal(),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.30,
-                    child: FlatButton(
-                      color: Colors.blueAccent,
-                      onPressed: () {
-                        tglInteraksi = tglInteraksiController.text;
-                        if (notass.length > 3) {
-                          interactionMax(context);
-                        } else if (notass.length == 0) {
-                          interactionNull(context);
-                        } else {
-                          if (tglInteraksi == '') {
-                            interactionDate(context);
-                          } else {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => NextPlanningScreen(
-                                          widget.username,
-                                          widget.nik,
-                                          notass,
-                                          namaa,
-                                          tglInteraksi,
-                                        )));
-                          }
-                        }
-                      },
+        //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
+        //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
+        body: Container(
+          color: Colors.white,
+          child: _buildList(),
+        ),
+        bottomSheet: Container(
+          decoration: BoxDecoration(
+              border: Border(
+                  top: BorderSide(
+            color: Colors.black12,
+          ))),
+          padding: EdgeInsets.all(16),
+          height: 120,
+          child: Form(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.50,
                       child: Text(
-                        'Selanjutnya',
+                        itemSelected.toString() + ' data dipilih',
                         style: TextStyle(
-                            color: Colors.white, fontFamily: 'Roboto-Regular'),
+                            color: Colors.red,
+                            fontFamily: 'Roboto-Regular',
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
-                  )
-                ],
-              ),
-            ],
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                        width: MediaQuery.of(context).size.width * 0.30,
+                        child: null)
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.50,
+                      child: fieldTanggal(),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.30,
+                      child: FlatButton(
+                        color: Colors.blueAccent,
+                        onPressed: () {
+                          tglInteraksi = tglInteraksiController.text;
+                          if (notass.length > 3) {
+                            interactionMax(context);
+                          } else if (notass.length == 0) {
+                            interactionNull(context);
+                          } else {
+                            if (tglInteraksi == '') {
+                              interactionDate(context);
+                            } else {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NextPlanningScreen(
+                                            widget.username,
+                                            widget.nik,
+                                            notass,
+                                            namaa,
+                                            tglInteraksi,
+                                          )));
+                            }
+                          }
+                        },
+                        child: Text(
+                          'Lanjut',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Roboto-Regular'),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

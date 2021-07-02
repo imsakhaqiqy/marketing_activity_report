@@ -105,12 +105,14 @@ class _LogDiamondScreen extends State<LogDiamondScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: new Text('Riwayat Diamond'),
-      ),
-      body: Container(
-        child: _buildList(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: new Text('Riwayat Diamond'),
+        ),
+        body: Container(
+          child: _buildList(),
+        ),
       ),
     );
   }

@@ -30,7 +30,7 @@ class MarsytAppBar extends AppBar {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 30.0),
+            padding: const EdgeInsets.only(top: 0.0),
             child: Container(
               color: Colors.white,
               child: Image.asset(
@@ -41,7 +41,7 @@ class MarsytAppBar extends AppBar {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(top: 30.0),
+            padding: EdgeInsets.only(top: 0.0),
             child: Row(
               children: <Widget>[
                 InkWell(
@@ -49,7 +49,7 @@ class MarsytAppBar extends AppBar {
                       padding: EdgeInsets.all(6.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                        color: Color(0xFF8f246b),
+                        color: Color(0xFF193366),
                       ),
                       child: Row(
                         children: <Widget>[

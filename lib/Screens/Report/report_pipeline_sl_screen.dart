@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:kreditpensiun_apps/Screens/Disbursment/disbursment_view_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Report/filter_disbursment_sl_screen.dart';
-import 'package:kreditpensiun_apps/Screens/provider/report_disbursment_sl_provider.dart';
+import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_view_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Report/filter_pipeline_sl_screen.dart';
+import 'package:kreditpensiun_apps/Screens/provider/report_pipeline_sl_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import '../../constants.dart';
 
 // ignore: must_be_immutable
-class ReportDisbursmentSlScreen extends StatefulWidget {
+class ReportPipelineSlScreen extends StatefulWidget {
   @override
-  _ReportDisbursmentSlScreen createState() => _ReportDisbursmentSlScreen();
+  _ReportPipelineSlScreen createState() => _ReportPipelineSlScreen();
 
   String nik;
   String tglAwal;
   String tglAkhir;
 
-  ReportDisbursmentSlScreen(this.nik, this.tglAwal, this.tglAkhir);
+  ReportPipelineSlScreen(this.nik, this.tglAwal, this.tglAkhir);
 }
 
-class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
+class _ReportPipelineSlScreen extends State<ReportPipelineSlScreen> {
   @override
   Widget build(BuildContext context) {
     print(widget.nik);
@@ -35,7 +35,9 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
         color: Colors.red,
         fontWeight: FontWeight.bold);
     var cardTextStyleFooter1 = TextStyle(
-        fontFamily: "Roboto-Regular", fontSize: 12, color: Colors.blueAccent);
+        fontFamily: "Roboto-Regular",
+        fontSize: 12,
+        color: Color.fromRGBO(63, 63, 63, 1));
     var cardTextStyleFooter2 = TextStyle(
         fontFamily: "Roboto-Regular",
         fontSize: 12,
@@ -45,7 +47,7 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
         backgroundColor: grey,
         appBar: AppBar(
           title: Text(
-            'Laporan Pencairan',
+            'Laporan Pipeline',
             style: fontFamily,
           ),
           actions: <Widget>[
@@ -57,7 +59,7 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                FilterDisbursmentSlScreen(widget.nik)));
+                                FilterPipelineSlScreen(widget.nik)));
                   },
                   child: Icon(Icons.filter_list),
                 )),
@@ -67,15 +69,15 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
         //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
         body: RefreshIndicator(
             onRefresh: () =>
-                Provider.of<ReportDisbursmentSlProvider>(context, listen: false)
-                    .getDisbursmentSlReport(ReportDisbursmentSlItem(
+                Provider.of<ReportPipelineSlProvider>(context, listen: false)
+                    .getPipelineSlReport(ReportPipelineSlItem(
                         widget.nik, widget.tglAwal, widget.tglAkhir)),
             color: Colors.red,
             child: Container(
               child: FutureBuilder(
-                future: Provider.of<ReportDisbursmentSlProvider>(context,
+                future: Provider.of<ReportPipelineSlProvider>(context,
                         listen: false)
-                    .getDisbursmentSlReport(ReportDisbursmentSlItem(
+                    .getPipelineSlReport(ReportPipelineSlItem(
                         widget.nik, widget.tglAwal, widget.tglAkhir)),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -85,10 +87,10 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
                               AlwaysStoppedAnimation<Color>(kPrimaryColor)),
                     );
                   }
-                  return Consumer<ReportDisbursmentSlProvider>(
+                  return Consumer<ReportPipelineSlProvider>(
                     builder: (context, data, _) {
-                      print(data.dataDisbursmentSlReport.length);
-                      if (data.dataDisbursmentSlReport.length == 0) {
+                      print(data.dataPipelineSlReport.length);
+                      if (data.dataPipelineSlReport.length == 0) {
                         return Center(
                           child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -108,7 +110,7 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
                                   height: 10,
                                 ),
                                 Text(
-                                  'Pencairan Tidak Ditemukan!',
+                                  'Pipeline Tidak Ditemukan!',
                                   style: TextStyle(
                                       fontFamily: "Roboto-Regular",
                                       fontSize: 16,
@@ -118,34 +120,32 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
                         );
                       } else {
                         return GridView.builder(
-                            itemCount: data.dataDisbursmentSlReport.length,
+                            itemCount: data.dataPipelineSlReport.length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                             ),
                             itemBuilder: (context, i) {
-                              if (data.dataDisbursmentSlReport[i].debitur
-                                      .length >
+                              if (data.dataPipelineSlReport[i].cadeb.length >
                                   15) {
                                 calonDebitur = data
-                                    .dataDisbursmentSlReport[i].debitur
+                                    .dataPipelineSlReport[i].cadeb
                                     .substring(0, 15);
                               } else {
                                 calonDebitur =
-                                    data.dataDisbursmentSlReport[i].debitur;
+                                    data.dataPipelineSlReport[i].cadeb;
                               }
 
-                              if (data.dataDisbursmentSlReport[i].plafond !=
-                                  '') {
-                                if (data.dataDisbursmentSlReport[i].plafond
+                              if (data.dataPipelineSlReport[i].nominal != '') {
+                                if (data.dataPipelineSlReport[i].nominal
                                         .length >
                                     15) {
                                   rencanaPinjaman = data
-                                      .dataDisbursmentSlReport[i].plafond
+                                      .dataPipelineSlReport[i].nominal
                                       .substring(0, 15);
                                 } else {
                                   rencanaPinjaman =
-                                      data.dataDisbursmentSlReport[i].plafond;
+                                      data.dataPipelineSlReport[i].nominal;
                                 }
                               } else {
                                 rencanaPinjaman = '';
@@ -159,83 +159,89 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
                                     child: InkWell(
                                       onTap: () {
                                         print(
-                                          data.dataDisbursmentSlReport[i]
-                                              .cabang,
+                                          data.dataPipelineSlReport[i].cabang,
                                         );
-                                        Navigator.of(context).push(MaterialPageRoute(
-                                            builder: (context) => DisbursmentViewScreen(
-                                                data.dataDisbursmentSlReport[i]
-                                                    .debitur,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .alamat,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .telepon,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .tanggalAkad,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .nomorAkad,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .noJanji,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .plafond,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .jenisPencairan,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .jenisProduk,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .cabang,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .infoSales,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .foto1,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .foto2,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .foto3,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .tanggalPencairan,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .jamPencairan,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .namaTl,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .jabatanTl,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .teleponTl,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .namaSales,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .cabang,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .infoSales,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .statusPipeline,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .statusKredit,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .pengelolaPensiun,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .bankTakeover,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .tanggalPenyerahan,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .namaPenerima,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .teleponPenerima,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .tanggalPipeline,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .tempatLahir,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .tanggalLahir,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .jenisKelamin,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .noKtp,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .npwp,
-                                                data.dataDisbursmentSlReport[i]
-                                                    .kodeProduk)));
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PipelineViewScreen(
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .cadeb,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .tglPipeline,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .alamat,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .telepon,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .jenisProduk,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .nominal,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .cabang,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .keterangan,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .status,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .tampatLahir,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .tanggalLahir,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .jenisKelamin,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .noKtp,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .npwp,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .statusKredit,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .pengelolaPensiun,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .bankTakeOver,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .foto1,
+                                                      data
+                                                          .dataPipelineSlReport[
+                                                              i]
+                                                          .foto2,
+                                                    )));
                                       },
                                       child: Column(
                                         mainAxisAlignment:
@@ -245,7 +251,7 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
                                             children: <Widget>[
                                               SizedBox(
                                                 child: Image.network(
-                                                  'https://www.nabasa.co.id/marsit/${data.dataDisbursmentSlReport[i].foto2}',
+                                                  'https://www.nabasa.co.id/marsit/${data.dataPipelineSlReport[i].foto1}',
                                                   fit: BoxFit.cover,
                                                 ),
                                                 height: 100.0,
@@ -268,7 +274,7 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
                                                 child: Container(
                                                   color: Colors.white,
                                                   child: Text(
-                                                    '${data.dataDisbursmentSlReport[i].tanggalPencairan}',
+                                                    '${data.dataPipelineSlReport[i].tglPipeline}',
                                                     style: cardTextStyleFooter1,
                                                   ),
                                                 ),
@@ -291,7 +297,7 @@ class _ReportDisbursmentSlScreen extends State<ReportDisbursmentSlScreen> {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  '${data.dataDisbursmentSlReport[i].namaSales}',
+                                                  '${data.dataPipelineSlReport[i].namaSales}',
                                                   style: cardTextStyleFooter2,
                                                 ),
                                               ),

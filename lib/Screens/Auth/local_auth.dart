@@ -14,69 +14,71 @@ class _AutheticatedScreenState extends State<AutheticatedScreen> {
   LocalAuthentication localAuthentication = LocalAuthentication();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          title: Center(
-            child: Text(
-              'Check Biometrics',
-              style: TextStyle(
-                fontFamily: 'Roboto-Regular',
-                color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+            backgroundColor: kPrimaryColor,
+            title: Center(
+              child: Text(
+                'Check Biometrics',
+                style: TextStyle(
+                  fontFamily: 'Roboto-Regular',
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          automaticallyImplyLeading: false),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Container(
-              width: 200,
-              margin: EdgeInsets.only(bottom: 6),
-              child: RaisedButton(
-                onPressed: () async {
-                  isAvailable = await localAuthentication.canCheckBiometrics;
-                  if (isAvailable) {
-                    List<BiometricType> types =
-                        await localAuthentication.getAvailableBiometrics();
-                    text = "Biometrics Availables:";
-                    for (var item in types) {
-                      text += "\n- $item";
-                    }
-                    setState(() {});
-                  }
-                },
-                child: Text('Check Biometrics'),
-              ),
-            ),
-            SizedBox(
-              width: 200,
-              child: RaisedButton(
-                onPressed: isAvailable
-                    ? () async {
-                        isAuthenticated = await localAuthentication
-                            .authenticateWithBiometrics(
-                          localizedReason: "Please authenticate",
-                          stickyAuth: true,
-                          useErrorDialogs: true,
-                        );
-                        setState(() {});
+            automaticallyImplyLeading: false),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Container(
+                width: 200,
+                margin: EdgeInsets.only(bottom: 6),
+                child: RaisedButton(
+                  onPressed: () async {
+                    isAvailable = await localAuthentication.canCheckBiometrics;
+                    if (isAvailable) {
+                      List<BiometricType> types =
+                          await localAuthentication.getAvailableBiometrics();
+                      text = "Biometrics Availables:";
+                      for (var item in types) {
+                        text += "\n- $item";
                       }
-                    : null,
-                child: Text('Authenticate'),
+                      setState(() {});
+                    }
+                  },
+                  child: Text('Check Biometrics'),
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.all(20),
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: isAuthenticated ? Colors.green : Colors.red),
-            ),
-            Text(text)
-          ],
+              SizedBox(
+                width: 200,
+                child: RaisedButton(
+                  onPressed: isAvailable
+                      ? () async {
+                          isAuthenticated = await localAuthentication
+                              .authenticateWithBiometrics(
+                            localizedReason: "Please authenticate",
+                            stickyAuth: true,
+                            useErrorDialogs: true,
+                          );
+                          setState(() {});
+                        }
+                      : null,
+                  child: Text('Authenticate'),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(20),
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: isAuthenticated ? Colors.green : Colors.red),
+              ),
+              Text(text)
+            ],
+          ),
         ),
       ),
     );

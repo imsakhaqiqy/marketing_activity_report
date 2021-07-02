@@ -81,123 +81,129 @@ class _PipelineViewScreenState extends State<PipelineViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          title: Text(
-            '${widget.calonDebitur}',
-            style: TextStyle(
-              fontFamily: 'Roboto-Regular',
-              color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: kPrimaryColor,
+            title: Text(
+              '${widget.calonDebitur}',
+              style: TextStyle(
+                fontFamily: 'Roboto-Regular',
+                color: Colors.white,
+              ),
             ),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  String teleponFix = '+62' + widget.telepon.substring(1);
+                  launchWhatsApp(phone: teleponFix, message: 'Tes');
+                },
+                icon: Icon(MdiIcons.whatsapp),
+                iconSize: 20,
+              ),
+              IconButton(
+                onPressed: () {
+                  _makePhoneCall('tel:${widget.telepon}');
+                },
+                icon: Icon(Icons.call),
+                iconSize: 20,
+              )
+            ],
           ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                String teleponFix = '+62' + widget.telepon.substring(1);
-                launchWhatsApp(phone: teleponFix, message: 'Tes');
-              },
-              icon: Icon(MdiIcons.whatsapp),
-              iconSize: 20,
-            ),
-            IconButton(
-              onPressed: () {
-                _makePhoneCall('tel:${widget.telepon}');
-              },
-              icon: Icon(Icons.call),
-              iconSize: 20,
-            )
-          ],
-        ),
-        body: Container(
-            color: Colors.grey[200],
-            child:
-                ListView(physics: ClampingScrollPhysics(), children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Data Nasabah',
-                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+          body: Container(
+              color: Colors.grey[200],
+              child:
+                  ListView(physics: ClampingScrollPhysics(), children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Data Nasabah',
+                    style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                  ),
                 ),
-              ),
-              Container(
-                color: Colors.white,
-                padding: EdgeInsets.all(8),
-                width: double.infinity,
-                child: Column(
-                  children: <Widget>[
-                    fieldDebitur('Tanggal Pipeline',
-                        setNull(widget.tglPipeline), 120.0, ''),
-                    SizedBox(height: 10),
-                    fieldDebitur(
-                        'Tempat Lahir', setNull(widget.tempatLahir), 120.0, ''),
-                    SizedBox(height: 10),
-                    fieldDebitur('Tanggal Lahir', setNull(widget.tanggalLahir),
-                        120.0, ''),
-                    SizedBox(height: 10),
-                    fieldDebitur(
-                        'Jenis Kelamin',
-                        setJenisKelamin(setNull(widget.jenisKelamin)),
-                        120.0,
-                        ''),
-                    SizedBox(height: 10),
-                    fieldDebitur('No KTP', setNull(widget.nomorKtp), 120.0,
-                        widget.foto1),
-                    SizedBox(height: 10),
-                    fieldDebitur(
-                        'NPWP', setNull(widget.npwp), 120.0, widget.foto2),
-                    SizedBox(height: 10),
-                    fieldDebitur('Alamat', setNull(widget.alamat), 120.0, ''),
-                    SizedBox(height: 10),
-                    fieldDebitur('Telepon', setNull(widget.telepon), 120.0, ''),
-                    SizedBox(height: 10),
-                  ],
+                Container(
+                  color: Colors.white,
+                  padding: EdgeInsets.all(8),
+                  width: double.infinity,
+                  child: Column(
+                    children: <Widget>[
+                      fieldDebitur('Tanggal Pipeline',
+                          setNull(widget.tglPipeline), 120.0, ''),
+                      SizedBox(height: 10),
+                      fieldDebitur('Tempat Lahir', setNull(widget.tempatLahir),
+                          120.0, ''),
+                      SizedBox(height: 10),
+                      fieldDebitur('Tanggal Lahir',
+                          setNull(widget.tanggalLahir), 120.0, ''),
+                      SizedBox(height: 10),
+                      fieldDebitur(
+                          'Jenis Kelamin',
+                          setJenisKelamin(setNull(widget.jenisKelamin)),
+                          120.0,
+                          ''),
+                      SizedBox(height: 10),
+                      fieldDebitur('No KTP', setNull(widget.nomorKtp), 120.0,
+                          widget.foto1),
+                      SizedBox(height: 10),
+                      fieldDebitur(
+                          'NPWP', setNull(widget.npwp), 120.0, widget.foto2),
+                      SizedBox(height: 10),
+                      fieldDebitur('Alamat', setNull(widget.alamat), 120.0, ''),
+                      SizedBox(height: 10),
+                      fieldDebitur(
+                          'Telepon', setNull(widget.telepon), 120.0, ''),
+                      SizedBox(height: 10),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Data Kredit',
-                  style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Data Kredit',
+                    style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                  ),
                 ),
-              ),
-              Container(
-                color: Colors.white,
-                padding: EdgeInsets.all(8),
-                width: double.infinity,
-                child: Column(
-                  children: <Widget>[
-                    fieldDebitur('Jenis Produk',
-                        setJenisProduk(setNull(widget.jenisProduk)), 120.0, ''),
-                    SizedBox(height: 10),
-                    fieldDebitur('Plafond',
-                        formatRupiah(setNull(widget.nominal)), 120.0, ''),
-                    SizedBox(height: 10),
-                    fieldDebitur('Cabang', setNull(widget.cabang), 120.0, ''),
-                    SizedBox(height: 10),
-                    fieldDebitur(
-                        'Keterangan', setNull(widget.keterangan), 120.0, ''),
-                    SizedBox(height: 10),
-                    fieldDebitur('Statu Pipeline',
-                        messageStatus(setNull(widget.status)), 120.0, ''),
-                    SizedBox(height: 10),
-                    fieldDebitur('Status Kredit', setNull(widget.statusKredit),
-                        120.0, ''),
-                    SizedBox(height: 10),
-                    fieldDebitur('Pengelola Pensiun',
-                        setNull(widget.pengelolaPensiun), 120.0, ''),
-                    SizedBox(height: 10),
-                    setNull(widget.statusKredit) == 'TAKEOVER'
-                        ? fieldDebitur('Bank Takeover',
-                            setNull(widget.bankTakeover), 120.0, '')
-                        : Text(''),
-                    setNull(widget.statusKredit) == 'TAKEOVER'
-                        ? SizedBox(height: 10)
-                        : Text('')
-                  ],
+                Container(
+                  color: Colors.white,
+                  padding: EdgeInsets.all(8),
+                  width: double.infinity,
+                  child: Column(
+                    children: <Widget>[
+                      fieldDebitur(
+                          'Jenis Produk',
+                          setJenisProduk(setNull(widget.jenisProduk)),
+                          120.0,
+                          ''),
+                      SizedBox(height: 10),
+                      fieldDebitur('Plafond',
+                          formatRupiah(setNull(widget.nominal)), 120.0, ''),
+                      SizedBox(height: 10),
+                      fieldDebitur('Cabang', setNull(widget.cabang), 120.0, ''),
+                      SizedBox(height: 10),
+                      fieldDebitur(
+                          'Keterangan', setNull(widget.keterangan), 120.0, ''),
+                      SizedBox(height: 10),
+                      fieldDebitur('Statu Pipeline',
+                          messageStatus(setNull(widget.status)), 120.0, ''),
+                      SizedBox(height: 10),
+                      fieldDebitur('Status Kredit',
+                          setNull(widget.statusKredit), 120.0, ''),
+                      SizedBox(height: 10),
+                      fieldDebitur('Pengelola Pensiun',
+                          setNull(widget.pengelolaPensiun), 120.0, ''),
+                      SizedBox(height: 10),
+                      setNull(widget.statusKredit) == 'TAKEOVER'
+                          ? fieldDebitur('Bank Takeover',
+                              setNull(widget.bankTakeover), 120.0, '')
+                          : Text(''),
+                      setNull(widget.statusKredit) == 'TAKEOVER'
+                          ? SizedBox(height: 10)
+                          : Text('')
+                    ],
+                  ),
                 ),
-              ),
-            ])));
+              ]))),
+    );
   }
 
   Widget fieldDebitur(title, value, size, image) {

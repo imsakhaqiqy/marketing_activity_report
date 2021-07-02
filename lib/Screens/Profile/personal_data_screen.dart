@@ -11,60 +11,62 @@ class PersonalDataScreen extends StatefulWidget {
 class _PersonalDataScreenState extends State<PersonalDataScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Pribadi',
-            style: TextStyle(fontFamily: 'Roboto-Regular'),
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Pribadi',
+              style: TextStyle(fontFamily: 'Roboto-Regular'),
+            ),
           ),
-        ),
-        body: Container(
-            color: Color.fromARGB(255, 242, 242, 242),
-            child: ListView(
-              children: <Widget>[
-                nikField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                fullNameField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                maritalStatusField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                dateOfBirthField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                placeOfBirthField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                ktpField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                genderField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                religionField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                emailField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                phoneField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                educationField()
-              ],
-            )));
+          body: Container(
+              color: Color.fromARGB(255, 242, 242, 242),
+              child: ListView(
+                children: <Widget>[
+                  nikField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  fullNameField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  maritalStatusField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  dateOfBirthField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  placeOfBirthField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  ktpField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  genderField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  religionField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  emailField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  phoneField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  educationField()
+                ],
+              ))),
+    );
   }
 
   Widget nikField() {

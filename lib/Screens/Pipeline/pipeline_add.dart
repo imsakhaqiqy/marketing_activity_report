@@ -7,11 +7,7 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
-import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
 import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_root_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_screen.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:kreditpensiun_apps/Screens/models/image_upload_model.dart';
 import 'package:kreditpensiun_apps/constants.dart';
 import 'package:photo_view/photo_view.dart';
@@ -253,185 +249,218 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
                     )
                   : Navigator.of(context).pop();
             },
-            child: Scaffold(
-              key: _scaffoldKey,
-              appBar: AppBar(
-                title: Text(
-                  'Tambah Pipeline',
-                  style: TextStyle(fontFamily: 'Roboto-Regular'),
-                ),
-                actions: <Widget>[
-                  FlatButton(
-                    color: Colors.white,
-                    //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
-                    //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
-                    child: Text(
-                      'Simpan',
-                      style: TextStyle(
-                          fontFamily: 'Roboto-Regular',
-                          color: kPrimaryColor,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    onPressed: () {
-                      if (formKey.currentState.validate()) {
-                        if (selectedJenisKelamin == null) {
-                          _scaffoldKey.currentState.showSnackBar(SnackBar(
-                            content: Text('Mohon pilih jenis kelamin...'),
-                            duration: Duration(seconds: 3),
-                          ));
-                        } else if (selectedJenisDebitur == null) {
-                          _scaffoldKey.currentState.showSnackBar(SnackBar(
-                            content: Text('Mohon pilih jenis produk...'),
-                            duration: Duration(seconds: 3),
-                          ));
-                        } else if (selectedJenisCabang == null) {
-                          _scaffoldKey.currentState.showSnackBar(SnackBar(
-                            content: Text('Mohon pilih kantor cabang...'),
-                            duration: Duration(seconds: 3),
-                          ));
-                        } else if (selectedStatusKredit == null) {
-                          _scaffoldKey.currentState.showSnackBar(SnackBar(
-                            content: Text('Mohon pilih status kredit...'),
-                            duration: Duration(seconds: 3),
-                          ));
-                        } else if (selectedPengelolaPensiun == null) {
-                          _scaffoldKey.currentState.showSnackBar(SnackBar(
-                            content: Text('Mohon pilih pengelola pensiun...'),
-                            duration: Duration(seconds: 3),
-                          ));
-                        } else if (image1 == null) {
-                          _scaffoldKey.currentState.showSnackBar(SnackBar(
-                            content: Text('Mohon pilih foto ktp...'),
-                            duration: Duration(seconds: 3),
-                          ));
-                        } else if (image2 == null) {
-                          _scaffoldKey.currentState.showSnackBar(SnackBar(
-                            content: Text('Mohon pilih foto npwp...'),
-                            duration: Duration(seconds: 3),
-                          ));
-                        } else {
-                          showGeneralDialog(
-                            context: context,
-                            barrierColor: Colors.black12
-                                .withOpacity(0.6), // background color
-                            barrierDismissible:
-                                false, // should dialog be dismissed when tapped outside
-                            barrierLabel: "Dialog", // label for barrier
-                            transitionDuration: Duration(
-                                milliseconds:
-                                    400), // how long it takes to popup dialog after button click
-                            pageBuilder: (_, __, ___) {
-                              // your widget implementation
-                              return Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  SizedBox(
-                                    height: 50,
-                                    width: 50,
-                                    child: CircularProgressIndicator(
-                                      //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          kPrimaryColor),
+            child: SafeArea(
+              child: Scaffold(
+                key: _scaffoldKey,
+                appBar: AppBar(
+                  title: Text(
+                    'Tambah Pipeline',
+                    style: TextStyle(fontFamily: 'Roboto-Regular'),
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
+                      //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.white),
+                        padding: EdgeInsets.all(2.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Simpan',
+                            style: TextStyle(
+                                fontFamily: 'Roboto-Regular',
+                                color: kPrimaryColor,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        if (formKey.currentState.validate()) {
+                          if (selectedJenisKelamin == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih jenis kelamin...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (selectedJenisDebitur == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih jenis produk...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (selectedJenisCabang == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih kantor cabang...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (selectedStatusKredit == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih status kredit...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (selectedPengelolaPensiun == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih pengelola pensiun...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else if (image1 == null) {
+                            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                              content: Text('Mohon pilih foto ktp...'),
+                              duration: Duration(seconds: 3),
+                            ));
+                          } else {
+                            showGeneralDialog(
+                              context: context,
+                              barrierColor: Colors.black12
+                                  .withOpacity(0.6), // background color
+                              barrierDismissible:
+                                  false, // should dialog be dismissed when tapped outside
+                              barrierLabel: "Dialog", // label for barrier
+                              transitionDuration: Duration(
+                                  milliseconds:
+                                      400), // how long it takes to popup dialog after button click
+                              pageBuilder: (_, __, ___) {
+                                // your widget implementation
+                                return Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: 50,
+                                      width: 50,
+                                      child: CircularProgressIndicator(
+                                        //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                kPrimaryColor),
+                                      ),
                                     ),
+                                  ],
+                                );
+                              },
+                            );
+                            savePipeline();
+                          }
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                body: Container(
+                    color: Colors.grey[200],
+                    child: Form(
+                      key: formKey,
+                      child: ListView(
+                        physics: ClampingScrollPhysics(),
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16.0, top: 8.0, right: 16.0, bottom: 8.0),
+                            child: Text(
+                              'Data Nasabah',
+                              style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 16.0, right: 16.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.white),
+                              padding: EdgeInsets.all(8),
+                              width: double.infinity,
+                              child: Column(
+                                children: <Widget>[
+                                  fieldDebitur(),
+                                  fieldKtp(),
+                                  fieldNomorNpwp(),
+                                  fieldTelepon(),
+                                  fieldAlamat(),
+                                  fieldTempatLahir(),
+                                  fieldTanggalLahir(),
+                                  fieldJenisKelamin(),
+                                  SizedBox(
+                                    height: 20,
                                   ),
                                 ],
-                              );
-                            },
-                          );
-                          savePipeline();
-                        }
-                      }
-                    },
-                  )
-                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16.0, top: 8.0, right: 16.0, bottom: 8.0),
+                            child: Text(
+                              'Data Kredit',
+                              style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 16.0, right: 16.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.white),
+                              padding: EdgeInsets.all(8),
+                              width: double.infinity,
+                              child: Column(
+                                children: <Widget>[
+                                  fieldPlafond(),
+                                  fieldKeterangan(),
+                                  fieldJenisDebitur(),
+                                  fieldKantorCabang(),
+                                  fieldStatusKredit(),
+                                  Visibility(
+                                      visible: _isVisible,
+                                      child: fieldBankTakeOver()),
+                                  fieldPengelolaPensiun(),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 16.0, top: 8.0, right: 16.0, bottom: 8.0),
+                            child: Text(
+                              'Dokumen Nasabah',
+                              style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 16.0, right: 16.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.white),
+                              padding: EdgeInsets.all(8),
+                              width: double.infinity,
+                              //color: Colors.white,
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(child: buildGridView())
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
               ),
-              body: Container(
-                  color: Colors.grey[200],
-                  child: Form(
-                    key: formKey,
-                    child: ListView(
-                      physics: ClampingScrollPhysics(),
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Data Nasabah',
-                            style: TextStyle(
-                                color: Colors.grey[600], fontSize: 20),
-                          ),
-                        ),
-                        Container(
-                          color: Colors.white,
-                          padding: EdgeInsets.all(8),
-                          width: double.infinity,
-                          child: Column(
-                            children: <Widget>[
-                              fieldKtp(),
-                              fieldDebitur(),
-                              fieldTelepon(),
-                              fieldAlamat(),
-                              fieldTempatLahir(),
-                              fieldTanggalLahir(),
-                              fieldNomorNpwp(),
-                              fieldJenisKelamin(),
-                              SizedBox(
-                                height: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Data Kredit',
-                            style: TextStyle(
-                                color: Colors.grey[600], fontSize: 20),
-                          ),
-                        ),
-                        Container(
-                          color: Colors.white,
-                          padding: EdgeInsets.all(8),
-                          width: double.infinity,
-                          child: Column(
-                            children: <Widget>[
-                              fieldPlafond(),
-                              fieldKeterangan(),
-                              fieldJenisDebitur(),
-                              fieldKantorCabang(),
-                              fieldStatusKredit(),
-                              Visibility(
-                                  visible: _isVisible,
-                                  child: fieldBankTakeOver()),
-                              fieldPengelolaPensiun(),
-                              SizedBox(
-                                height: 20,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Dokumen Nasabah',
-                            style: TextStyle(
-                                color: Colors.grey[600], fontSize: 20),
-                          ),
-                        ),
-                        Container(
-                          color: Colors.white,
-                          padding: EdgeInsets.all(8),
-                          width: double.infinity,
-                          //color: Colors.white,
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(child: buildGridView())
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
             ));
   }
 
@@ -525,12 +554,6 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
   Widget fieldNomorNpwp() {
     return TextFormField(
       controller: nomorNpwpController,
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Nomor NPWP wajib diisi...';
-        }
-        return null;
-      },
       decoration: InputDecoration(labelText: 'Nomor NPWP'),
       keyboardType: TextInputType.number,
       inputFormatters: <TextInputFormatter>[
@@ -545,11 +568,11 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
       controller: namaPensiunController,
       validator: (value) {
         if (value.isEmpty) {
-          return 'Nama sesuai KTP wajib diisi...';
+          return 'Nama lengkap...';
         }
         return null;
       },
-      decoration: InputDecoration(labelText: 'Nama sesuai KTP'),
+      decoration: InputDecoration(labelText: 'Nama Lengkap'),
       textCapitalization: TextCapitalization.characters,
       style: TextStyle(fontFamily: 'Roboto-Regular'),
     );
@@ -561,6 +584,8 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
       validator: (value) {
         if (value.isEmpty) {
           return 'Alamat wajib diisi...';
+        } else if (value.length < 10) {
+          return 'Alamat minimal 10 karakter...';
         }
         return null;
       },
@@ -653,13 +678,15 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
         controller: plafondController,
         validator: (value) {
           if (value.isEmpty) {
-            return 'Nominal pinjaman wajib diisi...';
+            return 'Rencana pinjaman wajib diisi...';
           } else if (value.length < 8) {
-            return 'Nominal pinjaman minimal 8 digit...';
+            return 'Rencana pinjaman minimal 8 digit...';
+          } else if (value.length > 9) {
+            return 'Rencana pinjaman maksimal 9 digit...';
           }
           return null;
         },
-        decoration: InputDecoration(labelText: 'Nominal Pinjaman'),
+        decoration: InputDecoration(labelText: 'Rencana Pinjaman'),
         keyboardType: TextInputType.number,
         inputFormatters: <TextInputFormatter>[
           WhitelistingTextInputFormatter.digitsOnly
@@ -670,12 +697,6 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
   Widget fieldKeterangan() {
     return TextFormField(
       controller: keteranganPensiunController,
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Keterangan wajib diisi...';
-        }
-        return null;
-      },
       decoration: InputDecoration(labelText: 'Keterangan'),
       textCapitalization: TextCapitalization.characters,
       style: TextStyle(fontFamily: 'Roboto-Regular'),
@@ -775,7 +796,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
   Widget buildGridView() {
     return GridView.count(
       shrinkWrap: true,
-      crossAxisCount: 2,
+      crossAxisCount: 3,
       childAspectRatio: 1,
       children: List.generate(images.length, (index) {
         if (images[index] is ImageUploadModel) {
@@ -842,7 +863,7 @@ class _PipelineAddScreen extends State<PipelineAddScreen> {
                   Text(
                     titled,
                     style:
-                        TextStyle(fontSize: 8.0, fontFamily: 'Roboto-Regular'),
+                        TextStyle(fontSize: 10.0, fontFamily: 'Roboto-Regular'),
                   ),
                   IconButton(
                     icon: Icon(Icons.add),

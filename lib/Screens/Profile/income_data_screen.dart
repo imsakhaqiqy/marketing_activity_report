@@ -11,40 +11,42 @@ class IncomeDataScreen extends StatefulWidget {
 class _IncomeDataScreenState extends State<IncomeDataScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Pendapatan',
-            style: TextStyle(fontFamily: 'Roboto-Regular'),
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Pendapatan',
+              style: TextStyle(fontFamily: 'Roboto-Regular'),
+            ),
           ),
-        ),
-        body: Container(
-            color: Color.fromARGB(255, 242, 242, 242),
-            child: ListView(
-              children: <Widget>[
-                gajiPokokField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                tunjanganTkdField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                tunjanganJabatanField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                tunjanganPerumahanField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                tunjanganTeleponField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                tunjanganKinerjaField(),
-              ],
-            )));
+          body: Container(
+              color: Color.fromARGB(255, 242, 242, 242),
+              child: ListView(
+                children: <Widget>[
+                  gajiPokokField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  tunjanganTkdField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  tunjanganJabatanField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  tunjanganPerumahanField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  tunjanganTeleponField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  tunjanganKinerjaField(),
+                ],
+              ))),
+    );
   }
 
   Widget gajiPokokField() {

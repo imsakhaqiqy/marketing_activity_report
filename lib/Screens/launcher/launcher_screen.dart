@@ -27,12 +27,14 @@ class _LauncherPageState extends State<LauncherScreen> {
       ),
     );
     Size size = MediaQuery.of(context).size;
-    return new Scaffold(
-      body: Container(
-        child: Center(
-          child: Image.asset(
-            "assets/images/imarsyt 2-03.png",
-            width: size.height * 0.45,
+    return new SafeArea(
+      child: Scaffold(
+        body: Container(
+          child: Center(
+            child: Image.asset(
+              "assets/images/imarsyt 2-03.png",
+              width: size.height * 0.45,
+            ),
           ),
         ),
       ),

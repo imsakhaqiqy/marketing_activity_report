@@ -23,7 +23,7 @@ class Body extends StatefulWidget {
 }
 
 class _FavoriteWidgetState extends State<Body> {
-  var personalData = new List(34);
+  var personalData = new List(38);
   bool visible = false;
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -111,7 +111,7 @@ class _FavoriteWidgetState extends State<Body> {
       //if the response message is matched
       if (response.statusCode == 200) {
         var message = jsonDecode(response.body)['Daftar_Login'];
-        print(message);
+        print(message['total_pencairan']);
         if (message['message'].toString() == 'Login Success') {
           if (message['status_account'] == 'SUSPEND') {
             setState(() {
@@ -123,7 +123,7 @@ class _FavoriteWidgetState extends State<Body> {
               builder: (BuildContext context) {
                 return AlertDialog(
                   title: new Text(
-                      'Login gagal, Account kamu di suspend, mohon hubungi sales leader'),
+                      'Login gagal, Account kamu di suspend, mohon hubungi IT Support'),
                   actions: <Widget>[
                     FlatButton(
                       child: new Text("OK"),
@@ -172,6 +172,10 @@ class _FavoriteWidgetState extends State<Body> {
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
               personalData[33] = message['diamond'];
+              personalData[34] = message['total_pencairan'];
+              personalData[35] = message['total_interaksi'];
+              personalData[36] = message['rating'];
+              personalData[37] = message['tgl_cut_off'];
             });
             if (message['hak_akses'] == '5') {
               Navigator.of(context).push(MaterialPageRoute(

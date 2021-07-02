@@ -12,57 +12,59 @@ class _UtilityScreenState extends State<UtilityScreen> {
   final _linkss = 'https://eform.bni.co.id/';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: grey,
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        title: Text(
-          'Bantuan',
-          style: TextStyle(
-            fontFamily: 'Roboto-Regular',
-            color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: grey,
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: Text(
+            'Bantuan',
+            style: TextStyle(
+              fontFamily: 'Roboto-Regular',
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-      body: Container(
-        margin: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Card(
-              color: Colors.white,
-              elevation: 2,
-              child: InkWell(
-                onTap: () {
-                  _handleURLButtonPress(context, _linkss);
-                },
-                child:
-                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                  ListTile(
-                    leading: SvgPicture.asset(
-                      'assets/menus/utilities.svg',
-                      height: 50,
-                    ),
-                    title: Text(
-                      'e-Form BNI',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
+        body: Container(
+          margin: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Card(
+                color: Colors.white,
+                elevation: 2,
+                child: InkWell(
+                  onTap: () {
+                    _handleURLButtonPress(context, _linkss);
+                  },
+                  child:
+                      Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                    ListTile(
+                      leading: SvgPicture.asset(
+                        'assets/menus/utilities.svg',
+                        height: 50,
+                      ),
+                      title: Text(
+                        'e-Form BNI',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'Layanan Digital BNI',
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic),
                       ),
                     ),
-                    subtitle: Text(
-                      'Layanan Digital BNI',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic),
-                    ),
-                  ),
-                ]),
+                  ]),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -20,7 +20,7 @@ class ReportWilayahRslScreen extends StatefulWidget {
 class _ReportWilayahRslScreen extends State<ReportWilayahRslScreen> {
   bool _isLoading = false;
   final String apiUrl =
-      'https://www.nabasa.co.id/api_marsit_v1/tes.php/getWilayahRslReport';
+      'https://www.nabasa.co.id/api_marsit_v1/index.php/getWilayahRslReport';
   List<dynamic> _users = [];
 
   void fetchUsers() async {
@@ -62,18 +62,20 @@ class _ReportWilayahRslScreen extends State<ReportWilayahRslScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          'Wilayah Cover',
-          style: fontFamily,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(
+            'Wilayah Cover',
+            style: fontFamily,
+          ),
+          actions: <Widget>[],
         ),
-        actions: <Widget>[],
-      ),
-      body: Container(
-        color: Colors.white,
-        child: _buildList(),
+        body: Container(
+          color: Colors.white,
+          child: _buildList(),
+        ),
       ),
     );
   }

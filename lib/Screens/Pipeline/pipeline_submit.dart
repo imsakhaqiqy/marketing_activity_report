@@ -181,179 +181,200 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
               )
             : Navigator.of(context).pop();
       },
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: Text(
-            'Submit Dokumen',
-            style: TextStyle(fontFamily: 'Roboto-Regular'),
-          ),
-          actions: [
-            FlatButton(
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              color: Colors.white,
-              onPressed: () {
-                if (formKey.currentState.validate()) {
-                  if (image1 == null || image1 == '') {
-                    _scaffoldKey.currentState.showSnackBar(SnackBar(
-                      content: Text('Mohon pilih foto submit dokumen...'),
-                      duration: Duration(seconds: 3),
-                    ));
-                  } else {
-                    showGeneralDialog(
-                      context: context,
-                      barrierColor:
-                          Colors.black12.withOpacity(0.6), // background color
-                      barrierDismissible:
-                          false, // should dialog be dismissed when tapped outside
-                      barrierLabel: "Dialog", // label for barrier
-                      transitionDuration: Duration(
-                          milliseconds:
-                              400), // how long it takes to popup dialog after button click
-                      pageBuilder: (_, __, ___) {
-                        // your widget implementation
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(
-                              height: 50,
-                              width: 50,
-                              child: CircularProgressIndicator(
-                                //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                    kPrimaryColor),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBar(
+            title: Text(
+              'Submit Dokumen',
+              style: TextStyle(fontFamily: 'Roboto-Regular'),
+            ),
+            actions: [
+              FlatButton(
+                onPressed: () {
+                  if (formKey.currentState.validate()) {
+                    if (image1 == null || image1 == '') {
+                      _scaffoldKey.currentState.showSnackBar(SnackBar(
+                        content: Text('Mohon pilih foto submit dokumen...'),
+                        duration: Duration(seconds: 3),
+                      ));
+                    } else {
+                      showGeneralDialog(
+                        context: context,
+                        barrierColor:
+                            Colors.black12.withOpacity(0.6), // background color
+                        barrierDismissible:
+                            false, // should dialog be dismissed when tapped outside
+                        barrierLabel: "Dialog", // label for barrier
+                        transitionDuration: Duration(
+                            milliseconds:
+                                400), // how long it takes to popup dialog after button click
+                        pageBuilder: (_, __, ___) {
+                          // your widget implementation
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: CircularProgressIndicator(
+                                  //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      kPrimaryColor),
+                                ),
                               ),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                    submitPipeline();
+                            ],
+                          );
+                        },
+                      );
+                      submitPipeline();
+                    }
                   }
-                }
-              },
-              child: Text(
-                '$action',
-                style: TextStyle(
-                  color: kPrimaryColor,
-                  fontFamily: 'Roboto-Regular',
-                  fontWeight: FontWeight.bold,
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.white),
+                  padding: EdgeInsets.all(2.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      '$action',
+                      style: TextStyle(
+                        color: kPrimaryColor,
+                        fontFamily: 'Roboto-Regular',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        body: Container(
-            color: Colors.grey[200],
-            child: Form(
-              key: formKey,
-              child: ListView(
-                physics: ClampingScrollPhysics(),
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Informasi Pipeline',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 20),
+            ],
+          ),
+          body: Container(
+              color: Colors.grey[200],
+              child: Form(
+                key: formKey,
+                child: ListView(
+                  physics: ClampingScrollPhysics(),
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Informasi Pipeline',
+                        style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                      ),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    color: Colors.white,
-                    child: Column(
-                      children: <Widget>[
-                        Column(
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      color: Colors.white,
+                      child: Column(
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              fieldDebitur('No KTP', widget.noKtp),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              fieldDebitur('Debitur', widget.debitur),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              fieldDebitur('Telepon', widget.telepon),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              fieldDebitur(
+                                  'Nominal', formatRupiah(widget.nominal)),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              fieldDebitur('Cabang', widget.cabang),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 16.0, top: 8.0, right: 16.0, bottom: 8.0),
+                      child: Text(
+                        'Data Submit',
+                        style: TextStyle(color: Colors.grey[600], fontSize: 20),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white),
+                        child: Column(
                           children: <Widget>[
-                            fieldDebitur('No KTP', widget.noKtp),
+                            fieldTanggal(),
+                            fieldPenerima(),
+                            fieldTeleponPenerima(),
                             SizedBox(
                               height: 10,
                             ),
-                            fieldDebitur('Debitur', widget.debitur),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            fieldDebitur('Telepon', widget.telepon),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            fieldDebitur(
-                                'Nominal', formatRupiah(widget.nominal)),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            fieldDebitur('Cabang', widget.cabang),
                           ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Data Submit',
-                      style: TextStyle(color: Colors.grey[600], fontSize: 20),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    color: Colors.white,
-                    child: Column(
-                      children: <Widget>[
-                        fieldTanggal(),
-                        fieldPenerima(),
-                        fieldTeleponPenerima(),
-                        SizedBox(
-                          height: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Stack(
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Dokumen Submit',
-                              style: TextStyle(
-                                  color: Colors.grey[600], fontSize: 20),
+                    Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16.0, top: 8.0, right: 16.0, bottom: 8.0),
+                        child: Stack(
+                          children: <Widget>[
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Dokumen Submit',
+                                style: TextStyle(
+                                    color: Colors.grey[600], fontSize: 20),
+                              ),
                             ),
-                          ),
-                          path1 != null && path1 != ''
-                              ? Align(
-                                  alignment: Alignment.centerRight,
-                                  child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          path1 = '';
-                                          image1 = '';
-                                        });
-                                      },
-                                      child: Tooltip(
-                                        message: 'Reset Photo',
-                                        child: Icon(
-                                          Icons.remove_circle,
-                                          color: Colors.red,
-                                        ),
-                                      )),
-                                )
-                              : Text('')
-                        ],
-                      )),
-                  Container(
-                    color: Colors.white,
-                    padding: EdgeInsets.all(8),
-                    width: double.infinity,
-                    //color: Colors.white,
-                    child: Row(
-                      children: <Widget>[Expanded(child: buildGridView())],
+                            path1 != null && path1 != ''
+                                ? Align(
+                                    alignment: Alignment.centerRight,
+                                    child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            path1 = '';
+                                            image1 = '';
+                                          });
+                                        },
+                                        child: Tooltip(
+                                          message: 'Reset Photo',
+                                          child: Icon(
+                                            Icons.remove_circle,
+                                            color: Colors.red,
+                                          ),
+                                        )),
+                                  )
+                                : Text('')
+                          ],
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white),
+                        padding: EdgeInsets.all(8),
+                        width: double.infinity,
+                        //color: Colors.white,
+                        child: Row(
+                          children: <Widget>[Expanded(child: buildGridView())],
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )),
+                  ],
+                ),
+              )),
+        ),
       ),
     );
   }
@@ -468,7 +489,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
   Widget buildGridView() {
     return GridView.count(
       shrinkWrap: true,
-      crossAxisCount: 1,
+      crossAxisCount: 3,
       childAspectRatio: 1,
       children: List.generate(images.length, (index) {
         if (images[index] is ImageUploadModel) {
@@ -547,7 +568,7 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
             String titled;
             Color colored;
             if (index == 0) {
-              titled = 'Foto Submit Dokumen ';
+              titled = 'Foto Submit\n Dokumen ';
               colored = kPrimaryColor;
             }
             return Card(
@@ -559,7 +580,8 @@ class _PipelineSubmitScreen extends State<PipelineSubmitScreen> {
                   children: [
                     Text(
                       titled,
-                      style: TextStyle(fontFamily: 'Roboto-Regular'),
+                      style: TextStyle(
+                          fontSize: 10.0, fontFamily: 'Roboto-Regular'),
                     ),
                     IconButton(
                       icon: Icon(Icons.add),

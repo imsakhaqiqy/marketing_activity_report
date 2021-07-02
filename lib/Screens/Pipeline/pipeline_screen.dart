@@ -295,348 +295,356 @@ class _PipelineScreen extends State<PipelineScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          title: Text(
-            'Pipeline',
-            style: TextStyle(
-                fontFamily: "Roboto-Regular",
-                fontSize: 16,
-                fontWeight: FontWeight.bold),
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: kPrimaryColor,
+            title: Text(
+              'Pipeline',
+              style: TextStyle(
+                  fontFamily: "Roboto-Regular",
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+            ),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              PipelineAddScreen(widget.username, widget.nik)));
+                },
+              )
+            ],
           ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            PipelineAddScreen(widget.username, widget.nik)));
-              },
-            )
-          ],
-        ),
-        //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
-        //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
-        body: RefreshIndicator(
-            onRefresh: () =>
-                Provider.of<PipelineProvider>(context, listen: false)
-                    .getPipeline(PipelineItem(widget.nik)),
-            color: Colors.red,
-            child: Container(
-                color: Colors.white,
-                margin: EdgeInsets.all(10),
-                child: FutureBuilder(
-                    future:
-                        Provider.of<PipelineProvider>(context, listen: false)
-                            .getPipeline(PipelineItem(widget.nik)),
-                    builder: (context, snapshot) {
-                      if (snapshot.data == null &&
-                          snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(kPrimaryColor)),
-                        );
-                      } else if (snapshot.data == null) {
-                        return Center(
-                          child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50))),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child:
-                                          Icon(Icons.hourglass_empty, size: 70),
-                                    )),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Buat Pipeline Yuk!',
-                                  style: TextStyle(
-                                      fontFamily: "Roboto-Regular",
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Dapatkan insentif besar dari pencairanmu.',
-                                  style: TextStyle(
-                                    fontFamily: "Roboto-Regular",
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ]),
-                        );
-                      } else {
-                        return Consumer<PipelineProvider>(
-                            builder: (context, data, _) {
-                          print(data.dataPipeline.length);
-                          if (data.dataPipeline.length == 0) {
-                            return Center(
-                              child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(50))),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Icon(Icons.hourglass_empty,
-                                              size: 70),
-                                        )),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'Buat Pipeline Yuk!',
-                                      style: TextStyle(
-                                          fontFamily: "Roboto-Regular",
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      'Dapatkan insentif besar dari pencairanmu.',
-                                      style: TextStyle(
-                                        fontFamily: "Roboto-Regular",
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ]),
-                            );
-                          } else {
-                            return ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                itemCount: data.dataPipeline.length,
-                                itemBuilder: (context, i) {
-                                  return Container(
+          //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
+          //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
+          body: RefreshIndicator(
+              onRefresh: () =>
+                  Provider.of<PipelineProvider>(context, listen: false)
+                      .getPipeline(PipelineItem(widget.nik)),
+              color: Colors.red,
+              child: Container(
+                  color: Colors.white,
+                  margin: EdgeInsets.all(10),
+                  child: FutureBuilder(
+                      future:
+                          Provider.of<PipelineProvider>(context, listen: false)
+                              .getPipeline(PipelineItem(widget.nik)),
+                      builder: (context, snapshot) {
+                        if (snapshot.data == null &&
+                            snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                          return Center(
+                            child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    kPrimaryColor)),
+                          );
+                        } else if (snapshot.data == null) {
+                          return Center(
+                            child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Container(
                                       decoration: BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                        color: Colors.black12,
-                                      ))),
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PipelineViewScreen(
-                                                        data.dataPipeline[i]
-                                                            .namaNasabah,
-                                                        data.dataPipeline[i]
-                                                            .tglPipeline,
-                                                        data.dataPipeline[i]
-                                                            .alamat,
-                                                        data.dataPipeline[i]
-                                                            .telepon,
-                                                        data.dataPipeline[i]
-                                                            .jenisProduk,
-                                                        data.dataPipeline[i]
-                                                            .plafond,
-                                                        data.dataPipeline[i]
-                                                            .cabang,
-                                                        data.dataPipeline[i]
-                                                            .keterangan,
-                                                        data.dataPipeline[i]
-                                                            .status,
-                                                        data.dataPipeline[i]
-                                                            .tempatLahir,
-                                                        data.dataPipeline[i]
-                                                            .tanggalLahir,
-                                                        data.dataPipeline[i]
-                                                            .jenisKelamin,
-                                                        data.dataPipeline[i]
-                                                            .noKtp,
-                                                        data.dataPipeline[i]
-                                                            .npwp,
-                                                        data.dataPipeline[i]
-                                                            .statusKredit,
-                                                        data.dataPipeline[i]
-                                                            .pengelolaPensiun,
-                                                        data.dataPipeline[i]
-                                                            .bankTakeover,
-                                                        data.dataPipeline[i]
-                                                            .foto1,
-                                                        data.dataPipeline[i]
-                                                            .foto2,
-                                                      )));
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 8.0, bottom: 8.0),
-                                          child: ListTile(
-                                            title: Text(
-                                              data.dataPipeline[i].namaNasabah,
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Roboto-Regular'),
-                                            ),
-                                            subtitle: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Row(
-                                                  children: <Widget>[
-                                                    Tooltip(
-                                                      message: 'Plafond',
-                                                      child: Icon(
-                                                        Icons
-                                                            .monetization_on_outlined,
-                                                        color: Colors.black54,
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(50))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Icon(Icons.hourglass_empty,
+                                            size: 70),
+                                      )),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'Buat Pipeline Yuk!',
+                                    style: TextStyle(
+                                        fontFamily: "Roboto-Regular",
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'Dapatkan insentif besar dari pencairanmu.',
+                                    style: TextStyle(
+                                      fontFamily: "Roboto-Regular",
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ]),
+                          );
+                        } else {
+                          return Consumer<PipelineProvider>(
+                              builder: (context, data, _) {
+                            print(data.dataPipeline.length);
+                            if (data.dataPipeline.length == 0) {
+                              return Center(
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(50))),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: Icon(Icons.hourglass_empty,
+                                                size: 70),
+                                          )),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        'Buat Pipeline Yuk!',
+                                        style: TextStyle(
+                                            fontFamily: "Roboto-Regular",
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        'Dapatkan insentif besar dari pencairanmu.',
+                                        style: TextStyle(
+                                          fontFamily: "Roboto-Regular",
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ]),
+                              );
+                            } else {
+                              return ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: data.dataPipeline.length,
+                                  itemBuilder: (context, i) {
+                                    return Container(
+                                        decoration: BoxDecoration(
+                                            border: Border(
+                                                bottom: BorderSide(
+                                          color: Colors.black12,
+                                        ))),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PipelineViewScreen(
+                                                          data.dataPipeline[i]
+                                                              .namaNasabah,
+                                                          data.dataPipeline[i]
+                                                              .tglPipeline,
+                                                          data.dataPipeline[i]
+                                                              .alamat,
+                                                          data.dataPipeline[i]
+                                                              .telepon,
+                                                          data.dataPipeline[i]
+                                                              .jenisProduk,
+                                                          data.dataPipeline[i]
+                                                              .plafond,
+                                                          data.dataPipeline[i]
+                                                              .cabang,
+                                                          data.dataPipeline[i]
+                                                              .keterangan,
+                                                          data.dataPipeline[i]
+                                                              .status,
+                                                          data.dataPipeline[i]
+                                                              .tempatLahir,
+                                                          data.dataPipeline[i]
+                                                              .tanggalLahir,
+                                                          data.dataPipeline[i]
+                                                              .jenisKelamin,
+                                                          data.dataPipeline[i]
+                                                              .noKtp,
+                                                          data.dataPipeline[i]
+                                                              .npwp,
+                                                          data.dataPipeline[i]
+                                                              .statusKredit,
+                                                          data.dataPipeline[i]
+                                                              .pengelolaPensiun,
+                                                          data.dataPipeline[i]
+                                                              .bankTakeover,
+                                                          data.dataPipeline[i]
+                                                              .foto1,
+                                                          data.dataPipeline[i]
+                                                              .foto2,
+                                                        )));
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 8.0, bottom: 8.0),
+                                            child: ListTile(
+                                              title: Text(
+                                                data.dataPipeline[i]
+                                                    .namaNasabah,
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily:
+                                                        'Roboto-Regular'),
+                                              ),
+                                              subtitle: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Tooltip(
+                                                        message: 'Plafond',
+                                                        child: Icon(
+                                                          Icons
+                                                              .monetization_on_outlined,
+                                                          color: Colors.black54,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text(
-                                                      '${formatRupiah(data.dataPipeline[i].plafond)}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'Roboto-Regular',
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Row(
-                                                  children: <Widget>[
-                                                    Tooltip(
-                                                      message: 'Tanggal Input',
-                                                      child: Icon(
-                                                        Icons
-                                                            .date_range_outlined,
-                                                        color: Colors.black54,
+                                                      SizedBox(
+                                                        width: 10,
                                                       ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text(
-                                                      '${data.dataPipeline[i].tglPipeline}',
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'Roboto-Regular',
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Row(
-                                                  children: <Widget>[
-                                                    Tooltip(
-                                                      message:
-                                                          'Status Pipeline',
-                                                      child: Icon(
-                                                        Icons.info_outline,
-                                                        color: Colors.black54,
+                                                      Text(
+                                                        '${formatRupiah(data.dataPipeline[i].plafond)}',
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                'Roboto-Regular',
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text(
-                                                      messageStatus(
-                                                          '${data.dataPipeline[i].status}'),
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              'Roboto-Regular',
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: colorStatus(
-                                                              '${data.dataPipeline[i].status}')),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            trailing: Wrap(
-                                              spacing: 12,
-                                              children: <Widget>[
-                                                _showPopupMenu(
-                                                  data.dataPipeline[i].id
-                                                      .toString(),
-                                                  data.dataPipeline[i]
-                                                      .namaNasabah
-                                                      .toString(),
-                                                  data.dataPipeline[i].noKtp
-                                                      .toString(),
-                                                  data.dataPipeline[i].telepon
-                                                      .toString(),
-                                                  data.dataPipeline[i].plafond
-                                                      .toString(),
-                                                  data.dataPipeline[i].cabang
-                                                      .toString(),
-                                                  data.dataPipeline[i]
-                                                      .tglPenyerahan
-                                                      .toString(),
-                                                  data.dataPipeline[i]
-                                                      .namaPenerima
-                                                      .toString(),
-                                                  data.dataPipeline[i]
-                                                      .teleponPenerima
-                                                      .toString(),
-                                                  data.dataPipeline[i].status,
-                                                  data.dataPipeline[i]
-                                                      .fotoTandaTerima,
-                                                  data.dataPipeline[i]
-                                                      .tanggalAkad,
-                                                  data.dataPipeline[i]
-                                                      .nomorAplikasi,
-                                                  data.dataPipeline[i]
-                                                      .nomorPerjanjian,
-                                                  data.dataPipeline[i]
-                                                      .nominalPinjaman,
-                                                  data.dataPipeline[i]
-                                                      .akadProduk,
-                                                  data.dataPipeline[i]
-                                                      .salesInfo,
-                                                  data.dataPipeline[i]
-                                                      .namaPetugasBank,
-                                                  data.dataPipeline[i]
-                                                      .jabatanPetugasBank,
-                                                  data.dataPipeline[i]
-                                                      .teleponPetugasBank,
-                                                  data.dataPipeline[i]
-                                                      .fotoAkad1,
-                                                  data.dataPipeline[i]
-                                                      .fotoAkad2,
-                                                ),
-                                              ],
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Tooltip(
+                                                        message:
+                                                            'Tanggal Input',
+                                                        child: Icon(
+                                                          Icons
+                                                              .date_range_outlined,
+                                                          color: Colors.black54,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Text(
+                                                        '${data.dataPipeline[i].tglPipeline}',
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                'Roboto-Regular',
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Tooltip(
+                                                        message:
+                                                            'Status Pipeline',
+                                                        child: Icon(
+                                                          Icons.info_outline,
+                                                          color: Colors.black54,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Text(
+                                                        messageStatus(
+                                                            '${data.dataPipeline[i].status}'),
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                'Roboto-Regular',
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: colorStatus(
+                                                                '${data.dataPipeline[i].status}')),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                              trailing: Wrap(
+                                                spacing: 12,
+                                                children: <Widget>[
+                                                  _showPopupMenu(
+                                                    data.dataPipeline[i].id
+                                                        .toString(),
+                                                    data.dataPipeline[i]
+                                                        .namaNasabah
+                                                        .toString(),
+                                                    data.dataPipeline[i].noKtp
+                                                        .toString(),
+                                                    data.dataPipeline[i].telepon
+                                                        .toString(),
+                                                    data.dataPipeline[i].plafond
+                                                        .toString(),
+                                                    data.dataPipeline[i].cabang
+                                                        .toString(),
+                                                    data.dataPipeline[i]
+                                                        .tglPenyerahan
+                                                        .toString(),
+                                                    data.dataPipeline[i]
+                                                        .namaPenerima
+                                                        .toString(),
+                                                    data.dataPipeline[i]
+                                                        .teleponPenerima
+                                                        .toString(),
+                                                    data.dataPipeline[i].status,
+                                                    data.dataPipeline[i]
+                                                        .fotoTandaTerima,
+                                                    data.dataPipeline[i]
+                                                        .tanggalAkad,
+                                                    data.dataPipeline[i]
+                                                        .nomorAplikasi,
+                                                    data.dataPipeline[i]
+                                                        .nomorPerjanjian,
+                                                    data.dataPipeline[i]
+                                                        .nominalPinjaman,
+                                                    data.dataPipeline[i]
+                                                        .akadProduk,
+                                                    data.dataPipeline[i]
+                                                        .salesInfo,
+                                                    data.dataPipeline[i]
+                                                        .namaPetugasBank,
+                                                    data.dataPipeline[i]
+                                                        .jabatanPetugasBank,
+                                                    data.dataPipeline[i]
+                                                        .teleponPetugasBank,
+                                                    data.dataPipeline[i]
+                                                        .fotoAkad1,
+                                                    data.dataPipeline[i]
+                                                        .fotoAkad2,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ));
-                                });
-                          }
-                        });
-                      }
-                    }))));
+                                        ));
+                                  });
+                            }
+                          });
+                        }
+                      })))),
+    );
   }
 
   messageStatus(String status) {

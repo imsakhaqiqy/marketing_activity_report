@@ -53,477 +53,479 @@ class _HelpScreenState extends State<HelpScreen> {
         'KAMU DAPAT MELAKUKAN PENGAJUAN FLASH CREDIT PADA HALAMAN FLASH CREDIT';
     asking[11] =
         'KAMU DAPAT LOGOUT PADA MENU LOGOUT YANG BERADA PADA HALAMAN ACCOUNT';
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        title: Text(
-          'FAQ',
-          style: TextStyle(
-            fontFamily: 'Roboto-Regular',
-            color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: Text(
+            'FAQ',
+            style: TextStyle(
+              fontFamily: 'Roboto-Regular',
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-      body: Container(
-          padding: EdgeInsets.all(8.0),
-          decoration: BoxDecoration(color: Colors.white54),
-          child: ListView(
-            physics: ClampingScrollPhysics(),
-            children: <Widget>[
-              Container(
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: FlatButton(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 0.0),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AskScreen(question[0], asking[0])));
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          'BAGAIMANA SAYA BISA LOGIN KE APLIKASI INI ?',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.black54,
-                                              fontSize: 12.0),
+        body: Container(
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(color: Colors.white54),
+            child: ListView(
+              physics: ClampingScrollPhysics(),
+              children: <Widget>[
+                Container(
+                  color: Colors.white,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: FlatButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 0.0),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AskScreen(question[0], asking[0])));
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            'BAGAIMANA SAYA BISA LOGIN KE APLIKASI INI ?',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                color: Colors.black54,
+                                                fontSize: 12.0),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: FlatButton(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 0.0),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AskScreen(question[1], asking[1])));
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          'BAGAIMANA JIKA ACCOUNT SAYA TIDAK BISA LOGIN ?',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.black54,
-                                              fontSize: 12.0),
+                                      ],
+                                    )),
+                              ],
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: FlatButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 0.0),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AskScreen(question[1], asking[1])));
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            'BAGAIMANA JIKA ACCOUNT SAYA TIDAK BISA LOGIN ?',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                color: Colors.black54,
+                                                fontSize: 12.0),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: FlatButton(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 0.0),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AskScreen(question[2], asking[2])));
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          'BAGAIMANA SAYA MENDAPATKAN GAJI BULANAN ?',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.black54,
-                                              fontSize: 12.0),
+                                      ],
+                                    )),
+                              ],
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: FlatButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 0.0),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AskScreen(question[2], asking[2])));
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            'BAGAIMANA SAYA MENDAPATKAN GAJI BULANAN ?',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                color: Colors.black54,
+                                                fontSize: 12.0),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: FlatButton(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 0.0),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AskScreen(question[3], asking[3])));
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          'BAGAIMANA SAYA MELAKUKAN INTERAKSI ?',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.black54,
-                                              fontSize: 12.0),
+                                      ],
+                                    )),
+                              ],
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: FlatButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 0.0),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AskScreen(question[3], asking[3])));
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            'BAGAIMANA SAYA MELAKUKAN INTERAKSI ?',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                color: Colors.black54,
+                                                fontSize: 12.0),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: FlatButton(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 0.0),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AskScreen(question[4], asking[4])));
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          'BAGAIMANA SAYA MELAKUKAN PENCAIRAN KREDIT ?',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.black54,
-                                              fontSize: 12.0),
+                                      ],
+                                    )),
+                              ],
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: FlatButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 0.0),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AskScreen(question[4], asking[4])));
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            'BAGAIMANA SAYA MELAKUKAN PENCAIRAN KREDIT ?',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                color: Colors.black54,
+                                                fontSize: 12.0),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: FlatButton(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 0.0),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AskScreen(question[5], asking[5])));
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          'BAGAIMANA SAYA MELAKUKAN SIMULASI KREDIT ?',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.black54,
-                                              fontSize: 12.0),
+                                      ],
+                                    )),
+                              ],
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: FlatButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 0.0),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AskScreen(question[5], asking[5])));
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            'BAGAIMANA SAYA MELAKUKAN SIMULASI KREDIT ?',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                color: Colors.black54,
+                                                fontSize: 12.0),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: FlatButton(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 0.0),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AskScreen(question[6], asking[6])));
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          'BAGAIMANA SAYA MELIHAT LAPORAN HARIAN INTERAKSI DAN PENCAIRAN ?',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.black54,
-                                              fontSize: 12.0),
+                                      ],
+                                    )),
+                              ],
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: FlatButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 0.0),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AskScreen(question[6], asking[6])));
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            'BAGAIMANA SAYA MELIHAT LAPORAN HARIAN INTERAKSI DAN PENCAIRAN ?',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                color: Colors.black54,
+                                                fontSize: 12.0),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: FlatButton(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 0.0),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AskScreen(question[7], asking[7])));
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          'BAGAIMANA SAYA MELIHAT INFO, BERITA TERBARU DARI KANTOR PUSAT ?',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.black54,
-                                              fontSize: 12.0),
+                                      ],
+                                    )),
+                              ],
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: FlatButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 0.0),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AskScreen(question[7], asking[7])));
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            'BAGAIMANA SAYA MELIHAT INFO, BERITA TERBARU DARI KANTOR PUSAT ?',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                color: Colors.black54,
+                                                fontSize: 12.0),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: FlatButton(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 0.0),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AskScreen(question[8], asking[8])));
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          'BAGAIMANA SAYA MELIHAT DATA PERIBADI SAYA ?',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.black54,
-                                              fontSize: 12.0),
+                                      ],
+                                    )),
+                              ],
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: FlatButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 0.0),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AskScreen(question[8], asking[8])));
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            'BAGAIMANA SAYA MELIHAT DATA PERIBADI SAYA ?',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                color: Colors.black54,
+                                                fontSize: 12.0),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: FlatButton(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 0.0),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AskScreen(question[9], asking[9])));
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          'BAGAIMANA SAYA MECETAK SLIP GAJI BULANAN ?',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.black54,
-                                              fontSize: 12.0),
+                                      ],
+                                    )),
+                              ],
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: FlatButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 0.0),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AskScreen(question[9], asking[9])));
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            'BAGAIMANA SAYA MECETAK SLIP GAJI BULANAN ?',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                color: Colors.black54,
+                                                fontSize: 12.0),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: FlatButton(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 0.0),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AskScreen(question[10], asking[10])));
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          'BAGAIMANA SAYA MELAKUKAN PENGAJUAN FLASH CREDIT ?',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.black54,
-                                              fontSize: 12.0),
+                                      ],
+                                    )),
+                              ],
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: FlatButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 0.0),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AskScreen(question[10], asking[10])));
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            'BAGAIMANA SAYA MELAKUKAN PENGAJUAN FLASH CREDIT ?',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                color: Colors.black54,
+                                                fontSize: 12.0),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 8),
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: Colors.black12,
-                      ))),
-                      child: FlatButton(
-                          color: Colors.white,
-                          padding: EdgeInsets.only(left: 0.0),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AskScreen(question[11], asking[11])));
-                          },
-                          child: Stack(
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                          'BAGAIMANA SAYA LOGOUT DARI APLIKASI INI ?',
-                                          style: TextStyle(
-                                              fontFamily: 'Roboto-Regular',
-                                              color: Colors.black54,
-                                              fontSize: 12.0),
+                                      ],
+                                    )),
+                              ],
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 8),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                          color: Colors.black12,
+                        ))),
+                        child: FlatButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(left: 0.0),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          AskScreen(question[11], asking[11])));
+                            },
+                            child: Stack(
+                              children: <Widget>[
+                                Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Text(
+                                            'BAGAIMANA SAYA LOGOUT DARI APLIKASI INI ?',
+                                            style: TextStyle(
+                                                fontFamily: 'Roboto-Regular',
+                                                color: Colors.black54,
+                                                fontSize: 12.0),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ],
-                          )),
-                    ),
-                  ],
+                                      ],
+                                    )),
+                              ],
+                            )),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          )),
+              ],
+            )),
+      ),
     );
   }
 }

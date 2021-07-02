@@ -36,7 +36,7 @@ class DisbursmentAddScreen extends StatefulWidget {
 }
 
 class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
-  var personalData = new List(34);
+  var personalData = new List(38);
   String image1, image2, image3;
   String base64Image1, base64Image2, base64Image3;
   List<Object> images = List<Object>();
@@ -182,6 +182,10 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
               personalData[33] = message['diamond'];
+              personalData[34] = message['total_pencairan'];
+              personalData[35] = message['total_interaksi'];
+              personalData[36] = message['rating'];
+              personalData[37] = message['tgl_cut_off'];
             });
             if (message['hak_akses'] == '5') {
               Navigator.of(context).push(MaterialPageRoute(
@@ -357,186 +361,193 @@ class _DisbursmentAddScreen extends State<DisbursmentAddScreen> {
                 )
               : Navigator.of(context).pop();
         },
-        child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            title: Text(
-              'Pencairan',
-              style: TextStyle(fontFamily: 'Roboto-Regular'),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                  //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
-                  //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
-                  child: visible
-                      ? CircularProgressIndicator(
-                          //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
-                        )
-                      : Text(
-                          'Simpan',
-                          style: TextStyle(
-                              fontFamily: 'Roboto-Regular',
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                  onPressed: () {
-                    print(image1);
-                    if (formKey.currentState.validate()) {
-                      if (selectedJenisDebitur == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih jenis pensiun...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedJenisProduk == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih jenis produk...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedJenisCabang == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih kantor cabang...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedJenisInfo == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih informasi sales...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedPengelolaPensiun == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih pengelola pensiun...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (selectedStatusKredit == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih status kredit...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (image1 == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih foto akad...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (image2 == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content:
-                              Text('Mohon pilih foto tanda tangan akad...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else if (image3 == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih foto bukti dana cair...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else {
-                        saveDisbursment();
-                      }
-                    }
-                  })
-            ],
-          ),
-          body: Container(
-              color: Colors.grey[200],
-              child: Form(
-                key: formKey,
-                child: ListView(
-                  physics: ClampingScrollPhysics(),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'DATA NASABAH',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      child: Column(
-                        children: <Widget>[
-                          fieldDebitur(),
-                          fieldAlamat(),
-                          fieldTelepon(),
-                          fieldTanggalAkad(),
-                          fieldNomorAplikasi(),
-                          fieldNomorPerjanjian(),
-                          fieldPlafond(),
-                          SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'DATA KREDIT',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      //color: Colors.white,
-                      child: Column(
-                        children: <Widget>[
-                          fieldJenisDebitur(),
-                          fieldKodeProduk(),
-                          fieldKantorCabang(),
-                          fieldSalesInfo(),
-                          fieldPengelolaPensiun(),
-                          fieldStatusKredit(),
-                          SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'DATA PETUGAS BANK',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      child: Column(
-                        children: <Widget>[
-                          fieldPetugasBank(),
-                          fieldJabatanBank(),
-                          fieldNoTeleponBank(),
-                          SizedBox(
-                            height: 20,
+        child: SafeArea(
+          child: Scaffold(
+            key: _scaffoldKey,
+            appBar: AppBar(
+              title: Text(
+                'Pencairan',
+                style: TextStyle(fontFamily: 'Roboto-Regular'),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                    //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
+                    //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
+                    child: visible
+                        ? CircularProgressIndicator(
+                            //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
                           )
-                        ],
+                        : Text(
+                            'Simpan',
+                            style: TextStyle(
+                                fontFamily: 'Roboto-Regular',
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                    onPressed: () {
+                      print(image1);
+                      if (formKey.currentState.validate()) {
+                        if (selectedJenisDebitur == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih jenis pensiun...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (selectedJenisProduk == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih jenis produk...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (selectedJenisCabang == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih kantor cabang...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (selectedJenisInfo == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih informasi sales...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (selectedPengelolaPensiun == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih pengelola pensiun...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (selectedStatusKredit == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih status kredit...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (image1 == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content: Text('Mohon pilih foto akad...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (image2 == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content:
+                                Text('Mohon pilih foto tanda tangan akad...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else if (image3 == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content:
+                                Text('Mohon pilih foto bukti dana cair...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else {
+                          saveDisbursment();
+                        }
+                      }
+                    })
+              ],
+            ),
+            body: Container(
+                color: Colors.grey[200],
+                child: Form(
+                  key: formKey,
+                  child: ListView(
+                    physics: ClampingScrollPhysics(),
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'DATA NASABAH',
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 14),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'DOKUMEN KREDIT',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                      Container(
+                        color: Colors.white,
+                        padding: EdgeInsets.all(8),
+                        width: double.infinity,
+                        child: Column(
+                          children: <Widget>[
+                            fieldDebitur(),
+                            fieldAlamat(),
+                            fieldTelepon(),
+                            fieldTanggalAkad(),
+                            fieldNomorAplikasi(),
+                            fieldNomorPerjanjian(),
+                            fieldPlafond(),
+                            SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      //color: Colors.white,
-                      child: Row(
-                        children: <Widget>[Expanded(child: buildGridView())],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'DATA KREDIT',
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 14),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              )),
+                      Container(
+                        color: Colors.white,
+                        padding: EdgeInsets.all(8),
+                        width: double.infinity,
+                        //color: Colors.white,
+                        child: Column(
+                          children: <Widget>[
+                            fieldJenisDebitur(),
+                            fieldKodeProduk(),
+                            fieldKantorCabang(),
+                            fieldSalesInfo(),
+                            fieldPengelolaPensiun(),
+                            fieldStatusKredit(),
+                            SizedBox(
+                              height: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'DATA PETUGAS BANK',
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        color: Colors.white,
+                        padding: EdgeInsets.all(8),
+                        width: double.infinity,
+                        child: Column(
+                          children: <Widget>[
+                            fieldPetugasBank(),
+                            fieldJabatanBank(),
+                            fieldNoTeleponBank(),
+                            SizedBox(
+                              height: 20,
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'DOKUMEN KREDIT',
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        color: Colors.white,
+                        padding: EdgeInsets.all(8),
+                        width: double.infinity,
+                        //color: Colors.white,
+                        child: Row(
+                          children: <Widget>[Expanded(child: buildGridView())],
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
+          ),
         ));
   }
 

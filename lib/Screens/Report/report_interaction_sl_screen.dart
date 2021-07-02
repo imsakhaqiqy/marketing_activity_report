@@ -41,248 +41,260 @@ class _ReportInteractionSlScreen extends State<ReportInteractionSlScreen> {
         fontFamily: "Roboto-Regular",
         fontSize: 12,
         color: Color.fromRGBO(63, 63, 63, 1));
-    return Scaffold(
-      backgroundColor: grey,
-      appBar: AppBar(
-        title: Text(
-          'Laporan Interaksi',
-          style: fontFamily,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: grey,
+        appBar: AppBar(
+          title: Text(
+            'Laporan Interaksi',
+            style: fontFamily,
+          ),
+          actions: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                FilterInteractionSlScreen(widget.nik)));
+                  },
+                  child: Icon(Icons.filter_list),
+                )),
+          ],
         ),
-        actions: <Widget>[
-          Padding(
-              padding: EdgeInsets.only(right: 20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              FilterInteractionSlScreen(widget.nik)));
-                },
-                child: Icon(Icons.filter_list),
-              )),
-        ],
-      ),
-      //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
-      //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
-      body: RefreshIndicator(
-          onRefresh: () =>
-              Provider.of<ReportInteractionSlProvider>(context, listen: false)
-                  .getInteractionSlReport(ReportInteractionSlItem(
-                      widget.nik, widget.tglAwal, widget.tglAkhir)),
-          color: Colors.red,
-          child: Container(
-            child: FutureBuilder(
-              future: Provider.of<ReportInteractionSlProvider>(context,
-                      listen: false)
-                  .getInteractionSlReport(ReportInteractionSlItem(
-                      widget.nik, widget.tglAwal, widget.tglAkhir)),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(kPrimaryColor)),
-                  );
-                }
-                return Consumer<ReportInteractionSlProvider>(
-                  builder: (context, data, _) {
-                    print(data.dataInteractionSlReport.length);
-                    if (data.dataInteractionSlReport.length == 0) {
-                      return Center(
-                        child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(50))),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Icon(Icons.hourglass_empty_outlined,
-                                        size: 70),
-                                  )),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                'Interaksi Tidak Ditemukan!',
-                                style: TextStyle(
-                                    fontFamily: "Roboto-Regular",
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ]),
-                      );
-                    } else {
-                      return GridView.builder(
-                          itemCount: data.dataInteractionSlReport.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                          ),
-                          itemBuilder: (context, i) {
-                            if (data.dataInteractionSlReport[i].calonDebitur
-                                    .length >
-                                15) {
-                              calonDebitur = data
-                                  .dataInteractionSlReport[i].calonDebitur
-                                  .substring(0, 15);
-                            } else {
-                              calonDebitur =
-                                  data.dataInteractionSlReport[i].calonDebitur;
-                            }
-
-                            if (data.dataInteractionSlReport[i].plafond != '') {
-                              if (data.dataInteractionSlReport[i].plafond
+        //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
+        //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
+        body: RefreshIndicator(
+            onRefresh: () =>
+                Provider.of<ReportInteractionSlProvider>(context, listen: false)
+                    .getInteractionSlReport(ReportInteractionSlItem(
+                        widget.nik, widget.tglAwal, widget.tglAkhir)),
+            color: Colors.red,
+            child: Container(
+              child: FutureBuilder(
+                future: Provider.of<ReportInteractionSlProvider>(context,
+                        listen: false)
+                    .getInteractionSlReport(ReportInteractionSlItem(
+                        widget.nik, widget.tglAwal, widget.tglAkhir)),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(kPrimaryColor)),
+                    );
+                  }
+                  return Consumer<ReportInteractionSlProvider>(
+                    builder: (context, data, _) {
+                      print(data.dataInteractionSlReport.length);
+                      if (data.dataInteractionSlReport.length == 0) {
+                        return Center(
+                          child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(50))),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Icon(
+                                          Icons.hourglass_empty_outlined,
+                                          size: 70),
+                                    )),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Interaksi Tidak Ditemukan!',
+                                  style: TextStyle(
+                                      fontFamily: "Roboto-Regular",
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ]),
+                        );
+                      } else {
+                        return GridView.builder(
+                            itemCount: data.dataInteractionSlReport.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                            ),
+                            itemBuilder: (context, i) {
+                              if (data.dataInteractionSlReport[i].calonDebitur
                                       .length >
                                   15) {
-                                rencanaPinjaman =
-                                    data.dataInteractionSlReport[i].plafond;
+                                calonDebitur = data
+                                    .dataInteractionSlReport[i].calonDebitur
+                                    .substring(0, 15);
                               } else {
-                                rencanaPinjaman =
-                                    data.dataInteractionSlReport[i].plafond;
+                                calonDebitur = data
+                                    .dataInteractionSlReport[i].calonDebitur;
                               }
-                            } else {
-                              rencanaPinjaman = '';
-                            }
 
-                            return Card(
-                              elevation: 0,
-                              child: GridTile(
-                                footer: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.person_outline,
-                                        color: kPrimaryColor,
-                                        size: 12,
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          '${data.dataInteractionSlReport[i].namasales}',
-                                          style: cardTextStyleFooter2,
-                                        ),
-                                      ),
-                                    ],
+                              if (data.dataInteractionSlReport[i].plafond !=
+                                  '') {
+                                if (data.dataInteractionSlReport[i].plafond
+                                        .length >
+                                    15) {
+                                  rencanaPinjaman =
+                                      data.dataInteractionSlReport[i].plafond;
+                                } else {
+                                  rencanaPinjaman =
+                                      data.dataInteractionSlReport[i].plafond;
+                                }
+                              } else {
+                                rencanaPinjaman = '';
+                              }
+
+                              return Card(
+                                elevation: 0,
+                                child: GridTile(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    InteractionViewScreen(
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .calonDebitur,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .alamat,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .email,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .telepon,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .plafond,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .salesFeedback,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .foto,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .tanggalInteraksi,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .jamInteraksi,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .statusInteraksi,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .kelurahan,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .kecamatan,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .kabupaten,
+                                                      data
+                                                          .dataInteractionSlReport[
+                                                              i]
+                                                          .propinsi,
+                                                    )));
+                                      },
+                                      child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Stack(
+                                              children: <Widget>[
+                                                SizedBox(
+                                                  child: Image.network(
+                                                    'https://www.nabasa.co.id/marsit/${data.dataInteractionSlReport[i].foto}',
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                  height: 100.0,
+                                                  width: double.infinity,
+                                                ),
+                                                Positioned(
+                                                  top: 0,
+                                                  left: 0,
+                                                  child: Container(
+                                                    color: Colors.white,
+                                                    child: Text(
+                                                      formatRupiah(
+                                                          rencanaPinjaman),
+                                                      style: cardTextStyleChild,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  bottom: 0,
+                                                  right: 0,
+                                                  child: Container(
+                                                    color: Colors.white,
+                                                    child: Text(
+                                                      '${data.dataInteractionSlReport[i].tanggalInteraksi}',
+                                                      style:
+                                                          cardTextStyleFooter1,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                '$calonDebitur',
+                                                style: cardTextStyle,
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.person_outline,
+                                                  color: kPrimaryColor,
+                                                  size: 12,
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    '${data.dataInteractionSlReport[i].namasales}',
+                                                    style: cardTextStyleFooter2,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ]),
+                                    ),
                                   ),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  InteractionViewScreen(
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .calonDebitur,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .alamat,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .email,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .telepon,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .plafond,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .salesFeedback,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .foto,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .tanggalInteraksi,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .jamInteraksi,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .statusInteraksi,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .kelurahan,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .kecamatan,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .kabupaten,
-                                                    data
-                                                        .dataInteractionSlReport[
-                                                            i]
-                                                        .propinsi,
-                                                  )));
-                                    },
-                                    child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          SizedBox(
-                                            child: Image.network(
-                                              'https://www.nabasa.co.id/marsit/${data.dataInteractionSlReport[i].foto}',
-                                              fit: BoxFit.cover,
-                                            ),
-                                            height: 100.0,
-                                            width: double.infinity,
-                                          ),
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              '$calonDebitur',
-                                              style: cardTextStyle,
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              formatRupiah(rencanaPinjaman),
-                                              style: cardTextStyleChild,
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Text(
-                                              '${data.dataInteractionSlReport[i].tanggalInteraksi}',
-                                              style: cardTextStyleFooter1,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                        ]),
-                                  ),
-                                ),
-                              ),
-                            );
-                          });
-                    }
-                  },
-                );
-              },
-            ),
-          )),
+                              );
+                            });
+                      }
+                    },
+                  );
+                },
+              ),
+            )),
+      ),
     );
   }
 

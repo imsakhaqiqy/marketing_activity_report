@@ -156,71 +156,74 @@ class _MitraScreen extends State<MitraScreen> {
               )
             : Navigator.of(context).pop();
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Mitra',
-            style: TextStyle(fontFamily: 'Roboto-Regular'),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Mitra',
+              style: TextStyle(fontFamily: 'Roboto-Regular'),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  child: _loading
+                      ? CircularProgressIndicator(
+                          //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        )
+                      : Text(
+                          'Simpan',
+                          style: TextStyle(
+                              fontFamily: 'Roboto-Regular',
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                  onPressed: () {
+                    saveDisbursment();
+                  })
+            ],
           ),
-          actions: <Widget>[
-            FlatButton(
-                child: _loading
-                    ? CircularProgressIndicator(
-                        //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                      )
-                    : Text(
-                        'Simpan',
-                        style: TextStyle(
-                            fontFamily: 'Roboto-Regular',
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                onPressed: () {
-                  saveDisbursment();
-                })
-          ],
-        ),
-        body: Container(
-          padding:
-              EdgeInsets.only(left: 16.0, right: 16.0, top: 0.0, bottom: 0.0),
-          child: Form(
-            key: formKey,
-            child: ListView(
-              physics: ClampingScrollPhysics(),
-              children: <Widget>[
-                fieldKtp(),
-                fieldNama(),
-                fieldTelepon(),
-                fieldEmail(),
-                fieldRekening(),
-                Container(
-                  color: Colors.white,
-                  width: double.infinity,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: buildGridView(),
-                      )
-                    ],
+          body: Container(
+            padding:
+                EdgeInsets.only(left: 16.0, right: 16.0, top: 0.0, bottom: 0.0),
+            child: Form(
+              key: formKey,
+              child: ListView(
+                physics: ClampingScrollPhysics(),
+                children: <Widget>[
+                  fieldKtp(),
+                  fieldNama(),
+                  fieldTelepon(),
+                  fieldEmail(),
+                  fieldRekening(),
+                  Container(
+                    color: Colors.white,
+                    width: double.infinity,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: buildGridView(),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    _handleURLButtonPress(context, _links);
-                  },
-                  child: Text(
-                    '*Informasi lebih lanjut mengenai mitra',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontFamily: 'Roboto-Regular',
-                        fontSize: 12),
+                  SizedBox(
+                    height: 30,
                   ),
-                )
-              ],
+                  GestureDetector(
+                    onTap: () {
+                      _handleURLButtonPress(context, _links);
+                    },
+                    child: Text(
+                      '*Informasi lebih lanjut mengenai mitra',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontFamily: 'Roboto-Regular',
+                          fontSize: 12),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

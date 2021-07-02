@@ -21,7 +21,7 @@ class TrackingVoucherScreen extends StatefulWidget {
 class _TrackingVoucherScreenState extends State<TrackingVoucherScreen> {
   bool _isLoading = false;
   final String apiUrl =
-      'https://www.nabasa.co.id/api_marsit_v1/tes.php/getTrackingVoucher';
+      'https://www.nabasa.co.id/api_marsit_v1/index.php/getTrackingVoucher';
   List<dynamic> _users = [];
 
   void fetchUsers() async {
@@ -113,21 +113,23 @@ class _TrackingVoucherScreenState extends State<TrackingVoucherScreen> {
   @override
   Widget build(BuildContext context) {
     print(widget.noAkad);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        title: Text(
-          'Tracking Insentif',
-          style: TextStyle(
-            fontFamily: 'Roboto-Regular',
-            color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: Text(
+            'Tracking Insentif',
+            style: TextStyle(
+              fontFamily: 'Roboto-Regular',
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-      body: Container(
-        margin: EdgeInsets.only(left: 20),
-        color: Colors.white,
-        child: _buildList(),
+        body: Container(
+          margin: EdgeInsets.only(left: 20),
+          color: Colors.white,
+          child: _buildList(),
+        ),
       ),
     );
   }

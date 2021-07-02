@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:kreditpensiun_apps/Screens/Interaction/interaction_view_screen.dart';
-import 'package:kreditpensiun_apps/Screens/provider/report_interaction_provider.dart';
+import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_view_screen.dart';
+import 'package:kreditpensiun_apps/Screens/Report/filter_pipeline_sl_screen.dart';
+import 'package:kreditpensiun_apps/Screens/provider/filter_report_pipeline_sl_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import '../../constants.dart';
-import 'filter_interaction_screen.dart';
 
 // ignore: must_be_immutable
-class ReportInteractionScreen extends StatefulWidget {
+class FilterPipelineSlReportScreen extends StatefulWidget {
   @override
-  _ReportInteractionScreen createState() => _ReportInteractionScreen();
+  _FilterPipelineSlReportScreen createState() =>
+      _FilterPipelineSlReportScreen();
 
   String nik;
   String tglAwal;
   String tglAkhir;
 
-  ReportInteractionScreen(this.nik, this.tglAwal, this.tglAkhir);
+  FilterPipelineSlReportScreen(this.nik, this.tglAwal, this.tglAkhir);
 }
 
-class _ReportInteractionScreen extends State<ReportInteractionScreen> {
+class _FilterPipelineSlReportScreen
+    extends State<FilterPipelineSlReportScreen> {
   @override
   Widget build(BuildContext context) {
     String calonDebitur;
     String rencanaPinjaman;
-    String alamat;
     var cardTextStyle = TextStyle(
         fontFamily: "Roboto-Regular",
         fontSize: 13,
@@ -47,7 +48,7 @@ class _ReportInteractionScreen extends State<ReportInteractionScreen> {
         backgroundColor: grey,
         appBar: AppBar(
           title: Text(
-            'Laporan Interaksi',
+            'Laporan Pipeline',
             style: fontFamily,
           ),
           actions: <Widget>[
@@ -59,7 +60,7 @@ class _ReportInteractionScreen extends State<ReportInteractionScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                FilterInteractionScreen(widget.nik)));
+                                FilterPipelineSlScreen(widget.nik)));
                   },
                   child: Icon(Icons.filter_list),
                 )),
@@ -68,16 +69,17 @@ class _ReportInteractionScreen extends State<ReportInteractionScreen> {
         //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
         //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
         body: RefreshIndicator(
-            onRefresh: () =>
-                Provider.of<ReportInteractionProvider>(context, listen: false)
-                    .getInteractionReport(ReportInteractionItem(
-                        widget.nik, widget.tglAwal, widget.tglAkhir)),
+            onRefresh: () => Provider.of<FilterReportPipelineSlProvider>(
+                    context,
+                    listen: false)
+                .getPipelineFilterSlReport(FilterReportPipelineSlItem(
+                    widget.nik, widget.tglAwal, widget.tglAkhir)),
             color: Colors.red,
             child: Container(
               child: FutureBuilder(
-                future: Provider.of<ReportInteractionProvider>(context,
+                future: Provider.of<FilterReportPipelineSlProvider>(context,
                         listen: false)
-                    .getInteractionReport(ReportInteractionItem(
+                    .getPipelineFilterSlReport(FilterReportPipelineSlItem(
                         widget.nik, widget.tglAwal, widget.tglAkhir)),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -87,10 +89,10 @@ class _ReportInteractionScreen extends State<ReportInteractionScreen> {
                               AlwaysStoppedAnimation<Color>(kPrimaryColor)),
                     );
                   }
-                  return Consumer<ReportInteractionProvider>(
+                  return Consumer<FilterReportPipelineSlProvider>(
                     builder: (context, data, _) {
-                      print(data.dataInteractionReport.length);
-                      if (data.dataInteractionReport.length == 0) {
+                      print(data.dataPipelineFilterSlReport.length);
+                      if (data.dataPipelineFilterSlReport.length == 0) {
                         return Center(
                           child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -110,7 +112,7 @@ class _ReportInteractionScreen extends State<ReportInteractionScreen> {
                                   height: 10,
                                 ),
                                 Text(
-                                  'Interaksi Tidak Ditemukan!',
+                                  'Pencairan Tidak Ditemukan!',
                                   style: TextStyle(
                                       fontFamily: "Roboto-Regular",
                                       fontSize: 16,
@@ -120,47 +122,37 @@ class _ReportInteractionScreen extends State<ReportInteractionScreen> {
                         );
                       } else {
                         return GridView.builder(
-                            itemCount: data.dataInteractionReport.length,
+                            itemCount: data.dataPipelineFilterSlReport.length,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                             ),
                             itemBuilder: (context, i) {
-                              if (data.dataInteractionReport[i].calonDebitur
+                              if (data.dataPipelineFilterSlReport[i].cadeb
                                       .length >
                                   15) {
                                 calonDebitur = data
-                                    .dataInteractionReport[i].calonDebitur
+                                    .dataPipelineFilterSlReport[i].cadeb
                                     .substring(0, 15);
                               } else {
                                 calonDebitur =
-                                    data.dataInteractionReport[i].calonDebitur;
+                                    data.dataPipelineFilterSlReport[i].cadeb;
                               }
 
-                              if (data.dataInteractionReport[i].plafond != '') {
-                                if (data.dataInteractionReport[i].plafond
+                              if (data.dataPipelineFilterSlReport[i].nominal !=
+                                  '') {
+                                if (data.dataPipelineFilterSlReport[i].nominal
                                         .length >
                                     15) {
-                                  rencanaPinjaman =
-                                      data.dataInteractionReport[i].plafond;
+                                  rencanaPinjaman = data
+                                      .dataPipelineFilterSlReport[i].nominal
+                                      .substring(0, 15);
                                 } else {
-                                  rencanaPinjaman =
-                                      data.dataInteractionReport[i].plafond;
+                                  rencanaPinjaman = data
+                                      .dataPipelineFilterSlReport[i].nominal;
                                 }
                               } else {
                                 rencanaPinjaman = '';
-                              }
-
-                              if (data.dataInteractionReport[i].alamat != '') {
-                                if (data.dataInteractionReport[i].alamat
-                                        .length >
-                                    15) {
-                                  alamat = data.dataInteractionReport[i].alamat;
-                                } else {
-                                  alamat = data.dataInteractionReport[i].alamat;
-                                }
-                              } else {
-                                alamat = '';
                               }
 
                               return Card(
@@ -173,63 +165,83 @@ class _ReportInteractionScreen extends State<ReportInteractionScreen> {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    InteractionViewScreen(
+                                                    PipelineViewScreen(
                                                       data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
                                                               i]
-                                                          .calonDebitur,
+                                                          .cadeb,
                                                       data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
+                                                              i]
+                                                          .tglPipeline,
+                                                      data
+                                                          .dataPipelineFilterSlReport[
                                                               i]
                                                           .alamat,
                                                       data
-                                                          .dataInteractionReport[
-                                                              i]
-                                                          .email,
-                                                      data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
                                                               i]
                                                           .telepon,
                                                       data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
                                                               i]
-                                                          .plafond,
+                                                          .jenisProduk,
                                                       data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
                                                               i]
-                                                          .salesFeedback,
+                                                          .nominal,
                                                       data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
                                                               i]
-                                                          .foto,
+                                                          .cabang,
                                                       data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
                                                               i]
-                                                          .tanggalInteraksi,
+                                                          .keterangan,
                                                       data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
                                                               i]
-                                                          .jamInteraksi,
+                                                          .status,
                                                       data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
                                                               i]
-                                                          .statusInteraksi,
+                                                          .tampatLahir,
                                                       data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
                                                               i]
-                                                          .kelurahan,
+                                                          .tanggalLahir,
                                                       data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
                                                               i]
-                                                          .kecamatan,
+                                                          .jenisKelamin,
                                                       data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
                                                               i]
-                                                          .kabupaten,
+                                                          .noKtp,
                                                       data
-                                                          .dataInteractionReport[
+                                                          .dataPipelineFilterSlReport[
                                                               i]
-                                                          .propinsi,
+                                                          .npwp,
+                                                      data
+                                                          .dataPipelineFilterSlReport[
+                                                              i]
+                                                          .statusKredit,
+                                                      data
+                                                          .dataPipelineFilterSlReport[
+                                                              i]
+                                                          .pengelolaPensiun,
+                                                      data
+                                                          .dataPipelineFilterSlReport[
+                                                              i]
+                                                          .bankTakeOver,
+                                                      data
+                                                          .dataPipelineFilterSlReport[
+                                                              i]
+                                                          .foto1,
+                                                      data
+                                                          .dataPipelineFilterSlReport[
+                                                              i]
+                                                          .foto2,
                                                     )));
                                       },
                                       child: Column(
@@ -240,7 +252,7 @@ class _ReportInteractionScreen extends State<ReportInteractionScreen> {
                                               children: <Widget>[
                                                 SizedBox(
                                                   child: Image.network(
-                                                    'https://www.nabasa.co.id/marsit/${data.dataInteractionReport[i].foto}',
+                                                    'https://www.nabasa.co.id/marsit/${data.dataPipelineFilterSlReport[i].foto1}',
                                                     fit: BoxFit.cover,
                                                   ),
                                                   height: 100.0,
@@ -252,8 +264,7 @@ class _ReportInteractionScreen extends State<ReportInteractionScreen> {
                                                   child: Container(
                                                     color: Colors.white,
                                                     child: Text(
-                                                      formatRupiah(
-                                                          rencanaPinjaman),
+                                                      '${formatRupiah(rencanaPinjaman)}',
                                                       style: cardTextStyleChild,
                                                     ),
                                                   ),
@@ -264,7 +275,7 @@ class _ReportInteractionScreen extends State<ReportInteractionScreen> {
                                                   child: Container(
                                                     color: Colors.white,
                                                     child: Text(
-                                                      '${data.dataInteractionReport[i].tanggalInteraksi}',
+                                                      '${data.dataPipelineFilterSlReport[i].tglPipeline}',
                                                       style:
                                                           cardTextStyleFooter1,
                                                     ),
@@ -278,6 +289,21 @@ class _ReportInteractionScreen extends State<ReportInteractionScreen> {
                                                 '$calonDebitur',
                                                 style: cardTextStyle,
                                               ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.person_outline,
+                                                  color: kPrimaryColor,
+                                                  size: 12,
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    '${data.dataPipelineFilterSlReport[i].namaSales}',
+                                                    style: cardTextStyleFooter2,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ]),
                                     ),

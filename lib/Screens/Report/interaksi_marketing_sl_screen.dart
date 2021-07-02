@@ -21,7 +21,7 @@ class _InteraksiMarketingScreen extends State<InteraksiMarketingScreen> {
   bool visible = false;
   bool _isLoading = false;
   final String apiUrl =
-      'https://www.nabasa.co.id/api_marsit_v1/tes.php/getInteraction';
+      'https://www.nabasa.co.id/api_marsit_v1/index.php/getInteraction';
   List<dynamic> _users = [];
 
   void fetchUsers() async {
@@ -119,43 +119,45 @@ class _InteraksiMarketingScreen extends State<InteraksiMarketingScreen> {
     String bulan = namaBulan(date.month.toString());
     String tahun = date.year.toString();
     String periode = bulan + ' ' + tahun;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          'Interaksi',
-          style: fontFamily,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(
+            'Interaksi',
+            style: fontFamily,
+          ),
         ),
-      ),
-      //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
-      //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
-      body: Container(
-        color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.black12,
+        //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
+        //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
+        body: Container(
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.black12,
+                    ),
                   ),
                 ),
+                padding: EdgeInsets.all(8),
+                width: double.infinity,
+                child: Column(
+                  children: <Widget>[
+                    fieldDebitur('Nama Sales', widget.nama, 120.0),
+                    SizedBox(height: 10),
+                    fieldDebitur('Periode', periode, 120.0),
+                    SizedBox(height: 10),
+                  ],
+                ),
               ),
-              padding: EdgeInsets.all(8),
-              width: double.infinity,
-              child: Column(
-                children: <Widget>[
-                  fieldDebitur('Nama Sales', widget.nama, 120.0),
-                  SizedBox(height: 10),
-                  fieldDebitur('Periode', periode, 120.0),
-                  SizedBox(height: 10),
-                ],
+              Expanded(
+                child: _buildList(),
               ),
-            ),
-            Expanded(
-              child: _buildList(),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

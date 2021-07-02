@@ -75,7 +75,7 @@ class DisbursmentAddNewScreen extends StatefulWidget {
 }
 
 class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
-  var personalData = new List(34);
+  var personalData = new List(38);
   String image1;
   String base64Image1;
   List<Object> images = List<Object>();
@@ -169,6 +169,10 @@ class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
               personalData[33] = message['diamond'];
+              personalData[34] = message['total_pencairan'];
+              personalData[35] = message['total_interaksi'];
+              personalData[36] = message['rating'];
+              personalData[37] = message['tgl_cut_off'];
             });
             if (message['hak_akses'] == '5') {
               Navigator.of(context).push(MaterialPageRoute(
@@ -307,191 +311,221 @@ class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
                 )
               : Navigator.of(context).pop();
         },
-        child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            title: Text(
-              'Pencairan',
-              style: TextStyle(fontFamily: 'Roboto-Regular'),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                  color: Colors.white,
-                  //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
-                  //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
-                  child: Text(
-                    'Simpan',
-                    style: TextStyle(
-                        fontFamily: 'Roboto-Regular',
-                        color: kPrimaryColor,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: () {
-                    print(image1);
-                    if (formKey.currentState.validate()) {
-                      if (image1 == null) {
-                        _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          content: Text('Mohon pilih foto bukti dana cair...'),
-                          duration: Duration(seconds: 3),
-                        ));
-                      } else {
-                        showGeneralDialog(
-                          context: context,
-                          barrierColor: Colors.black12
-                              .withOpacity(0.6), // background color
-                          barrierDismissible:
-                              false, // should dialog be dismissed when tapped outside
-                          barrierLabel: "Dialog", // label for barrier
-                          transitionDuration: Duration(
-                              milliseconds:
-                                  400), // how long it takes to popup dialog after button click
-                          pageBuilder: (_, __, ___) {
-                            // your widget implementation
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 50,
-                                  width: 50,
-                                  child: CircularProgressIndicator(
-                                    //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        kPrimaryColor),
+        child: SafeArea(
+          child: Scaffold(
+            key: _scaffoldKey,
+            appBar: AppBar(
+              title: Text(
+                'Pencairan',
+                style: TextStyle(fontFamily: 'Roboto-Regular'),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                    //LAKUKAN PENGECEKAN, JIKA _ISLOADING TRUE MAKA TAMPILKAN LOADING
+                    //JIKA FALSE, MAKA TAMPILKAN ICON SAVE
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: Colors.white),
+                      padding: EdgeInsets.all(2.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Simpan',
+                          style: TextStyle(
+                              fontFamily: 'Roboto-Regular',
+                              color: kPrimaryColor,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      print(image1);
+                      if (formKey.currentState.validate()) {
+                        if (image1 == null) {
+                          _scaffoldKey.currentState.showSnackBar(SnackBar(
+                            content:
+                                Text('Mohon pilih foto bukti dana cair...'),
+                            duration: Duration(seconds: 3),
+                          ));
+                        } else {
+                          showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12
+                                .withOpacity(0.6), // background color
+                            barrierDismissible:
+                                false, // should dialog be dismissed when tapped outside
+                            barrierLabel: "Dialog", // label for barrier
+                            transitionDuration: Duration(
+                                milliseconds:
+                                    400), // how long it takes to popup dialog after button click
+                            pageBuilder: (_, __, ___) {
+                              // your widget implementation
+                              return Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 50,
+                                    width: 50,
+                                    child: CircularProgressIndicator(
+                                      //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          kPrimaryColor),
+                                    ),
                                   ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                        saveDisbursment();
+                                ],
+                              );
+                            },
+                          );
+                          saveDisbursment();
+                        }
                       }
-                    }
-                  })
-            ],
+                    })
+              ],
+            ),
+            body: Container(
+                color: Colors.grey[200],
+                child: Form(
+                  key: formKey,
+                  child: ListView(
+                    physics: ClampingScrollPhysics(),
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Informasi Akad',
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 20),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(8),
+                        color: Colors.white,
+                        child: Column(
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                fieldDebitur(
+                                    'Tanggal Akad', widget.tanggalAkad, 120),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                fieldDebitur('Nomor Aplikasi',
+                                    widget.nomorAplikasi, 120),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                fieldDebitur('Nomor Perjanjian',
+                                    widget.nomorPerjanjian, 120),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                fieldDebitur('Plafond',
+                                    formatRupiah(widget.plafond), 120),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                fieldDebitur('Jenis Produk',
+                                    widget.selectedJenisProduk, 120),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                fieldDebitur('Informasi Sales',
+                                    widget.selectedJenisInfo, 120),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Informasi Petugas Bank',
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 20),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(8),
+                        color: Colors.white,
+                        child: Column(
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                fieldDebitur(
+                                    'Nama', widget.namaPetugasBank, 120),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                fieldDebitur(
+                                    'Jabatan', widget.jabatanPetugasBank, 120),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                fieldDebitur(
+                                    'Telepon', widget.teleponPetugasBank, 120),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16.0, top: 8.0, right: 16.0, bottom: 8.0),
+                        child: Text(
+                          'Data Pencairan',
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 20),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.white),
+                          padding: EdgeInsets.all(8),
+                          width: double.infinity,
+                          child: Column(
+                            children: <Widget>[
+                              fieldTanggalPencairan(),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16.0, top: 8.0, right: 16.0, bottom: 8.0),
+                        child: Text(
+                          'Dokumen Pencairan',
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 20),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.white),
+                          padding: EdgeInsets.all(8),
+                          width: double.infinity,
+                          //color: Colors.white,
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(child: buildGridView())
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
           ),
-          body: Container(
-              color: Colors.grey[200],
-              child: Form(
-                key: formKey,
-                child: ListView(
-                  physics: ClampingScrollPhysics(),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Informasi Akad',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 20),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      color: Colors.white,
-                      child: Column(
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              fieldDebitur(
-                                  'Tanggal Akad', widget.tanggalAkad, 120),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              fieldDebitur(
-                                  'Nomor Aplikasi', widget.nomorAplikasi, 120),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              fieldDebitur('Nomor Perjanjian',
-                                  widget.nomorPerjanjian, 120),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              fieldDebitur(
-                                  'Plafond', formatRupiah(widget.plafond), 120),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              fieldDebitur('Jenis Produk',
-                                  widget.selectedJenisProduk, 120),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              fieldDebitur('Informasi Sales',
-                                  widget.selectedJenisInfo, 120),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Informasi Petugas Bank',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 20),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      color: Colors.white,
-                      child: Column(
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              fieldDebitur('Nama', widget.namaPetugasBank, 120),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              fieldDebitur(
-                                  'Jabatan', widget.jabatanPetugasBank, 120),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              fieldDebitur(
-                                  'Telepon', widget.teleponPetugasBank, 120),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Data Pencairan',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 20),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      child: Column(
-                        children: <Widget>[
-                          fieldTanggalPencairan(),
-                          SizedBox(
-                            height: 20,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Dokumen Pencairan',
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.all(8),
-                      width: double.infinity,
-                      //color: Colors.white,
-                      child: Row(
-                        children: <Widget>[Expanded(child: buildGridView())],
-                      ),
-                    ),
-                  ],
-                ),
-              )),
         ));
   }
 
@@ -544,7 +578,7 @@ class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
   Widget buildGridView() {
     return GridView.count(
       shrinkWrap: true,
-      crossAxisCount: 1,
+      crossAxisCount: 3,
       childAspectRatio: 1,
       children: List.generate(images.length, (index) {
         if (images[index] is ImageUploadModel) {
@@ -595,7 +629,7 @@ class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
           String titled;
           Color colored;
           if (index == 0) {
-            titled = 'Foto Bukti Dana Cair';
+            titled = 'Foto Bukti\n Dana Cair';
             colored = kPrimaryColor;
           }
           return Card(
@@ -608,7 +642,7 @@ class _DisbursmentAddNewScreen extends State<DisbursmentAddNewScreen> {
                   Text(
                     titled,
                     style:
-                        TextStyle(fontSize: 8.0, fontFamily: 'Roboto-Regular'),
+                        TextStyle(fontSize: 10.0, fontFamily: 'Roboto-Regular'),
                   ),
                   IconButton(
                     icon: Icon(Icons.add),

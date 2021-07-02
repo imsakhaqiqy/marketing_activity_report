@@ -8,11 +8,14 @@ class PDFScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PDFViewerScaffold(
-        appBar: AppBar(
-          title: Text(this.judul),
-          actions: <Widget>[],
-        ),
-        path: pathPDF);
+    return SafeArea(
+      child: PDFViewerScaffold(
+          appBar: AppBar(
+            toolbarHeight: 100,
+            title: Text(this.judul),
+            actions: <Widget>[],
+          ),
+          path: pathPDF),
+    );
   }
 }

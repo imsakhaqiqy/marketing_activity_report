@@ -41,14 +41,16 @@ class _LandingScreenState extends State<LandingScreen> {
     print(widget.income.toString());
     _container = [
       new HomeScreen(
-          widget.username,
-          widget.nik,
-          widget.income,
-          widget.greeting,
-          widget.hakAkses,
-          widget.personalData[0],
-          widget.personalData[24],
-          widget.diamond),
+        widget.username,
+        widget.nik,
+        widget.income,
+        widget.greeting,
+        widget.hakAkses,
+        widget.personalData[0],
+        widget.personalData[24],
+        widget.diamond,
+        widget.personalData[37],
+      ),
       new ApprovalScreen(widget.personalData[0]),
       new AplikasiScreen(),
       new AccountScreen(
@@ -61,9 +63,11 @@ class _LandingScreenState extends State<LandingScreen> {
           widget.hakAkses,
           widget.diamond),
     ];
-    return new Scaffold(
-      body: _container.elementAt(_bottomNavCurrentIndex),
-      bottomNavigationBar: _buildBottomNavigation(),
+    return new SafeArea(
+      child: Scaffold(
+        body: _container.elementAt(_bottomNavCurrentIndex),
+        bottomNavigationBar: _buildBottomNavigation(),
+      ),
     );
   }
 

@@ -20,127 +20,133 @@ class ReportInsentifScreen extends StatefulWidget {
 class _ReportInsentifScreenState extends State<ReportInsentifScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          title: Text(
-            'Insentif',
-            style: TextStyle(
-              fontFamily: 'CourrierPrime',
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.info_outline,
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: kPrimaryColor,
+            title: Text(
+              'Insentif',
+              style: TextStyle(
+                fontFamily: 'CourrierPrime',
                 color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
-              onPressed: () {
-                Toast.show(
-                  'Insentif ' + bulan + ' ' + tahun,
-                  context,
-                  duration: Toast.LENGTH_LONG,
-                  gravity: Toast.CENTER,
-                  backgroundColor: Colors.blueAccent,
-                );
-              },
-            )
-          ],
-        ),
-        body: RefreshIndicator(
-            onRefresh: () =>
-                Provider.of<DisbursmentProvider>(context, listen: false)
-                    .getDisbursment(DisbursmentItem(widget.nik)),
-            color: Colors.red,
-            child: Container(
-              margin: EdgeInsets.all(10),
-              child: FutureBuilder(
-                future: Provider.of<DisbursmentProvider>(context, listen: false)
-                    .getDisbursment(DisbursmentItem(widget.nik)),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(kPrimaryColor)),
-                    );
-                  }
-                  return Consumer<DisbursmentProvider>(
-                    builder: (context, data, _) {
-                      if (data.dataDisbursment.length == 0) {
-                        return Center(
-                          child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50))),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child:
-                                          Icon(Icons.hourglass_empty, size: 70),
-                                    )),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Pencairan Kredit Yuk!',
-                                  style: TextStyle(
-                                      fontFamily: "Roboto-Regular",
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Dapatkan insentif besar dari pencairanmu.',
-                                  style: TextStyle(
-                                    fontFamily: "Roboto-Regular",
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ]),
-                        );
-                      } else {
-                        return ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: data.dataDisbursment.length,
-                            itemBuilder: (context, i) {
-                              double nominal =
-                                  double.parse(data.dataDisbursment[i].plafond);
-                              double jumlah =
-                                  nominal * double.parse(widget.tarif) / 100;
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          TrackingVoucherScreen(
-                                            data.dataDisbursment[i].nomorAkad,
-                                            data.dataDisbursment[i].id,
-                                            data.dataDisbursment[i].plafond,
-                                            jumlah.toString(),
-                                          )));
-                                },
-                                child: _buildCreditCard(
-                                    Color(0xFF090943),
-                                    formatRupiah(jumlah.toString()),
-                                    data.dataDisbursment[i].debitur,
-                                    data.dataDisbursment[i].tanggalPencairan,
-                                    data.dataDisbursment[i].statusBayar,
-                                    data.dataDisbursment[i].nomorAkad),
-                              );
-                            });
-                      }
-                    },
+            ),
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.info_outline,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Toast.show(
+                    'Insentif ' + bulan + ' ' + tahun,
+                    context,
+                    duration: Toast.LENGTH_LONG,
+                    gravity: Toast.CENTER,
+                    backgroundColor: Colors.blueAccent,
                   );
                 },
-              ),
-            )));
+              )
+            ],
+          ),
+          body: RefreshIndicator(
+              onRefresh: () =>
+                  Provider.of<DisbursmentProvider>(context, listen: false)
+                      .getDisbursment(DisbursmentItem(widget.nik)),
+              color: Colors.red,
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: FutureBuilder(
+                  future:
+                      Provider.of<DisbursmentProvider>(context, listen: false)
+                          .getDisbursment(DisbursmentItem(widget.nik)),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(kPrimaryColor)),
+                      );
+                    }
+                    return Consumer<DisbursmentProvider>(
+                      builder: (context, data, _) {
+                        if (data.dataDisbursment.length == 0) {
+                          return Center(
+                            child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(50))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Icon(Icons.hourglass_empty,
+                                            size: 70),
+                                      )),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'Pencairan Kredit Yuk!',
+                                    style: TextStyle(
+                                        fontFamily: "Roboto-Regular",
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    'Dapatkan insentif besar dari pencairanmu.',
+                                    style: TextStyle(
+                                      fontFamily: "Roboto-Regular",
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ]),
+                          );
+                        } else {
+                          return ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              itemCount: data.dataDisbursment.length,
+                              itemBuilder: (context, i) {
+                                double nominal = double.parse(
+                                    data.dataDisbursment[i].plafond);
+                                double jumlah =
+                                    nominal * double.parse(widget.tarif) / 100;
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TrackingVoucherScreen(
+                                                  data.dataDisbursment[i]
+                                                      .nomorAkad,
+                                                  data.dataDisbursment[i].id,
+                                                  data.dataDisbursment[i]
+                                                      .plafond,
+                                                  jumlah.toString(),
+                                                )));
+                                  },
+                                  child: _buildCreditCard(
+                                      Color(0xFF090943),
+                                      formatRupiah(jumlah.toString()),
+                                      data.dataDisbursment[i].debitur,
+                                      data.dataDisbursment[i].tanggalPencairan,
+                                      data.dataDisbursment[i].statusBayar,
+                                      data.dataDisbursment[i].nomorAkad),
+                                );
+                              });
+                        }
+                      },
+                    );
+                  },
+                ),
+              ))),
+    );
   }
 
   Widget _buildCreditCard(Color color, String cardNumber, String cardHolder,

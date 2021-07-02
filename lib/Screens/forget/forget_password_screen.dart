@@ -58,58 +58,60 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        title: Text(
-          'Lupa Password',
-          style: TextStyle(
-            fontFamily: 'Roboto-Regular',
-            color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: Text(
+            'Lupa Password',
+            style: TextStyle(
+              fontFamily: 'Roboto-Regular',
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-      body: Container(
-        color: grey,
-        padding:
-            EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
-        child: ListView(
-          physics: ClampingScrollPhysics(),
-          children: <Widget>[
-            Container(
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                elevation: 4,
-                color: Colors.white,
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      children: [
-                        fieldTelepon(),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          '*Harap masukkan nomor telepon yang terdaftar di aplikasi kreditpensiun_apps',
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontFamily: 'Roboto-Regular',
-                              fontSize: 12),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        fieldKirim()
-                      ],
+        body: Container(
+          color: grey,
+          padding:
+              EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
+          child: ListView(
+            physics: ClampingScrollPhysics(),
+            children: <Widget>[
+              Container(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  elevation: 4,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          fieldTelepon(),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            '*Harap masukkan nomor telepon yang terdaftar di aplikasi kreditpensiun_apps',
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontFamily: 'Roboto-Regular',
+                                fontSize: 12),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          fieldKirim()
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

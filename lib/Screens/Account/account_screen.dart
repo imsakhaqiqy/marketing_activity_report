@@ -3,12 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kreditpensiun_apps/Screens/Help/help_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page.dart';
 import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
+import 'package:kreditpensiun_apps/Screens/Modul/modul_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Modul/view_image_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Pipeline/pipeline_root_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Profile/profile_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Profile/slip_gaji_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Redeem/redeem_screen.dart';
@@ -16,6 +17,7 @@ import 'package:kreditpensiun_apps/Screens/Utility/utility_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Voucher/voucher_screen.dart';
 import 'package:kreditpensiun_apps/Screens/models/image_upload_model.dart';
 import 'package:kreditpensiun_apps/constants.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
@@ -39,7 +41,7 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<AccountScreen> {
-  var personalData = new List(34);
+  var personalData = new List(38);
   bool visible = false;
   bool icon = false;
   String image1;
@@ -113,6 +115,10 @@ class _SettingScreenState extends State<AccountScreen> {
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
               personalData[33] = message['diamond'];
+              personalData[34] = message['total_pencairan'];
+              personalData[35] = message['total_interaksi'];
+              personalData[36] = message['rating'];
+              personalData[37] = message['tgl_cut_off'];
             });
             if (message['hak_akses'] == '5') {
               Navigator.of(context).push(MaterialPageRoute(
@@ -156,7 +162,7 @@ class _SettingScreenState extends State<AccountScreen> {
     });
 
     //server save api
-    var url = 'https://www.nabasa.co.id/api_marsit_v1/tes.php/uploadProfil';
+    var url = 'https://www.nabasa.co.id/api_marsit_v1/index.php/uploadProfil';
 
     //starting web api call
     var response;
@@ -203,572 +209,708 @@ class _SettingScreenState extends State<AccountScreen> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          toolbarHeight: 100,
-          backgroundColor: kPrimaryColor,
-          title: Container(
-            child: Column(
-              children: <Widget>[
-                Container(
-                    color: kPrimaryColor,
-                    margin: EdgeInsets.only(bottom: 0, top: 10),
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          buildGridView(),
-                          SizedBox(
-                            width: 7,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                '${widget.username}',
-                                style: TextStyle(
-                                    fontFamily: 'Roboto-Regular',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16),
-                              ),
-                              SizedBox(
-                                height: 3,
-                              ),
-                              Text(
-                                '${widget.personalData[24]}',
-                                style: TextStyle(
-                                    fontFamily: 'Roboto-Regular',
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 10),
-                              ),
-                            ],
-                          )
-                        ])),
-              ],
-            ),
-          ),
-          automaticallyImplyLeading: false),
-      body: WillPopScope(
-        child: Container(
-            decoration: BoxDecoration(color: Colors.white54),
-            child: ListView(
-              physics: ClampingScrollPhysics(),
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(
-                      left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                    color: Colors.black12,
-                  ))),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: FlatButton(
-                            color: Colors.white,
-                            padding: EdgeInsets.only(left: 0.0),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProfileScreen(widget.personalData)));
-                            },
-                            child: Stack(
-                              children: <Widget>[
-                                Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(Icons.person),
-                                        SizedBox(width: 10),
-                                        Expanded(
-                                          child: Text(
-                                            'Profil',
-                                            style: TextStyle(
-                                                fontFamily: 'Roboto-Regular',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16.0),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(
-                                    Icons.chevron_right,
-                                    size: 22,
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(
-                      left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                    color: Colors.black12,
-                  ))),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: FlatButton(
-                            color: Colors.white,
-                            padding: EdgeInsets.only(left: 0.0),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SlipGajiScreen()));
-                            },
-                            child: Stack(
-                              children: <Widget>[
-                                Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(Icons.notes_outlined),
-                                        SizedBox(width: 10),
-                                        Expanded(
-                                          child: Text(
-                                            'Slip Gaji',
-                                            style: TextStyle(
-                                                fontFamily: 'Roboto-Regular',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16.0),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(
-                                    Icons.chevron_right,
-                                    size: 22,
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(
-                      left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                    color: Colors.black12,
-                  ))),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: FlatButton(
-                            color: Colors.white,
-                            padding: EdgeInsets.only(left: 0.0),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PipelineRootPage(
-                                          widget.username, widget.nik)));
-                            },
-                            child: Stack(
-                              children: <Widget>[
-                                Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.linear_scale,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Expanded(
-                                          child: Text(
-                                            'Pipeline',
-                                            style: TextStyle(
-                                                fontFamily: 'Roboto-Regular',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16.0),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(
-                                    Icons.chevron_right,
-                                    size: 22,
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-                (widget.personalData[24] == 'MARKETING AGENT')
-                    ? Container(
-                        padding: EdgeInsets.only(
-                            left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                          color: Colors.black12,
-                        ))),
-                        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+            toolbarHeight: 110,
+            backgroundColor: kPrimaryColor,
+            title: Container(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                      color: kPrimaryColor,
+                      margin: EdgeInsets.only(bottom: 0, top: 0),
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Container(
-                              child: FlatButton(
-                                  color: Colors.white,
-                                  padding: EdgeInsets.only(left: 0.0),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => VoucherScreen(
-                                                widget.username,
-                                                widget.nik,
-                                                widget.tarif)));
-                                  },
-                                  child: Stack(
-                                    children: <Widget>[
-                                      Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Row(
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.monetization_on_outlined,
-                                              ),
-                                              SizedBox(width: 10),
-                                              Expanded(
-                                                child: Text(
-                                                  'Insentif',
-                                                  style: TextStyle(
-                                                      fontFamily:
-                                                          'Roboto-Regular',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 16.0),
-                                                ),
-                                              ),
-                                            ],
-                                          )),
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Icon(
-                                          Icons.chevron_right,
-                                          size: 22,
-                                        ),
-                                      ),
-                                    ],
-                                  )),
+                            buildGridView(),
+                            SizedBox(
+                              width: 7,
                             ),
-                          ],
-                        ),
-                      )
-                    : SizedBox(height: 0),
-                Container(
-                  padding: EdgeInsets.only(
-                      left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                    color: Colors.black12,
-                  ))),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: FlatButton(
-                            color: Colors.white,
-                            padding: EdgeInsets.only(left: 0.0),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => UtilityScreen()));
-                            },
-                            child: Stack(
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.accessible,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Expanded(
-                                          child: Text(
-                                            'Bantuan',
-                                            style: TextStyle(
-                                                fontFamily: 'Roboto-Regular',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16.0),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(
-                                    Icons.chevron_right,
-                                    size: 22,
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(
-                      left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                    color: Colors.black12,
-                  ))),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: FlatButton(
-                            color: Colors.white,
-                            padding: EdgeInsets.only(left: 0.0),
-                            onPressed: () {
-                              if (widget.tarif == '0.50') {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => RedeemScreen(
-                                            widget.username,
-                                            widget.nik,
-                                            widget.diamond)));
-                              } else {
-                                Toast.show(
-                                  'Maaf fitur ini belum tersedia',
-                                  context,
-                                  duration: Toast.LENGTH_LONG,
-                                  gravity: Toast.BOTTOM,
-                                  backgroundColor: Colors.red,
-                                );
-                              }
-                            },
-                            child: Stack(
-                              children: <Widget>[
-                                Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.phone_android,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Expanded(
-                                          child: Text(
-                                            'Tukar Pulsa',
-                                            style: TextStyle(
-                                                fontFamily: 'Roboto-Regular',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16.0),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(
-                                    Icons.chevron_right,
-                                    size: 22,
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(
-                      left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                    color: Colors.black12,
-                  ))),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: FlatButton(
-                            color: Colors.white,
-                            padding: EdgeInsets.only(left: 0.0),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HelpScreen()));
-                            },
-                            child: Stack(
-                              children: <Widget>[
-                                Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.question_answer_outlined,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Expanded(
-                                          child: Text(
-                                            'FAQ',
-                                            style: TextStyle(
-                                                fontFamily: 'Roboto-Regular',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16.0),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(
-                                    Icons.chevron_right,
-                                    size: 22,
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(
-                      left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                    color: Colors.black12,
-                  ))),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        child: FlatButton(
-                            color: Colors.white,
-                            padding: EdgeInsets.only(left: 0.0),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: Text(
-                                    'Apakah anda ingin keluar ?',
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto-Regular',
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      onPressed: () {
-                                        print("you choose no");
-                                        Navigator.of(context).pop();
+                                Row(
+                                  children: <Widget>[
+                                    InkWell(
+                                      onTap: () {
+                                        Toast.show(
+                                          'Rating ' + widget.personalData[36],
+                                          context,
+                                          duration: Toast.LENGTH_LONG,
+                                          gravity: Toast.BOTTOM,
+                                          backgroundColor: Colors.blue,
+                                        );
                                       },
-                                      child: Container(
-                                        width: 50,
-                                        padding: EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          color: Colors.blueAccent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Tidak',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'Roboto-Regular',
-                                            ),
-                                          ),
-                                        ),
+                                      child: Icon(
+                                        MdiIcons.chessQueen,
+                                        color:
+                                            setColor(widget.personalData[36]),
                                       ),
                                     ),
-                                    FlatButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop(false);
-                                        SystemNavigator.pop();
-                                      },
-                                      child: Container(
-                                        width: 50,
-                                        padding: EdgeInsets.all(8.0),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          color: Colors.blueAccent,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Ya',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'Roboto-Regular',
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                    Text(
+                                      '${widget.username}',
+                                      style: TextStyle(
+                                          fontFamily: 'Roboto-Regular',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16),
                                     ),
                                   ],
                                 ),
-                              );
-                            },
-                            child: Stack(
-                              children: <Widget>[
-                                Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.logout,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Expanded(
-                                          child: Text(
-                                            'Keluar',
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Text(
+                                  '${widget.personalData[24]}',
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto-Regular',
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 10),
+                                ),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0)),
+                                        color: Color(0xFF8f246b),
+                                      ),
+                                      padding: EdgeInsets.all(4.0),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Tooltip(
+                                            message:
+                                                'Total pencairan selama bergabung',
+                                            child: Icon(
+                                              MdiIcons.bank,
+                                              size: 12,
+                                            ),
+                                          ),
+                                          Text(
+                                            '${formatRupiah(setKosong(widget.personalData[34]))}',
                                             style: TextStyle(
-                                                fontFamily: 'Roboto-Regular',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16.0),
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          left: 16, right: 16.0),
+                                      height: 12,
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          right: BorderSide(
+                                            //                   <--- left side
+                                            color: Colors.white,
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.all(4.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0)),
+                                        color: Color(0xFF8f246b),
+                                      ),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Tooltip(
+                                            message:
+                                                'Total interaksi selama bergabung',
+                                            child: Icon(
+                                              Icons.directions_walk_outlined,
+                                              size: 12,
+                                            ),
+                                          ),
+                                          Text(
+                                            '${setKosong(widget.personalData[35])}',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )
+                          ])),
+                ],
+              ),
+            ),
+            automaticallyImplyLeading: false),
+        body: WillPopScope(
+          child: Container(
+              decoration: BoxDecoration(color: Colors.white54),
+              child: ListView(
+                physics: ClampingScrollPhysics(),
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                      color: Colors.black12,
+                    ))),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: FlatButton(
+                              color: Colors.white,
+                              padding: EdgeInsets.only(left: 0.0),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ProfileScreen(
+                                            widget.personalData)));
+                              },
+                              child: Stack(
+                                children: <Widget>[
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(Icons.person),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                            child: Text(
+                                              'Profil',
+                                              style: TextStyle(
+                                                  fontFamily: 'Roboto-Regular',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16.0),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Icon(
+                                      Icons.chevron_right,
+                                      size: 22,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                      color: Colors.black12,
+                    ))),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: FlatButton(
+                              color: Colors.white,
+                              padding: EdgeInsets.only(left: 0.0),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SlipGajiScreen()));
+                              },
+                              child: Stack(
+                                children: <Widget>[
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(Icons.notes_outlined),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                            child: Text(
+                                              'Slip Gaji',
+                                              style: TextStyle(
+                                                  fontFamily: 'Roboto-Regular',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16.0),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Icon(
+                                      Icons.chevron_right,
+                                      size: 22,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                      color: Colors.black12,
+                    ))),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: FlatButton(
+                              color: Colors.white,
+                              padding: EdgeInsets.only(left: 0.0),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ModulScreen()));
+                              },
+                              child: Stack(
+                                children: <Widget>[
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            MdiIcons.fileDocumentBoxOutline,
+                                          ),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                            child: Text(
+                                              'Berita',
+                                              style: TextStyle(
+                                                  fontFamily: 'Roboto-Regular',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16.0),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Icon(
+                                      Icons.chevron_right,
+                                      size: 22,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                  (widget.personalData[24] == 'MARKETING AGEN')
+                      ? Container(
+                          padding: EdgeInsets.only(
+                              left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                            color: Colors.black12,
+                          ))),
+                          child: Column(
+                            children: <Widget>[
+                              Container(
+                                child: FlatButton(
+                                    color: Colors.white,
+                                    padding: EdgeInsets.only(left: 0.0),
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  VoucherScreen(
+                                                      widget.username,
+                                                      widget.nik,
+                                                      widget.tarif)));
+                                    },
+                                    child: Stack(
+                                      children: <Widget>[
+                                        Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Row(
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons
+                                                      .monetization_on_outlined,
+                                                ),
+                                                SizedBox(width: 10),
+                                                Expanded(
+                                                  child: Text(
+                                                    'Insentif',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'Roboto-Regular',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 16.0),
+                                                  ),
+                                                ),
+                                              ],
+                                            )),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Icon(
+                                            Icons.chevron_right,
+                                            size: 22,
                                           ),
                                         ),
                                       ],
                                     )),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(
-                                    Icons.chevron_right,
-                                    size: 22,
+                              ),
+                            ],
+                          ),
+                        )
+                      : SizedBox(height: 0),
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                      color: Colors.black12,
+                    ))),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: FlatButton(
+                              color: Colors.white,
+                              padding: EdgeInsets.only(left: 0.0),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => UtilityScreen()));
+                              },
+                              child: Stack(
+                                children: <Widget>[
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.accessible,
+                                          ),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                            child: Text(
+                                              'Bantuan',
+                                              style: TextStyle(
+                                                  fontFamily: 'Roboto-Regular',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16.0),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Icon(
+                                      Icons.chevron_right,
+                                      size: 22,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            )),
-                      ),
-                    ],
+                                ],
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
-                )
-              ],
-            )),
-        onWillPop: () async {
-          Future.value(false);
-        },
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                      color: Colors.black12,
+                    ))),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: FlatButton(
+                              color: Colors.white,
+                              padding: EdgeInsets.only(left: 0.0),
+                              onPressed: () {
+                                if (widget.tarif == '0.50') {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => RedeemScreen(
+                                              widget.username,
+                                              widget.nik,
+                                              widget.diamond)));
+                                } else {
+                                  Toast.show(
+                                    'Maaf fitur ini belum tersedia',
+                                    context,
+                                    duration: Toast.LENGTH_LONG,
+                                    gravity: Toast.BOTTOM,
+                                    backgroundColor: Colors.red,
+                                  );
+                                }
+                              },
+                              child: Stack(
+                                children: <Widget>[
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.phone_android,
+                                          ),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                            child: Text(
+                                              'Tukar Pulsa',
+                                              style: TextStyle(
+                                                  fontFamily: 'Roboto-Regular',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16.0),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Icon(
+                                      Icons.chevron_right,
+                                      size: 22,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                      color: Colors.black12,
+                    ))),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: FlatButton(
+                              color: Colors.white,
+                              padding: EdgeInsets.only(left: 0.0),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => HelpScreen()));
+                              },
+                              child: Stack(
+                                children: <Widget>[
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.question_answer_outlined,
+                                          ),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                            child: Text(
+                                              'FAQ',
+                                              style: TextStyle(
+                                                  fontFamily: 'Roboto-Regular',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16.0),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Icon(
+                                      Icons.chevron_right,
+                                      size: 22,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: 16.0, right: 16.0, top: 10.0, bottom: 16.0),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                      color: Colors.black12,
+                    ))),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          child: FlatButton(
+                              color: Colors.white,
+                              padding: EdgeInsets.only(left: 0.0),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: Text(
+                                      'Apakah anda ingin keluar ?',
+                                      style: TextStyle(
+                                        fontFamily: 'Roboto-Regular',
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        onPressed: () {
+                                          print("you choose no");
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Container(
+                                          width: 50,
+                                          padding: EdgeInsets.all(8.0),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            color: Colors.blueAccent,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              'Tidak',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Roboto-Regular',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      FlatButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop(false);
+                                          SystemNavigator.pop();
+                                        },
+                                        child: Container(
+                                          width: 50,
+                                          padding: EdgeInsets.all(8.0),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            color: Colors.blueAccent,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              'Ya',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'Roboto-Regular',
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              child: Stack(
+                                children: <Widget>[
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.logout,
+                                          ),
+                                          SizedBox(width: 10),
+                                          Expanded(
+                                            child: Text(
+                                              'Keluar',
+                                              style: TextStyle(
+                                                  fontFamily: 'Roboto-Regular',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16.0),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Icon(
+                                      Icons.chevron_right,
+                                      size: 22,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )),
+          onWillPop: () async {
+            Future.value(false);
+          },
+        ),
       ),
     );
+  }
+
+  setColor(String rating) {
+    switch (rating) {
+      case 'bronze':
+        return Color(0xFFcd7f32);
+        break;
+      case 'gold':
+        return Color(0xFFFFD700);
+        break;
+      case 'platinum':
+        return Color(0xFFE5E4E2);
+        break;
+      case 'silver':
+        return Color(0xFFC0C0C0);
+        break;
+    }
+  }
+
+  formatRupiah(String a) {
+    FlutterMoneyFormatter fmf = new FlutterMoneyFormatter(
+        amount: double.parse(a),
+        settings: MoneyFormatterSettings(
+          symbol: 'IDR',
+          thousandSeparator: '.',
+          decimalSeparator: ',',
+          symbolAndNumberSeparator: ' ',
+          fractionDigits: 3,
+        ));
+    return fmf.output.withoutFractionDigits;
+  }
+
+  setKosong(data) {
+    if (data == null || data == '') {
+      return '0';
+    } else {
+      return data;
+    }
   }
 
   Widget buildGridView() {

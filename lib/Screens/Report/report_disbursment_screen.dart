@@ -118,23 +118,25 @@ class _ReportDisbursmentPdfScreen extends State<ReportDisbursmentPdfScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Report Disbursment',
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Report Disbursment',
+          ),
         ),
-      ),
-      body: Text('Report Disbursment'),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          writeOnPdf();
-          await savePdf();
-          Directory documentDirectory =
-              await getApplicationDocumentsDirectory();
-          String documentPath = documentDirectory.path;
-          String fullPath = "$documentPath/example.pdf";
-        },
-        child: Icon(Icons.picture_as_pdf),
+        body: Text('Report Disbursment'),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            writeOnPdf();
+            await savePdf();
+            Directory documentDirectory =
+                await getApplicationDocumentsDirectory();
+            String documentPath = documentDirectory.path;
+            String fullPath = "$documentPath/example.pdf";
+          },
+          child: Icon(Icons.picture_as_pdf),
+        ),
       ),
     );
   }

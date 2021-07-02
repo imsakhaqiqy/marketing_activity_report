@@ -9,6 +9,8 @@ import 'package:kreditpensiun_apps/Screens/Landing/landing_page_mr.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:toast/toast.dart';
+import 'package:date_time_format/date_time_format.dart';
+import 'package:intl/intl.dart';
 
 import '../../constants.dart';
 
@@ -20,8 +22,10 @@ class DisbursmentScreen extends StatefulWidget {
   String username;
   String nik;
   String statusKaryawan;
+  String personalData;
 
-  DisbursmentScreen(this.username, this.nik, this.statusKaryawan);
+  DisbursmentScreen(
+      this.username, this.nik, this.statusKaryawan, this.personalData);
 }
 
 class _DisbursmentScreen extends State<DisbursmentScreen> {
@@ -216,7 +220,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
     fetchUsers();
   }
 
-  var personalData = new List(34);
+  var personalData = new List(38);
 
   Future userLogin() async {
     //getting value from controller
@@ -274,6 +278,10 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
               personalData[33] = message['diamond'];
+              personalData[34] = message['total_pencairan'];
+              personalData[35] = message['total_interaksi'];
+              personalData[36] = message['rating'];
+              personalData[37] = message['tgl_cut_off'];
             });
             if (message['hak_akses'] == '5') {
               Navigator.of(context).push(MaterialPageRoute(
@@ -352,50 +360,62 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
     }
   }
 
+  setAksesEdit(String tglPencairan, String tglCutOff) {
+    final a = DateTimeFormat.format(DateTime.parse(tglPencairan), format: 'U');
+    final b = DateTimeFormat.format(DateTime.parse(tglCutOff), format: 'U');
+    if (int.parse(a) > int.parse(b)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: grey,
-      appBar: AppBar(
-        title: Text(
-          'Pencairan',
-          style: fontFamily,
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.info_outline,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Toast.show(
-                'Pencairan Kredit ' + bulan + ' ' + tahun,
-                context,
-                duration: Toast.LENGTH_LONG,
-                gravity: Toast.CENTER,
-                backgroundColor: Colors.blueAccent,
-              );
-            },
-          )
-        ],
-      ),
-      body: Container(
-        color: Colors.white,
-        child: _buildList(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Tambah Pencairan',
-        backgroundColor: kPrimaryColor,
-        child: Text('+',
-            style: TextStyle(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: grey,
+        appBar: AppBar(
+          title: Text(
+            'Pencairan',
+            style: fontFamily,
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.info_outline,
                 color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 30.0)),
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>
-                  DisbursmentAkadScreen(widget.username, widget.nik)));
-        },
+              ),
+              onPressed: () {
+                Toast.show(
+                  'Pencairan Kredit ' + bulan + ' ' + tahun,
+                  context,
+                  duration: Toast.LENGTH_LONG,
+                  gravity: Toast.CENTER,
+                  backgroundColor: Colors.blueAccent,
+                );
+              },
+            )
+          ],
+        ),
+        body: Container(
+          color: Colors.white,
+          child: _buildList(),
+        ),
+        floatingActionButton: FloatingActionButton(
+          tooltip: 'Tambah Pencairan',
+          backgroundColor: kPrimaryColor,
+          child: Text('+',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30.0)),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) =>
+                    DisbursmentAkadScreen(widget.username, widget.nik)));
+          },
+        ),
       ),
     );
   }
@@ -552,11 +572,47 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
                         children: <Widget>[
                           InkWell(
                             onTap: () {
-                              if ((widget.statusKaryawan != 'MARKETING AGEN' &&
-                                      _statusPencairan(_users[index]) !=
-                                          'success') ||
-                                  (widget.statusKaryawan == 'MARKETING AGEN' &&
-                                      _approvalSl(_users[index]) != '4')) {
+                              if ((widget.statusKaryawan == 'MARKETING AGEN' &&
+                                  _approvalSl(_users[index]) != '4')) {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        DisbursmentEditNewScreen(
+                                      widget.username,
+                                      widget.nik,
+                                      '',
+                                      _debitur(_users[index]),
+                                      _alamat(_users[index]),
+                                      _telepon(_users[index]),
+                                      _tanggalAkad(_users[index]),
+                                      _jenisProduk(_users[index]),
+                                      _tanggalAkad(_users[index]),
+                                      _nomorAkad(_users[index]),
+                                      _noJanji(_users[index]),
+                                      _cabang(_users[index]),
+                                      _plafond(_users[index]),
+                                      _infoSales(_users[index]),
+                                      _statusKredit(_users[index]),
+                                      _namaTl(_users[index]),
+                                      _jabatanTl(_users[index]),
+                                      _teleponTl(_users[index]),
+                                      _pengelolaPensiun(_users[index]),
+                                      _idPipeline(_users[index]),
+                                      _tanggalPencairan(_users[index]),
+                                      _foto3(_users[index]),
+                                    ),
+                                  ),
+                                );
+                              } else if ((widget.statusKaryawan !=
+                                      'MARKETING AGEN' &&
+                                  _statusPencairan(_users[index]) ==
+                                      'success' &&
+                                  setAksesEdit(
+                                          _tanggalPencairan(_users[index]) +
+                                              ' ' +
+                                              _jamPencairan(_users[index]),
+                                          widget.personalData) ==
+                                      true)) {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) =>
@@ -746,7 +802,7 @@ class _DisbursmentScreen extends State<DisbursmentScreen> {
     if (status == 'waiting') {
       return 'Menunggu Sales Leader';
     } else if (status == 'success') {
-      if (statusKaryawan == 'MARKETING AGENT') {
+      if (statusKaryawan == 'MARKETING AGEN') {
         if (bayar == '4') {
           return 'Sudah dibayarkan';
         } else {

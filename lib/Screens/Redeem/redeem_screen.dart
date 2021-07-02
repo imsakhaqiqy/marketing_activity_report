@@ -26,7 +26,7 @@ class _RedeemScreenState extends State<RedeemScreen> {
   String telepon;
   final formKey = GlobalKey<FormState>();
   List<dynamic> pricelist = [];
-  var personalData = new List(34);
+  var personalData = new List(38);
 
   //getting value from TextField widget.
   final teleponController = TextEditingController();
@@ -179,6 +179,10 @@ class _RedeemScreenState extends State<RedeemScreen> {
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
               personalData[33] = message['diamond'];
+              personalData[34] = message['total_pencairan'];
+              personalData[35] = message['total_interaksi'];
+              personalData[36] = message['rating'];
+              personalData[37] = message['tgl_cut_off'];
             });
 
             if (message['hak_akses'] == '5') {
@@ -221,53 +225,55 @@ class _RedeemScreenState extends State<RedeemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        title: Text(
-          'Tukar Pulsa',
-          style: TextStyle(
-            fontFamily: 'Roboto-Regular',
-            color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: Text(
+            'Tukar Pulsa',
+            style: TextStyle(
+              fontFamily: 'Roboto-Regular',
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-      body: Form(
-        key: formKey,
-        child: Container(
-          color: grey,
-          child: ListView(
-            physics: ClampingScrollPhysics(),
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(16.0),
-                color: Colors.white,
-                width: double.infinity,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: fieldTelepon(),
-                    ),
-                    fieldKirim(),
-                  ],
+        body: Form(
+          key: formKey,
+          child: Container(
+            color: grey,
+            child: ListView(
+              physics: ClampingScrollPhysics(),
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(16.0),
+                  color: Colors.white,
+                  width: double.infinity,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: fieldTelepon(),
+                      ),
+                      fieldKirim(),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 16.0, right: 16.0, bottom: 16.0),
-                  child: Text(
-                    '*untuk penukaran pulsa dengan nominal voucher dan nomor telepon yang sama hanya bisa dilakukan sekali dalam sehari.',
-                    style: TextStyle(
-                      fontFamily: 'Roboto-Regular',
-                      color: Colors.red,
+                Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 16.0, right: 16.0, bottom: 16.0),
+                    child: Text(
+                      '*untuk penukaran pulsa dengan nominal voucher dan nomor telepon yang sama hanya bisa dilakukan sekali dalam sehari.',
+                      style: TextStyle(
+                        fontFamily: 'Roboto-Regular',
+                        color: Colors.red,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              buildGridViewx(),
-            ],
+                buildGridViewx(),
+              ],
+            ),
           ),
         ),
       ),

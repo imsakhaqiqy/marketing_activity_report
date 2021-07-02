@@ -219,43 +219,45 @@ class _DisbursmentMarketingScreen extends State<DisbursmentMarketingScreen> {
     String bulan = namaBulan(date.month.toString());
     String tahun = date.year.toString();
     String periode = bulan + ' ' + tahun;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Pencairan',
-          style: fontFamily,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Pencairan',
+            style: fontFamily,
+          ),
         ),
-      ),
-      //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
-      //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
-      body: Container(
-          color: Colors.white,
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Colors.black12,
+        //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
+        //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
+        body: Container(
+            color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.black12,
+                      ),
                     ),
                   ),
+                  padding: EdgeInsets.all(8),
+                  width: double.infinity,
+                  child: Column(
+                    children: <Widget>[
+                      fieldDebitur('Nama Sales', widget.nama, 120.0),
+                      SizedBox(height: 10),
+                      fieldDebitur('Periode', periode, 120.0),
+                      SizedBox(height: 10),
+                    ],
+                  ),
                 ),
-                padding: EdgeInsets.all(8),
-                width: double.infinity,
-                child: Column(
-                  children: <Widget>[
-                    fieldDebitur('Nama Sales', widget.nama, 120.0),
-                    SizedBox(height: 10),
-                    fieldDebitur('Periode', periode, 120.0),
-                    SizedBox(height: 10),
-                  ],
+                Expanded(
+                  child: _buildList(),
                 ),
-              ),
-              Expanded(
-                child: _buildList(),
-              ),
-            ],
-          )),
+              ],
+            )),
+      ),
     );
   }
 

@@ -118,23 +118,25 @@ class _ReportInteractionPdfScreen extends State<ReportInteractionPdfScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Report Interaction',
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Report Interaction',
+          ),
         ),
-      ),
-      body: Text('Report Interaction'),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          writeOnPdf();
-          await savePdf();
-          Directory documentDirectory =
-              await getApplicationDocumentsDirectory();
-          String documentPath = documentDirectory.path;
-          String fullPath = "$documentPath/example.pdf";
-        },
-        child: Icon(Icons.picture_as_pdf),
+        body: Text('Report Interaction'),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            writeOnPdf();
+            await savePdf();
+            Directory documentDirectory =
+                await getApplicationDocumentsDirectory();
+            String documentPath = documentDirectory.path;
+            String fullPath = "$documentPath/example.pdf";
+          },
+          child: Icon(Icons.picture_as_pdf),
+        ),
       ),
     );
   }

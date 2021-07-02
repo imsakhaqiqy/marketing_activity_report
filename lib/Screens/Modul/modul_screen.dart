@@ -37,6 +37,10 @@ class _ModulScreenState extends State<ModulScreen>
   }
 
   _createFolder() async {
+    var status = await Permission.storage.status;
+    if (!status.isGranted) {
+      await Permission.storage.request();
+    }
     final folderName = "iMarsyt";
     final path = Directory("storage/emulated/0/Download/$folderName");
     if ((await path.exists())) {
@@ -140,37 +144,39 @@ class _ModulScreenState extends State<ModulScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        title: Text(
-          'Berita',
-          style: TextStyle(
-            fontFamily: 'Roboto-Regular',
-            color: Colors.white,
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.info_outline,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: Text(
+            'Berita',
+            style: TextStyle(
+              fontFamily: 'Roboto-Regular',
               color: Colors.white,
             ),
-            onPressed: () {
-              Toast.show(
-                'Download file tersimpan di interal_storage/Download/iMarsyt/',
-                context,
-                duration: Toast.LENGTH_LONG,
-                gravity: Toast.CENTER,
-                backgroundColor: Colors.blueAccent,
-              );
-            },
-          )
-        ],
-      ),
-      body: Container(
-        color: Colors.white,
-        child: _buildList(),
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.info_outline,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Toast.show(
+                  'Download file tersimpan di interal_storage/Download/iMarsyt/',
+                  context,
+                  duration: Toast.LENGTH_LONG,
+                  gravity: Toast.CENTER,
+                  backgroundColor: Colors.blueAccent,
+                );
+              },
+            )
+          ],
+        ),
+        body: Container(
+          color: Colors.white,
+          child: _buildList(),
+        ),
       ),
     );
   }

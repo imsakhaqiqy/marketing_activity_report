@@ -9,28 +9,30 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          backgroundColor: Colors.white,
+          title: Text(
+            'Daftar',
+            style: TextStyle(color: Colors.black, fontFamily: 'Roboto-Regular'),
+          ),
         ),
         backgroundColor: Colors.white,
-        title: Text(
-          'Daftar',
-          style: TextStyle(color: Colors.black, fontFamily: 'Roboto-Regular'),
+        body: SingleChildScrollView(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                _urlButtonMarketing(context, _links),
+                _urlButtonAgen(context, _links1),
+              ]),
         ),
-      ),
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _urlButtonMarketing(context, _links),
-              _urlButtonAgen(context, _links1),
-            ]),
       ),
     );
   }
@@ -84,7 +86,7 @@ class Home extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'MARKETING AGENT',
+                      'MARKETING AGEN',
                       style: TextStyle(
                           color: Colors.black, fontFamily: 'Roboto-Regular'),
                     ),

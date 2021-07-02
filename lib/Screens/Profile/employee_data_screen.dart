@@ -10,40 +10,42 @@ class EmployeeDataScreen extends StatefulWidget {
 class _EmployeeDataScreenState extends State<EmployeeDataScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Karyawan',
-            style: TextStyle(fontFamily: 'Roboto-Regular'),
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Karyawan',
+              style: TextStyle(fontFamily: 'Roboto-Regular'),
+            ),
           ),
-        ),
-        body: Container(
-            color: Color.fromARGB(255, 242, 242, 242),
-            child: ListView(
-              children: <Widget>[
-                divisiField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                jabatanField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                wilayahField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                branchField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                statusField(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                gradeField(),
-              ],
-            )));
+          body: Container(
+              color: Color.fromARGB(255, 242, 242, 242),
+              child: ListView(
+                children: <Widget>[
+                  divisiField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  jabatanField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  wilayahField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  branchField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  statusField(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  gradeField(),
+                ],
+              ))),
+    );
   }
 
   Widget divisiField() {

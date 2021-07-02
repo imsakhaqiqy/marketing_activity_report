@@ -55,41 +55,43 @@ class _SimulationImageScreenState extends State<SimulationImageScreen> {
   @override
   Widget build(BuildContext context) {
     print(widget.bytes1);
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        title: Text(
-          'Save to Image',
-          style: TextStyle(
-            fontFamily: 'Roboto-Regular',
-            color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: Text(
+            'Save to Image',
+            style: TextStyle(
+              fontFamily: 'Roboto-Regular',
+              color: Colors.white,
+            ),
           ),
-        ),
-        actions: <Widget>[
-          visible
-              ? CircularProgressIndicator(
-                  //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                )
-              : IconButton(
-                  icon: Icon(Icons.file_download),
-                  onPressed: () async {
-                    saveImage();
-                  },
-                  color: Colors.white,
-                )
-        ],
-      ),
-      body: Container(
-        color: grey,
-        padding:
-            EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
-        child: ListView(
-          children: <Widget>[
-            Image.memory(widget.bytes1),
-            Image.memory(widget.bytes2),
-            Image.memory(widget.bytes3),
+          actions: <Widget>[
+            visible
+                ? CircularProgressIndicator(
+                    //UBAH COLORNYA JADI PUTIH KARENA APPBAR KITA WARNA BIRU DAN DEFAULT LOADING JG BIRU
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  )
+                : IconButton(
+                    icon: Icon(Icons.file_download),
+                    onPressed: () async {
+                      saveImage();
+                    },
+                    color: Colors.white,
+                  )
           ],
+        ),
+        body: Container(
+          color: grey,
+          padding:
+              EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
+          child: ListView(
+            children: <Widget>[
+              Image.memory(widget.bytes1),
+              Image.memory(widget.bytes2),
+              Image.memory(widget.bytes3),
+            ],
+          ),
         ),
       ),
     );

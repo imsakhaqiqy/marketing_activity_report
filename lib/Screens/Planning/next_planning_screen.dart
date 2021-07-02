@@ -22,7 +22,7 @@ class NextPlanningScreen extends StatefulWidget {
 
 class _NextPlanningScreenState extends State<NextPlanningScreen> {
   String notasnya = '';
-  var personalData = new List(34);
+  var personalData = new List(38);
   bool visible = false;
 
   Future userLogin() async {
@@ -81,6 +81,10 @@ class _NextPlanningScreenState extends State<NextPlanningScreen> {
               personalData[31] = message['tunjangan_kinerja'];
               personalData[32] = message['nik_marsit'];
               personalData[33] = message['diamond'];
+              personalData[34] = message['total_pencairan'];
+              personalData[35] = message['total_interaksi'];
+              personalData[36] = message['rating'];
+              personalData[37] = message['tgl_cut_off'];
             });
             if (message['hak_akses'] == '5') {
               Navigator.of(context).push(MaterialPageRoute(
@@ -194,131 +198,133 @@ class _NextPlanningScreenState extends State<NextPlanningScreen> {
                 )
               : Navigator.of(context).pop();
         },
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: kPrimaryColor,
-            title: Text(
-              'Tambah Rencana Interaksi',
-              style: TextStyle(
-                fontFamily: 'Roboto-Regular',
-                color: Colors.white,
+        child: SafeArea(
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: kPrimaryColor,
+              title: Text(
+                'Tambah Rencana Interaksi',
+                style: TextStyle(
+                  fontFamily: 'Roboto-Regular',
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          body: Container(
-            color: Colors.white,
-            padding: EdgeInsets.only(
-                left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
-            child: ListView.builder(
-              itemCount: widget.notas.length,
-              itemBuilder: (context, i) {
-                return Card(
-                  elevation: 1,
-                  child: ListTile(
-                      title: Row(
-                        children: [
-                          Text(
-                            '${widget.nama[i]}',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Roboto-Regular'),
-                          ),
-                        ],
-                      ),
-                      subtitle: Text(
-                        '${widget.notas[i]}',
-                        style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            fontFamily: 'Roboto-Regular'),
-                      ),
-                      trailing: null),
-                );
-              },
-            ),
-          ),
-          bottomSheet: Container(
-            decoration: BoxDecoration(
-                border: Border(
-                    top: BorderSide(
-              color: Colors.black12,
-            ))),
-            padding: EdgeInsets.all(16),
-            height: 100,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.50,
-                      child: Text(
-                        widget.notas.length.toString() + ' data dipilih',
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontFamily: 'Roboto-Regular',
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                        width: MediaQuery.of(context).size.width * 0.30,
-                        child: null)
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.50,
-                      child: Row(children: <Widget>[
-                        Icon(Icons.directions_walk, color: Colors.blueAccent),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            widget.tglInteraksi,
-                            style: TextStyle(
-                                fontFamily: 'Roboto-Regular',
-                                color: Colors.blueGrey,
-                                fontSize: 16.0),
-                          ),
+            body: Container(
+              color: Colors.white,
+              padding: EdgeInsets.only(
+                  left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
+              child: ListView.builder(
+                itemCount: widget.notas.length,
+                itemBuilder: (context, i) {
+                  return Card(
+                    elevation: 1,
+                    child: ListTile(
+                        title: Row(
+                          children: [
+                            Text(
+                              '${widget.nama[i]}',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto-Regular'),
+                            ),
+                          ],
                         ),
-                      ]),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.30,
-                      child: FlatButton(
-                          color: Colors.blueAccent,
-                          onPressed: () {
-                            simpanRencana();
-                            //print(widget.notas.length);
-                          },
-                          child: visible
-                              ? SizedBox(
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white),
-                                  ),
-                                  height: 20.0,
-                                  width: 20.0,
-                                )
-                              : Text(
-                                  'Simpan',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Roboto-Regular'),
-                                )),
-                    )
-                  ],
-                ),
-              ],
+                        subtitle: Text(
+                          '${widget.notas[i]}',
+                          style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontFamily: 'Roboto-Regular'),
+                        ),
+                        trailing: null),
+                  );
+                },
+              ),
+            ),
+            bottomSheet: Container(
+              decoration: BoxDecoration(
+                  border: Border(
+                      top: BorderSide(
+                color: Colors.black12,
+              ))),
+              padding: EdgeInsets.all(16),
+              height: 100,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.50,
+                        child: Text(
+                          widget.notas.length.toString() + ' data dipilih',
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontFamily: 'Roboto-Regular',
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                          width: MediaQuery.of(context).size.width * 0.30,
+                          child: null)
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.50,
+                        child: Row(children: <Widget>[
+                          Icon(Icons.directions_walk, color: Colors.blueAccent),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              widget.tglInteraksi,
+                              style: TextStyle(
+                                  fontFamily: 'Roboto-Regular',
+                                  color: Colors.blueGrey,
+                                  fontSize: 16.0),
+                            ),
+                          ),
+                        ]),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.30,
+                        child: FlatButton(
+                            color: Colors.blueAccent,
+                            onPressed: () {
+                              simpanRencana();
+                              //print(widget.notas.length);
+                            },
+                            child: visible
+                                ? SizedBox(
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.white),
+                                    ),
+                                    height: 20.0,
+                                    width: 20.0,
+                                  )
+                                : Text(
+                                    'Simpan',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'Roboto-Regular'),
+                                  )),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ));

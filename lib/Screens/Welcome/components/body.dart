@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kreditpensiun_apps/Screens/Login/login_screen.dart';
-import 'package:kreditpensiun_apps/Screens/Mitra/mitra_screen.dart';
 import 'package:kreditpensiun_apps/Screens/WebView/webview_screen.dart';
 import 'package:kreditpensiun_apps/Screens/Welcome/components/background.dart';
 import 'package:kreditpensiun_apps/components/rounded_button.dart';
@@ -11,7 +9,6 @@ import 'dart:convert';
 
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 
 class Body extends StatefulWidget {
@@ -26,7 +23,7 @@ class _Body extends State<Body> {
   final String url =
       'https://www.nabasa.co.id/api_marsit_v1/index.php/getVersion';
   String versionId;
-  String versionIdApp = '1.0.23';
+  String versionIdApp = '1.0.26';
 
   String title = "title";
   String content = "content";

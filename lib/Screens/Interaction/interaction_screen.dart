@@ -121,19 +121,21 @@ class _InteractionScreen extends State<InteractionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: grey,
-      appBar: AppBar(
-        title: Text(
-          'Hasil Interaksi',
-          style: fontFamily,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: grey,
+        appBar: AppBar(
+          title: Text(
+            'Hasil Interaksi',
+            style: fontFamily,
+          ),
         ),
-      ),
-      //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
-      //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
-      body: Container(
-        color: grey,
-        child: _buildList(),
+        //ADAPUN UNTUK LOOPING DATA PEGAWAI, KITA GUNAKAN LISTVIEW BUILDER
+        //KARENA WIDGET INI SUDAH DILENGKAPI DENGAN FITUR SCROLLING
+        body: Container(
+          color: grey,
+          child: _buildList(),
+        ),
       ),
     );
   }

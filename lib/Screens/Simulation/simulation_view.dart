@@ -35,116 +35,25 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        title: Text(
-          'Simulasi',
-          style: TextStyle(
-            fontFamily: 'Roboto-Regular',
-            color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          title: Text(
+            'Simulasi',
+            style: TextStyle(
+              fontFamily: 'Roboto-Regular',
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-      body: Container(
-        color: Colors.white,
-        margin: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.black12,
-                  ),
-                ),
-              ),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              SimulationPegawaiAktifScreen(widget.nik)));
-                },
-                child:
-                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                  ListTile(
-                    leading: ScaleTransition(
-                      scale: _animation,
-                      child: Image.asset(
-                        'assets/images/pns_aktif.png',
-                        height: 50,
-                      ),
-                    ),
-                    title: Text(
-                      'PNS Aktif',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.cyan[600],
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    subtitle: Text(
-                      'PNS aktif reguler',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic),
-                    ),
-                  ),
-                ]),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.black12,
-                  ),
-                ),
-              ),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              SimulationGpScreen(widget.nik)));
-                },
-                child:
-                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                  ListTile(
-                    leading: ScaleTransition(
-                      scale: _animation,
-                      child: Image.asset(
-                        'assets/images/prapen_5.png',
-                        height: 50,
-                      ),
-                    ),
-                    title: Text(
-                      'Prapensiun',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.red[600],
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    subtitle: Text(
-                      'Grace Period < 5 Tahun',
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic),
-                    ),
-                  ),
-                ]),
-              ),
-            ),
-            Container(
+        body: Container(
+          color: Colors.white,
+          margin: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Container(
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
@@ -158,7 +67,7 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                SimulationRegulerPrapensiunScreen(widget.nik)));
+                                SimulationPegawaiAktifScreen(widget.nik)));
                   },
                   child:
                       Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
@@ -166,7 +75,53 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                       leading: ScaleTransition(
                         scale: _animation,
                         child: Image.asset(
-                          'assets/images/prapens_10.png',
+                          'assets/images/pns_aktif.png',
+                          height: 50,
+                        ),
+                      ),
+                      title: Text(
+                        'PNS Aktif',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.cyan[600],
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'PNS aktif reguler',
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                  ]),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.black12,
+                    ),
+                  ),
+                ),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                SimulationGpScreen(widget.nik)));
+                  },
+                  child:
+                      Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                    ListTile(
+                      leading: ScaleTransition(
+                        scale: _animation,
+                        child: Image.asset(
+                          'assets/images/prapen_5.png',
                           height: 50,
                         ),
                       ),
@@ -174,12 +129,12 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                         'Prapensiun',
                         style: TextStyle(
                           fontSize: 20,
-                          color: Colors.orange[800],
+                          color: Colors.red[600],
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       subtitle: Text(
-                        'Combo < 10 Tahun',
+                        'Grace Period < 5 Tahun',
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.black,
@@ -188,97 +143,148 @@ class _SimulationViewScreenState extends State<SimulationViewScreen>
                       ),
                     ),
                   ]),
-                )),
-            Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Colors.black12,
+                ),
+              ),
+              Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.black12,
+                      ),
                     ),
                   ),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                SimulationScreen(widget.nik)));
-                  },
-                  child:
-                      Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                    ListTile(
-                      leading: ScaleTransition(
-                        scale: _animation,
-                        child: Image.asset(
-                          'assets/images/pensiun.png',
-                          height: 50,
-                        ),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  SimulationRegulerPrapensiunScreen(
+                                      widget.nik)));
+                    },
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            leading: ScaleTransition(
+                              scale: _animation,
+                              child: Image.asset(
+                                'assets/images/prapens_10.png',
+                                height: 50,
+                              ),
+                            ),
+                            title: Text(
+                              'Prapensiun',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.orange[800],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            subtitle: Text(
+                              'Combo < 10 Tahun',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                          ),
+                        ]),
+                  )),
+              Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.black12,
                       ),
-                      title: Text(
-                        'Pensiunan',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: Text(
-                        'Pensiunan regular',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                  ]),
-                )),
-            Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: Colors.black12,
                     ),
                   ),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SimulationKp74Screen()));
-                  },
-                  child:
-                      Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                    ListTile(
-                      leading: ScaleTransition(
-                        scale: _animation,
-                        child: Image.asset(
-                          'assets/images/platinum.png',
-                          height: 50,
-                        ),
-                      ),
-                      title: Text(
-                        'Pensiunan Platinum',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.indigo[900],
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: Text(
-                        'Pensiunan 70 tahun sampai 80 tahun',
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontStyle: FontStyle.italic),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  SimulationScreen(widget.nik)));
+                    },
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            leading: ScaleTransition(
+                              scale: _animation,
+                              child: Image.asset(
+                                'assets/images/pensiun.png',
+                                height: 50,
+                              ),
+                            ),
+                            title: Text(
+                              'Pensiunan',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            subtitle: Text(
+                              'Pensiunan regular',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                          ),
+                        ]),
+                  )),
+              Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.black12,
                       ),
                     ),
-                  ]),
-                )),
-          ],
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SimulationKp74Screen()));
+                    },
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            leading: ScaleTransition(
+                              scale: _animation,
+                              child: Image.asset(
+                                'assets/images/platinum.png',
+                                height: 50,
+                              ),
+                            ),
+                            title: Text(
+                              'Pensiunan Platinum',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.indigo[900],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            subtitle: Text(
+                              'Pensiunan 70 tahun sampai 80 tahun',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic),
+                            ),
+                          ),
+                        ]),
+                  )),
+            ],
+          ),
         ),
       ),
     );
